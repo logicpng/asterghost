@@ -1,0 +1,155 @@
+﻿//---------------------------Mouse Functions--------------------------
+
+
+//--OnMouseMove
+//This is a bunch of code determining who the mouse is over. Don't touch any of it.
+
+OnMouseMove
+ {
+		//---- reference3 determines the character in question
+		if reference3 == 0; MouseMoveSakura //if the character is 0, aka the main character
+		else; MouseMoveKero //if the character isn't 0, then it must be the side character.
+ }
+
+ //--MouseMoveSakura
+ 
+ //i saw this as a more 'natural' example on the yaya wiki and want to see it work.
+ //basically it resets the counter after 1 second of not moving the mouse
+ //idk maybe the feel will be different
+ //code example from the yaya wiki tips page. code by せきやひろし. commentary via google translate
+ //if i decide this sucks i'll take the code from the template again
+MouseMoveSakura
+{	
+	if reference[4] != "" 
+	{
+	//---- somewhere is stroked
+		if reference[4] == prev_reference4 
+		{
+			_nade_interval = systemuptime - nade_prev
+			if _nade_interval > 1 ; stroke = 0 //Reset the counter if there is an interval of 1 second or more
+			nade_prev = systemuptime
+			stroke++
+			//---- Judged as "stroked" when the stroked amount reaches a certain amount
+			if stroke >= 50
+			{
+				stroke = 0
+				if reference[4] == "Head" || reference[4] == "Face"; PetPet
+			}
+		}
+		else; stroke = 0
+		prev_reference4 = reference[4]
+	}
+	else; stroke = 0 // none of the defined parts are stroked
+}
+
+//---- OnMouseDoubleClick -------------------------------------------------------
+//This is set up much like OnMouseMove above, except this is checking to see if the user is double clicking on the ghost. You also don't need to touch any of this. 
+//Advanced users adding a third character, the same principles from OnMouseMove apply here as well! Make sure to add an elseif with the right number for your third character.
+
+OnMouseDoubleClick
+ {
+	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
+	if reference5 == 0 //checks which button is being used for the click
+	{
+	 	if reference3 == 0; MouseDoubleClickSakura//if the character is 0, aka your main character
+		else; MouseDoubleClickKero
+	}
+ }
+
+ //---- MouseDoubleClickSakura ----------------------------------------------------------
+ //Like the petting animation above, this is the reactions they have to being double clicked. These also rely on the collisions you set up in surfaces.txt! This set is specifically for the main character, as indicated by the Sakura in the name again.
+ 
+ 
+MouseDoubleClickSakura
+ {
+ 	if reference4 == "Head" || reference4 == "Face" || reference4 == "No"; PokePoke //here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost. More about operators at the walkthrough.
+	else
+	{
+		//if ( strokecount > 3 || ( pokecount > 10 && vegafront > 0 ) || ( pokecount > 15 && vegafront == 0 ) ) && stage != 0 
+		if BotherCondition && stage != 0 //too bothered to respond, also not during intro
+		{
+			".\w8.\w8.\e"
+		} 
+		else; OpenSakuraMenu
+	}
+		//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
+ }
+
+ 
+ //---- MouseDoubleClickKero -----------------------------------------------------------
+ //This is just the same as MouseDoubleClickSakura above, except for your secondary character. The same principles apply, including how to make your character unhittable.
+ 
+ 
+MouseDoubleClickKero
+ {
+ 	if reference4 == "Face" 
+	{
+		case vegafront //this is kero so characters are reversed! 0 is vega and 1 is rigel
+		{
+			when 0; "\1\s[34]!\w8\w8\b[-1]\0\s[0]\i[5]\i[8]..."
+			others; "\1\s[18]Ah-!!\w8\w8\b[-1]\0\s[20]\i[7]..."
+		}
+		--
+		"\e"
+ 	}
+ }
+
+//dialogue in chatter.dic
+PetPet
+{
+	bother_prev = systemuptime //last time since you bothered aster is saved
+	if vegafront == 0 //rigel
+	{
+		case stage
+		{
+			when 0; altairbotherzero
+			others; altairlove
+		}
+	}
+	else; vegalove //vega
+}
+
+PokePoke
+{
+	bother_prev = systemuptime //last time since you bothered aster is saved
+		//check if this is vega or rigel
+	if vegafront == 0 //rigel
+	{
+		case stage
+		{
+			when 0; altairbotherzero
+			others; altairbother
+		}
+	}
+	else; vegabother //vega
+}
+
+
+//these pair of events were meant to let you configure the companion's position relative to aster's main body.
+//this cannot be done in the middle of dialogue without interrupting thanks to how shiori events work so there's no need for it
+
+//events on your cursor being above a character sprite and leaving it
+OnMouseEnterAll
+{
+	if reference3 == 1 //specifically if the cursor is above kero
+	{
+		//"\![reset,sticky-window]" //...you can move it separately from the main character
+	}//...for a price. this is technically dialogue so it interrupts speech.
+}
+
+OnMouseLeaveAll //but when you move the cursor away
+{
+	if reference3 == 1
+	{
+		//"\![set,sticky-window,1,0]" //they'll be linked again
+	}
+}
+
+OnMouseClick //specifically for that one error message
+{
+	if reference3 == 2
+	{
+		if reference4 == "OK"; "\8[click.wav]\p[2]\i[1]\w8\w8\s[-1]" //Pressed OK, closed error
+		elseif reference4 == "Close"; "\8[click.wav]\p[2]\i[2]\w8\w8\s[-1]" //Pressed the close button
+	}
+}

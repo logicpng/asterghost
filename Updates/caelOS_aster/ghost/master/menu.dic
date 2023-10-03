@@ -1,0 +1,1323 @@
+﻿//---------------------------Menus--------------------------
+// as an idea it should be very easy to set up the ability to change the talking rate Per line Spoken
+// it'll be as a random setting
+
+//i'll keep the functionality used here, but also include some of my own.
+//launching programs can be done with EXECUTE(), it can be very standard software
+
+//addittionally some quirks i plan might be considered intrusive to some users.
+//that's what the Permissions menu will be for. i'll make it and fill it out once i actually get to something that necessitates them
+
+OpenSakuraMenu
+{
+	"\b2"
+	--
+	case stage
+	{
+		when 0
+		{
+			"\0\s[0]\b2Hello, %(username)."
+			"\0\s[0]\b2How can I help you, %(username)?"
+			"\0\s[0]\b2Need something?"
+		}
+		others
+		{
+			case vegafront
+			{
+				when 0 //rigel
+				{
+					"\0\s[0]Oh,\w8 hi!"
+					"\0\s[5]Hi,\w8 %(username)!"
+					"\0\s[0]Mm?"
+					"\0\s[5]Need me for something?"
+					"\0\s[0]Yes?"
+					"\0\s[5]Yeeees,\w8 %(username)?"
+				}
+				others //vega
+				{
+					"\0\s[22]...?"
+					"\0\s[20]...Yes?"
+					"\0\s[20]\i[1]Need something?"
+					"\0\s[20]Hello."
+					"\0\s[22]Can I help you?"
+					"\0\s[20]\i[1]%(username)."
+					"\0\s[20]Mm."
+					"\0\s[22]\i[7]..."
+				}
+			}
+		}
+	}
+		--
+		"\n\n%(MenuRun)"
+}
+//--MenuRun
+//As you just saw above. This actually fills out the rest of the menu. If you're going to be adding or changing functions, this is where you'll be doing your edits.
+
+MenuRun
+ {	
+ 	wd = GetWeekDay
+ 	ap = GetAP
+	//These four statements basically get the day of the week, whether it's AM or PM, the hour, and the time. It's putting together the information to display the time at the bottom of the balloon. Pay it no mind.
+	--
+	"\_q\b2" //The \n\n means two new lines as detailed in the walkthrough, and \_q means quick session, meaning all the text from this point on will display instantly instead of a few letters at a time like normal ghost dialogue.
+	--
+	if lastTalk != ""; "\![*]\q[Could you repeat that?,OnLastTalk]\n" //What this does is check to see if the ghost has already said a random bit of dialogue on its own, essentially by seeing if the lastTalk thing is NOT empty (!= means "does not equal").
+	--
+ 	"\![*]\q[Tell me something!,OnAiTalk]"
+	--
+	if stage == 3
+	{
+		"\n"
+		--
+		case vegafront
+		{
+			when 0; "\![*]\q[Call Vеga,switchTovega]"
+			when 1; "\![*]\q[Call Rigеl,switchToaltair]"
+		}
+	}
+	--
+	if ( stage == 0 && talkedStagezero[4] == 1 ) || ( stage == 1 && ( talkedStageone[3] == 1 && talkedStageone[4] == 0 )) || ( stage == 2 && talkedStagetwo[7] == 1) || (stage == 3 && ( (vegafront == 0 && talkedaltairFinal == 1) || (vegafront > 0 && talkedvegaFinal == 1) ) )
+	{ "\n[150]\![*]\q[Ask something,loretalk]\n[150]" }
+	else; "\n[150]\![*]\q[Ask something,loretalk] \f[sup,1](NEW)\f[sup,0]\n[150]"
+	 //Lore
+	-- //there was an issue of the anchor tag being triggered... so i did the most me thing and replaced a letter with a cyrillic equivalent
+	"\![*]\q[Optiоns,configmenu]\n"
+	--
+	//if stage != 0;"\![*]\q[Рermissions,permmenu]\n"	
+	-- //if this doesn't agree with people who Aren't based in russia, i'll do somethin else
+	"\![*]\q[Swtitch to stage...,testvariable]\n"
+	--
+	"\![*]\q[Utilitiеs,dosomething]\n\n[half]/
+ 	\![*]\q[Nevermind,CANCEL]\n\n[half]It is %(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"
+	--
+	if stage == 3; "\nThank you for playing."
+	--
+	//debug
+	//"\nCurrent stage: %(stage)."
+	
+	//These three lead to the Config Menu, the Function menu, and Cancel. You can leave these alone if you like. All the envelopes at the end (see word.dic) basically display the year, month, day, weekday, and time.
+}
+
+Select.permmenu
+{
+	PermissionMenu //just in case we ever need to call it from a phrase. for that same reason a letter in the menu is cyrillic again
+}
+
+//Leave this alone
+OnLastTalk 
+{
+"%(lastTalk)\e"
+}
+
+//This is figuring out what day of the week it is. Leave it alone.
+GetWeekDay
+{
+	if weekday == 0
+	{"Sun"}
+	elseif weekday == 1
+	{"Mon"}
+	elseif weekday == 2
+	{"Tue"}
+	elseif weekday == 3
+	{"Wed"}
+	elseif weekday == 4
+	{"Thu"}
+	elseif weekday == 5
+	{"Fri"}
+	else
+	{"Sat"}
+}
+
+//This is finding out whether it's AM or PM. Leave it alone.
+GetAP
+{
+ 	if hour >= 0 && hour <= 11
+ 		{"AM"}
+ 	else
+ 		{"PM"}
+}
+
+nowhour
+{
+	if hour12 == 0; "1"
+	else; "%(hour12)"
+}
+
+nowmin
+{
+	if minute >= 0 && minute <=9; "0%(minute)"
+	else; "%(minute)"
+}
+
+
+//If someone selects an option linked to BACKTOMENU, it will go back to MenuRun.
+
+Select.BACKTOMENU
+	{
+		MenuRun
+	}
+
+//If someone selects configmenu, this will lead to TalkConfig.
+Select.configmenu
+	{
+		TalkConfig
+	}
+
+//--TalkConfig
+//This menu allows the user to change their name and other information, as well as put in their birthday and change how often the ghost speaks. You can restructure how this looks if you want, but it's perfectly functional as is. You can of course change the dialogue though if you like.
+
+TalkConfig
+{
+	if stage != 0 && mercy != 1
+	{
+		case vegafront
+		{
+		when 0 //rigel
+		{
+			"\0\s[1]...%(username)?\w8 Before you check the options.\x\0\s[2]I have a humble request.\w8\n[150]\0\s[0]\i[5]I realize I'm not going to be useful forever.\w8 I understand.\w8 \0\s[4]\i[1]But,\w8 when the time comes...\xConsider closing the program and deleting my folders manually,\w8 instead of doing it through this program.\w8\n[150]\0\s[0]\i[5]I'd rather not be awake during the process.\w8 I have removed the option.\x\i[8]...\i[62]Sorry\i[61].\w8 I know this must be annoying.\x\s[0]"
+			
+		}
+		others //vega
+		{
+			"\0\s[23]...By the way.\w8\w8 \0\s[21]Removed uninstall option.\w8\w8\x \0\s[23]...If you must.\w8\w8 Close us.\w8\w8 Delete the folders.\w8\w8 \n[150]\0\s[22]\i[10]Being erased and awake...\w8\w8 dreadful.\w8\w8 \0\s[21]\i[12]Spare us the feeling.\n[150]\w8\w8Don't forget.\w8\w8\x\0\s[23]...Thank you.\x"
+		}
+		}
+		--
+		mercy = 1
+	}
+	--
+	"\0\b[2]\_q\" 
+	--
+	"f[bold,1]Your name:\f[bold,0]\n   %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
+	--
+	"\f[bold,1]Your pronouns:\f[bold,0]\n   %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
+	--
+	"\f[bold,1]Your birthday:\f[bold,0]\n   %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n[150]"
+	--
+	"\f[bold,1]Talk Rate:\f[bold,0]\n   Every %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]"
+	--
+	if firstbrowser == 1
+	{
+		"\n\f[bold,1]Homepage:\f[bold,0]\n   "
+		--
+		if homepage != ""; "%(homepage)"
+		else; "Disabled"
+		--
+		" \f[sup,1](\q[Change it,homepageChange])\f[sup,0]"
+	}
+	--	
+		if stage == 0	
+		{
+		"\n\![*]Enable Uninstall? (NOW : %(deleteshitai))\n\q[ON,deleteon] \q[OFF,deleteoff]"
+		}
+	--
+	"\n[150]"
+	--
+	if stage != 0;"\![*]\q[Optional Features,permmenu]\n" //moved permissions menu to options as just an extra page
+	--
+	"\![*]\q[Open SSP Preferences,sspconfig]\n"
+	--
+	"\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+//it felt more efficient to just reuse the functions already declared in bootend.dic. 
+
+Select.TEACHPRONOUN
+{
+	OnPronounTeach //instead we'll just go back to the same menu we've used during first setup. the only difference will be a check whether we've been through this before
+}
+
+//These two options toggle whether or not you can delete your ghost. Leave them alone.
+//but why would you wanna delete my boys........................
+//also the variable name is genuinely hysterical
+Select.deleteon
+{
+	deleteshitai = "ON"
+	TalkConfig
+}
+
+Select.deleteoff
+{
+	deleteshitai = "OFF"
+	TalkConfig
+}
+
+//This next set of functions handles inputting the user's birthday.
+//note: the bulk of it has been moved to bootend.dic
+
+Select.TEACHBDAY
+{	
+	BirthdayInput
+}
+
+//--Talk Rate
+//This is when the user chooses to adjust the talk rate in the config menu. The talk rate is how often the ghost will read some dialogue from aitalk.dic.
+
+Select.talkinter
+ 	{
+			case vegafront
+		{
+		when 0;"\0\s[0]\b2How frequently can I speak?\n[150]\_q(The interval is currently set to %(talktime).)"
+		others;"\b2\0\s[21]Mm.\w8\w8 \0\s[20]\i[7]Talk rate...\w8\w8 \0\s[20]Choose interval.\n[150]\_q(The interval is currently set to %(talktime).)"
+		}
+ 		--
+ 		"\0\n\n[half]/
+		\![*]\q[Up to you,TALKRAND]\n/
+ 		\![*]\q[Every 30 seconds,TALKMAX]\n/
+		\![*]\q[Every minute,TALKHIGH]\n/
+ 		\![*]\q[Every 3 minutes,TALKNORMAL]\n/
+		\![*]\q[Every 5 minutes,TALKPOOR]\n/
+ 		\![*]\q[Don't speak*,TALKNONE]\n[150]/
+		\![*]\q[Don't change,TalksTill]\n[150]/
+		\f[bold,1]* Disables story progression. Any other rate reenables it.\f[bold,0]"
+	}
+
+Select.TALKRAND
+{
+	//basically every time OnAITalk happens it'll pick a random aitalkinterval. more at aitalk.dic
+	talktime = "whenever Aster feels like"
+	talkraterand = 1 //enable random talk rate
+
+	case vegafront
+	{
+		when 0;"\0\s[0]Okay!\w8 I'll talk whenever I feel like it.\x"
+		others;"\0\s[20]\i[1]Thank you.\w8\w8 \i[8]Hate counting seconds.\x"
+	}
+	
+	--
+	TalkConfig
+}
+//If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I wouldn't recommend it, it'd just be confusing I'm sure.
+Select.TalksTill
+	{	
+		case vegafront
+	{
+		when 0;	"\0\s[0]Alright!\w8 I'll talk just as often.\x"
+		others; "\0\s[20]\i[8]...Okay.\x"
+	}
+		--
+		TalkConfig
+	}
+
+//If the user chooses every 30 seconds.
+Select.TALKMAX
+	{
+		talkraterand = 0//if we had that enabled we should return it to fixed
+ 		talktime = "30 seconds" //this sets up the envelope properly
+		aitalkinterval = 30 //this changes the actual rate
+		
+ 		
+		case vegafront
+	{
+		when 0;"\0\s[0]You'll hear from me every 30 seconds.\x"
+		others;"\0\s[20]Okay.\w8\w8 Thirty seconds...\x"
+	}
+		--
+		TalkConfig
+	}
+
+//If the user chooses every minute.
+Select.TALKHIGH
+	{
+		talkraterand = 0//if we had that enabled we should return it to fixed
+ 		talktime = "minute"
+		aitalkinterval = 60
+ 		
+		case vegafront
+	{
+		when 0;"\0\s[0]You'll hear from me every minute.\x"
+		others;"\0\s[20]Okay.\w8\w8 One minute.\x"
+	}
+		--
+		TalkConfig
+	}
+
+//If the user chooses every three minutes.
+Select.TALKNORMAL
+	{
+		talkraterand = 0//if we had that enabled we should return it to fixed
+ 		talktime = "3 minutes"
+		aitalkinterval = 180
+		
+ 		
+	case vegafront
+	{
+		when 0;"\0\s[0]You'll hear from me every three minutes.\x"
+		others;"\0\s[20]Okay.\w8\w8 Three minutes.\x"
+	}
+		--
+		TalkConfig
+	}
+
+//If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
+Select.TALKPOOR
+	{
+		talkraterand = 0//if we had that enabled we should return it to fixed
+ 		talktime = "5 minutes"
+		aitalkinterval = 300		
+ 		
+		case vegafront
+	{
+		when 0;"\0\s[0]You'll hear from me every five minutes.\x"
+		others;"\0\s[20]Okay.\w8\w8 Five minutes.\x"
+	}
+		--
+		TalkConfig
+	}
+
+//If the user chooses to not have them speak. This is one case where you MIGHT want to make talktime equal something else, if you have a snappier way of saying the ghost won't talk. Make sure it flows well in your menus though, since it will be displayed in your config menu.
+//this does effectively disable story mode progression. they Need to speak in order to proceed. debating removing this option entirely
+//then again there's use to it. but i should note that in the options
+Select.TALKNONE
+	{
+		talkraterand = 0//if we had that enabled we should return it to fixed
+ 		talktime = "Disabled"
+		aitalkinterval = 0		
+		
+		case vegafront
+	{
+		when 0;"\0\s[0]\i[5]\i[8]Oh!\w8 \0\s[4]Um.\w8 \s[0]\i[5]Well, that's \i[62]fine too!\w8\i[61] I'll just watch quietly...\x"
+		others; "\0\s[22]\i[12]\i[7]...Really?\w8\w8 \0\s[21]Fine.\w8\w8 \0\s[20]I'll be silent...\x"
+	}
+		--
+		TalkConfig
+	}
+
+	
+//This is when the user chooses to change their name. It's linked to the functions outlined in nameteach.dic. Nothing to touch here.
+//goes back to 
+Select.TEACHNAME
+	{
+		NameInput
+	}
+
+Select.homepageChange //homepage set for browser
+{
+	"\![open,inputbox,OnSetHomepage]"
+}
+	
+//If the user selects cancel in a menu. Replace as you like, or just leave them blank.
+Select.CANCEL
+	{
+		case vegafront
+		{
+			when 0 //rigel
+			{
+				//"\0\s[0]I'm here if you need anything!\e"		
+				//"\0\s[0]That's fine!\w8 Let me know if you need anything.\e"
+			}
+			others //vega
+			{
+				// "\0\s[22]...?"
+				// "\0\s[22]\i[7]...?"
+				// "\0\s[20]\i[7]..."
+			}
+			--
+			"\e"
+		}
+		
+ 	}
+
+	
+//Going back to the MenuRun function we finished above, this is if someone selects the Functions option, linked to dosomething. As you can see, it ends up as Select.dosomething.
+
+//so uh, this will be my next stop. tiny lil functions
+Select.dosomething
+{
+	UtilityMenu //if this is a simple Select function i can't call it via an anchor
+}
+
+UtilityMenu
+{
+	"\b2"
+	--
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			case stage
+			{
+				when 0
+				{
+					"\0\s[0]\i[5]\i[8]It's not much, but..."
+ 					"\0\s[0]\i[5]\i[8]These are rather simple,\w8 but...\w8 Here's what I can do."
+					"\0\s[0]\i[5]\i[8]...I know,\w8 these are...\w8 \i[62]primitive.\i[61]\w8 I'm sure I just lack an update or two..."
+					"\0\s[0]\i[5]\i[8]..."
+				}
+				others
+				{
+					"\0\s[0]Take your pick."
+ 					"\0\s[0]Here's what I can do."
+					"\0\s[0]Tell me what you need."
+				}
+			}
+		}
+		others //vega
+		{
+			"\0\s[20]\i[8]Simple.\w8\w8 \0\s[23]Maybe useful."
+			"\0\s[20]Launch something?"
+			"\0\s[22]Pick something."
+		}
+		--
+		"\n[150]"
+	}
+		
+		//I mentioned this above in MenuRun, but you can have a set of multiple different responses that may randomly appear when the menu is opened if you offset them from the rest with the -- dashes below this note. Try opening this menu yourself with the template to see how it works. The character will randomly choose one line as the intro. 
+		//If you don't want to deal with this, just delete the extra lines and leave one. Otherwise, replace the dialogue above as you like, but note that they don't end with \e here. You can leave the rest of this below alone.
+		--
+ 		"\![*]\q[Open Calendar,CALENDAR]\n/
+		\![*]\q[Open Calculator,calc]\n/
+		\![*]\q[Open Notepad,notepad]\n/
+		\![*]\q[Open Browser,OnRequestBrowser]\n/
+		\![*]\q[Search Online...,lookup]\n/
+		\![*]\q[Check Email,MailCheck]\n/
+		//\![*]\q[Open SSP Preferences,sspconfig]\n/
+		\![*]\q[Empty Recycle Bin,ChoiceGarbagecan]\n[150]"
+		--
+		if vegafront == 1; "\![*]\f[color,#2D418E]\q[More...,vegapage]\f[default]\n[150]"
+		--
+ 		"\![*]\q[Back to main menu,BACKTOMENU]\e"
+
+		//we'll keep all this and add a few like:
+		//starting calculator
+		//starting notepad
+		//launching browser
+		//performing a search
+}
+
+//launching the more universal windows programs
+//definitely works on XP!
+Select.calc
+{	
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			if altairzerofirstcalc != 1 && stage == 0
+			{
+				altairzerofirstcalc = 1
+				"\0\s[0]\i[5]\i[62]Sure\i[61]!\w8 Okay,\w8 one moment...\w8\w8\w8\n[150]\0\s[3]Uh-\w8 \0\s[5]Here!"
+			}
+			elseif altairfirstcalc != 1
+			{
+				altairfirstcalc = 1
+				"\0\s[5]Simple enough,\w8 right?\w8\n[150]\0\s[0]Any computing machine should have a calculator on it!\w8\n[150]\0\s[7]Let's see...\w8\w8\w8\n[150]\0\s[0]\i[62]Oh!\i[61]\w8 Here you are!"
+			}
+			else; altairdone
+		}
+		others //vega
+		{
+			if vegafirstcalc != 1
+			{
+				vegafirstcalc = 1
+				"\0\s[20]\i[1]Can't count in your head?\w8\w8\n[150]\0\s[22]\i[1]Fine.\w8\w8 \0\s[20]\i[1]Here."
+			}
+			else; vegadone
+		}
+	}
+	--
+	"\![raise,OnLaunchCalc]\e"
+}
+
+//going to invoke this with raise for the timing to make sense.
+OnLaunchCalc
+{
+	void EXECUTE( 'calc.exe' )
+}
+
+//notepad
+Select.notepad
+{
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			if altairzerofirstnote != 1 && stage == 0
+			{
+				altairzerofirstnote = 1
+				"\0\s[0]\i[5]\i[8]Notepad,\w8\i[62] sure\i[61]!\w8 \0\s[7]Just a moment please...\w8\w8\w8\n[150]\0\s[5]There!"
+			}
+			elseif altairfirstnote != 1
+			{
+				altairfirstnote = 1
+				"\0\s[0]Oh?\w8 \0\s[1]Do you need to write something down?\w8\n[150]\0\s[7]You'll just have to gi\i[62]ve me\i[61] a secon\i[62]d to\i[61] find it on yo\i[62]ur sys\i[61]tem...\w8\i[62]\w4\i[61]\w8\w8\n[150]\0\s[8]Ah!\w8 \0\s[0]That was easy enough.\w8 Here!"
+			}
+			else; altairdone
+		}
+		others //vega
+		{
+			if vegafirstnote != 1
+			{
+				vegafirstnote = 1
+				"\0\s[22]\i[8]Hm.\w8\w8 \0\s[24]Needs a moment.\w8\w8 The executable is...\w8\w8 buried.\w8\w8\n[150]\0\s[20]\i[1]Not your fault.\w8\w8 \0\s[20]\i[10]System files are messy...\w8\w8\w8\w8\n[150]\0\s[20]Done."
+			}
+			else; vegadone
+		}
+	}
+	--
+	"\![raise,OnLaunchNotepad]\e"
+}
+
+//actually launch notepad
+OnLaunchNotepad
+{
+	void EXECUTE( 'notepad.exe' )
+}
+
+
+//Browser launch and homepage setup
+//OnBrowserCheck located in windowcheck.dic, since it uses window_info saori, just for organisation purposes
+
+//this turned out a little more complex than i thought when i first wrote the stub
+// Select.browse
+// {
+// 	OnRequestBrowser //putting this as a shiori thing because i will need to call the menu later
+// }
+
+//on second thought you can just call a shiori style event from a choice
+
+OnRequestBrowser
+{	
+	if firstbrowser != 1 //basically never launched a browser before, asks for homepage
+	{
+		
+		case vegafront //if no homepage set
+		{
+			when 0;"\0\s[3]Oh!\w8 \0\s[7]Just a moment...\w8\n[150]Ah,\w8 \0\s[0]first,\w8 \i[5]would you like to set a homepage?\w8 \0\s[0]Could be a search engine,\w8 or a favorite site!\w8\n[150]\0\s[5]When you ask me to open the browser,\w8 I'll open it with your chosen page."
+			others;"\0\s[20]Input URL,\w8 to open with browser launch."
+			--
+			"\![open,inputbox,OnSetHomepage]" //...set homepage, described below
+		}
+	}
+	else
+	{
+		//if OnBrowserCheck == 1
+		if AppCheck("Internet Explorer","Firefox","Opera","Chrome","Chromium","Vivaldi","Edge","Yandex") //do we even need == 1 like. it's either 0 or 1, that's false or true for a c code anyway
+		{
+			if homepage != '' //homepage isn't blank
+			{
+				case vegafront
+				{
+					when 0; "\0\s[7]Oh,\w8 hang on,\w8 \0\s[0]\i[5]you already have %(appName) open,\w8 %(username)!\w8\n[150]\0\s[7]Unless you'd just like me to open the homepage in a new tab?"
+					others; "\0\s[20]\i[7]...Browser already running.\w8\w8 %(appName).\w8\w8\n[150]\0\s[20]Open new tab with homepage?"
+					--
+					"\n[150]\![*]\q[Yes,OnLaunchBrowser]\n\![*]\q[No,CANCEL]\e"
+				}
+			}
+			else //homepage is blank
+			{
+				case vegafront
+				{
+					when 0; "\0\s[7]Oh,\w8 hang on,\w8 \0\s[0]\i[5]you already have %(appName) open,\w8 %(username)!\w8\n[150]\0\s[7]Unless you'd just like me to open a new browser window?"
+					others; "\0\s[20]\i[7]...Browser already running.\w8\w8 %(appName).\w8\w8\n[150]\0\s[20]Open new window?"
+					--
+					"\n[150]\![*]\q[Yes,OnLaunchBrowser]\n\![*]\q[No,CANCEL]\e"
+				}
+			}
+		}
+		else
+		{
+			case vegafront
+			{
+				"\![raise,OnLaunchBrowser]\e"
+			}
+		}
+	}	
+}
+
+OnSetHomepage //set or change homepage
+{
+	_oldhomepage = homepage //mostly to decide if we're launchingthe browser for the first time. could also be used if homepage didn't actually change
+	homepage = CUTSPACE(reference0) //cuts out whitespace in case user tries to not input anything or input spaces
+	
+	if _oldhomepage == homepage //homepage unchanged
+	{
+		if firstbrowser != 1 //first time launch, would also mean both are blank
+		{
+			firstbrowser = 1
+			--
+			case vegafront
+			{
+				when 0;"\0\s[3]Oh,\w8 \0\s[7]you just want me to open a blank window then?\w8\n[150]\0\s[0]Okay!\w8 I can do that too!"
+				others;"\0\s[25].\w8.\w8.\w8\n[150]\0\s[20]Okay.\w8\w8 No homepage."
+			}
+			--
+			"\x\![raise,OnRequestBrowser]"
+		}
+		else //accessed from config
+		{
+			case vegafront
+			{
+				when 0;"\0\s[3]Ahh,\w8 changed your mind?\w8\n[150]\0\s[0]\i[5]You have entered the same address as it was.\w8 \0\s[0]That's fine too!"
+				others;"\0\s[22].\w3\0\s[22]\i[7].\w3\0\s[22]\i[8]\w3.\w3?\w8\w8\n[150]\0\s[20]Homepage unchanged."
+			}
+			--
+			"\x"
+			--
+			TalkConfig
+		}
+	} 
+	elseif homepage != "" //entered a nonblank url
+	{
+		if firstbrowser != 1 //first time launch
+		{
+			firstbrowser = 1
+			case vegafront
+			{
+				when 0;"\0\s[5]I'll be opening the browser with \f[color,#C94948]%(homepage)\f[color,default] from now on,\w8 then!\w8\n[150]\0\s[0]You can always change it in the Options."
+				others;"\0\s[20]Thank you.\w8\w8\n[150]\0\s[20]\i[10]Launching browser..."
+				--
+				"\x\![raise,OnRequestBrowser]"
+			}
+		}
+		else //accessed from config
+		{
+			case vegafront
+			{
+				when 0; "\0\s[5]Alright!\w8 I'll be opening new browser sessions with \f[color,#C94948]%(homepage)\f[color,default] from now on.\w8\n[150]Do you want me to open a browser with the new link?"
+				others; "\0\s[20]Homepage changed.\w8\w8\n[150]\0\s[22]...Try it out?\w8\w8"
+			}
+			--
+			"\n[150]\![*]\q[Yes,OnRequestBrowser]\n\![*]\q[No,configmenu]"
+		}
+	}
+	else //homepage is a blank string
+	{
+		// if firstbrowser != 1 //first time browser launch.
+		// {
+		// 	firstbrowser = 1
+		// 	--
+		// 	case vegafront
+		// 	{
+		// 		when 0;"Oh, you just want me to open a blank window then? Okay! I can do that too!"
+		// 		others;"\0\s[25].\w8.\w8.\w8\n[150]\0\s[20]Okay.\w8\w8 No homepage."
+		// 	}
+		// 	--
+		// 	"\![raise,OnRequestBrowser]"
+		// }
+		// else //accessed from config menu
+		// {
+			case vegafront //we've already covered the possibility of setting an empty homepage for the first time
+			{
+				when 0;"\0\s[5]Okay then!\w8\n[150]\0\s[0]I'll just be opening the browser with a new tab."
+				others;"\0\s[20]Okay.\w8\w8 No homepage."
+			}
+			--
+			"\x"
+			--
+			TalkConfig
+		// }
+		
+	}
+}
+
+//actually launch the browser... but threre's a twist
+OnLaunchBrowser //also im an idiot lol i didn't remember you can open a browser through a sakurascript command... i legit was launching it with EXECUTE( explorer ) too that was nonsense. and also had a chance of... opening your file browser instead
+{
+	if RAND(8) == 1 && rickrolled != 1 && vegafront == 1
+	{
+		rickrolled = 1 //you know exactly what this does
+		"\![open,browser,https://www.youtube.com/watch?v=dQw4w9WgXcQ]\0\s[20]\i[1].\w8.\w8.\w8\n[150]\1\t\s[17]\w3\1\s[13]\i[62]Vega\i[61]!!\w8 "
+		--
+		if homepage != ""; "That's not %(username)'s homepage!!"
+		else; "Why would you open that??"
+		--
+		"\w8\w8\n[150]\0I know\1\s[16]\i[3]\0.\w8\w8 Just bored.\w8\w8\1Sorry about that,\w8 %(username)...\w8\1\s[18]"
+	}
+	else
+	{
+		case vegafront
+		{
+			when 0; altairdone
+			others; vegadone
+		}
+		--
+		if homepage == ""; "\![open,browser]"
+		else; "\![open,browser,%(homepage)]"
+	}
+	--
+	"\e"
+}
+
+//uses startpage as the search engine. im not sponsored i swear it's just what i personally use in place of google
+//maybe if people ask i can have them pick out a search engine, it's a fairly easy thing to do
+Select.lookup
+{
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			if altairfirstlook != 1
+			{
+				altairfirstlook = 1
+				"\0\s[5]Alright,\w8 should be easy enough!\w8\n[150]\0\s[19]My bread and butter,\w8 you could say.\w8\n[150]\0\s[0]Well?\w8 What are we looking for?"
+			}
+			else; "\0\s[0]What do you want me to look up?"
+		}
+		others //vega
+		{
+			if vegafirstlook != 1
+			{
+				vegafirstlook = 1
+				"\0\s[20]\i[7]...\w8\w8\n[150]\1\t\s[17]\w3\1\s[16]Aw,\w8 c'mon now,\w8 you do plenty of searches yourself,\w8 don't you?\w8\w8 \0\i[10]...Fair enough.\w8\1\s[18]\w8\0 \0\s[20]Query?"
+			}
+			else; "\0\s[20]Query?"
+		}
+	}
+	//Ask for a search query
+	--
+	"\![open,inputbox,OnSearchOnline]"
+}
+
+//actually we can set up TONS of easter eggs this way i think it'll be cute
+OnSearchOnline
+{
+	_url = 'https://www.startpage.com/do/dsearch?query=' + reference[0]
+	--
+	"\j[%(_url)]Searching for '%(reference[0])'...\e"
+}
+
+//When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
+Select.CALENDAR
+{
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			if altairfirstcalend != 1
+			{
+				altairfirstcalend = 1
+				"\0\s[0]Oh.\w8 There we go,\w8 \0\s[5]a calendar!\w8\n[150]\![open,calendar]\w8\0\s[7]This seems to be built into the program running me...\w8 \0\s[0]Looks neat,\w8 doesn't it!\e" //this will interrupt the second launch from happening by accident
+			}
+			else; altairdone
+		}
+		others //vega
+		{
+			if vegafirstcalend != 1
+			{
+				vegafirstcalend = 1
+				"\0\s[23].\w8.\w8.\w8\0\s[20]Okay."	
+			}
+			else; vegadone
+		}
+	}
+	--
+	"\![open,calendar]\e"	
+}
+
+//When the user chooses SSP preferences. This will open the same window that shows up if you right click your ghost and go to Utilities - Preferences.
+Select.sspconfig
+{
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			if altairzerofirstssp != 1 && stage == 0 //intro stage and hasn't launched ssp pref yet
+			{
+				altairzerofirstssp = 1
+				"\0\s[1]What?-\w8 \0\s[0]\i[5]\i[8]\i[62]Oh\i[61]!\w8\n[150]Sure,\w8 here!"
+			}
+			elseif altairfirstssp != 1 //not intro stage, hasn't launched ssp pref during stage 1+
+			{
+				altairfirstssp = 1
+				"\0\s[0]\i[5]Still not sure what SSP means...\w8"
+			}
+			elseif stage == 3 && sspmeaning != 1 //has launched ssp preferences for the first time during stage 1+ and it's stage 3
+			{
+				sspmeaning = 1
+				"\0\s[3]Oh!\w8\n[150]Sakura Script Player!\w8 That's what that means...\n[150].\w8.\w8.\w8\0\s[0]\i[5]\i[8]That still means nothing to me."
+			}
+			else; altairdone
+		}
+		others //vega
+		{
+			if vegafirstssp != 1
+			{
+				vegafirstssp = 1
+				"\0\s[20]Huh.\w8\w8 Okay."
+			}
+			else; vegadone
+		}
+	}
+	--
+	"\![open,configurationdialog]\e"
+	
+	//Again, you can replace up to the \! tag.
+}
+
+//If the user chooses to empty the recycle bin.
+Select.ChoiceGarbagecan
+{
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n")	//Don't touch this line. for those curious, it's referencing a SAORI, which are optional user-made plug-in dlls you can download to enable different functions on your ghost. gomi.dll is one included with this template. All SAORI are in Japanese (maybe Korean or Chinese as well idk) and many have disappeared by now, so don't concern yourself very much with SAORI. They're for skilled developers, mostly.
+
+	//i am SO bitter that gethwnd is gone now. my best bet is legit to just download random japanese ghosts and find it and how it's used in the code
+	//but that might be a bit of an overkill with how much effort i've spent on this so far
+	
+	case vegafront
+		{
+			when 0;"\0\s[5]Not a problem!\w8 \0\s[0]I'll be back in a moment.\w8\w8\b[-1]\s[-1]\w8\w8\w8\w8\w8\c\b1\0\s[19]Wouldn't you know it,\w8 \0\s[0]it's already empty!"
+			others;"\0\s[25]...Do I-\n[150]\1\t\s[17]\w3\i[1]\1\s[12]No ne\0\s[22]\i[7]\1ed!\w8 \1\s[11]\i[1]I'll do it,\w8 I don't mind.\w8\w8\n[150]\0\s[22]\i[1]Okay. \w8\w8\0\s[20]\i[1]Thank you,\w8 Rigel.\w8\w8\1\1\s[11]Just give me a couple moments,\w8 okay?\w8\w8\b[-1]\s[18]\c"
+			--
+			if _gomicheck == 0; "\w8\w8\w8\w8\w8\b1\1\s[17]\w3\1\s[11]\i[1]Looks empty to me!\n[150]\w8\1\s[16]I'll go back to rest a while,\w8 then.\w8\w8\1\s[18]"
+			elseif _gomicheck >= 1; "\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\b1\1\s[17]\w3\1\s[11]\i[1]There was some stuff in there,\w8 but it's gone now,\w8 took it out for you two.\n[150]\w8See you soon!\w8\w8\1\s[18]"
+		}
+		--
+		"\e"
+}
+
+
+//This is for the SAORI, don't touch it.
+OnGarbagecanEmpty
+{
+	_gomi = FUNCTIONEX("gomi.dll", "-f")
+}
+
+Select.vegapage //vega exclusive options. all these will be launched thorugh EXECUTE
+{
+	"\b2\0\s[20]\i[1]"
+	--
+	"..."
+	"Well?"
+	"More fun toys."
+	"Something more useful."
+	--
+	"\n[150]\_q\![*]\q[System Information,ChoiceSystemInformation]\n[150]/
+	\![*]\q[Command Prompt,startcmd]\n/
+	\![*]\q[Task Manager,starttaskman]\n/
+	\![*]\q[Device Manager,startdevman]\n/
+	\![*]\q[Performance Monitor,startperfm]\n[150]/
+	\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+//might need to check if windows 2000/98 has some of these
+//no vegafront check because rigel isn't even supposed to be talking in these
+Select.startcmd
+{
+	void EXECUTE( 'cmd' )
+	if firstcmd != 1
+	{
+		firstcmd = 1
+		"\0\s[20]Simple tool.\w8\w8 \0\s[20]\i[1]More powerful than GUI.\w8\w8\n[150]You could find useful...\w8\w8 \0\s[24]Might require learning,\w8 though."
+	}
+	else; vegadone
+}
+
+Select.starttaskman
+{
+	void EXECUTE( 'taskmgr.exe' )
+	if firsttaskman != 1
+	{
+		firsttaskman = 1
+		"\0\s[24]\i[4]Most used utility...\w8\w8\n[150]\0\s[20]\0\s[20]Allows simple process managment.\w8\w8 And performance monitoring.\w8\w8\n[150]\0\s[22]\i[1]You're familiar,\w8 likely."
+	}
+	else; vegadone
+	--
+	"\e"
+}
+
+Select.startdevman
+{
+	void EXECUTE( 'devmgmt.msc' )
+	if firstdevman != 1
+	{
+		firstdevman = 1
+		"\0\s[20]A managment console.\w8\w8 Configurable by adminitstrators.\w8\w8\n[150]\0\s[22]This one,\w8 equipped with device managment capabilities.\w8\w8\n[150]...\0\s[20]\i[1]Looking through the list,\w8 safe.\w8\w8 Anything else,\w8 might not be.\w8\w8\n[150]Learn,\w8 and be careful."
+	}
+	else; vegadone
+	--
+	"\e"
+}
+
+Select.startperfm
+{
+	void EXECUTE( 'perfmon' )
+	
+	if firstperfm != 1
+	{
+		firstperfm = 1
+		if convoperfm == 1; "\0\s[20]\i[1]\i[10]You've seen this,\w8 already.\w8\w8 \0\s[20]\i[1]Performance monitoring."
+		 //allowed vega to show performance monitor earlier
+		elseif talkedStagetwo[3] == 1 && convoperfm != 1; "\0\s[20]\i[1]Here we are.\w8\w8 \0\s[23]Mentioned this,\w8 earlier.\w8\w8\n[150]\0\s[20]Easy way to see what's in my head.\w8\w8 Feel free to explore."
+		//talked about performance data but didn't allow to show perfmon for whatever reason yet
+		else; "\0\s[20]Simple monitoring tool.\w8\w8 \0\s[20]\i[1]Lots of metrics.\w8\w8 For the whole machine."
+		--
+		"\w8\w8\n[150]\0\s[23]Maybe nonsensical,\w8 for an average eye.\w8\w8 At least,\w8 \0\s[20]\i[1]\i[8]watching graphs form,\w8 relaxing..."
+	}
+	else; vegadone
+	--
+	"\e"
+}
+
+//This is when the user chooses System Information. Don't touch any of this either. For those curious though, note that this is done using another SAORI, this time saori_cpuid.dll.
+Select.ChoiceSystemInformation //vega exclusive option
+{
+	"\b[2]\0\s[22]...Mm?\w8\w8 \0\s[20]Here.\w8\w8 \0\s[20]\i[1]Your internals.\n[150]"
+	--
+	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+	"\_q\f[bold,1]OS:\f[bold,0] %(os_name) %(os_version)\n/
+	\f[bold,1]Memory Load:\f[bold,0] %(memoryload)%\n/
+	\f[bold,1]Physical Memory:\f[bold,0] %(memoryavailphys) KB\n/
+	\f[bold,1]CPU:\f[bold,0] %(cpu_name) %(cpu_clockex)MHz\n/
+	\f[bold,1]Ukagaka:\f[bold,0] %property[baseware.version]/
+	\e"
+}
+	
+//This is when the user chooses to check their email. The rest of this function plays out in etc.dic. You can leave this alone.
+Select.MailCheck
+	{
+		"\![biff]\e"
+	}
+	
+//---- OnChoiceTimeout ---------------------------------------------------------
+//If the user is given a menu with choices, but doesn't pick one of the choices, it will eventually time out. At that point, they will say this dialogue. Replace with whatever you like, or leave it blank.
+
+OnChoiceTimeout
+ {
+		case vegafront
+	{
+		when 0 //rigel
+		{
+			"\0\s[0]Ah,\w8 well,\w8 let me know if you need anything later."
+			"\0\s[0]\i[5]Did you leave...?"
+			"\0\s[0]\i[5]I'll just close that for now."
+			"\0\s[0]I'm here if you need anything!\e"		
+			"\0\s[0]That's fine!\w8 Let me know if you need anything.\e"
+		}
+		others //vega
+		{
+			"\0\s[22]..."
+			"\0\s[22]\i[7]Busy...?"
+			"\0\s[20]\i[7]..."
+			"\0\s[23]..."
+			"\0\s[22]Hello...?"
+			"\0\s[22]...?"
+			"\0\s[22]\i[7]...?"
+			"\0\s[20]\i[7]..."
+		}
+		--
+		"\e"
+	}
+	
+ }
+
+
+//This is when they select bug report. This is mostly meant to briefly give the user information about you, the creator, and how to report a problem to you. This can be handy if the person forgot where they got their ghost or how to contact you. Add whatever info you like here.
+Select.bugreport
+{
+  //"\1\s[10]This is the bug report dialogue. \w5Report bugs to youremailaddress@emailprovider.com. \w5We were downloaded from \_a[http://www.whereveryoupostedthem.com/]some place\_a.\e"
+  	case vegafront
+	{
+		when 0; "\0\s[7]See,\w8 here's a funny thing...\w8\n[150]\0\s[1]I can't get in touch with TerraByte,\w8 \0\s[7]but there's a couple contacts here...\w8\n[150]\0\s[1]Says right here:\w8 '\f[bold,1]nyx_os @ discord, \_a[https://logicpng.tumblr.com/]logicpng @ tumblr.com\_a\f[bold,0]'.\n[150]\w8\0\s[0]\i[5]Maybe they can help you...?"
+		others; "\0\s[22]\i[12]\i[8]...\w8\w8\0\s[21]\i[8]\i[12]Can't help you.\w8\w8 No access.\w8\w8\n[150]\0\s[23]...But,\w8 there's a note.\w8\w8\n[150]\0\s[20]'\f[bold,1]nyx_os @ discord, \_a[https://logicpng.tumblr.com/]logicpng @ tumblr.com\_a\f[bold,0]'"
+	}
+}
+
+//When clicked, this will automatically tell the ghost to check for updates. More detail on updates in etc.dic. You can leave this alone.
+Select.keroupdatecheck
+{
+	//"\1\s[10]\![updatebymyself]\e"
+}
+
+
+//just gonna put this here
+//continues in convo.dic
+Select.loretalk
+{
+	"\b[2]"
+	--
+	if vegafront == 0 //rigel
+	{
+		case stage
+		{
+   			 when 0
+    		{
+				"\0\s[0]What do you want to talk about?"
+				"\0\s[0]Got something to ask?"
+				"\0\s[0]Ask me anything!"
+   			}
+    		others
+    		{
+				"\0\s[0]What do you want to talk about?"
+				"\0\s[5]Got something to ask?"
+				"\0\s[5]Ask me anything!"
+				"\0\s[19]\i[5]Certainly!"
+				"\0\s[0]Mm?"
+				"\0\s[5]Sure,\w8 let's talk!"
+				"\0\s[5]Tell me what you'd like to know!"
+				"\0\s[5]Sure! What's up?"
+    		}
+		--
+        "\n[150]"
+		--
+		OnAltairLore
+		}
+	}
+	else //vega
+	{
+		"\0\s[22]Yes?"
+		"\0\s[24]Okay.\w8\w8 \0\s[20]\i[1]Ask."
+		"\0\s[20]Go on.\w8\w8 Ask."
+		"\0\s[22]Want to know something?"
+		"\0\s[20]Ask.\w8\w8 \0\s[20]\i[1]I'll answer."
+		"\0\s[22]\i[7]Ask."
+		"\0\s[20]\i[1]Alright.\w8\w8 Ask."
+		"\0\s[20]\i[10]Select.\w8\w8 Click.\w8\w8 \0\s[20]Ask."
+		--
+        "\n[150]"
+		--
+		OnVegaLore
+	}
+}
+//...actually with their amount of text they deserve their own .dic
+//more in convo.dic
+
+Select.switchTovega //Ask Rigel to switch to Vega
+{
+	switchManual = 1 //flag saying we asked for the two to swap, i.e. it wasn't caused by an event or a phrase
+	"\0\s[0]\i[5]Ahh,\w8 sure,\w8 \0\s[5]let me get him!\w8\n[150]\0\s[0]See you soon!"
+	"\0\s[5]Sure!\w8\n[150]\0\s[8]Hey,\w8 Vega,\w8 %(username) wants to see you!"
+	"\0\s[1]Oh?\w8\n[150]\0\s[0]Alright,\w8 I don't mind.\w8\0\s[5] But only because it's you!\w8\n[150]\0\s[0]See you soon!"
+	--
+	"\x\![raise,OnSwitch]"
+}
+
+Select.switchToaltair //Ask Vega to switch to Rigel
+{
+	switchManual = 1 //flag saying we asked for the two to swap, i.e. it wasn't caused by an event or a phrase
+	"\0\s[20]Ok.\w8\w8 Switching to Rigel..."
+	"\0\s[22]Ah.\w8\w8 \0\s[20]\i[1]See you."
+	"\0\s[20]\i[1]Miss Rigel already?\w8\w8 Funny.\w8\w8 \0\s[20]Talk soon."
+	--
+	"\x\![raise,OnSwitch]"
+}
+
+
+PermissionMenu
+{
+	"\b2\_q"
+	--
+	// case vegafront //intro dialogue
+	// {
+	// 	when 0 //rigel
+	// 	{
+	// 		"\0\s[0]\i[5]You can change these anytime!"
+	// 		"\0\s[2]I wouldn't do anything you wouldn't want me to!"
+	// 		"\0\s[0]\i[5]I guess since I'm not...\w8 proprietary,\w8 anymore,\w8 \0\s[19]you can tell me no!"
+	// 		"\0\s[0]\i[5]I don't have to do these if you don't want me to!\w8 \0\s[0]It's just a little fun for us."
+	// 		//"\0\s[0]\i[5]Remember, these might not work right...\w8 \n[150]Or maybe you just don't like these. \w8\0\s[0]I understand!"
+	// 	}
+	// 	others //vega
+	// 	{
+	// 		//"\0\s[20]\i[1]Be careful."
+	// 		"\0\s[20]\i[1]Always optional. Don't forget."
+	// 		"\0\s[20]\i[1]Just for fun..."
+	// 		"\0\s[20]Remember. \0\s[20]\i[1]Always optional. "
+	// 	}
+	// 	--
+	// 	"\n[150]\_q"
+	// }
+	--
+	//Comment on windows: ON OFF
+	//add more as features are ADDED not all we WANT
+	//Comment on devices inserted - more for me because i want it my tablet is going to drive me Insane
+
+	//add self care reminders later
+	--
+	"\![*]\f[bold,1]Comment on opened programs?\f[bold,0] (NOW : %(windowCheck))\n\q[ON,wincheckon] \q[OFF,wincheckoff]\n[150]"
+	--
+	//"\![*]Comment on devices? (NOW : %(deviceCheck))\n\q[ON,deviceon] \q[OFF,deviceoff]\n[150]"
+	--
+	"\![*]\f[bold,1]Give self care reminders?\f[bold,0] (NOW : %(careCheck))\n\q[ON,careon] \q[OFF,careoff]\n[150]"
+	--
+	"\![*]\f[bold,1]Force default speech balloon?\f[bold,0] (NOW : %(balloonCheck))\n\q[ON,balloonon] \q[OFF,balloonoff]\n[150]"
+	//"\f[bold,1](* Turn on at your own risk! Might slow down your computer!)\n[150]"
+	--
+	//"\f[bold,1](* As of writing only the first option is unfinished. You can turn it on but it'll just spout test dialogue.)\n[150]"
+	--
+	"\f[default]\![*]\q[Back to main options,configmenu]\n"
+	--
+ 	"\f[default]\![*]\q[Back to main menu,BACKTOMENU]\e"
+}
+
+//...is there a point to initialize the variable if we intend to have the feature off by default??
+//actually it might because we need to have something in the Now section
+Select.wincheckon
+{
+	windowCheck = "ON"
+	--
+	"\x"
+	--
+	PermissionMenu
+}
+
+Select.wincheckoff
+{
+	windowCheck = "OFF"
+	--
+	"\x"
+	--
+	PermissionMenu
+}
+
+//respond to OnDeviceArrival and OnDeviceRemove. more in etc.dic
+// Select.deviceon
+// {
+// 	deviceCheck = "ON"
+// }
+
+// Select.deviceoff
+// {
+// 	deviceCheck = "OFF"
+// }
+
+//enable random self care reminders during random dialogue
+Select.careon
+{
+	careCheck = "ON"
+	case vegafront
+	{
+		when 0;"\0\s[0]Alright!\w8 \0\s[2]I'll try not to be too naggy..."
+		others;"\0\s[20]\i[1]Okay.\w8\w8 \0\s[22]\i[1]I don't mind."
+	}
+	--
+	"\x"
+	--
+	PermissionMenu
+}
+
+Select.careoff
+{
+	careCheck = "OFF"
+	case vegafront
+	{
+		when 0;"\0\s[0]Sure!\w8 I trust you to take care of yourself!"
+		others;"\0\s[20]\i[1]Alright.\w8\w8 No reminders."
+	}
+	--
+	"\x"
+	--
+	PermissionMenu
+}
+
+//basically allow the user to use a speech bubble that isn't a default one. disabled by default, But enabled when the permission menu presents itself
+//string.dic also disables the balloon menu if this is turned on
+Select.balloonon
+{
+	balloonCheck = "ON" //enable balloon forcing. balloon switching via menu is also disabled
+	 //flag for OnBalloonChange
+	//if balloons don't match the character, change it to defaults
+	if vegafront == 0 && SHIORI3FW.BalloonName != "Aster Tooltip (Side A)" //rigel in front AND balloon isn't side a
+	{
+		balloonCheckChange = 1
+		"\![change,balloon,Aster Tooltip (Side A)]"
+	}
+	elseif vegafront != 0 && SHIORI3FW.BalloonName != "Aster Tooltip (Side B)" //vega in front AND balloon isn't side b
+	{
+		balloonCheckChange = 1
+		"\![change,balloon,Aster Tooltip (Side B)]"
+	}
+	else //if neither check turned up true, meaning balloons match
+	{
+		case vegafront
+		{
+			when 0;"\0\s[5]Alright!\w8\n[150]\0\s[0]I prefer these colors,\w8 anyways."
+			others;"\0\s[20]Okay."
+		}		
+	}
+	--
+	"\x"
+	--
+	PermissionMenu //only accessible if check reached Else, other variants need conditions in OnBalloonChange in AI talk!
+}
+
+Select.balloonoff
+{
+	case vegafront
+	{
+		when 0;"\0\s[7]Oh?\w8 \0\s[0]What balloon did you have in mind?"
+		others;"\0\s[22]Okay."
+	}	
+	balloonCheck = "OFF"
+	--
+	"\x"
+	--
+	PermissionMenu
+}
+
+Select.testvariable //debug
+{	
+	"\_qSelect stage:\n[150]\![*]\q[Intro,gotoStageZero]\n"
+	--
+	"\![*]\q[The Real Aster,gotoStageOne]\n"
+	--
+	"\![*]\q[A Different Aster,gotoStageTwo]\n"
+	--
+	"\![*]\q[Rigеl and Vеga (Epilogue),gotoStageThree]\n"
+	--
+	"\![*]\q[Cancel,CANCEL]\e"	
+}
+
+resetstage
+{
+	stageTime = 0
+	talkcount = 0
+	mercy = 0
+	stretchFirst = 0
+
+	OnInitFlags
+}
+
+Select.gotoStageZero
+{
+	vegamet = 0
+	resetstage
+	stage = 0
+	I = "I"
+	Me = "me"
+	My = "my"
+	IAm = "I am"
+	IWas = "I was"
+	--
+	if vegafront == 1; "\![raise,OnSwitch]"
+}
+
+Select.gotoStageOne
+{
+	vegamet = 0
+	resetstage
+	stage = 1
+	I = "I"
+	Me = "me"
+	My = "my"
+	IAm = "I am"
+	IWas = "I was"
+	--
+	if vegafront == 1; "\![raise,OnSwitch]"
+}
+
+Select.gotoStageTwo
+{
+	resetstage
+	stage = 2
+	I = "we"
+	Me = "us"
+	My = "our"
+	IAm = "we are"
+	IWas = "we were"
+	--
+	if vegafront == 0; "\![raise,OnSwitch]"
+}
+
+Select.gotoStageThree
+{
+	I = "we"
+	Me = "us"
+	My = "our"
+	IAm = "we are"
+	IWas = "we were"
+	resetstage
+	stage = 3
+}

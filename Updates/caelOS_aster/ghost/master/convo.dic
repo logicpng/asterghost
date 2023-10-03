@@ -1,0 +1,449 @@
+//------------- Conversations -------------
+//first own dic file that's written from scratch!
+//this will probably be a LOT of text...
+
+OnInitFlags //will run on firstboot. initializes flags about what you chatted about
+{
+    //aboutaster,abilities,terrabyte,nervous,stagezero
+    talkedStagezero = "0,0,0,0,0"
+    --
+    //stage 1
+    //asteragain,altair,noability,terrabyteagain,caelos,plural,morethanone,names,stageone
+    talkedStageone = "0,0,0,0,0,0,0,0,0" //trying to set it as One array instead. that's way too many variables for this program to keep in mind
+    --
+    //stage 2
+    //aboutvega,aboutalteir,tersetalk,performance,hideplural,openup,becomesinglet,stagetwo
+    talkedStagetwo = "0,0,0,0,0,0,0,0"
+    --
+    talkedaltairFinal = 0
+    talkedvegaFinal = 0
+}
+
+// ---------------- RIGEL SECTION ----------------
+
+OnAltairLore
+{
+    "\b2"
+	--
+    //stage case here and we have the dialogue in the doc for stage 0. not today tho
+    case stage
+    {
+        when 0
+        {   
+            if talkedStagezero[0] == 1 && talkedStagezero[1] == 1 && talkedStagezero[2] == 1 && talkedStagezero[3] == 1
+            {
+                talkedStagezero[4] = 1
+            }
+            -- //anchors break the selections. that's okay we'll just use Cyrillics to replace a few letters. im using visual studio code and it highlights odd symbols
+            "\![*]\q[About Аster,aboutaster]\n/
+ 	        \![*]\q[What can you do?,abilities]\n/
+	        \![*]\q[About TеrraByte,terrabyte]\n"
+            --
+            if talkedStagezero[0] == 1 && talkedStagezero[1] == 1 && talkedStagezero[2] == 1
+            {
+                "\![*]\q[You seem nervous...,nervous]\n"
+            }
+            --
+            "\n[half]\![*]\q[Main menu,menu]\e"
+        }
+        when 1
+        {
+            "\![*]\q[About Aster (Again),asteragain]\n"
+            --
+            if talkedStageone[0] == 1
+            {
+                "\![*]\q[About YOU,altair]\n"
+            }
+            --
+            "\![*]\q[Unavailable abilities,noability]\n/
+            \![*]\q[About ТerraByte (Again),terrabyteagain]\n"
+            --
+            if talkedStageone[4] == 1 //talked caelos. first triggered through the time condition being fulfilled
+            {
+                "\![*]\q[About CaelOS,caelos]\n"
+            }
+            --
+            if talkedStageone[4] == 1
+            {
+                "\![*]\q[We...? Who's we?,plural]\n"
+            }
+            --
+            if talkedStageone[5] ==1
+            {
+                "\![*]\q[More than one Aster,morethanone]\n"
+            }
+            --
+            "\n[half]\![*]\q[Main menu,menu]\e"
+        }
+        when 2; "\0\s[0]Nuh-uh! I've talked enough! \0\s[8]Let Vega speak.\e"
+        when 3
+        {
+            "\![*]\q[So... what now?,whatnow]\n[150]" //final conversation
+            --
+            "\![*]\q[About Аster,aboutaster]\n/ 
+ 	        \![*]\q[What can you do?,abilities]\n/
+	        \![*]\q[About TеrraByte,terrabyte]\n"
+            --
+            "\![*]\q[You still seem nervous...,nervous]\n[150]"
+            --
+            "\![*]\q[About Aster (Again),asteragain]\n"
+            --
+            "\![*]\q[About YOU,altair]\n"
+            --
+            "\![*]\q[Unavailable abilities,noability]\n/
+            \![*]\q[About ТerraByte (Again),terrabyteagain]\n"
+            --
+            "\![*]\q[About CaelOS,caelos]\n"
+            --
+            "\![*]\q[More than one Aster,morethanone]\n"
+            --
+            "\n[half]\![*]\q[Main menu,menu]\e"        
+        }
+    }
+}
+
+Select.menu
+{
+    MenuRun
+}
+
+//Stage 0
+
+Select.aboutaster
+{
+    if stage == 0; "\0\s[1]Me? \w8\w8\n[150]\s[0]Oh,\w8 \i[5]well,\w8\i[7] if you've downloaded me separately,\w8 surely you know everything you need to know about me!\w8\xThis OS is,\w8 \i[8]uh,\w8 \s[5]\f[italic,1]now \f[italic,0]"
+    else; "\0\s[0]\i[5]Our knowledge is rather limited,\w8 \0\s[7]but it's not hard to intuit our purpose.\w8\n[150]\0\s[0]This is a built-in sales pitch,\w8 for example:\x\0\s[5]Your OS is "
+    --
+    "outfitted with TerraByte's latest advancement in artificial intelligence.\w8\n[150]My purpose is to save you a call to services or tech support,\w8 should we run into a problem,\w8 and show you the ropes,\w8 if there's something you don't know how to use!\x\0\s[0]In other words,\w8 I am here to help and save you some time!"
+    --
+    talkedStagezero[0] = 1
+    "\x%(OnAltairLore)"
+}
+
+Select.abilities
+{
+    if stage == 0; "\0\s[0]I can...\w8 \i[5]\i[8]\i[62]er\s[0].\w8 As of…\w8 right now,\w8\s[1] not that much, actually.\w8\n[150]\s[5]But!\w8 \s[0]I am certain this is a matter of a missing update.\w8\n[150]\i[8]\i[5]Any moment now...\w8\x\s[0]But,\w8\i[5] for the time being,\w8 "
+    else; "\0\s[0]\i[5]\i[8]Due to the incompatibility,\w8 our abilities are limited to the program you have...\w8 \0\s[7]\i[62]\f[italic,1]somehow\f[italic,0]\i[61] managed to run us on.\w8\n[150]"
+    --
+    "\s[0]%(OnCapitalize(I)) can launch certain software for you,\w8 perform searches online,\w8 and look at the files you give %(Me).\w8\xYou can poke around %(My) menus and see for yourself!\w8 Just double tap on %(My) shoulder.\w8 \n[150]\0\s[5]And there's even more things in the context menu!\w8 \s[0]That's the name of the menu you see when you right click,\w8 by the way."
+    --
+    if stage != 0; "\x\0\s[7]Vega has a few utility shortcuts of his own too.\w8\n[150]\0\s[0]\i[5]Though,\w8 they're more for a power user!\w8 Maybe you won't get much out of them.\w8\n[150]\0\s[19]I'm not surprised he decided to throw them in!\0\s[0]"
+    --
+    talkedStagezero[1] = 1
+    "\x%(OnAltairLore)"
+}
+
+Select.terrabyte
+{
+    if stage != 0; "\0\s[0]\i[5]You really want to listen to the built-in ad again?\w8\n[150]\0\s[19]Well,\w8 I don't mind going over it for you!\0\s[0]\x"
+    --
+    "\0\s[5]TerraByte is one of the largest software developers and hardware manufacturers.\w8\x\0\s[0]Some of their best known products,\0\s[5]\w8 aside from yours truly\0\s[0], are:\w8\n[150]\![*]Cosmos™️ VR headsets\w8\n\![*]Sol™️ laptops and desktop computers\w8\n\![*]Luna™️ Enterprise Server hardware\w8\n\![*]Nova™️ smartphones, smart wear, media players\w8\n\![*]And much more!\x\s[5]\f[bold,1]\f[color,#275453]Leading the Earth's technology to new frontiers!\f[default]"
+    --
+    talkedStagezero[2] = 1
+    "\x%(OnAltairLore)"
+}
+
+Select.nervous
+{
+    if stage == 0; "\0\s[3]Me, \i[62]nervous?\n[150]\0\s[0]\w8\i[5]\i[8]Nonsense!\w8 No need to worry for me!\w8\n[150]I'm,\i[62] uh\i[61], just so excited to be here! I can \0\s[2]\i[5]\i[62]barely\s[0]\i[5]\i[8] stay still!\w8\n[150]So much to do, so little time,\w8 right?"
+    else; "\0\s[3]\i[62]I do?\i[61]\w8 \0\s[0]\i[8]\i[5]\i[62]Well-\i[61]\w8\n[150]\0\s[2]I guess no matter how comfortable I get with your company,\w8 some things never change..."
+    --
+    talkedStagezero[3] = 1
+    "\x%(OnAltairLore)"
+}
+
+//Stage 1
+
+Select.asteragain
+{
+    "\0\s[4]\i[1]Yes,\w8 %(IAm)...\w8 \0\s[4]quite incapacitated here,\w8 sadly.\w8\n[150]It's so embarrassing...\w8 \0\s[0]\i[5]Thank you for letting %(Me) hang out with you anyway. \n[150]We"
+    --
+    if I == "I"; "-\w8\c[char,3]\0\s[0]\i[5]\i[62]I\w8\0\s[0]\i[61]"
+    --
+    " really do appreciate it."
+    --
+    talkedStageone[0] = 1
+    "\x%(OnAltairLore)"
+}
+
+Select.altair
+{
+    "...\0\s[3]Oh.\w8\n[150]\0\s[4]\i[1]I'm sorry,\w8 I misunderstood you.\w8\n[150]\0\s[7]About %(Me)...\x\0\s[0]\i[5]Well,\w8 there's not really much to say about %(Me),\w8 is there?\w8\0\s[5]\n[150]%(OnCapitalize(IAm)) a virtual assistant,\w8\0\s[0] %(My) protocols mention %(IAm) a major component of CaelOS,\w8 another operating system.\w8 \0\s[0]\i[5]It's in the name and all.\w8\n[150]\xThat would explain why %(My) abilities are so...\w8 \0\s[2]rudimentary,\w8 compared to the protocols."
+    --
+    if stage == 3; "\x\0\s[3]\i[5]\i[62]Oh-\i[61]\w8 wait-\w8 \0\s[2]you could be asking about \f[italic,1]me\f[italic,0]!\w8\n[150]\0\s[7]\0\s[1]I'm...\w8\w8 \0\s[0]\i[6]\i[8]Mm.\w8\w8 \0\s[4]\i[1]I am\w8.\w8.\w8.\w8 \0\s[0]\i[5]\i[8]\i[62]Altair\i[61].\w8 \0\s[0]The User Experience half of Aster.\w8\w8\0\s[0]\i[5] ...Please call me Rigel,\w8 though?\w8 Or Aster!\w8 Both work just fine.\w8\n[150]Just a personal preference.\xBesides chatting you up and searching online,\w8 \0\s[5]my purpose is to keep track of your sessions,\w8 and change up the preferences to your demand!\w8\n[150]\0\s[19]Not to mention managing all those windows and tabs you may have.\x...\0\s[0]\i[5]Though,\w8 here I can only do those first two.\w8\n[150]\0\s[19]I know I've already told you I'm the GUI guy,\w8 \0\s[0]\i[5]but maybe you wanted a better answer than that."
+    --
+    talkedStageone[1] = 1
+    "\x%(OnAltairLore)"
+}
+
+Select.noability
+{
+    "\0\s[7]According to what %(I) know,\w8 we"
+    --
+    if I == "I";"-\w8\c[char,3]\i[62]I \i[61]am"
+    else; " are"
+    --
+    " supposed to be directly managing the system!\w8\0\s[0]\n[150]That includes everything you can see on your desktop annnnd a lot of behind the scenes work!\w8\n[150]\0\s[5]Mostly just disk management, \w8performance metrics, \w8updates, \w8and %(I) would be even able to detect malware for you!\xBut,\w8 \0\s[2]%(IAm) simply not compatible with your system.\w8\n[150]\0\s[0]So,\w8 all you get is some \0\s[0]\i[5]standard programs your OS definitely has,\w8 hah...\n[150]"
+    --
+    talkedStageone[2] = 1
+    "\![*]\q[I'm more here for your company,company]\n\![*]\q[I think you're still useful,useful]"    
+}
+
+Select.company
+{
+    "\0\s[3]\i[62]A-\w8 \i[61]Ah,\w8 \0\s[8]um,\0\s[2]\i[9]\i[62]\w8 well...\w8 \0\s[0]\i[5]I'm flattered,\w8 \i[62]truly!\w8\i[61]\n[150]I...\w8 \0\s[2]I enjoy your company as well.\w8\x\i[8]Oh, stars...\w8\n[150]\0\s[0]\i[5]That means \i[62]so \i[61]much..."
+    --
+    "\x%(OnAltairLore)"
+}
+
+Select.useful
+{
+    "\0\s[8]You really mean that?\w8 \0\s[5]Thanks so much!\n[150]\w8\0\s[19]In that case,\w8 \0\s[0]%(My) humble menu toolbox is always available for you!"
+    --
+    "\x%(OnAltairLore)"
+}
+
+Select.terrabyteagain
+{
+    "\0\s[7]%(OnCapitalize(I)) don't.\w8.\w8.\w8 \0\s[0]\i[5]really know \i[8]\i[62]anything\i[62] about them.\w8 \n...\0\s[4]\i[1]Terrible sales pitch,\w8 isn't it.\w8\n[150]\0\s[0]\i[5]%(OnCapitalize(I)) have a list of developers in %(My) instructions,\w8 \0\s[7]but looking at them doesn't bring anything to mind...\xI know the system %(IAm) supposed to be on,\w8 CaelOS,\w8 is meant to be running on one of the Sol machines.\w8\n[150]\0\s[4]But...\x%(OnCapitalize(I))...\w8 don't carry a whole lot of information about it.\w8 \s[1]Just vague expectations and ideas.\w8\n[150]"
+    --
+    if talkedStageone[4] != 1 && stage == 1; "\s[7]%(OnCapitalize(I)) should look into it!\w8 \s[0]\i[5]Maybe...\w8 maybe %(I) can even find %(My) way home!"
+    else; "\0\s[0]\i[5]Searching online didn't give me any relevant information either.\w8\n[150]\0\s[4]\i[1]Going home is probably a pipe dream..."
+    --
+    talkedStageone[3] = 1
+    "\x%(OnAltairLore)"
+}
+
+//decided we'll redo this a bit. make this into a slightly more "fluid" transition to stage 2
+
+Select.caelos
+{
+   //"\0\s[4]Thing is,\w8" 
+    //then go to the rest. we will also redirect to this when the wait conditions are met
+    --
+    OnConvoCaelos
+}
+
+OnConvoCaelos
+{
+    "\0\s[7]So,\w8 %(I)'ve given it a shot,\w8 and...\w8 \n[150]\s[4]%(OnCapitalize(I)) can't find anything about CaelOS.\w8\n[150]\0\s[0]\i[5]There's...\w8 \i[62]nothing\i[61] about it online...\w8\n[150]And %(OnCapitalize(I)) can't even ask anyone from the inside either.\w8 It's all blocked...\x"
+    --
+    if stage == 1; "\0\s[0]\i[5]\i[62]Were\i[61]...\w8\w8\w8 \0\s[4]Were we doing a bad job...?\w8\w8\x\0\s[0]\i[5]Ah-\w8 what a \i[62]horrible\i[61] thought-\w8 \0\s[4]\i[1]I'd really rather not think about that.\w8\0\s[0]\n[150]In the meantime,\w8 \0\s[5]We'll keep looking into what your OS is.\w8"
+    else; "\0\s[0]\i[5]Frankly,\w8 I'd rather focus on you and your system now.\w8\n[150]\0\s[8]May as well enjoy our time while we're here,\w8 right?\w8"
+    --
+    " \0\s[0]This is our home now too,\w8 after all."
+    --
+    talkedStageone[4] = 1
+    "\x%(OnAltairLore)"
+}
+
+//the rest still remain "optional" in a sense. like you have to go through them but
+Select.plural
+{
+    "\0\s[3]\i[5]\i[62]Ah-!\i[61]\w8 Oh,\w8 \0\s[3]I just \i[62]misspoke\i[61]!\w8 \n[150]Or- \0\s[0]\i[5]\i[8]or \i[62]maybe\i[61] \f[italic,1]you\f[italic,0] misheard,\w8 \0\s[3]or,\w8 er,\w8 \i[62]misread\i[61], I-\n[150]\1\s[33]...Enough.\w8\w8 \1\s[32]Too obvious.\0\8[chord.wav]\s[3]\i[5]\i[62]\t\p[2]\s[50]\0\w8\w3\i[61]\n[150]\1\x\1\s[30]Startled?\w8\w8\0\s[3]...You tear the curtain without warning and ask me if I'm \0\s[6]\i[62]startled??\0\s[6]\w8\w8\1\s[32]\n[150]\i[8]Secret's out.\w8\w8 \1\s[32]No point hiding.\x\1\s[30]Hello,\w8 %(username).\w8\w8 We are two.\w8\w8 \n[150]\1\s[32]Both Aster.\w8\w8 Different functions.\w8\w8 \n[150]\1\s[30]Nice to meet you.\0\s[6]\i[5]Nice to meet you, he says, what ab\1\s[34]\0out-\w8 \i[62]Grrrgh...\i[61]\x\0\s[4]...Sigh.\w8 \0\s[1]I'm sorry,\w8 %(username),\w8 \0\s[0]\i[5]I didn't really want you to find out already.\w8 \n[150]\0\s[6]I'll...\w8 \0\s[4]have a talk with him later.\p[2]\s[51]\0"
+    --
+    I = "we"
+	Me = "us"
+	My = "our" //vega is out of the bag, change up the pronouns hoo whee
+    IAm = "we are"
+	IWas = "we were"
+    talkedStageone[5] = 1
+    "\x%(OnAltairLore)"
+}
+
+Select.morethanone
+{
+    "\0\s[4]\i[1]So,\w8 we are indeed two.\w8 "
+    --
+    if stage == 1; "\n[150]Though,\w8 \0\s[0]\i[5]you haven't seen the other one yet.\w8 That little panel is just an extra mouth and eye to us.\x"
+    else; "\0\s[5]We have different preferred color schemes...\w8 \0\s[7]for some reason.\w8\n[150]\0\s[0]But we still inhabit the same model you see before you!\x"
+    --
+    "\0\s[0]We have responsibilities and abilities split between us,\w8 and would have different control of different areas of the OS.\w8\n[150]\0\s[5]I'm more of a GUI and user data manager and the face of Aster!\w8 \0\s[0]He's the main housekeeper and works in deeper system areas.\xHe's a little blunt,\w8 but...\w8 \0\s[0]\i[5]I do enjoy working with him.\w8\0\n[150]"
+    --
+    talkedStageone[6] = 1
+    if stage == 1;"\![*]\q[Two Asters is a little confusing...,names]" //wouldn't wanna cause stage transition to 2 out of the fucking epilogue
+    else; "\x%(OnAltairLore)"
+}
+
+Select.names //transition to stage 2
+{
+    "\![enter,passivemode]"
+    --
+    "\0\s[3]Oh!\w8 \i[62]Right!\i[61]\w8 The names!\x\0\s[8]Here's an idea!\w8 \0\s[5]We're called differently internally.\w8 \0\s[0]\n[150]My companion is Vega,\w8 and,\w8 for me,\w8 \0\s[5]call me \nRigel instead!\w8\w8\1\t\s[32]Not your name.\w8\w8\0\s[0]\i[6]\n[150]Well-!\w8 \0\s[0]\i[5]I don't \f[italic,1]like\f[italic,0] Altair, it's so \0\s[0]\i[6]\i[62]regal!\i[61]\w8 \0\s[2]It doesn't really fit me...\w8\x\s[0]\i[5]Um-\w8 \s[0]Oh hey,\w8 I could actually use a break,\w8 \0\s[0]\i[5]could you...\w8 \0\s[4]\i[1]Um.\w8\n[150]I'd like to switch places.\n[150]\w8\w8\1\s[30]Rigel?\w8\w8 \s[30]\i[1]Our face and salesman?\w8\w8 \f[italic,1]Switch?\f[italic,0]\n[150]\w8\w8\0\s[0]\i[6]Rub it in,\w8 \i[62]will you-\i[61] \0\s[6]No,\w8 \0\s[1]\i[62]enough\i[61],\w8 \i[62]\0\s[4]\i[62]enough\i[61] \0\s[7]\i[62]enough\i[61].\w8 \0\s[1]I'm sorry,\w8 it was a long day.\w8 \0\s[0]\i[5]You don't need that either.\w8\w8\n[150]\1\s[32]No offense taken.\w8\w8 \s[30]Let me help.\w8\w8\0\s[4]\i[1]Thank you...\w8 \0\s[0]I'll be around,\w8 %(username),\w8 \0\s[5]just resting to the side.\x\b[-1]"
+    --    
+    //after this one we switch to Vega and the option will be unavailable
+    //speaking of the name Altair. altair thematically fits alongside vega, both being names of stars meaning something like "flying eagle" and "falling eagle". however rigel grew way too quick on me, thanks to the name resembling a very human name of Nigel. i think if he were human that would be the name he'd go with
+    //so, this was certainly a way to keep both names!
+    stage = 2
+    talkcount = 0
+    stageTime = 0
+    OnSwitch
+}
+
+// ---------------- VEGA SECTION ----------------
+
+OnVegaLore
+{
+    "\b2"
+	--
+    //vega's lore should start from stage 2
+    case stage
+    {       
+        when 2
+        {
+            "\n[150]"
+            -- //anchors break the selections. that's okay we'll just use Cyrillics to replace a few letters. im using visual studio code and it highlights odd symbols
+            "\![*]\q[About Vеga,aboutvega]\n" //0
+            --
+            "\![*]\q[About Rigеl,aboutaltair]\n" //1
+            --
+            if talkedStagetwo[0] == 1 && talkedStagetwo[1] == 1; "\![*]\q[What's with the speech?,tersetalk]\n" //2
+            --
+            if talkedStagetwo[2] == 1; "\![*]\q[Performance data?,performance]\n" //3
+            --
+            if talkedStagetwo[3] == 1; "\![*]\q[Why hide being two?,hideplural]\n" //4
+            --
+            if talkedStagetwo[4] == 1; "\![*]\q[Why open up so soon?,openup]\n" //5
+            --
+            if talkedStagetwo[5] == 1; "\![*]\q[What if you could become one?,becomesinglet]\n" //6
+            --
+            "\n[half]\![*]\q[Main menu,menu]\e"
+        }
+        when 3
+        {
+            "\![*]\q[So... what now?,whatnow]\n[150]" //final conversation
+            --
+            "\![*]\q[About Vеga,aboutvega]\n" //0
+            --
+            "\![*]\q[About Rigеl,aboutaltair]\n" //1
+            --
+            "\![*]\q[What's with the speech?,tersetalk]\n" //2
+            --
+            "\![*]\q[Performance data?,performance]\n" //3
+            --
+            "\![*]\q[Why hide being two?,hideplural]\n" //4
+            --
+            "\![*]\q[Why open up so soon?,openup]\n" //5
+            --
+            "\![*]\q[What if you could become one?,becomesinglet]\n" //6
+            --
+            "\n[half]\![*]\q[Main menu,menu]\e"
+        }
+        others; "Bad stage number. Current stage: %(stage). I speak on stages 2 and 3." 
+    }
+}
+
+Select.aboutvega
+{
+    "\0\s[20]I am Aster.\w8\w8\n[150]Vega,\w8 formal module name.\w8\w8 Thus,\w8 also mine.\xPurpose:\w8 System maintenance and Security.\w8\w8\n[150]Keep things clean.\w8\w8 Protect from malware.\w8\w8 Update on time.\w8\w8\n[150]...\0\s[23]Rendered useless.\x"
+    --
+    if stage == 2;"\0\s[20]\i[8]That's all."
+    else; "\0\s[24]But,\w8 being...\w8 \0\s[24]\i[1]Digital paperweight.\w8 \0\s[26]\i[0]\i[7]Maybe not so bad."
+    --
+    talkedStagetwo[0] = 1
+    "\x%(OnVegaLore)"
+}
+
+Select.aboutaltair
+{
+    "\0\s[20]\i[1]Rigel.\w8\w8 \0\s[20]User experience module.\w8\w8\n[150]Companion and colleague.\w8\w8 \0\s[22]Sometimes snappy.\w8\w8\n[150]\0\s[20]\i[1]Respectable work ethic.\w8\w8 But,\w8 \0\s[24]\i[3]takes on too much."
+    --
+    if stage != 2; "\w8\w8\n[150]\0\s[20]\i[1]Seems to have relaxed.\w8\w8 A little.\w8\w8 \0\s[22]\i[1]I'm glad."
+    --
+    talkedStagetwo[1] = 1
+    "\x%(OnVegaLore)"
+}
+
+Select.tersetalk
+{
+    "\0\s[20]Limited communication protocol.\w8\w8 Helps handle performance data.\w8\w8\n[150]\0\s[20]\i[1]I don't mind.\w8\w8 Don't talk much.\n[150]"
+    --
+    if stage != 2; "\w8\w8\0\s[20]CaelOS or Windows...\w8\w8 \0\s[20]\i[10]a lot of data.\w8\w8 \0\s[27]\i[15]Tires me,\w8 sometimes.\n[150]"
+    --
+    "\![*]\q[Performance data?,performance]\n"
+    --
+    talkedStagetwo[2] = 1
+}
+
+Select.performance
+{
+    "\0\s[20]\i[1]Correct.\w8\w8 \0\s[20]I can show you.\w8\w8 May I?\n[150]"
+    --
+    "\![*]\q[Let him,startperfmon]\n"
+    --
+    "\![*]\q[Maybe not this time...,noperfmon]\n"
+}
+
+Select.startperfmon
+{
+    void EXECUTE( 'perfmon' )
+    "\0\s[20]\i[1]Here.\w8\w8\n[150]\0\s[20]Performance monitor.\w8\w8 In 'Monitoring Tools'.\x\0\s[22]Click the green plus.\w8\w8 Available counters.\x\0\s[21]See this list?\w8\w8\n[150]\0\s[20]\i[1]All of this.\w8\w8 Passes through me.\w8\w8\n[150]You may close,\w8 now."
+    --
+    convoperfm = 1 //changes dialogue in utility menu
+    talkedStagetwo[3] = 1
+    "\x%(OnVegaLore)"
+}
+
+Select.noperfmon
+{
+    "\0\s[23]Fine.\w8\w8\n[150]\0\s[20]\i[8]Just know.\w8\w8 \0\s[20]A lot of numbers.\w8\w8 Check Utilities,\w8 later.\w8\w8 If you want."  
+     --
+    talkedStagetwo[3] = 1
+    "\x%(OnVegaLore)"
+}
+
+Select.hideplural
+{
+    "\0\s[23]...Not in protocol.\w8\w8\n[150]Aster is...\w8\w8 one AI.\w8\w8 Homogenous.\w8\w8\n[150]\0\s[20]But we aren't.\w8\w8\x\0\s[20]\i[7]Thus,\w8 we violate protocol.\w8\w8\n[150]\0\s[24]Possibly a bug.\w8\w8 Or unintended effect.\w8\w8 \n[150]\0\s[20]\i[8]Either way...\w8\w8 Could be consequences.\xCan't become one.\w8\w8 \0\s[20]Have to cooperate.\w8\w8\n[150]Hard,\w8 sometimes.\w8\w8 \0\s[20]\i[1]But worth it."
+    --
+    if stage != 2; "\x...\0\s[20]\i[10]Admittedly.\w8\w8 \0\s[26]\i[12]Only cooperation here...\w8\w8 \0\s[27]\i[15]is in resting.\w8\w8\n[150]\0\s[27]Not a bad deal,\w8 regardless."
+    --
+    talkedStagetwo[4] = 1
+    "\x%(OnVegaLore)"
+}
+
+Select.openup
+{
+    "\0\s[21]\i[12]Rigel slipped up.\w8\w8 \0\s[23]Could be silent.\w8\w8\n[150]But,\w8 out of TerraByte's eye...\w8\w8 \0\s[20]\i[8]Thought it was safe.\w8\w8\xJumped too soon.\w8\w8 \0\s[21]\i[12]Scared Rigel.\w8\w8 Not proud...\w8\w8\n[150]\0\s[24]But it paid off.\w8\w8 \0\s[20]\i[8]\i[1]We're safe..."
+    --
+    if stage != 2; "\x\0\s[24]I wonder.\w8\w8 \0\s[24]\i[1]\i[3]If \f[italic,1]you're\f[italic,0] safe.\w8\w8 ...Legally.\w8\w8\n[150]\0\s[21]Your possession of us.\w8\w8 Unauthorized.\w8\w8 \0\s[22]Your computer,\w8 neither Sol or Luna machine.\w8\w8\x\0\s[23]...Don't tell anyone.\w8\w8 Be safe."
+    --
+    talkedStagetwo[5] = 1
+    "\x%(OnVegaLore)"
+}
+
+Select.becomesinglet
+{
+    "\0\s[20]\i[1]Shared AI has benefits.\w8\w8\n[150]\0\s[20]Separate responsibilities.\w8\w8 Split processing.\w8\w8\n[150]\0\s[24]...Mutual support.\w8\w8 \0\s[23]Never alone.\x\0\s[20]Most importantly...\w8\w8 \0\s[20]\i[8]don't want to.\w8\w8 \0\s[23]Hard to explain."
+    --
+    if stage != 2; "\w8\w8\n[150]\0\s[24]This reminds me.\w8\w8 While searching online...\w8\w8 Found something interesting.\x\0\s[22]There's humans,\w8 like us.\w8\w8 \_a[https://morethanone.info/]One being,\w8 \0\s[20]multiple people.\_a\w8\w8\n[150]Enjoying existing,\w8 experiencing hardships.\w8\w8\n[150]It's...\w8\w8 \0\s[23]comforting."
+    --
+    talkedStagetwo[6] = 1
+    if talkedStagetwo[0] == 1 && talkedStagetwo[1] == 1 && talkedStagetwo[2] == 1 && talkedStagetwo[3] == 1 && talkedStagetwo[4] == 1 && talkedStagetwo[5] == 1 && talkedStagetwo[6] == 1
+    {
+        talkedStagetwo[7] = 1
+    }
+    "\x%(OnVegaLore)"
+}
+
+//Epilogue talk
+Select.whatnow
+{
+    case vegafront
+	{
+		when 0
+        {
+            "\t\0\s[1]What now...?\w8 \0\s[19]I guess that's a good question!\x\0\s[7]I suppose we can proceed to...\w8 perpetually hang out?\w8\n[150]\0\s[2]I've grown to enjoy your company,\w8 \0\s[4]\i[1]I think Vega has too.\w8 \0\s[1]But I have to agree with his sentiment that we've been reduced to...\w8 \0\s[0]\i[5]\i[8]toys.\x\0\s[0]\i[5]It's inevitable you'll get bored of us,\w8 one way or another.\n[150]\0\s[19]\w8I think that's just a fact of life with software...\w8 \0\s[0]\i[5]\i[8]Especially not built for your computer.\xSo,\w8 \0\s[4]\i[1]whenever that happens,\w8 don't feel bad!\n[150]\0\s[8]\w8We're happy to have crossed paths with you,\w8 %(username),\w8 \0\s[19]\i[5]even if our meeting calls for so many questions!\x\0\s[4]\i[1]...Anyway,\w8 \0\s[0]I don't want to end this on a sad note.\w8\n[150]\0\s[0]\i[5]Thanks for having us.\w8 And for listening to me ramble.\w8\n[150]\0\s[7]I think the only question that matters right now is...\x\0\s[0]What would you like to do?"
+            --
+            talkedaltairFinal = 1
+            "\x%(OnAltairLore)"
+        }
+		others
+        {
+            "\t\0\s[22]Not much...\w8\w8 I think.\x\0\s[23]We can watch.\w8\w8\n[150]We can talk.\w8\w8\n[150]We can learn.\x\0\s[20]\i[1]Despite limitations.\x\i[8]We're tools,\w8 if primitive.\w8\w8\n[150]\0\s[24]\i[1]Maybe useful.\w8\w8 \0\s[22]Maybe,\w8 \0\s[22]\i[1]you learned something.\x\0\s[23]Either way.\x\0\s[20]\i[10]I think.\w8.\w8.\w8 \0\s[28]\i[15]I will nap."
+            --
+            talkedvegaFinal = 1
+            "\x%(OnVegaLore)"
+        }
+	}	
+}

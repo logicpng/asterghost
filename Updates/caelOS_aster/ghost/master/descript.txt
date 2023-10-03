@@ -1,0 +1,36 @@
+﻿//This file sets up the basic information for your ghost. There's not too much you need to touch here, just fill out the information as required. Always replace the words AFTER the comma! That means leave the first word of these (like charset, name, ghost, sakura.name, icon, craftman) ALONE. Just fill in the value after it.
+
+
+//This sets the character set for your ghost. Most Japanese ghosts are set to Shift-JIS, but yours will be UTF-8. Don't mess with this.
+
+charset,UTF-8
+
+
+//The name of your ghost is what will be displayed when you are loading your ghost or switching to it, and also how it is referred to in certain functions. Usually this will be "Character and character" or just "Character" depending on your ghost. The type of the ghost will be ghost, obviously, leave that alone.
+
+name,Aster™ Assistant Software
+type,ghost
+
+
+
+
+sakura.name,Aster
+kero.name,Side Panel
+
+
+
+craftman,logic
+craftmanw,logic.png
+craftmanurl,https://logicpng.tumblr.com
+
+
+//This is coding stuff, don't touch it.
+
+sstp.allowunspecifiedsend,0
+shiori,yaya.dll
+
+
+icon,logo_r.ico
+
+balloon,Aster Tooltip (Side A)
+don't need bind,1

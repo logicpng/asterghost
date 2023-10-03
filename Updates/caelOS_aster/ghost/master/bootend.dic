@@ -1,0 +1,774 @@
+﻿//---------------------------Booting and Ending--------------------------
+
+
+OnFirstBoot
+{
+//OnFirstBoot begins with some code at first to define some values your ghost will be using. I'll briefly touch on what they are, but for the most part you should not need to edit any of these and you can safely ignore most of them (except nowshell if you've changed your shell folder's name from master). Definitely don't delete them unless you know what you're doing.
+
+ 	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
+	passhour = 0
+	passmin = 0 
+	passsec = 0 // These keep track of the time.
+ 	username         = "USER" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
+	stroke           = 0	// Sets their being-pet state to zero.
+ 	teachusername    = 0	// Related to them learning your name. Might be rendered obsolete by firstsetup
+	mikireflag       = 0	// Determines behavior at certain points.
+ 	aitalkinterval = 30 //Their starting talk rate. Note: Will change every spoken line due to random talk rate being the default
+ 	birthdayprint = "????" //A temporary value for the user's birthday.
+	talktime = "whenever Aster feels like" //How the value aitalkinterval will display in the config menu.
+	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
+	nowshell = "master" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+	firstboot = 1 //This marks that this is the first time you've run the ghost. It's so it won't reroute to general name changing dialogue when the user inputs their name.
+	//i think i may have misunderstood the purpose of this variable and reinvented the wheel. i'll remove it if my substitute renders this obsolete
+	//i feel extremely silly
+
+	//flag dictionary specific for purposes outside of the template
+	firstsetup = 0 //will be used to reroute from user data config
+	stage = 0 //Progression variable. it's not really coming into play till way later but	
+	talkcount = 0 //how many things were said since stage start. resets every stage and no longer updates on stage 3
+	stageTime = 0 //how long has the stage been running
+	vegafront = 0 //Flag for Vega being in front. will be necessary for dialogue
+	strokecount = 0 //counter for being petted or poked on stage zero. will skip to stage one intro upon reaching 5
+	talkraterand = 1 //flag for random periods for chatter. hoping it'll make the final seem bit more natural? more in menu.dic and aitalk.dic
+	windowCheck = "OFF" //whether the window watch works. since it's bit resource intensive, off by default, but we'll ask the user if they want it on when we get to stage 1
+	//deviceCheck = "OFF" //respond to devices plugged in or out. set by default to off for my own sanity. my tablet goes on the fritz sometimes
+	//homepage = "" //what page to open when asked to open browser
+	balloonCheck = "OFF" //variable clarified in menu.dic
+	careCheck = "OFF" //variable clarified in menu.dic
+
+	I = "I"
+	Me = "me"
+	My = "my" //pronouns for rigel to refer himself as Aster. will change to we/us/our when vega is revealed. just for a quirk in lines that are reused
+	IAm = "I am"
+	IWas = "I was"
+	--
+	OnInitBoot //initialize vars we'll need during boot Regardless of whether it's first or any other boot
+	--
+	OnInitFlags //conversation flags
+	--
+	
+
+	//would it make sense to move the introduction dialogue up ere first?
+	//no i think we'll make an abbreviated speech
+
+	if reference0 == 0 //Don't touch this line.
+ 	{
+		
+		//Entry dialogue here, move to name first
+		//rip encoded alt names you'll never be seen again
+		//maybe if i lose my mind and make al
+
+		"\![enter,passivemode]\0\![set,alpha,0]%(FadeIn)\s[rDef]Hello,\w8 and welcome!\w8\n[150]Thank you for choosing TerraByte software!\x\0\s[rHap]My name is Aster, \w8and I'll be your guide through the installation and usage of Ca- \w8\0\s[rNeu]\n\n[half]\w8.\0\s[rSup].\0\s[3]\i[5].W\0\s[0]\i[5]\i[8]\w8\w8- %property[system.os.name],\w8 \i[62]of course!\w8\i[61]\f[italic,0]\x\0\s[2]U\0\s[2]\i[5]h- \s[0]\i[5]\i[8]\i[62]I...\c\0\s[5]I see you've already set yourself up quite nicely!\w8\n[150]Well done!\w8 \w8\n[150]\0\s[0]\i[5]But I will still be more than happy to help you with anything to enhance your experience.\x\0\s[0]Since this is the first time we talk,\w8 I would love to get to know you!\n[150]\w8\0\s[0]I will need your name,\w8 pronouns,\w8 and birthday.\x"
+		//"\s[0]a"
+		
+ 	}
+	else 
+ 	{
+		//---- This is dialogue for when the user uninstalls the ghost for whatever reason, then reinstalls them again. They will run this dialogue instead of their normal dialogue above. You can change this to reflect the fact the user's uninstalled your ghost once, or you can make it the same as the above, it's up to you. You'll see this if you try to run OnFirstBoot using ![raise] without the extra 0 as mentioned above.
+ 		{
+ 		"\![enter,passivemode]\1\s[10]\0\s[0]\i[5]\i[8](\_qHave I.\w8.\w8.\w8 Been here before.\w8.\w8.\w8? No.\w8.\w8.\w8 That would be quite strange.\w8.\w8.\w8)\_q\w8\w8\x\0\s[5]Hello,\w8 and welcome to C-\w8\0\s[3]...\0\s[3]\i[5]\i[62]\w8\n[150]\0\s[0]\i[5]\i[8]\i[61]%property[system.os.name]!\w8\n[150]Yes!\w8 \i[62]Of course\i[61]!\x\0\s[2]\i[5]Uh, \i[62]I-\c[char,6]\0\s[5]To begin,\w8 I need to get to know you first!\n[150] I will need your name,\w8 pronouns,\w8 and birthday.\x"
+		}
+ 	}
+	--
+	NameInput
+}
+
+
+NameInput
+{
+	if firstsetup == 0 //setting up for the first time
+	{	
+	//cont in nameteach.dic
+		"\0\s[0]What would you like me to call you?\![open,inputbox,OnNameTeach,-1]\e"
+	}
+	else //setting up from config menu
+	{
+		case vegafront
+	{
+		when 0;"\0\s[0]Certainly!\w8 What would you like me to call you instead?\![open,inputbox,OnNameTeach,-1]\e"
+		others;"\0\s[20]\i[1]Okay.\w8\w8 \0\s[20]Tell me your name.\![open,inputbox,OnNameTeach,-1]"
+	}
+		
+	}
+}
+
+//i took the liberty of making a neopronouns input sequence. since the variables are completely unrelated to your SSP settings this doesn't seem to screw with anything
+//i would like to thank 2064 Read Only Memories for inspiring that idea. in case you're reading this it's a very good visual novel and in part has inspired Aster as a whole too
+// edit: on later inspection seems like other people have done this before. i didn't look into those ghosts too deeply, but that makes me happy!
+OnPronounTeach
+{
+	case vegafront
+	{
+		when 0;"\0\s[0]Your pronouns?\n[150]"
+		others;"\0\s[20]Pick.\w8\w8 Or set your own.\n[150]"
+	}
+	--
+		"\w5\_q\![*]\q[He/Him/His,choicefirsthehim]\n/
+		\![*]\q[She/Her/Hers,choicefirstsheher]\n/
+		\![*]\q[They/Them/Their,choicefirsttheythem]\n/
+		\![*]\q[I use something else!,choiceneo]\e"
+}
+
+//default pronouns
+Select.choicefirsthehim
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	hesshes = "he's"
+	--
+	PronounEnd
+}
+
+Select.choicefirstsheher
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	hesshes = "she's"
+	--
+	PronounEnd
+}
+
+Select.choicefirsttheythem
+{
+	presuffix = "undefined"
+	himher = "them"
+	heshe = "they"
+	hisher = "their"
+	hesshes = "they're"
+	--
+	PronounEnd
+}
+
+//this is bit repetative, let's move the check here instead
+//we've selected our pronouns and if this is the first boot sequence we'll proceed with it
+//otherwise we must've called this from config and thus need to go back to that menu
+
+PronounEnd
+{
+	if firstsetup == 0
+	{
+		BirthdayInput
+	}
+	else
+	{
+		TalkConfig
+	}
+}
+
+//just trying this out. no use running this right now, will just select a random line in here.
+//maybe just split them into functions? oh yeah i will definitely need to split them into functions
+//hey can i maybe Not use select and just go straight to neostart
+Select.choiceneo
+{
+	NeoStart	
+}
+
+NeoStart
+{
+	presuffix = "undefined"
+	--
+	case vegafront
+	{
+		when 0;"\0\s[5]Very well! \w8\s[0]Please set the subjective case of the pronoun. \n\n[half]\w8(Think of he, she, they).\![open,inputbox,OnSetheshe,-1]"
+		others;"\0\s[20]\i[1]Okay.\w8\w8 Subjective case.\![open,inputbox,OnSetheshe,-1]"
+	}	
+}
+	//wasn't there a sakura tag that allows you to continue speaking after a line ended? look into that before testing
+
+neosmid
+{	
+	case vegafront
+	{
+		when 0;"\0\s[0]Now,\w8 the objective case.\w8 \n\n[half](As in him, her, them).\![open,inputbox,OnSethimher,-1]"
+		others;"\0\s[20]Objective case.\![open,inputbox,OnSethimher,-1]"
+	}	
+}
+neosend
+{
+	case vegafront
+	{
+		when 0;"\0\s[0]Lastly, the possessive case. \n\n[half](As in his, her, their).\![open,inputbox,OnSethisher,-1]"
+		others;"\0\s[20]Posessive case.\![open,inputbox,OnSethisher,-1]"
+	}	
+
+}
+
+//functions that memorize the specific pronouns
+OnSetheshe
+{
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+
+	heshe = reference0
+	hesshes = reference0 + "'s"
+	--
+	neosmid
+}
+
+OnSethimher
+{
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+
+	himher = reference0
+	--
+	neosend
+}
+
+OnSethisher
+{
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+
+	hisher = reference0
+	--
+	testneo
+}
+
+testneo
+{
+	//no capitalisation in the test sentence is bothering me so
+
+	//WOULD BE GOOD TO KNOW THAT UNDERSCORE MEANS THE VARIABLE IS LOCAL
+	_temp = OnCapitalize( heshe )
+	--	
+	case vegafront
+	{
+		when 0;"\0\s[0]Let me give it a shot.\w8"
+		others;"\0\s[20]Testing.\w8\w8"
+	}
+	--
+	"\n\n[half]\f[color,#C94948]%(_temp)\f[color,default] went to the store near \f[color,#C94948]%(himher)\f[color,default] to get food for \f[color,#C94948]%(hisher)\f[color,default] cat. \w8\n[150]"
+	--
+	case vegafront
+	{
+		when 0;"Does that sound good?\n[150]"
+		others;"\0\s[20]\i[1]...Well?\n[150]"
+	}
+	--
+	"\w5\_q\![*]\q[Yes!,neosdone]\n/
+	\![*]\q[No,neosagain]\n/
+	\![*]\q[I want to set a preset pronoun,neosback]\e"
+
+	//yes no. if no go load choiceneosetup again
+}
+
+Select.neosdone
+{
+	PronounEnd // replacing the check with this, no need to repeat that checkup
+}
+
+Select.neosagain
+{
+	NeoStart
+}
+
+Select.neosback
+{
+	OnPronounTeach
+}
+
+
+
+//im basically changing the menu option into the first boot for now. move the shit in here
+BirthdayInput
+{	//wait this only scans during firstboot. hol up
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			if firstsetup == 0
+			{
+			"\0\s[0]Final question, \w8your date of birth!"
+			}
+			else
+			{
+			"\0\s[0]Alright!"
+			}
+			--
+			"\w8 First,\w8 your month,\w8 number or name.\![open,inputbox,OnUserBornMonth,-1]\e"
+		}
+		others //vega
+		{
+			"\0\s[20]Sure.\w8\w8 Month?\![open,inputbox,OnUserBornMonth,-1]"
+		}
+		--
+		"\e"
+	}
+	
+	//this shoulud be better.
+}
+
+OnUserBornMonth
+{
+	_tempmonth = TOSTR(reference0) //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	
+	//this is attaching the right value to the input from the user
+	if _tempmonth == "january" || _tempmonth == "1" {bornmonth = 1; bornmonthprint = "January"}
+	elseif _tempmonth == "february" || _tempmonth == "2" {bornmonth = 2; bornmonthprint = "February"}
+	elseif _tempmonth == "march" || _tempmonth == "3" {bornmonth = 3; bornmonthprint = "March"}
+	elseif _tempmonth == "april" || _tempmonth == "4" {bornmonth = 4; bornmonthprint = "April"}
+	elseif _tempmonth == "may" || _tempmonth == "5" {bornmonth = 5; bornmonthprint = "May"}
+	elseif _tempmonth == "june" || _tempmonth == "6" {bornmonth = 6; bornmonthprint = "June"}
+	elseif _tempmonth == "july" || _tempmonth == "7" {bornmonth = 7; bornmonthprint = "July"}
+	elseif _tempmonth == "august" || _tempmonth == "8" {bornmonth = 8; bornmonthprint = "August"}
+	elseif _tempmonth == "september" || _tempmonth == "9" {bornmonth = 9; bornmonthprint = "September"}
+	elseif _tempmonth == "october" || _tempmonth == "10" {bornmonth = 10; bornmonthprint = "October"}
+	elseif _tempmonth == "november" || _tempmonth == "11" {bornmonth = 11; bornmonthprint = "November"}
+	elseif _tempmonth == "december" || _tempmonth == "12" {bornmonth = 12; bornmonthprint = "December"}
+	
+	else //if the month isn't a valid month, like 32 or something.
+	{			
+			case vegafront
+			{
+				when 0;"\0\s[0]\i[5]\i[8]Um... \w8\s[0]Could you try that one more time for me?\w8"
+				others;"\0\s[21]Invalid month.\w8\w8 \0\s[20]Try again.\w8"
+			}
+			--
+			"\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\e"
+			
+			//You can replace this dialogue in the first line. You need to leave the tag for the input box so they can put in a correct month. That last tag there for ![set,balloontimeout,-1] makes it so the input box won't time out if the user takes too long.
+	}
+	--
+	//If it's a valid month	
+	case vegafront
+	{
+		when 0; "\0\s[0]So, \f[color,#C94948]%(bornmonthprint)\f[color,default]! \w8\n[150]Got it! \w8Now, \w8the day."
+		others; "\0\s[20]Okay.\w8\w8 \f[color,#C94948]%(bornmonthprint)\f[color,default].\w8\w8 Day?"
+	}
+	--
+	"\![open,inputbox,OnUserBornDay,-1]\![set,balloontimeout,-1]\e"
+	
+	//Here you can see the use of a bornmonthprint envelope to show the user what month they put in. Notice that it opens an inputbox at the end the same way the one above did. You can replace the dialogue in the first line just as with above.
+}
+
+//This adds an appropriate suffix to the number for the day. No need to mess with this.
+
+Printday
+{
+	if bornday == 1 || bornday == 21 || bornday == 31
+	{	"%(bornday)st"	}
+	elseif bornday == 2 || bornday == 22
+	{	"%(bornday)nd"	}
+	elseif bornday == 3 || bornday == 23
+	{	"%(bornday)rd"	}
+	else
+	{	"%(bornday)th"	}
+}	
+
+//--OnUserBornDay
+//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it. Again, there'll be comments explaining how it works, but all you really need to do is change the dialogue appropriately. I'll point out where you can add new dates to check for.
+
+OnUserBornDay
+{
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
+	
+	if ((bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12) && _tempday >= 1 && _tempday <= 31) || (bornmonth == 2 && _tempday >= 1 && _tempday <= 29) || ((bornmonth == 4 || bornmonth == 6 || bornmonth == 9 || bornmonth == 11) && _tempday >= 1 && _tempday <= 30) //This ugly function checks if the day falls into a valid range. If it does, we set some variables and continue down.
+	{
+		bornday = _tempday
+		borndayprint = Printday
+		userbirthday = "%(bornmonth)month %(bornday)day"
+		birthdayprint = "%(bornmonthprint) %(borndayprint)"
+		--
+		birthchecked
+		//Mostly defining envelopes and values in here. No need to touch any of this! Eagle-eyed readers will notice the new envelope birthchecked on its own line like a tiny king. We'll get to that momentarily, but pay it no mind for now.
+	}
+	else //If the day isn't valid, like the 10046th or something, this will open the input box again and have a \e so the dialogue below doesn't play. You can replace the dialogue in the first line here.
+	{
+		case vegafront
+	{
+		when 0;"\0\s[0]\i[5]\i[8]Wait, that's not right...\w8 \0\s[0]Could you please try again?"
+		others;"\0\s[22]...Invalid day.\w8\w8 \0\s[20]Try again."
+	}	
+		--
+		"\![open,inputbox,OnUserBornDay,-1]\e"
+	}	
+}
+
+//--birthchecked
+//This is the new envelope you saw me point out above. As you can see here, you can actually call dialogue in a function with an envelope, even when it has if and else statements like here! Which can be pretty handy. Again, more on envelopes in word.dic. Creative ghostmakers can find handy ways to exploit this, I'm sure.
+
+//sorry i have ruined your beautiful %(birthchecked) in the name of plugging my dialogue because i failed to see slash e at the end of the dialogue
+birthchecked
+{
+	if userbirthday == dayslot //if today is the user's birthday
+	{
+		case vegafront
+	{
+		when 0;"\0\s[8]You mean \f[italic,1]\0\s[8]\i[62]today!?\f[italic,0]\0\s[3]\w8\0\s[0]\i[5]\i[8]\n[150]Ah- I mean...\n[150]\w8That's a happy coincidence! \w8\s[0]Happy birthday, %(username).\w8 Is \f[color,#C94948]%(bornmonthprint) %(borndayprint)\f[color,#default] right?"
+		others;"\0\s[24]Hm...\w8\w8 That would be-\n[150]\1\t\s[17]\w3\1\s[15]\i[62]You mean\0\s[22]\1 today!?\w8\n[150]\0\s[20]\i[1]That would be today.\w8\w8 Happy birthday.\n[150]\1\s[11]\i[1]Happy birthday, %(username)!!\w8\w8\1\s[18]\0The day is \f[color,#C94948]%(bornmonthprint) %(borndayprint)\f[color,#default].\w8\w8 Correct?"
+	}				
+	}
+	else //if the birthday is not listed above.
+	{
+		case vegafront
+	{
+		when 0;"\0\s[0]Okay,\w8 got it!\w8 Your birthday is \f[color,#C94948]%(bornmonthprint) %(borndayprint)\f[color,#default].\n[150]"
+		others;"So... \f[color,#C94948]%(bornmonthprint) %(borndayprint)\f[color,#default]."
+	}
+	--
+		"\w5\_q\![*]\q[Yes!,bdone]\n/
+		\![*]\q[No,bagain]\e"
+		
+		//note the use of envelopes to display the newly set birthday properly. You can replace this dialogue as well, and you can use %(bornmonthprint) and %(borndayprint) to display the month and day in the new dialogue, if you want.
+	}		
+}
+
+Select.bdone
+{
+	BirthdayDone
+}
+
+Select.bagain
+{
+	BirthdayInput
+}
+
+//Actually this would be terribly out of place if i didn't ask for confirmation on this dialogue too. move the check here instead
+BirthdayDone
+{
+	if firstsetup == 0
+	{
+		firstsetup = 1 // first time setup complete, other menus will be set to redirect to menu instead i think
+		//Stage 0 dialogue starts here, initialize the values from cpuid saori
+		--
+		"\0\s[5]\![leave,passivemode]Thank you!\w8\0\s[0] \n\n[half]That concludes our setup. \w8Just double tap my shoulder,\w8 should you need any assistance. \n\n[half]\w8Or you can minimize me,\w8 or move me by dragging, \w8\0\s[0]\i[5]if I get in the way.\e"		
+		
+	}
+	else
+	{
+		//first setup is completed, so this was called from a menu
+		//i don't think this needs more dialogue than it already has so, it should just lead back to Config Menu
+		TalkConfig
+	}
+}
+
+
+timeslot
+{
+	if hour >= 5 && hour <= 8
+	{	"earlymorning"	}
+	elseif hour >= 9 && hour <= 11
+	{	"morning"	}
+	elseif hour >= 12 && hour <= 14
+	{	"lunch"	}
+	elseif hour >= 15 && hour <= 17
+	{	"afternoon"	}
+	elseif hour >= 18 && hour <= 20
+	{	"evening"	}
+	elseif hour >= 21 && hour <= 24
+	{ "latenight"	}
+	else
+	{ "midnight" }
+}
+
+dayslot
+{
+	"%(month)month %(day)day"
+}
+
+
+//-----------------------Normal Booting----------------------------
+
+//From this point on, the dialogue will be for any normal boot of your ghost. You can specialize this for certain days or times if you like, or if you're uninterested, leave it very simple.
+
+
+//--OnBoot
+
+//As you can probably guess, OnBoot runs when you boot your ghost.
+
+OnBoot
+ {
+	"\0\![set,alpha,0]" //show our character
+	--
+	if wowrude == 1
+	{
+		altairbootrude //more in chatter.dic
+	}
+	else
+	{
+		lastTalk = "" //These values you may recognize from OnFirstBoot up there. Just pay them no mind.
+		passhour = 0
+		passmin = 0
+		passsec = 0	
+		OnInitBoot //initialize our boot variables
+		--
+		case vegafront
+		{
+			when 0;"\0\s[0]%(FadeIn)\1\s[10]"
+			others;"\0\s[20]%(FadeIn)\1\s[10]"
+		}
+		//This sets them up in their neutral pose for now.
+		--
+		if dayslot == userbirthday 	
+		{
+					case vegafront
+					{
+						when 0;"\0\s[8]Do you remember what day it is?\w8 \n[150]Do you?\w8 Don't you?\x\0\s[5]I do!\w8 Happy birthday,\w8 %(username)~!\w8 \0\s[4]\i[1]I can't exactly give you a gift,\w8 so,\w8 \0\s[8]spend today well,\w8 okay?\w8 \0\s[0]I'll hang out with you!\e"
+						others;"\0\s[24]Hm...\x \0\s[22]\i[1]Happy birthday, %(username).\n[150]\1\t\s[17]\w3\1\1\s[15]\i[62]It's\0\s[21]\1 today?\w8\0\s[20]\i[8]\i[1]\1 Happy birthday!!\w8\n[150]\1\s[11]\i[1]We're a little limited here,\w8 but have fun today,\w8 okay?\w8 See you!\w8\1\s[18]\0...Excitable.\w8\w8 Like always.\e"
+					}				
+					//Notice in this dialogue that there are two new envelopes, %(bornmonthprint) and %(borndayprint). These two things basically display the user's birthday - bornmonthprint is the month and borndayprint is the day. These were defined when the user put in their birthday in the menu.dic file. See word.dic for more info on envelopes.
+					//If the user didn't or hasn't put in their birthday yet, this dialogue will basically never get called. Which makes sense.
+		}	
+		//dunno about other holidays yet
+		else
+		{
+			case vegafront
+			{
+				when 0; "%(altairboottalk)" //for when rigel is fronting
+				when 1; "%(vegaboottalk)"//for when vega is fronting
+			}
+		}	
+	}
+	--
+	"\w8\w8%(FixMenuColors)"
+	--
+	"\e"
+}
+
+
+//--normalboottalk
+
+//This is another unique bit of coding from cindysuke's ghost. OnBoot above checks for the day when you open them, but normalboottalk will vary their dialogue in a few different ways depending on the time and weekday. If you don't want to use these, you can delete everything under normalboottalk and write your own lines of general boot dialogue, so it'd look something like.
+
+//actual dialogue is in chatter.dic
+
+altairboottalk //boottalk for rigel
+{
+	if weekday == 5 && hour >= 19 && RAND(50) == 1 //... a link to a bunch of animations i think are funny. also adding == 1 should actually make it rare
+	{
+		"\0\s[0]\f[underline,1]\_a[https://www.snakepixel.art/donniefriday]It's friday night!\_a\f[underline,0]\e"
+	}
+	else
+	{
+		case stage //where are we in on the story progression?
+		{
+			when 0;	altairbootzero
+			others; altairbootgen
+		}
+	}
+}
+
+vegaboottalk
+{
+	if weekday == 5 && hour >= 19 && RAND(50) == 1 //since there aren't real boolean values, just 0 and 1, this should work. if RAND turns into 1 it will give you...
+	{ 
+		"\0\s[20]\i[1]\f[underline,1]\_a[https://www.snakepixel.art/donniefriday]Friday night...\_a\f[underline,0]\e"
+	} 
+	else
+	{
+		vegabootgen
+	}
+}
+
+//altairboot will be everything else!
+//addittionally theres's vegaboot
+
+OnClose //similar check to boot. first who's fronting and then what progression stage we're on
+{
+	case vegafront
+	{
+		when 0; altairclosetalk //for when rigel is fronting
+		others; vegaclosetalk //for when vega is fronting. function in chatter.dic, it doesn't have any branches
+	}
+}
+
+altairclosetalk
+{
+	case stage
+	{
+	when 0; altairclosezero
+	others; altairclosegen
+	}
+}
+
+
+
+
+//--OnWindowStateMinimize
+
+//This will run when you minimize them. Replace with what you like.
+
+//as of writing this tag, SSP has an issue of the speech bubble not showing up sometimes when restoring the character
+//i've seen a couple messages on the bugtracker about it. so in case you're wondering it's probably not my code lol
+ OnWindowStateMinimize
+{
+	"\t"
+	--
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			"\0\s[0]I'll be right there if you need me!\w8\w8"
+			"\0\s[0]Okay!\w8 See you in a moment!\w8\w8"
+			"\0\s[0]\i[5]Oh,\w8 I'll get out of the way.\w8\w8"
+		}
+		others //vega
+		{
+			"\0\s[22]Hm.\w8\w8 Okay.\w8\w8"
+			"\0\s[27]Mm.\w8\w8 Nap time.\w8\w8"
+			"\0\s[28]Mm...\w8\w8"
+		}		
+	}
+	--
+	"%(FadeOut)\w8\w8\e"
+}
+
+
+//--OnWindowStateRestore
+
+//This will run when you minimize them and then bring them back up. Replace with what you like.
+
+OnWindowStateRestore
+ {
+	//"\0\s[5]Hello, again!\s[0]\e"
+	"\t\w8%(FadeIn)\w8\![set,alpha,100]"
+	--
+	case vegafront
+	{		
+		when 0 //rigel
+		{
+			"\0\s[5]Hello,\w8 again!\s[0]"
+			"\0\s[5]Aaaand here I am!"
+			"\0\s[0]And back!\w8 \s[5]Hi!"
+		}
+		others //vega
+		{
+			"\0\s[26]Mm...?\w8\w8 \0\s[20]Need me?"
+			"\0\s[27]Ah...\w8\w8 \0\s[20]Already?"
+			"\0\s[28]Mm.\w8\w8 \0\s[20]Hello."
+		}
+		--
+		"\e"
+	}
+}
+
+
+//--OnGhostChanging
+
+//This runs whenever you change or reload the ghost.  
+OnGhostChanging
+ {
+	if reference0 == "Aster" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt.
+	{		
+		case vegafront
+		{
+			when 0;"\0\s[0]Reboot?\w8 See you in a second!\w8\w8\e"
+			others;"\0\s[20]Rebooting...\w8\w8\e"
+		}
+		//Replace this dialogue with whatever you like.
+	}
+ 	else //If you're switching to another Ghost.
+	{		
+		case vegafront
+		{
+			when 0;"\0\s[0]%(reference0)? You'll tell me what they're like later,\w8 right?\w8\w8\e"
+			others;"\0\s[20]Launching %(reference0)...\w8\w8 \0\s[22]\i[1]See you.\w8\w8\e"
+		}
+		//Replace this dialogue with whatever you like. Notice the use of the %(reference0) envelope here? In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to, so if you want to display what you're switching to, you can use %(reference0) as in this example. You don't have to use %(reference0) if you don't want to though.
+	}
+}
+
+
+//--OnGhostChanged
+
+//A sister to the above, this runs after the ghost has either reloaded itself, or when you switch from another ghost to this ghost.
+
+OnGhostChanged
+{
+	"\0\s[0]\1\s[10]" //this sets up their default poses
+	--
+	if reference0 == "Aster" //As above, this should be the name of your ghost as in install.txt or descript.txt.
+	{
+		case vegafront
+		{
+			when 0;"\0\s[0]Ahh,\w8 refreshing...\e"
+			others;"\0\s[20]\i[1]...And back.\e"
+		}		
+	}
+	else //If you're switching to them from another ghost...
+	{
+		case vegafront
+		{
+			when 0;"\0\s[0]Ooh,\w8 was that %(reference0) just now?\e"
+			others;"\0\s[22]...Who's %(reference0).\w8\w8 \0\s[20]\i[1]Hello."
+		}
+		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
+	}
+}
+
+OnInitBoot //initialize variables during boot...
+{
+	//saori_cpuid.dll. required for certain dialogue
+	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+
+	//required for windowcheck.dic
+	startTime = GETTICKCOUNT() //we get the number of miliseconds since OS started
+	Music = 0 //counter for Music group of apps
+	//there will be more counters, but however i just need the Proof of Concept
+	MusicDone = 0 //have we reacted to a music player being up since ghost started?
+	strokecount = 0 //reset petting counter
+	pokecount = 0 //reset poking counter
+	--
+	"\![set,sticky-window,1,0]" //makes sure both are moved
+}
+
+FixMenuColors //check whos menu color scheme it is and fix it if it doesn't match lol
+{
+	void FOPEN( '..\..\shell\master\descript.txt' , 'r' ) //open description file in the shell folder
+	_line = ""
+
+	while "name," !_in_ _line //find the name of the shell in the file
+	{
+		_line = FREAD ( '..\..\shell\master\descript.txt' )	
+	}
+	FCLOSE( '..\..\shell\master\descript.txt' ) //close the file, extremely important
+
+	if ( vegafront > 0 && "Early Sunrise" _in_ _line ) || ( vegafront == 0 && "Nothern Lights" _in_ _line ) //does the menu scheme not match the character fronting?
+	{
+		SwapMenuColors //if so, swap the scheme
+		"\![reload,shell]" //and reload the shell. possibly will break shit
+	} 
+}
+
+SwapMenuColors
+{
+	void MKDIR( '..\..\shell\master\temp' )
+
+	void FMOVE( '..\..\shell\master\alt\descript.txt' , '..\..\shell\master\temp' )
+	void FMOVE( '..\..\shell\master\alt\menu_sidebar.png' , '..\..\shell\master\temp' )
+	void FMOVE( '..\..\shell\master\alt\menu_background.png' , '..\..\shell\master\temp' )
+	void FMOVE( '..\..\shell\master\alt\menu_foreground.png' , '..\..\shell\master\temp' )
+
+	void FMOVE( '..\..\shell\master\descript.txt' , '..\..\shell\master\alt' )
+	void FMOVE( '..\..\shell\master\menu_sidebar.png' , '..\..\shell\master\alt' )
+	void FMOVE( '..\..\shell\master\menu_background.png' , '..\..\shell\master\alt' )
+	void FMOVE( '..\..\shell\master\menu_foreground.png' , '..\..\shell\master\alt' )
+
+	void FMOVE( '..\..\shell\master\temp\descript.txt' , '..\..\shell\master' )
+	void FMOVE( '..\..\shell\master\temp\menu_sidebar.png' , '..\..\shell\master' )
+	void FMOVE( '..\..\shell\master\temp\menu_background.png' , '..\..\shell\master' )
+	void FMOVE( '..\..\shell\master\temp\menu_foreground.png' , '..\..\shell\master' )
+
+	void RMDIR( '..\..\shell\master\temp' )
+}

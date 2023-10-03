@@ -1,0 +1,1676 @@
+//---------------------------Surfaces.txt--------------------------
+
+//abandon all hope ye who enter
+//if you ever worked with these files you might notice this particular surfaces.txt is a little bit of an absolute nightmare
+//different orders for different expressions, some resuse surfaces from older animations,
+//and some are added way too late and i coudn't bother overhauling the existing dialogue to accomodate for the shell changes. and some things i learned a little later on and haven't implemented
+//i am SO sorry. mostly to myself because i am the one who has to work with these, but also im sorry to whoeever looks at the source files
+
+//Rigel Default
+
+surface0
+{
+collision0,158,18,290,76,Head
+collision1,155,76,294,145,Face
+
+element0,overlay,surface0.png,0,0
+element1,interpolate,surface1001.png,0,0
+element2,overlay,surface1002.png,0,0
+element3,overlay,surface1003.png,0,0
+
+0interval,random,6
+0pattern0,-1,10,overlay,0,0
+0pattern1,1004,5,overlayfast,0,0
+0pattern2,10041,20,overlayfast,0,0
+0pattern3,-1,10,overlay,0,0
+
+1interval,talk,4
+1pattern0,0,0,alternativestart,[2.3.4]
+
+2interval,never
+2pattern0,1005,10,overlay,0,0
+2pattern1,1006,13,overlay,0,0
+2pattern2,-1,10,overlay,0,0
+
+3interval,never
+3pattern0,1005,14,overlay,0,0
+3pattern1,-1,10,overlay,0,0
+
+4interval,never
+4pattern0,1006,14,overlay,0,0
+4pattern1,-1,10,overlay,0,0
+
+	// wry brow
+	
+	5interval,never
+	5pattern0,1007,0,overlayfast,0,0
+	
+	// mad brow
+	
+	6interval,never
+	6pattern0,1008,0,overlayfast,0,0
+	
+	// stop brow
+	
+	7interval,never
+	7pattern0,0,0,stop,5-6
+	
+	// call sweat
+	8interval,never
+	8pattern0,1009,0,overlayfast,0,0
+	
+	//remove sweat	
+	9interval,never
+	9pattern0,0,0,stop,8
+	
+
+}
+
+
+// Rigel - neutral expression
+surface1
+{
+	collision0,158,18,290,76,Head
+	collision1,155,76,294,145,Face
+	element0,overlay,surface0.png,0,0
+	element1,interpolate,surface1001.png,0,0
+	element2,overlay,surface1002.png,0,0
+	element3,overlay,surface1013.png,0,0
+	
+	//blink 
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1014,5,overlayfast,0,0
+	0pattern2,10141,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//talk
+	
+	1interval,talk,4
+	1pattern0,0,0,alternativestart,[2.3.4]
+
+	2interval,never
+	2pattern0,1015,10,overlay,0,0
+	2pattern1,1006,13,overlay,0,0
+	2pattern2,-1,10,overlay,0,0
+
+	3interval,never
+	3pattern0,1015,14,overlay,0,0
+	3pattern1,-1,10,overlay,0,0
+
+	4interval,never
+	4pattern0,1006,14,overlay,0,0
+	4pattern1,-1,10,overlay,0,0
+
+}
+
+// Rigel shy pose
+
+surface2
+{
+	collision0,126,45,275,101,Head
+collision1,150,104,267,161,Face
+
+	element0,overlay,surface0.png,0,0
+	element1,overlay,surface1021.png,0,0
+	element2,overlay,surface1022.png,0,0
+	
+	//blink 
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1024,5,overlayfast,0,0
+	0pattern2,1023,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//talk
+	
+	1interval,talk,4
+	1pattern0,0,0,alternativestart,[2.3.4]
+
+	2interval,never
+	2pattern0,1025,10,overlay,0,0
+	2pattern1,1026,13,overlay,0,0
+	2pattern2,-1,10,overlay,0,0
+
+	3interval,never
+	3pattern0,1025,14,overlay,0,0
+	3pattern1,-1,10,overlay,0,0
+
+	4interval,never
+	4pattern0,1026,14,overlay,0,0
+	4pattern1,-1,10,overlay,0,0
+	
+	// flustered face
+	
+	5interval,never
+	5pattern0,1027,0,overlayfast,0,0
+	
+	// stop flustered face
+	
+	6interval,never
+	6pattern0,0,0,stop,5
+	
+	// blush
+	7interval,never
+	7pattern0,1028,0,overlayfast,0,0
+	
+	// blush stronger
+	8interval,never
+	8pattern0,10281,0,overlayfast,0,0
+	
+	//flushed
+	9interval,never
+	9pattern0,10282,0,overlayfast,0,0
+	
+	//stop blush
+	10interval,never
+	10pattern0,0,0,stop,7
+	10pattern1,0,0,stop,8
+	10pattern2,0,0,stop,9
+}
+
+// Rigel Surprise!
+surface3
+{
+	collision0,178,25,298,86,Head
+collision1,181,86,283,149,Face
+
+	element0,overlay,surface0.png,0,0
+	element1,interpolate,surface1031.png,0,0
+	element2,overlay,surface1032.png,0,0
+	element3,overlay,surface1033.png,0,0
+	
+		//blink 
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1034,5,overlayfast,0,0
+	0pattern2,10341,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//talk
+	
+	1interval,talk,4
+	1pattern0,0,0,alternativestart,[2.3.4]
+
+	2interval,never
+	2pattern0,1035,10,overlay,0,0
+	2pattern1,1036,13,overlay,0,0
+	2pattern2,-1,10,overlay,0,0
+
+	3interval,never
+	3pattern0,1035,14,overlay,0,0
+	3pattern1,-1,10,overlay,0,0
+
+	4interval,never
+	4pattern0,1036,14,overlay,0,0
+	4pattern1,-1,10,overlay,0,0
+	
+	//shock
+	5interval,never
+	5pattern0,1037,0,overlayfast,0,0
+	
+	//shock stop
+	6interval,never
+	6pattern0,0,0,stop,5
+}
+
+//Rigel sad
+
+surface4
+{
+	
+	collision0,126,45,275,101,Head
+collision1,150,104,267,161,Face
+
+	element0,overlay,surface0.png,0,0
+	element1,overlay,surface1041.png,0,0
+	element2,overlay,surface1042.png,0,0
+	
+		//blink 
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1044,5,overlayfast,0,0
+	0pattern2,1043,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//call smile
+	1interval,never
+	1pattern0,1047,0,overlayfast,0,0
+	
+	//remove smile
+	2interval,never
+	2pattern0,0,0,stop,1
+	
+	//talk
+	
+	3interval,talk,4
+	3pattern0,0,0,alternativestart,[4.5.6]
+
+	4interval,never
+	4pattern0,1045,10,overlay,0,0
+	4pattern1,1046,13,overlay,0,0
+	4pattern2,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1045,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+
+	6interval,never
+	6pattern0,1046,14,overlay,0,0
+	6pattern1,-1,10,overlay,0,0
+	
+	
+}
+
+//Rigel happy
+
+surface5
+{
+	collision0,144,20,277,77,Head
+collision1,154,82,273,152,Face
+	
+	element0,overlay,surface0.png,0,0
+	element1,interpolate,surface1051.png,0,0
+	element2,overlay,surface1052.png,0,0
+	element3,overlay,surface1053.png,0,0
+	
+	//no blink, instead it's sparkling 
+	0interval,always
+	0pattern0,1054,15,overlay,0,0
+	0pattern1,10541,15,overlay,0,0	
+	
+	//talk
+	
+	1interval,talk,4
+	1pattern0,0,0,alternativestart,[2.3.4]
+
+	2interval,never
+	2pattern0,1055,10,overlay,0,0
+	2pattern1,1056,13,overlay,0,0
+	2pattern2,-1,10,overlay,0,0
+
+	3interval,never
+	3pattern0,1055,14,overlay,0,0
+	3pattern1,-1,10,overlay,0,0
+
+	4interval,never
+	4pattern0,1056,14,overlay,0,0
+	4pattern1,-1,10,overlay,0,0
+}
+
+//Rigel anger
+
+surface6
+{
+	
+	collision0,126,45,275,101,Head
+collision1,150,104,267,161,Face
+
+
+		element0,overlay,surface0.png,0,0
+	element1,interpolate,surface1061.png,0,0
+	element2,overlay,surface1062.png,0,0
+	element3,overlay,surface1063.png,0,0
+	
+		//Either blink or eye twitch 
+	0interval,random,2
+	0pattern0,0,0,alternativestart,[6.7.8]	
+	
+	//talk
+	
+	1interval,talk,4
+	1pattern0,0,0,alternativestart,[2.3.4]
+
+	2interval,never
+	2pattern0,1065,10,overlay,0,0
+	2pattern1,1066,13,overlay,0,0
+	2pattern2,-1,10,overlay,0,0
+
+	3interval,never
+	3pattern0,1065,14,overlay,0,0
+	3pattern1,-1,10,overlay,0,0
+
+	4interval,never
+	4pattern0,1066,14,overlay,0,0
+	4pattern1,-1,10,overlay,0,0
+	
+	//call anger anim
+	5interval,never
+	5pattern0,1068,30,overlay,0,0
+	5pattern1,10681,30,overlay,0,0
+	5pattern2,1068,30,overlay,0,0
+	5pattern3,10681,30,overlay,0,0	
+	5pattern4,1068,30,overlay,0,0
+	5pattern5,10681,30,overlay,0,0	
+	5pattern6,-1,200,overlay,0,0
+	
+	//actual blink
+	6interval,never
+	6pattern0,-1,10,overlay,0,0
+	6pattern1,1064,5,overlayfast,0,0
+	6pattern2,10641,20,overlayfast,0,0
+	6pattern3,-1,10,overlay,0,0
+	
+	//eye twitch once
+	7interval,never
+	7pattern0,-1,10,overlay,0,0
+	7pattern1,1067,10,overlay,0,0
+	7pattern2,-1,8,overlay,0,0
+	
+	//eye twitch twice
+	8interval,never
+	8pattern0,-1,10,overlay,0,0
+	8pattern1,1067,10,overlay,0,0
+	8pattern2,-1,8,overlay,0,0
+	8pattern3,1067,8,overlay,0,0
+	8pattern4,-1,8,overlay,0,0
+	
+
+	//stop anger anim. hopefully
+	//6interval,never
+	//6pattern0,0,0,stop,5	
+	
+		//start anger anim
+	//7interval,never
+	//7pattern0,0,0,start,5
+	
+	
+}
+
+// Rigel thonk
+
+surface7
+{
+	collision0,126,45,275,101,Head
+	collision1,150,104,267,161,Face
+
+	element0,overlay,surface0.png,0,0
+	element1,overlay,surface1052.png,0,0
+	element2,overlay,surface1073.png,0,0
+	element3,overlay,surface1072.png,0,0
+	
+	// //lift arm
+	// 0interval,runonce
+	// 0pattern0,1071,0,overlay,0,0
+	// 0pattern1,1072,4,overlay,0,0
+	
+	//blink
+	1interval,random,6
+	1pattern0,-1,10,overlay,0,0
+	1pattern1,1074,5,overlayfast,0,0
+	1pattern2,10741,20,overlayfast,0,0
+	1pattern3,-1,10,overlay,0,0
+	
+	//call brow
+	2interval,never
+	2pattern0,1075,0,overlayfast,0,0
+	
+	//stop brow
+	3interval,never
+	3pattern0,0,0,stop,2
+	
+	// call ?
+	4interval,never
+	4pattern0,1077,0,overlay,0,0
+	
+	//call ??
+	5interval,never
+	5pattern0,1078,0,overlay,0,0
+	
+	//hide ?/??
+	6interval,never
+	6pattern0,0,0,stop,4
+	6pattern1,0,0,stop,5
+}
+
+//Rigel Excited
+surface8
+{
+	//collision
+	collision0,160,16,291,66,Head
+	collision1,160,66,286,153,Face
+	
+	element0,overlay,surface0.png,0,0
+	element1,overlay,surface1082.png,0,0
+	element2,overlay,surface1081.png,0,0
+	
+	//sparkly eye
+	0interval,always
+	0pattern0,1087,15,overlayfast,0,0
+	0pattern1,-1,15,overlay,0,0
+	
+	//blink
+	1interval,random,6
+	1pattern0,-1,10,overlay,0,0
+	1pattern1,1084,5,overlayfast,0,0
+	1pattern2,1083,20,overlayfast,0,0
+	1pattern3,-1,10,overlay,0,0
+	
+		//talk
+	
+	2interval,talk,4
+	2pattern0,0,0,alternativestart,[3.4.5]
+
+	3interval,never
+	3pattern0,1085,10,overlay,0,0
+	3pattern1,1086,13,overlay,0,0
+	3pattern2,-1,10,overlay,0,0
+
+	4interval,never
+	4pattern0,1085,14,overlay,0,0
+	4pattern1,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1086,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+	
+	//sparkles from Happy
+	6interval,always
+	6pattern0,1054,15,overlay,0,0
+	6pattern1,10541,15,overlay,0,0	
+		
+}
+
+//laugh; since surface 19 is now vacant
+surface19
+{
+	//just the torso and now Separated collar
+	element0,overlay,surface0.png,0,0
+	element1,overlay,surface10034.png,0,0
+	collision0,158,18,290,76,Head
+	collision1,155,76,294,145,Face
+	
+	//head bob?
+	0interval,runonce
+	0pattern0,10031,0,overlay,0,0
+	0pattern1,-1,15,overlay,0,0
+	
+	1interval,always
+	1pattern0,10031,15,overlay,0,3
+	1pattern1,10031,15,overlay,0,0
+	
+	
+	//laugh wingding
+	2interval,always
+	2pattern0,10032,35,overlay,0,0
+	2pattern1,10033,35,overlay,0,0
+	
+	//arms behind, default
+	3interval,runonce
+	3pattern0,1001,0,interpolate,0,0
+	
+	4interval,runonce
+	4pattern0,1002,0,overlay,0,0
+	
+	//call alt arms. reset with surface call
+	5interval,never
+	5pattern0,0,0,stop,3
+	5pattern1,0,0,stop,4
+	5pattern2,0,0,start,6
+	5pattern3,0,0,start,7
+	
+	//arms outwards, from surprise, callable
+	6interval,never
+	6pattern0,1031,0,interpolate,0,0
+	
+	7interval,never
+	7pattern0,1032,0,overlay,0,0
+}
+//Shift between modes
+
+surface9
+{
+	collision0,285,187,303,204,Wait
+	//collision w/ close button
+	element0,overlay,surface3000.png,0,0
+	
+	//Shift to Vega
+	0interval,never
+	0pattern0,3001,30,overlay,0,0
+	0pattern1,3002,30,overlay,0,0
+	0pattern2,3003,30,overlay,0,0
+	0pattern3,3004,30,overlay,0,0
+	
+	//Shift to Rigel
+	1interval,never
+	1pattern0,3011,30,overlay,0,0
+	1pattern1,3012,30,overlay,0,0
+	1pattern2,3013,30,overlay,0,0
+	1pattern3,3014,30,overlay,0,0
+	
+}
+
+
+//Here's hoping starting with 20 here won't make ssp explode
+
+// -------- VEGA FULLBODY ---------
+
+//Default
+
+surface20
+{
+	collision0,158,18,290,76,Head
+	collision1,155,76,294,145,Face
+	element0,overlay,surface01.png,0,0
+	element1,interpolate,surface1101.png,0,0
+	element2,overlay,surface1102.png,0,0
+	element3,overlay,surface1103.png,0,0
+	
+	//blink 
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1104,5,overlayfast,0,0
+	0pattern2,11041,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//smile
+	//call smile
+	1interval,never
+	1pattern0,1109,0,overlayfast,0,0
+	
+	//remove smile
+	2interval,never
+	2pattern0,0,0,stop,1
+	//talk
+	
+	3interval,talk,4
+	3pattern0,0,0,alternativestart,[4.5.6]
+
+	4interval,never
+	4pattern0,1105,10,overlay,0,0
+	4pattern1,1106,13,overlay,0,0
+	4pattern2,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1105,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+
+	6interval,never
+	6pattern0,1106,14,overlay,0,0
+	6pattern1,-1,10,overlay,0,0
+	
+	//call mad brow
+	7interval,never
+	7pattern0,1107,0,overlayfast,0,0
+	
+	//call wry brow
+	8interval,never
+	8pattern0,1108,0,overlayfast,0,0
+	
+	//remove brow
+	9interval,never
+	9pattern0,0,0,stop,7-8
+	
+	//close eye. reset by reloading surface. the whole thing with setting animations to remove certain items was so unneccessary but removing them now will end up in too much work. i guess i know better now...
+	//at least it makes sense adding it last. it'll apply on top of the blinking animation and thus blinking SHOULDN'T appear on top of the closed eye. or i will be very upset
+	10interval,never
+	10pattern0,1104,0,overlayfast,0,0
+}
+
+//Sus
+
+surface21
+{
+	//change collissions
+	collision0,158,18,290,76,Head
+	collision1,155,76,294,145,Face
+	element0,overlay,surface01.png,0,0
+	element1,interpolate,surface1101.png,0,0
+	element2,overlay,surface1102.png,0,0
+	element3,overlay,surface1113.png,0,0
+	
+	//blink 
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1114,5,overlayfast,0,0
+	0pattern2,11141,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	
+	
+	//smile
+	1interval,never
+	1pattern0,1112,0,overlay,0,0
+	
+	//remove smile
+	2interval,never
+	2pattern0,0,0,stop,1
+	//talk
+	
+	3interval,talk,4
+	3pattern0,0,0,alternativestart,[4.5.6]
+
+	4interval,never
+	4pattern0,1115,10,overlay,0,0
+	4pattern1,1116,13,overlay,0,0
+	4pattern2,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1115,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+
+	6interval,never
+	6pattern0,1116,14,overlay,0,0
+	6pattern1,-1,10,overlay,0,0
+	
+	//call blush
+	7interval,never
+	7pattern0,1118,0,overlayfast,0,0
+	
+	//call wry brow
+	8interval,never
+	8pattern0,1117,0,overlayfast,0,0
+	
+	//remove blush
+	9interval,never
+	9pattern0,0,0,stop,7
+	
+	//remove brow
+	10interval,never
+	10pattern0,0,0,parallelstop,[8.11]
+	
+	//sweat
+	//call sweat
+	12interval,never
+	12pattern0,1119,0,overlayfast,0,0
+	
+	//furrowed brow
+	11interval,never
+	11pattern0,1111,0,overlay,0,0
+}
+
+//Headtilt
+surface22
+{
+	//change collissions
+	collision0,119,38,272,80,Head
+	collision1,155,80,260,159,Face
+	element0,overlay,surface01.png,0,0
+	element1,interpolate,surface1101.png,0,0
+	element2,overlay,surface1102.png,0,0
+	element3,overlay,surface1123.png,0,0
+	
+	//blink 
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1124,5,overlayfast,0,0
+	0pattern2,11241,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//smile
+	//call smile
+	1interval,never
+	1pattern0,1120,0,overlayfast,0,0
+	
+	//remove smile
+	2interval,never
+	2pattern0,0,0,stop,1
+	//talk
+	
+	3interval,talk,4
+	3pattern0,0,0,alternativestart,[4.5.6]
+
+	4interval,never
+	4pattern0,1125,10,overlay,0,0
+	4pattern1,1126,13,overlay,0,0
+	4pattern2,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1125,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+
+	6interval,never
+	6pattern0,1126,14,overlay,0,0
+	6pattern1,-1,10,overlay,0,0
+	
+	//call ?
+	7interval,never
+	7pattern0,1128,0,overlay,0,0
+	
+	//call ??
+	8interval,never
+	8pattern0,1129,0,overlay,0,0	
+	
+	//remove ?/??
+	9interval,never
+	9pattern0,0,0,parallelstop,[7-8]
+	
+	//call brow
+	10interval,never
+	10pattern0,1127,0,overlayfast,0,0
+	
+	
+	//renmove brow
+	11interval,never
+	11pattern0,0,0,parallelstop,[10.12]
+	
+	//furrowed brow
+	12interval,never
+	12pattern0,1121,0,overlay,0,0,
+	
+	
+}
+
+//Away. simplest suface lol
+surface23
+{
+	collision0,154,54,192,85,Head
+	//collision1,155,76,294,145,Face
+	element0,overlay,surface01.png,0,0
+	element1,interpolate,surface1101.png,0,0
+	element2,overlay,surface1102.png,0,0
+	element3,overlay,surface1133.png,0,0
+	
+	0interval,never
+	0pattern0,1134,0,overlay,0,0
+	
+	1interval,never
+	1pattern0,0,0,stop,0
+}
+
+//Thonk
+surface24
+{
+	//this collission is fine
+	collision0,126,45,275,101,Head
+	collision1,150,104,267,161,Face
+
+	element0,overlay,surface01.png,0,0
+	element1,overlay,surface1102.png,0,0
+	element2,overlay,surface1143.png,0,0
+	element3,overlay,surface1142.png,0,0
+	
+	// //lift arm
+	// 0interval,runonce
+	// 0pattern0,1141,0,overlay,0,0
+	// 0pattern1,1142,4,overlay,0,0
+	
+	//blink
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1144,5,overlayfast,0,0
+	0pattern2,11441,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//wry brow
+	1interval,never
+	1pattern0,1145,0,overlay,0,0
+	
+	//furr brow
+	2interval,never
+	2pattern0,1146,0,overlay,0,0
+	
+	//sweat
+	3interval,never
+	3pattern0,1147,0,overlay,0,0
+
+	//closed eye. reset by reloading the surface
+	4interval,never
+	4pattern0,1144,0,overlayfast,0,0
+	
+}
+
+//Big Mad
+surface25
+{
+	
+	collision0,158,18,290,76,Head
+	collision1,155,76,294,145,Face
+
+	element0,overlay,surface01.png,0,0
+	element1,interpolate,surface1151.png,0,0
+	element2,overlay,surface1152.png,0,0
+	element3,overlay,surface1153.png,0,0
+	
+	// blink
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,1154,5,overlayfast,0,0
+	0pattern2,11541,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+	
+	//smile
+	
+	1interval,never
+	1pattern0,1112,0,overlay,0,0
+	//talk
+	
+	2interval,talk,4
+	2pattern0,0,0,alternativestart,[3.4.5]
+
+	3interval,never
+	3pattern0,1155,10,overlay,0,0
+	3pattern1,1156,13,overlay,0,0
+	3pattern2,-1,10,overlay,0,0
+
+	4interval,never
+	4pattern0,1155,14,overlay,0,0
+	4pattern1,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1156,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+	
+	//call anger anim
+	6interval,never
+	6pattern0,1158,30,overlay,0,0
+	6pattern1,1159,30,overlay,0,0
+	6pattern2,1158,30,overlay,0,0
+	6pattern3,1159,30,overlay,0,0	
+	6pattern4,1158,30,overlay,0,0
+	6pattern5,1159,30,overlay,0,0	
+	6pattern6,-1,200,overlay,0,0
+	
+	//call brow
+	7interval,never
+	7pattern0,1157,0,overlayfast,0,0
+	//stop brow
+	8interval,never
+	8pattern0,0,0,parallelstop,[7.9]
+	
+	//wry brow
+	9interval,never
+	9pattern0,1117,0,overlayfast,0,0
+
+
+//target eye
+	10interval,never
+	10pattern0,11591,0,overlayfast,0,0
+	10pattern1,11592,30,overlayfast,0,0
+	10pattern2,11591,30,overlayfast,0,0
+	10pattern3,11592,30,overlayfast,0,0
+	10pattern4,11591,30,overlayfast,0,0
+	10pattern5,11592,30,overlayfast,0,0	
+	10pattern6,11591,30,overlayfast,0,0
+	10pattern7,11592,30,overlayfast,0,0
+	10pattern8,11591,30,overlayfast,0,0
+	10pattern9,11592,30,overlayfast,0,0
+	10pattern10,-1,200,overlay,0,0
+	
+	
+}
+
+//Unique positions
+
+//Stretch 1
+
+surface26
+{
+	collision0,154,227,290,288,Head
+	collision1,182,288,258,347,Face
+	collision2,185,156,271,222,No 
+	collision3,138,319,205,460,Menu
+	collision4,244,313,329,452,Menu
+	
+	element0,overlay,surface1160.png,0,0
+	
+	//call smile
+	
+	0interval,never
+	0pattern0,1164,0,overlayfast,0,0
+	
+	//stop smile
+	1interval,never
+	1pattern0,0,0,stop,1
+	
+	// blink
+	2interval,random,6
+	2pattern0,-1,10,overlay,0,0
+	2pattern1,1161,5,overlayfast,0,0
+	2pattern2,11611,20,overlayfast,0,0
+	2pattern3,-1,10,overlay,0,0
+	
+	//talk
+	
+	3interval,talk,4
+	3pattern0,0,0,alternativestart,[4.5.6]
+
+	4interval,never
+	4pattern0,1162,10,overlay,0,0
+	4pattern1,1163,13,overlay,0,0
+	4pattern2,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1162,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+
+	6interval,never
+	6pattern0,1163,14,overlay,0,0
+	6pattern1,-1,10,overlay,0,0
+	
+	//wry brow
+	7interval,never
+	7pattern0,1165,0,overlayfast,0,0
+	
+	//furrowed
+	8interval,never
+	8pattern0,1166,0,overlayfast,0,0
+	
+	//no brow
+	9interval,never
+	9pattern0,0,0,stop,7.8
+	
+	//sweat
+	10interval,never
+	10pattern0,1167,0,overlayfast,0,0
+	
+	//no sweat
+	11interval,never
+	11pattern0,0,0,stop,10
+
+	//close eye. just reset with reloading the surface idc
+	12interval,never
+	12pattern0,1161,0,overlayfast,0,0
+}
+
+//Stretch 2
+surface27
+{
+	collision0,167,320,269,347,Head
+	collision1,174,356,271,406,Face
+	collision2,223,276,294,305,No
+	collision3,89,370,352,461,Menu
+	
+	element0,overlay,surface1170.png,0,0
+	
+	//call smile
+	
+	0interval,never
+	0pattern0,1174,0,overlayfast,0,0
+	
+	//stop smile
+	1interval,never
+	1pattern0,0,0,stop,1
+	
+	// blink
+	2interval,random,6
+	2pattern0,-1,10,overlay,0,0
+	2pattern1,1171,5,overlayfast,0,0
+	2pattern2,11711,20,overlayfast,0,0
+	2pattern3,-1,10,overlay,0,0
+	
+	//talk
+	
+	3interval,talk,4
+	3pattern0,0,0,alternativestart,[4.5.6]
+
+	4interval,never
+	4pattern0,1172,10,overlay,0,0
+	4pattern1,1173,13,overlay,0,0
+	4pattern2,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1172,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+
+	6interval,never
+	6pattern0,1173,14,overlay,0,0
+	6pattern1,-1,10,overlay,0,0
+	
+	//wry brow
+	7interval,never
+	7pattern0,1175,0,overlayfast,0,0
+	
+	// 8interval,never
+	// 8pattern0,0,0,stop,7
+		//furrowed brow
+	9interval,never
+	9pattern0,1176,0,overlayfast,0,0
+	
+	10interval,never
+	10pattern0,0,0,stop,7.9
+	
+	//blush
+	11interval,never
+	11pattern0,1177,0,overlayfast,0,0
+	
+	12interval,never
+	12pattern0,0,0,stop,11
+	
+	//sweat
+	13interval,never
+	13pattern0,1178,0,overlayfast,0,0
+	
+	14interval,never
+	14pattern0,0,0,stop,13
+
+	//closed eye. reset by reloading surface
+	15interval,never
+	15pattern0,1171,0,overlayfast,0,0
+}
+
+//Stretch low. i dit it anywayyyyyy
+surface28
+{
+	collision0,135,303,205,339,Head
+	collision1,170,263,267,310,Head
+	collision2,202,321,269,376,Face
+	collision3,137,357,180,438,Menu
+	collision4,183,365,313,439,Menu
+	
+	element0,overlay,surface1180.png,0,0
+	
+		//call smile
+	
+	0interval,never
+	0pattern0,1184,0,overlayfast,0,0
+	
+	//stop smile
+	1interval,never
+	1pattern0,0,0,stop,1
+	
+	// blink
+	2interval,random,6
+	2pattern0,-1,10,overlay,0,0
+	2pattern1,1181,5,overlayfast,0,0
+	2pattern2,11811,20,overlayfast,0,0
+	2pattern3,-1,10,overlay,0,0
+	
+	//talk
+	
+	3interval,talk,4
+	3pattern0,0,0,alternativestart,[4.5.6]
+
+	4interval,never
+	4pattern0,1182,10,overlay,0,0
+	4pattern1,1183,13,overlay,0,0
+	4pattern2,-1,10,overlay,0,0
+
+	5interval,never
+	5pattern0,1182,14,overlay,0,0
+	5pattern1,-1,10,overlay,0,0
+
+	6interval,never
+	6pattern0,1183,14,overlay,0,0
+	6pattern1,-1,10,overlay,0,0
+	
+	//wry brow
+	7interval,never
+	7pattern0,1185,0,overlayfast,0,0
+	
+	// 8interval,never
+	// 8pattern0,0,0,stop,7
+	
+		//furrowed brow
+	9interval,never
+	9pattern0,1186,0,overlayfast,0,0
+	
+	10interval,never
+	10pattern0,0,0,stop,7.9
+	
+	//blush
+	11interval,never
+	11pattern0,1187,0,overlayfast,0,0
+	
+	12interval,never
+	12pattern0,0,0,stop,11
+	
+	//sweat
+	13interval,never
+	13pattern0,1188,0,overlayfast,0,0
+	
+	14interval,never
+	14pattern0,0,0,stop,13
+
+	//closed eye. reset by reloading surface
+	15interval,never
+	15pattern0,1181,0,overlayfast,0,0
+}
+
+
+
+// -- COMPANION MODE --
+
+
+
+//Null. companion isn't shown by default
+
+surface10
+{
+	element0,overlay,surface9999.png,0,0
+}
+
+//Rigel
+
+surface11
+{
+element0,overlay,surface40.png,0,0
+
+//Blinking
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,4002,5,overlayfast,0,0
+	0pattern2,40021,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+
+//call smile
+
+	1interval,never
+	1pattern0,4001,0,overlayfast,0,0
+	
+	//stop smile
+	2interval,never
+	2pattern0,0,0,stop,1
+
+//call sweat up
+	3interval,never
+	3pattern0,4008,0,overlay,0,0
+
+//call sweat down
+	4interval,never
+	4pattern0,4009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,3-4
+//call blush
+	6interval,never
+	6pattern0,4010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+//call sigh
+	8interval,never
+	8pattern0,4011,0,overlay,0,0
+//stop sigh
+	9interval,never
+	9pattern0,0,0,stop,8
+//call mad
+	10interval,never
+	10pattern0,4012,30,overlay,0,0
+	10pattern1,40121,30,overlay,0,0
+	10pattern2,4012,30,overlay,0,0
+	10pattern3,40121,30,overlay,0,0	
+	10pattern4,4012,30,overlay,0,0
+	10pattern5,40121,30,overlay,0,0	
+	10pattern6,-1,200,overlay,0,0
+
+//shake?
+
+
+}
+
+//Surprise
+surface12
+{
+element0,overlay,surface40.png,0,0
+element1,overlay,surface4003.png,0,0
+
+
+//call sweat up
+	3interval,never
+	3pattern0,4008,0,overlay,0,0
+
+//call sweat down
+	4interval,never
+	4pattern0,4009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,3-4
+//call blush
+	6interval,never
+	6pattern0,4010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+
+}
+
+
+//Mad
+surface13
+{
+element0,overlay,surface40.png,0,0
+element1,overlay,surface4004.png,0,0
+
+
+//call sweat down
+	4interval,never
+	4pattern0,4009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,4
+//call blush
+	6interval,never
+	6pattern0,4010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+		//call mad
+	10interval,always
+	10pattern0,4012,30,overlay,0,0
+	10pattern1,40121,30,overlay,0,0
+}
+
+//Sad
+surface14
+{
+element0,overlay,surface40.png,0,0
+element1,overlay,surface4005.png,0,0
+
+
+//call sweat up
+	3interval,never
+	3pattern0,4008,0,overlay,0,0
+
+//call sweat down
+	4interval,never
+	4pattern0,4009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,3-4
+//call blush
+	6interval,never
+	6pattern0,4010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+	//call sigh
+	8interval,never
+	8pattern0,4011,0,overlay,0,0
+//stop sigh
+	9interval,never
+	9pattern0,0,0,stop,8
+}
+
+//Excited
+surface15
+{
+element0,overlay,surface40.png,0,0
+element1,overlay,surface4006.png,0,0
+
+//call blush
+	6interval,never
+	6pattern0,4010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+		//call sparkle
+	10interval,always
+	10pattern0,4013,30,overlay,0,0
+	10pattern1,40131,30,overlay,0,0
+}
+
+//Shy
+surface16
+{
+element0,overlay,surface40.png,0,0
+element1,overlay,surface4007.png,0,0
+
+
+//call sweat up
+	3interval,never
+	3pattern0,4008,0,overlay,0,0
+
+//call sweat down
+	4interval,never
+	4pattern0,4009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,3-4
+//call blush
+	6interval,never
+	6pattern0,4010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+}
+
+//Appear
+surface17
+{
+element1,overlay,surface9999.png,0,0
+
+	0interval,runonce
+	0pattern0,40,0,overlay,0,0
+	
+	1interval,runonce
+	1pattern0,4014,0,overlay,0,0
+	1pattern1,-1,30,overlay,0,0
+}
+
+//Disappear
+surface18
+{
+element1,overlay,surface9999.png,0,0
+
+	0interval,runonce
+	0pattern0,4014,0,overlay,0,0
+	0pattern1,-1,30,overlay,0,0
+}
+
+// Vega Companion - WATCH THE SURFACE NUMBERS
+
+surface30
+{
+element0,overlay,surface500.png,0,0
+
+//Blinking
+	0interval,random,6
+	0pattern0,-1,10,overlay,0,0
+	0pattern1,5002,5,overlayfast,0,0
+	0pattern2,50021,20,overlayfast,0,0
+	0pattern3,-1,10,overlay,0,0
+
+//wide eye
+
+	1interval,never
+	1pattern0,5001,0,overlayfast,0,0
+	
+	//wide eye
+	2interval,never
+	2pattern0,0,0,stop,1
+
+//call sweat up
+	3interval,never
+	3pattern0,5008,0,overlay,0,0
+
+//call sweat down
+	4interval,never
+	4pattern0,5009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,3-4
+//call blush
+	6interval,never
+	6pattern0,5010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+//call sigh
+	8interval,never
+	8pattern0,5011,0,overlay,0,0
+//stop sigh
+	9interval,never
+	9pattern0,0,0,stop,8
+//call mad
+	10interval,never
+	10pattern0,5012,30,overlay,0,0
+	10pattern1,50121,30,overlay,0,0
+	10pattern2,5012,30,overlay,0,0
+	10pattern3,50121,30,overlay,0,0	
+	10pattern4,5012,30,overlay,0,0
+	10pattern5,50121,30,overlay,0,0	
+	10pattern6,-1,200,overlay,0,0
+
+//furrow brow
+	11interval,never
+	11pattern0,5003,0,overlay,0,0
+//wrybrow
+	12interval,never
+	12pattern0,5004,0,overlay,0,0
+//stop brow
+	13interval,never
+	13pattern0,0,0,stop,11-12
+
+//target
+
+//target eye
+	14interval,never
+	14pattern0,5006,0,overlayfast,0,0
+	14pattern1,5005,30,overlayfast,0,0
+	14pattern2,5006,30,overlayfast,0,0
+	14pattern3,5005,30,overlayfast,0,0
+	14pattern4,5006,30,overlayfast,0,0
+	14pattern5,5005,30,overlayfast,0,0	
+	14pattern6,5006,30,overlayfast,0,0
+	14pattern7,5005,30,overlayfast,0,0
+	14pattern8,5006,30,overlayfast,0,0
+	14pattern9,5005,30,overlayfast,0,0
+	14pattern10,-1,200,overlay,0,0
+	
+	
+
+
+}
+
+
+//Mad
+surface31
+{
+element0,overlay,surface500.png,0,0
+element1,overlay,surface5003.png,0,0
+
+
+//call sweat down
+	4interval,never
+	4pattern0,5009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,4
+//call blush
+	6interval,never
+	6pattern0,5010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+		//call mad
+	10interval,always
+	10pattern0,5012,30,overlay,0,0
+	10pattern1,50121,30,overlay,0,0
+}
+
+//Sad
+surface32
+{
+element0,overlay,surface500.png,0,0
+element1,overlay,surface5002.png,0,0
+
+
+//call sweat up
+	3interval,never
+	3pattern0,5008,0,overlay,0,0
+
+//call sweat down
+	4interval,never
+	4pattern0,5009,0,overlay,0,0
+//stop sweat
+	5interval,never
+	5pattern0,0,0,stop,3-4
+//call blush
+	6interval,never
+	6pattern0,5010,0,overlay,0,0
+//stop blush
+	7interval,never
+	7pattern0,0,0,stop,6
+	//call sigh
+	8interval,never
+	8pattern0,5011,0,overlay,0,0
+//stop sigh
+	9interval,never
+	9pattern0,0,0,stop,8
+}
+
+
+//Appear
+surface33
+{
+element0,overlay,surface9999.png,0,0
+
+	0interval,runonce
+	0pattern0,500,0,overlay,0,0
+	
+	1interval,runonce
+	1pattern0,5014,0,overlay,0,0
+	1pattern1,500,30,overlay,0,0
+}
+
+//Disappear
+surface34
+{
+element0,overlay,surface9999.png,0,0
+
+	0interval,runonce
+	0pattern0,5014,0,overlay,0,0
+	0pattern1,-1,30,overlay,0,0
+}
+
+//apparently somehow the animations for message box got wiped. great lol....
+
+//message box show and wait
+//i've figured out how to make the gag work without breaking the dialogue running
+surface50
+{
+	element0,overlay,surface9999.png,0,0
+
+	collision0,337,6,355,24,Wait
+	collision1,258,97,346,130,Wait
+	
+	//show
+	0interval,runonce
+	0pattern0,6003,0,overlay,0,0
+	0pattern1,6002,1,overlay,0,0
+	0pattern2,6001,2,overlay,0,0
+	0pattern3,6000,3,overlay,0,0
+	
+	//click and hide
+	1interval,never
+	1pattern0,0,0,stop,0
+	1pattern1,6004,0,overlay,0,0
+	1pattern2,6001,30,overlay,0,0
+	1pattern3,6002,1,overlay,0,0
+	1pattern4,6003,2,overlay,0,0
+	1pattern5,-1,3,overlay,0,0
+}
+
+//message box idle
+surface51
+{	
+	element0,overlay,surface9999.png,0,0	
+
+	collision0,337,6,355,24,Close
+	collision1,258,97,346,130,OK
+
+	//display window. mostly because the Null surface doesn't match the size of the message sprite...
+	0interval,runonce
+	0pattern3,6000,0,overlay,0,0
+	
+	//click OK and hide
+	1interval,never
+	1pattern0,0,0,stop,0
+	1pattern1,6004,0,overlay,0,0
+	1pattern2,6001,30,overlay,0,0
+	1pattern3,6002,2,overlay,0,0
+	1pattern4,6003,3,overlay,0,0
+	1pattern5,-1,4,overlay,0,0
+
+	//click Close and hide	
+	2interval,never
+	2pattern0,0,0,stop,0
+	2pattern1,6000,0,overlay,0,0
+	2pattern2,6001,1,overlay,0,0
+	2pattern3,6002,2,overlay,0,0
+	2pattern4,6003,3,overlay,0,0
+	2pattern5,-1,4,overlay,0,0
+}
+
+//misc settings
+sakura.cursor 
+{ 
+mouseup0,Head,system:hand 
+mousedown0,Head,system:grip
+mouseup0,Face,system:finger
+mousedown0,Face,system:finger
+mouseup0,No,system:no
+mousedown0,No,system:no
+mouseup0,Menu,system:help
+mousedown0,Menu,system:help
+mouseup0,Wait,system:wait
+mousedown0,Wait,system:wait
+} 
+
+kero.cursor
+{
+mouseup0,Point,system:hand 
+mousedown0,Point,system:grip
+mouseup0,Face,system:finger
+mousedown0,Face,system:finger
+mouseup0,Move,system:move
+mousedown0,Move,system:move
+}
+
+char2.cursor
+{
+mouseup0,Wait,system:wait
+mousedown0,Wait,system:wait
+}
+
+
+sakura.surface.alias
+{
+rDef,[0]
+rNeu,[1]
+rShy,[2]
+rSup,[3]
+rSad,[4]
+rHap,[5]
+rMad,[6]
+rThi,[7]
+rExc,[8]
+shift,[9]
+vDef,[20]
+vSus,[21]
+vTilt,[22]
+vAway,[23]
+vThi,[24]
+vMad,[25]
+vHi,[26]
+vMid,[27]
+vLow,[28]
+}
+
+kero.surface.alias
+{
+null,[10]
+rDef,[11]
+rShy,[16]
+rSup,[12]
+rSad,[14]
+rMad,[13]
+rExc,[15]
+rShow,[17]
+rHide,[18]
+vDef,[30]
+vSad,[32]
+vMad,[31]
+vShow,[33]
+vHide,[34]
+}
+
+//collision and bobbing for companions
+surface.append11-16,30-33
+{
+	collision0,56,95,153,158,Face
+	collision2,156,55,208,170,Move
+
+	50interval,always
+	50pattern0,0,20,move,0,0
+	50pattern1,0,20,move,0,3
+	50pattern2,0,20,move,0,6
+	50pattern3,0,20,move,0,6
+	50pattern4,0,20,move,0,3
+	50pattern5,0,20,move,0,0
+	
+
+} 
+
+//rigel is a very nervous boy
+surface.append0-8,11-19
+{
+		//vibrate in place
+	60interval,always
+	60pattern0,0,3,move,-1,1
+	60pattern1,0,3,move,2,-2
+	60pattern2,0,3,move,-1,2
+	60pattern3,0,3,move,0,-1
+	
+	61interval,runonce
+	61pattern0,0,0,stop,60
+	
+	62interval,never
+	62pattern0,0,0,start,60	
+}
+
+surface.append0-8,19,20-25
+{
+	collision10,151,146,301,268,Menu
+}

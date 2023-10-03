@@ -1,0 +1,39 @@
+//---------------------------Miscellaneous Functions... 2!!--------------------------
+
+//the file is getting too long...
+
+//most SHIORI event responses that weren't in etc.dic since template will go here
+
+//OnBasewareUpdating
+
+//OnBasewareUpdated
+
+//OnCPULoadHigh
+
+//OnCPULoadLow
+
+//OnMemoryLoadHigh
+
+//OnMemoryLoadLow
+
+//OnDisplayHandover
+
+//OnDeviceArrival
+
+//OnDeviceRemove
+
+//OnDarkTheme
+
+OnDarkTheme
+{
+    // if ( reference0 == 0 || reference1 == 0 ) &&  //either apps or system colors are turned light
+    // {
+
+    // }
+    "%(reference0); %(reference1)"
+}
+
+OnConfigurationDialogHelp //sincerely doubt anyone would use this, but just for funsies
+{
+    "%(reference0);\n[150]%(reference1);\n[150]%(reference2)\e" //testing
+}

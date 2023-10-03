@@ -1,0 +1,472 @@
+﻿//---------------------------AI Talk--------------------------
+//Leaving AI talk mechanics here
+//Actual dialogue (or most of it) moved to chatter.dic
+
+
+OnAiTalk
+ {
+	//if strokecount > 3 || ( pokecount > 10 && vegafront > 0 ) || ( pokecount > 15 && vegafront == 0 ) 
+	if BotherCondition  //character is hidden or too bothered
+	{
+		"\e" //if aster is bothered enough, skip section entirely until the counters reset
+	}
+	else
+	{
+		//gonna inject my random talk routine here
+		//well that was easy
+		if talkraterand == 1
+		{
+			//idk making them speak willingly at different rates feels In Character
+			if vegafront == 0 //rigel
+			{
+				case RAND(6)
+				{
+					when 0; aitalkinterval = 30 //30 seconds
+					when 1; aitalkinterval = 60 //one minute
+					when 2; aitalkinterval = 120 //two minutes
+					when 3; aitalkinterval = 180 //three minutes
+					when 4; aitalkinterval = 240 //four minutes
+					when 5; aitalkinterval = 300 //five minutes
+				}
+			}
+			else //vega
+			{
+				case RAND(6)
+				{
+					when 0; aitalkinterval = 90 //1.5 min
+					when 1; aitalkinterval = 170 //2 min 50 sec
+					when 2; aitalkinterval = 230 //3 min 50 sec
+					when 3; aitalkinterval = 290 //4 min 50 sec
+					when 4; aitalkinterval = 350 //5 min 50 sec
+					when 5; aitalkinterval = 400 //6 min 40 sec
+				}
+			}
+		}
+		--
+		if RAND(100) < communicateratio //no idea what this is?
+		{
+			StartCommunicate
+		}
+		else
+		{
+			//"\1\5" //moves side character next to main one. it'll make a small pause before aster speaks, but it'll prevent situations where kero is on the other side of the screen
+			//in etc.dic
+			--
+			if mikireflag == 0
+			{
+				if CHAIN.IDName == "" {
+					lastTalk = RandomTalk
+				}
+				else {
+					lastTalk = ChainTalk
+				}
+				lastTalk
+			}
+			else
+			{ 
+			MikireTalk //offscreen/overlap talk. strangely seems to only refer to sakura. you can make kero respond through OnOffscreen but i can't get it to consistenlty get it to do what i want
+			}
+		}
+	}
+ }
+
+RandomTalk //pick a pool for random chatting depending on stage, who's fronting, and some conditions to proceed between stages
+{	
+	if vegafront == 0 //rigel in front
+	{	
+		if windowCheck =="ON" && RAND(100) > 90; "%(altairwindowcheck)\e" //window commentary
+		elseif careCheck == "ON" && RAND(100) > 70; "%(altairselfcare)\e" //selfcare chatter		
+		else//everything else!
+		{	
+		case stage
+			{
+				when 0	//intro
+				{
+					if talkedStagezero[4] == 1 && talkcount > 9  && stageTime > 1799 //'secret' tranistion to stage one: covered the coversations, said more than 9 random things, and has lasted at least half an hour
+					{
+						"\0\s[1]Hey,\w8 %(username)..?\x"
+						--
+						altaironestart
+					}
+					else; altairzerotalk
+				}
+				when 1 //real aster(?)
+				{
+					if talkedStageone[1] == 1 && talkedStageone[3] == 1 && talkcount > 9 && stageTime > 1799 //30 minutes runtime on stage 1, covered topics up to CaelOS, said 10 random lines
+					{
+						if talkedStageone[4] == 0; "\0\s[1]Um... %(username)?\w8\s[0]\i[5] Do you have a moment?\x\![raise,OnConvoCaelos]" //if i called the function separately it would just. load up the entire thing and mark the flag as conversation read. agony.
+						else; altaironetalk					
+					}
+					else; altaironetalk				
+				}
+				when 3; altairthreetalk	
+				others; "\0\s[0]This shouldn't be available yet. Come back soon!\e" //okay don't forget it's OTHERS not OTHER
+			}
+		}
+	}
+	else //vega in front
+	{
+		vegastretch = 0
+		--
+		if windowCheck =="ON" && RAND(100) > 90; "%(vegawindowcheck)\e" //window commentary
+		elseif careCheck == "ON" && RAND(100) > 85; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty
+		else //everything else!
+		{	
+		case stage
+		{
+			when 2 //a different aster
+			{
+				if stageTime > 2700 && talkcount > 9 && talkedStagetwo[7] == 1; vegathreestart // 45 minutes, 29 lines, topics covered
+				else; vegatwotalk
+			}
+			when 3; vegathreetalk
+			others;	"\0\s[20]\b[4]Not ready yet. Maybe soon.\e"
+		}
+		}
+	}
+	--
+	talkcount++
+	stageTime += aitalkinterval //how much time has passed between the start of the stage. kind of.
+}
+
+//Keeps track of if an hour has passed. Just ignore this.
+HourCheck
+{
+if passmin >= 59
+	{
+		passmin = 0
+		passhour = passhour + 1
+	}
+}
+
+
+OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
+ {
+	//BotherCheck //reset pet/poke counters and unfluster/unhide character
+	--
+	HourCheck //checks to see if an hour has passed, ignore it
+	--	
+	//Don't touch this part.
+	//ok fair this is useful code
+	if mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+ }
+
+//--OnSecondChange
+//Like the above, this handles what happens every time a second goes by. Most of this you will not have to touch.
+
+OnSecondChange
+ {	
+	BotherCheck
+	--
+	if passsec == 59
+ 		{
+	 	passsec = 0
+ 		passmin = passmin + 1
+		}
+ 	else
+ 		{
+	 	passsec = passsec + 1
+		}
+	if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted (Like "Hey! What are you doing?"), and have MikireTalk below be for if they continue to be offscreen ("Why are you leaving me out here? Help!" for example). I'll add an example bit of dialogue and comment it out, you can uncomment it and use it if you like, or just leave it out and use MikireTalk below.
+	{
+		if stuck != 1
+		{
+			stuck = 1
+			case vegafront
+			{
+				when 0; "\0\s[3]Hey,\w0 \0\s[3]\i[62]hey now,\w0 \0\s[3]you-\w3\n[150]\0\s[2]You've \0\s[6]kind of \0\s[0]\i[5]\i[8]shoved me through the screen boundaries there,\w8 \0\s[2]could you,\w8 um...\w8\w5 \0\s[0]\i[5]Not do that?"
+				others; "\0\s[25]Um."
+			}
+		}
+		else; MikireTalk
+	}
+	if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
+	{
+		EndMikireTalk
+	}
+	mikireflag = reference1 //reference1 is if the ghost is offscreen or not
+	if reference2 == 1; "\1\4\e" //no need to prompt dialogue, the character isn't visible normally.
+ }
+
+ //---- MikireTalk ---------------------------------------------------------------------
+ //MikireTalk is dialogue for when your main character is off-screen. Like if you dragged Girl over to the side of your monitor until she was partially concealed by it.
+ 
+MikireTalk //this is honestly interesting because the sakurascript docs mention OnOverlap shiori events. was this made before such functions were implemented? i could in theory remove this code and try replacing it with the response to the event, but. as they say: don't fix what aint broke.
+ {
+	case vegafront
+	{
+		when 0 //rigel pleads with user to get him back
+		{
+			"\0\s[0]\i[5]Hey,\w8 um,\w8 a little uncomfortable here..."
+			"\0\s[2]%(username)?\w8 Could you...\w8\0\s[0]\i[5] bring me back?\w8 Please?"
+			"\0\s[4]\i[1]%(username)...?\w8 Are you there?"
+			"\0\s[0]\i[5]\i[8]Hey,\w8 if-\w8 um...\w8 If it's not too hard,\w8 could you at least press Ctrl-Shift-F12 for me?\w8\n[150]Up to you,\w8 of course,\w8 you're the boss!\w8\n[150]But I would really appreciate if you did that!"
+		} 
+		others //vega just gets himself out
+		{
+			stuck = 0
+			"\0\s[25]...Cramped.\w8\w8 \0\s[20]I'll fix that.\0\![move,--X=-461,--Y=-461,--base=screen,--base-offset=right.bottom]\1\![moveasync,--X=-350,--Y=-0,--base=0,--base-offset=center.center,--move-offset=center.center,--option=ignore-sticky-window]"
+		} 
+	}
+	--
+	"\e"
+	//maybe rigel needs more responses? while vega removes himself from below rigel could plead with the user before moving himself anyway. the dialogue runs every second, it could get annoying really fast
+ }
+
+ //----EndMikireTalk--------------------------------------------------------------------
+ //For after you bring the character back on screen.
+ 
+EndMikireTalk
+ {
+	stuck = 0
+	if vegafront == 0; "\0\s[8]Oh!\w8 \0\s[0]There,\w8 thank you." //vega fixes himself without asking you, so only rigel has dialogue
+ }
+
+OnSurfaceRestore //ngl im not sure what exactly defines how long does it take until sufrace restores but
+ {
+	if BotherCondition
+	{
+		"\e" //interrupt surface restore if too flustered
+	}
+	--
+	if vegafront == 0 //rigel fronting
+	{
+		"\0\s[0]\1\s[10]\e"
+	}
+	else //vega fronting
+	{
+		case vegastretch //what position was vega in after last talking?
+		{
+		when 0; "\0\s[20]" //standing up
+		when 1 //elbowstand with his legs up
+		{
+			"\0\s[26]"
+			"\0\s[26]\i[12]"
+			"\0\s[26]\i[0]"
+			"\0\s[26]\i[0]\i[12]"
+
+		}  
+		when 2 //cheststand with legs on the ground
+		{
+			"\0\s[27]"
+			"\0\s[27]\i[15]"
+			"\0\s[27]\i[15]\i[0]"
+			"\0\s[27]\i[0]"
+		}  
+		when 3 //completely curled up
+		{
+			"\0\s[28]"
+			"\0\s[28]\i[0]"
+			"\0\s[28]\i[15]"
+			"\0\s[28]\i[15]\i[0]"
+		}  
+		}
+		--
+		"\1\s[10]\e"
+	}
+ }
+
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+	OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+	OnLastTalk
+	}
+	elseif reference0 == "f1"
+	{
+	"\![open,readme]"
+	}
+	elseif reference0 == "d"
+	{
+	"\![open,developer]"
+	}
+	// elseif reference0 == "q"
+	// {
+	// 	"\0\s[1]I see there is a Task Manager utility here...\w8 \s[0]\i[5]\i[8]What is a Task though,\w8 exactly?\w8\n[150]"
+	// 	--
+	// 	if I == "I"; "We-\w8\0\s[3]\c[char,3]\n[150]I\w8\s[0]\i[5]\i[8]" 
+	// 	else; "We"
+	// 	--
+	// 	" know of processes,\w8 and those seem to exist too.\e:chain=ch_task"
+	// }
+}
+
+OnSwitch //Switch between Rigel and Vega
+{
+	lastTalk = ""; //wipe last said thing, in case it contains pre-switch line and breaks things
+	switching = 1 //flag for OnBallonChange
+	case vegafront //who's in front?
+	{
+		SwapMenuColors	//is in bootend.dic
+		--
+		when 0 //rigel to vega
+		{
+			vegafront = 1
+			"\1\s[10]\0\s[9]\i[1]\w8\w8\w8\w8%(FadeOut)\w8\w8\w8\s[20]\![reload,shell]"
+			--
+			if balloonCheck == "ON"; "\![change,balloon,Aster Tooltip (Side B)]" //if default balloons are forced, change balloon
+			else; "\![raise,OnBalloonChange]" //if not, call the event as if the balloons were just swapped anyway, i'm not copying all that code
+		}
+		others //vega to rigel
+		{
+			vegafront = 0
+			"\1\s[10]\0\s[9]\i[0]\w8\w8\w8\w8%(FadeOut)\w8\w8\w8\s[0]\![reload,shell]"
+			--
+			if balloonCheck == "ON"; "\![change,balloon,Aster Tooltip (Side A)]"
+			else; "\![raise,OnBalloonChange]"
+		}
+	}
+}
+
+OnBalloonChange //i couldn't find a better way to make them speak right after the switch
+{
+	if switching == 1 //balloon changed as result of a switch
+	{
+		switching = 0
+		--
+		FadeIn
+		--
+		if vegafront == 1 && stage == 2 && vegamet != 1 //okay so this worked. ideally this should play ONLY ONCE when stage 2 starts. vega begins fronting, the balloon changes, and he begins to speak
+		{
+			"\b[\0\s[20]Hello again.\w8\w8 I am Aster.\w8\w8 \0\s[22]Call me Vega.\w8\w8 \0\s[22]\i[1]I do what Rigel can't.\w8\w8\n[150]\1\t\s[17]\w8\1\s[12]\i[62]...Really?\w8 \1\s[13]I already told %(himher) what we do!\w8\w8\n[150]\0\s[20]\i[1]Rest.\w8\w8\1\s[14]Fine...\w8\w8\w8\1\s[18]"
+			--
+			"\![leave,passivemode]\e"
+			vegamet = 1 //so that this doesn't get triggered if the bubble is switched during stage 2
+		}
+		elseif vegafront == 0 && stage == 2 //we've switched to rigel from vegathreestart
+		{
+			"\0\s[5]Hi again!\w8\n[150]Nice to see you!\w8\x\0\s[8]By the way,\w8 %(username),\w8 \0\s[0]if you ever need either of us,\w8 you can just ask!\w8\n[150]\0\s[5]I've added an option to the menu for you.\x"
+			--
+			stage = 3 //now we're at stage 3 and this dialogue shouldn't run again
+			"\![leave,passivemode]\e"
+			--
+			//"\![raise,OnSwitch]" //switch back for debug purposes
+		}
+		elseif switchManual == 1 //user asked aster to swap, or rigel and vega agreed to swap. the option to switch is only available during switch 3 
+		{
+			switchManual = 0 //so that the "accidental" switches have different dialogue
+			case vegafront
+			{
+				when 0;"%(altairbootgen)"
+				others;"%(vegabootgen)"
+			}
+		}
+		else //it's stage 3 (there's no switching during 1 and intro) and the switch happened due to an event or a random line
+		{
+			case vegafront
+			{
+				when 0
+				{
+					"\0\s[3]Oh?\w8 \0\s[0]\i[5]\i[8]Wait,\w8 did \i[62]something happen\i[61]?\w8\n[150]I guess I'm here now!"
+					"\0\s[3]\i[5]Huh?\w8 \0\s[3]Oh,\w8 \0\s[0]hi,\w8 %(username)!\w8\n[150]\0\s[19]Did you call for me...? \w8\w8\w8\0\s[0]\i[5]\i[8]No...?"
+					"\0\s[3]\i[5]\i[62]Whoa!\i[61]\w8\n[150]\0\s[3]Well,\w8 \0\s[0]\i[5]I'm here now!\w8 Hi!"
+					{
+						"%(altairbootgen)\n[150]\w8\0\s[3]"
+						--
+						"...Hey,\w8 wait a minute,\w8 \0\s[0]\i[5]wasn't Vega in charge...?"
+						"W-\w8 wait a second,\w8 \0\s[0]\i[5]\i[8]did we switch?"
+						"...Did somehting happen?\w8 \0\s[7]\i[5]I can't quite recall..."
+						"...Wait.\w8 \0\s[1]Um.\w8 \0\s[2]Nevermind.\w8\w8\0\s[0]"
+					}
+				}
+				others
+				{
+					{
+						"%(vegabootgen)\w8\w8\n[150]"
+						--
+						"\0\s[20]\i[8]...Hang on."
+						"\0\s[20]\i[10]\i[7]...Dizzy."
+						"\0\s[21]\i[12]...Did we switch?\w8\w8 \0\s[24]Can't rememeber."
+						"\0\s[21]\i[12]...What happened?"
+						"\0\s[20]\i[10]\i[7]...Why am I dizzy?"
+					}
+					"\0\s[21]\i[8]Huh...?\w8\w8 \0\s[20]\i[8]Hello..."
+					"\0\s[22]\i[8]Mm..?\w8\w8 %(username)?\w8\w8 \0\s[20]\i[8]I was napping..."
+					"\0\s[22]\i[10]What happened...?\w8\w8 \0\s[21]I'm back...?"
+					"\0\s[21]...Well.\w8\w8 \0\s[20]Okay.\w8\w8 %(vegabootgen)"
+				}
+			}
+		}
+	}
+	else //not caused by switch, meaning this is a real balloon change
+	{
+		if balloonCheckChange == 1 //forcing the balloon back from permissions
+		{
+			balloonCheckChange = 0
+			case vegafront
+			{
+				when 0; "\0\s[0]There we go!\w8 \0\s[8]Back to my favorite colors!"
+				others; "\0\s[20]\i[1]Back to normal.\w8\w8 \0\s[20]\i[1]Hello,\w8 world."
+			}
+			--
+			"\x"
+			--
+			PermissionMenu
+		}
+		case vegafront
+		{
+			when 0; "\0\s[8]Okay!\w8 Testing!\w8 \0\s[0]Hello,\w8 %(reference0) balloon!"
+			others; "\0\s[20]\i[1]Hello,\w8 world.\w8\w8 \0\s[20]Testing."
+		}	
+		--
+		"\e"
+	}
+}
+
+FadeOut //hide character
+{
+	hidden = 1
+	"\t\![set,alpha,90]\w1\![set,alpha,80]\w1\![set,alpha,70]\w1\![set,alpha,50]\w1\![set,alpha,30]\w1\![set,alpha,10]\w1\![set,alpha,0]"
+}
+
+FadeIn //return character
+{
+	hidden = 0
+	"\t\![set,alpha,20]\w1\![set,alpha,50]\w1\![set,alpha,90]\w1\![set,alpha,100]\w8\w8"
+}
+
+//resets flustered progression from cursor stroking
+//dialogue in chatter
+BotherCheck //this was reworked to tie into OnSecondChange from just OnSurfaceRestore because my poor betareader/tester found out you can make him stuck...
+//this is also inspired by the Slightly different petting code in mouse.dic
+{	
+	_bother_interval = systemuptime - bother_prev //calculate difference between current system time and last time you petted or poked aster
+	if _bother_interval > 30 //if it's been 30 seconds
+	{	
+		if BotherCondition //aster is bothered one way or another
+		{
+			if hidden == 1; FadeIn //if character was hidden out of being flustered return them
+			--
+			if strokecount > 4 //if stroked enough, unfluster
+			{
+				case vegafront //respective dialogue for unflustering in chatter
+				{
+					when 0;altairlovereset
+					others;vegalovereset
+				}
+				--
+				pokecount = 0 //reset 'offending' counters (lol)
+				strokecount = 0
+				OnSurfaceRestore //force surface restore, now that we've reset the condition to 0 it should work
+			}
+		}
+		else //whether aster was too bothered or not, reset the counters to 0
+		{
+			pokecount = 0
+			strokecount = 0 
+		}
+		//OnSurfaceRestore
+	}
+}
+
+BotherCondition //is the character is hidden from too much poking or or too flustered from stroking
+{
+	hidden == 1 || ( strokecount > 4 && vegafront == 0 ) || (strokecount > 7 && vegafront > 0)
+}

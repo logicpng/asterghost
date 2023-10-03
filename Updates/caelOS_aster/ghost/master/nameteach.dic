@@ -1,0 +1,172 @@
+﻿//---------------------------The User's Name--------------------------
+//This .dic file has to do with setting the user's name and suffix/prefix. You may recall some of the functions mentioned here from bootend.dic. As you can see, you can spread functions across multiple .dic files if you like! Just remember my note in bootend.dic about the different between OnFunction and Function.
+
+//This file is fairly short, so don't worry! It shouldn't take you too long to finish.
+
+//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
+
+
+//--OnTeachName
+//This is called from the config menu in the main character's double click menu when the user says they want to change their name. If you look in menu.dic you'll see the code leading to here.
+
+// OnTeachName	
+// {
+// 	if reference0 == "TEACHNAME" //ignore this
+// 		{
+// 		"\0\s[0]Certainly!\w8 What would you like me to call you instead?\![open,inputbox,OnNameTeach,-1]\e"
+// 		//This is the bit of dialogue you can rewrite if you want. Note that this line ends with \![open,inputbox,OnNameTeach,-1]. You may recognize this from bootend.dic. Essentially, this will lead to the next function. Make sure you don't delete that tag! The rest you can do whatever with though.
+// 		}
+// 	else
+// 		{
+// 		//This else statement is empty, and I'm mostly pointing this out to mention that you can do this too with your if/elses if you want! An empty else will simply cause your ghost not to do anything. I wouldn't get too crazy with this though.
+// 		}
+// }
+
+
+//--OnNameTeach
+//This is where the user inputs their name and the ghost analyzes it. If you want your ghost to have specific responses to certain names, this is where you would add them.
+
+OnNameTeach
+{
+	tempname = reference0 //this stores the name value from reference0 in tempname
+	//was tempted to make this local, but then this makes it unavailable in the rest of the code.
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+	
+	//Those extra TOLOWER/REPLACE things up there basically clean up the user's input so you don't have to check for Girl, GIRL, girl, GiRl, etc. It'll make it much easier to check for any specific name, since you won't have to account for any edge cases. Note that the names you will be checking for should be in all lowercase, however.
+	
+	//this still needs to be accounted for
+
+	if reference0 == "rigel"
+	{
+		case vegafront
+		{
+			when 0
+			{
+				if stage == 0 || stage == 1; "\0\s[0]\i[5]Oh?\w8 ...\i[62]Interesting\i[61] name!\w8\n[150]\0\s[0]\f[color,#C94948]%(tempname)\f[color,default],\w8 then.\w8 Is that okay?"
+				else; "\0\s[19]Is that really your name,\w8 now?\n[150]\w8\0\s[0]I'd be surprised if it was!\w8 \0\s[2]I would love to have a human namesake!\w8\n[150]\0\s[0]So,\w8 \f[color,#C94948]%(tempname)\f[color,default]?"
+			}
+			others; "\0\s[20]\i[1]\1\t\s[17]!\1\s[12]\w8\w8 Really?\w8\n[150]Are we \i[62]really\i[61] namesakes??\w8\w8\0Funny.\w8\w8 \0\s[22]\i[1]Okay,\w8 \1\s[18]\0\f[color,#C94948]%(tempname)\f[color,default].\w8\w8\n[150]Save it?"
+		}
+	}
+	elseif reference0 == "vega" 
+	{
+		case vegafront
+		{
+			when 0
+			{
+				if stage == 0 || stage == 1; "\0\s[0]\i[5]Oh?\w8 ...\i[62]Interesting\i[61] name!\w8\n[150]\0\s[0]\f[color,#C94948]%(tempname)\f[color,default],\w8 then.\w8 Is that okay?"
+				else; "\0\s[19]\f[color,#C94948]%(tempname)\f[color,default],\w8 huh?\w8\w8\0\s[0]\n[150]\1\t\s[33]\w3\1\s[30]\i[11]Funny.\w8\w8\n[150]What a coincidence.\w8\w8\n[150]\0\0\s[0]\i[5]Aw,\w8 it's not like %(heshe) can tell you if they're just joking.\w8\n[150]\0\s[7]Unless,\w8 \0\s[5]you want to keep the name?"
+			}
+			others; "\0\s[20]\i[1]Sure you are.\w8\w8 Fellow \f[color,#C94948]%(tempname)\f[color,default].\w8\w8\n[150]\0\s[20]Are you certain?"
+		}	
+	}
+	elseif reference0 == "altair" 
+	{
+		case vegafront
+		{
+			when 0
+			{
+				if stage == 0 || stage == 1; "\0\s[0]\i[5]Oh?\w8 ...\i[62]Interesting\i[61] name!\w8\n[150]\0\s[0]\f[color,#C94948]%(tempname)\f[color,default],\w8 then.\w8 Is that okay?"
+				else; "\0\s[0]\i[8]...You can keep it.\w8\n[150]\i[6]Unless you're just trying to remind me of it as a joke!\w8 In which case:\w8 mean,\w8 \i[62]very\i[61] mean!\w8\n[150]\0\s[0]Well,\w8 want to keep it?"
+			}
+			others; "\0\s[20]\i[1]Hear that,\w8 Rigel?\w8\w8\n[150]\1\t\s[11]\w3\1\s[14]...%(OnCapitalize(heshe)) can keep it.\w8\w8\0Do you\1\s[18]\0 want to?"
+		}
+	}
+	elseif reference0 == "al" || reference0 == "aldebaran" || reference0 == "aldie" 
+	{
+		case vegafront
+		{
+			when 0; "\0\s[0]\i[5]Is that so...?\n[150]\w8\0\s[7]I feel like I've heard that name,\w8 somehow!\w8 Maybe we've met before?\w8\n[150]\0\s[0]\i[5]\i[8]...What am I saying,\w8 now.\w8 \0\s[0]Save the name?"
+			others; "\0\s[23]...Familiar.\w8\w8\n[150]Strange.\w8\w8 \0\s[24]Can't remember.\w8\w8\n[150]\0\s[20]Save?"
+		}
+	}
+	elseif reference0 == "aster" 
+	{
+		case vegafront
+		{
+			when 0
+			{
+				if stage == 0 || stage == 1; "\0\s[5]Aha!\w8 Hello,\w8 fellow \f[color,#C94948]%(tempname)\f[color,default].\w8\n[150]\0\s[0]Is that right?"
+				else; "\0\s[19]Maybe it's not such an uncommon name for a human,\w8 after all.\w8\n[150]\0\s[8]Besides,\w8 I'd love a namesake,\w8 besides Vega.\w8 It would make the three of us!\w8\n[150]\0\s[0]Well,\w8 save it?"
+			}
+			others; "\0\s[20]\i[1]Funny.\w8\w8\n[150]...Very well,\w8 \f[color,#C94948]%(tempname)\f[color,default].\w8\w8 Save it?"
+		}	
+	}
+	elseif "urs" _in_ reference0 || "norma" _in_ reference0 
+	{
+		case vegafront
+		{
+			when 0
+			{
+				if stage == 0; "\0\s[3]\f[color,#C94948]%(tempname)\f[color,default]?\w8\w8\n[150]\0\s[1]Have we...\w8 \0\s[0]\i[5]met before...?\w8\x\0\s[0]\i[5]No.\w8 \i[8]\i[62]Ah-\i[61]\w8 Of \i[62]course\i[61] not,\w8 I would know,\w8 how weird of me!\w8\n[150]\0\s[4]\i[1]Um.\w8 \0\s[0]\i[5]Well.\w8 \0\s[0]Save the chosen name?"
+				else; "\0\s[7]\f[color,#C94948]%(tempname)\f[color,default]...\w8\n[150]Y'know,\w8 \0\s[4]\i[1]I feel like I've known someone going by that name.\w8 \0\s[0]\i[5]It's very vague,\w8 maybe I'm just imagining things...\w8\n[150]\0\s[19]How strange would it be for an AI to have déja vu?\w8\n[150]\0\s[2]Anyway...\w8 \0\s[0]is this correct?"
+			}
+			others; "\0\s[23]\f[color,#C94948]%(tempname)\f[color,default]...\w8\w8\n[150]\0\s[21]\i[12]Are you...\w8\w8 certain?"
+		}
+	}
+	elseif reference0 == "ts" 
+	{
+		case vegafront
+		{
+			when 0
+			{
+				if stage == 0; "\0\s[0]\i[5]Oh?\w8 ...\i[62]Interesting\i[61] name!\w8\n[150]\0\s[0]\f[color,#C94948]%(tempname)\f[color,default],\w8 then.\w8 Is that okay?"
+				else; "\0\s[1]...Y'know,\w8 I've seen those initials in the readme file too.\w8\n[150]\0\s[0]\i[5]I'm just as lost as you must be...\w8\n[150]\0\s[4]\i[1]They would be...\w8 very helpful,\w8 in helping finding out how we got here...\w8\xSo?\w8 \0\s[1]Is that really your name?"
+			}
+			others; "\0\s[21]...Is that so?\w8\w8 \0\s[25]We have questions.\w8\w8\n[150]\0\s[25]\i[10]Many.\w8\w8 Questions.\x...\0\s[25]But,\w8\w8 \0\s[20]\i[7]could be coincidence.\w8\w8 \0\s[20]Save it?"
+		}
+	}
+	elseif reference0 == "" //This is if the user doesn't put in a name at all, since that'd also get awkward in dialogue.
+	{
+		tempname = "User" //this sets the user's name to USER.
+		
+		case vegafront
+		{
+			when 0; "\0\s[1]...Don't want to put in a name?\w8 \0\s[0]\i[5]Well,\w8\0\s[0] I get that.\w8\n[150]In that case,\w8 I'll just refer to you as \f[color,#C94948]User\f[color,default],\w8 \0\s[0]\i[5]if you want?"
+			others; "\0\s[22]...\i[7]?\w8\w8 Well.\w8\w8 \0\s[20]\i[8]Fine.\w8\w8\n[150]\f[color,#C94948]User\f[color,default],\w8 then?"
+		}
+	}
+	else 
+	{
+		case vegafront
+		{
+			when 0; "\0\s[0]So, \w8your name is \f[color,#C94948]%(tempname)\f[color,default].\w8\n[150]Is that correct?"
+			others; "\0\s[20]\i[10]...\f[color,#C94948]%(tempname)\f[color,default].\w8\w8\n[150]\0\s[20]Save it?"
+		}
+		
+	}
+	--
+	"\n[150]\w5\_q\![*]\q[Yes!,named]\n/
+	\![*]\q[No,nameagain]\e"
+}
+	Select.named
+{
+	NameDone
+}
+
+Select.nameagain
+{
+	NameInput
+}
+//--NameDone
+//This is the final bit of dialogue your ghosts will have when the user changes their name. There is a special section here for when the user first boots the ghost.
+
+NameDone
+{
+	username = tempname
+	ERASEVAR( "tempname" ) //we don't really need the temporary name variable past the naming sequence so. hoping it doesnt break the code. yaya is weirdly fragile
+	if firstsetup == 0 //name is the final stage in the template but over here it's the first
+	{
+		OnPronounTeach
+	}
+	else
+	{
+		TalkConfig //if we didn't get here from first setup, we must have gotten here from the configuration menu
+	}
+}
+

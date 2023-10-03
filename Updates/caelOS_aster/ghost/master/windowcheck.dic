@@ -1,0 +1,162 @@
+// ----------- window watch ------------
+// this code makes Aster look through windows, check if certain programs are running,
+// and if the program hasn't been running since Aster was launched, they'll make a comment on it
+// code requires window_info.dll saori!
+// 
+// directly based on and inspired by the code snippet from YAYA Fundamentals
+// specifically the SAORI-universal page
+// https://github.com/Zichqec/YAYA_Fundamentals/blob/main/module_09_saori/01_saori-universal.md
+
+// we give the user an option to OPT IN during transition to stage 1 through Permissions menu
+// my dumb ass wanted to make this check work in real time. honestly looking at the process table would be more accurate. however i didn't really find something that wouldn't make aster freeze when the script actually does so
+
+//so, we refer here from OnSecondChange...
+// OnWindowCheck
+// {
+//     if windowCheck == "ON"
+//     {
+//         WindowLookup
+//     }
+// }
+
+// WindowLookup
+// {
+//     void FUNCTIONEX("window_info.dll","enum") //we mostly just need this to execute the saori
+// 	_open_windows = valueex //what we'll actually need, the resulting valueex with opened windows
+
+//     //next, let's initialize the flags for program groups
+//     //and also lists of titles for each group
+//     _MUSIC = 0	
+//     _musicList = "AIMP,Spotify,iTunes,Windows Media Player,foobar2000" //there's more, i'll look at wikipedia later
+//     _BROWSER = 0 //browser check
+//     _browserList = "Internet Explorer,Firefox,Opera,Chrome,Chromium,Vivaldi,Microsoft Edge,Yandex Browser"
+//     //_BROWSER, _WORD, _EXCEL, _GAME, _CHAT, _ART etc etc etc
+
+//     //check if the specified words exist within the window list
+//     //there's a small caveat of seeing things in browsers however, the title of the page could contain them
+// 	foreach _open_windows; _window
+// 	{
+//         foreach _musicList; _player
+//         {
+//             foreach _browserList; _brows
+//             {
+// 		        if _player _in_ _window && _brows !_in_ _window;  _MUSIC = 1 //There will be more variable checks
+//             }//is this good code?? god i have no idea
+//         }
+// 	}
+
+//     //pass on our check results to the counter
+//     //the counter is separate so that we can tell the State of the window
+//     --
+//     if _MUSIC != 0
+//     {
+//         Music++ //add to the counter we initialized at the start of the ghost
+//                 //it will convey the current Status
+//                 //0 - no windows; 1 - window has Started; 2-9 - window is Running continuously
+//         if Music > 9
+//         {
+//             Music = 2 //just to ensure no overflow. just to be safe
+//         }
+//     }
+//     else // _MUSIC == 0
+//     {
+//         Music = 0
+//     }
+
+// 	--
+//     //Since we're running the code every three second Aster could also attempt to respond to Every Successful Check upon being booted
+//     //we're going to check if Aster has been running for more than 10 seconds before we allow them to comment on software
+
+//     //startTime initialized in OnInitBoot
+//     _currTime = GETTICKCOUNT() //get current ms count since os start
+//     _ghostTime = _currTime - startTime //how long has our ghost been running?
+	
+//     if _ghostTime > 10000
+//     {
+//         if Music == 1 && MusicDone == 0
+// 	    {
+//             case vegafront
+//             {
+//                 when 0
+//                 {
+//                 "\0\s[0]Ooh!\w8 What are we listening to today?\e"
+//                 "\0\s[8]Ooh,\w8 in the mood for something?\e"
+//                 "\0\s[8]Good timing!\w8 I'm in the mood for something nice in the background too!\e"
+//                 }
+//                 others
+//                 {  
+//                 //i need to get a hang of vega's surfaces first
+//                 }
+//             }		
+//             --
+//             MusicDone = 1 //one comment for ghost runtime is fine. it'll reset the next boot per OnInitBoot
+// 	    }
+//     }
+// 	//otherwise nothing should happen
+//     //if it does. well. we'll figure it out
+// }
+
+// //works regardless of regular checkup being on. needs for browser launching through menu
+// OnBrowserCheck
+// {
+//     void FUNCTIONEX("window_info.dll","enum")
+//     _open_windows = valueex
+
+//     _BROWSER = 0 //browser check
+//     _browserList = "Internet Explorer,Firefox,Opera,Chrome,Chromium,Vivaldi,Edge,Yandex"
+
+//     foreach _open_windows; _window
+// 	{
+//         foreach _browserList; _brows
+//         {
+//             if _brows _in_ _window;  _BROWSER = 1 //There will be more variable checks
+//             appName = _brows
+//         }//is this good code?? god i have no idea
+// 	}
+//     --
+//     _BROWSER   
+// }
+
+
+//nevermind all this is useless and i have a much better way in mind for these. lol
+
+AppCheck //just check for any program(s) existing. this should null the need for the function above.
+{
+    void FUNCTIONEX("window_info.dll","enum") //get the window list
+    _open_windows = valueex
+    _appPresent = 0 
+    
+        foreach _open_windows; _window
+        {
+            if _argc > 1 //if arguments are all listed within the funcion call; more than one argument
+            {
+                foreach _argv; _app
+                {
+                    if _app _in_ _window
+                    { 
+                        _appPresent = 1 //app name present in argument list? then 1 else 0
+                        _app = REPLACE(_app,"- ","") //removing some helper characters that would Hopefully make sure we're responding to the actual program and not the word being dropped in other context
+                        //_app = REPLACE(_app,"Ч ","") 
+                        _app = REPLACE(_app," -","")
+                        appName = _app //in case we need to namedrop the program we found
+                    }
+                }
+            }
+            else //one argument, probably refers to an array
+            {
+                foreach _argv[0]; _app
+                {
+                    if _app _in_ _window
+                    {  
+                        _appPresent = 1 //app name present in the array referred to? ditto
+                        _app = REPLACE(_app,"- ","")
+                        //_app = REPLACE(_app,"Ч ","")
+                        _app = REPLACE(_app," -","")
+                        appName = _app
+                    }
+                }
+            }
+        }  
+    --
+    _appPresent
+}

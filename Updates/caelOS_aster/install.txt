@@ -1,0 +1,7 @@
+﻿charset,UTF-8
+type,ghost
+name,Aster™ Assistant Software
+directory,caelOS_aster
+
+balloon0.directory,AsterTooltipA
+balloon1.directory,AsterTooltipB

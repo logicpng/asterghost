@@ -1,0 +1,6 @@
+//--Balloons0s.txt
+//This basically sets up any special adjustments this balloon may have for your main character (balloon - s for sakura - 0 for the balloon number). This is the balloon that faces to the right. If you've been just moving the tail of the balloon, then very little in here will need to change. However, if you flipped your balloon horizontally or it looks entirely different from another balloon, then you'll have to adjust things in here accordingly.
+//However, everything that's not listed in here will be inherited from descript.txt, so ONLY put stuff you're changing in here! No need to make it longer than it needs to be, right?
+
+
+//These sets of things are the most likely to change if your balloon is different from one side to the other. Fill them in with the new matching values as you need! Add any other things you may need to change for this specific balloon and move on.

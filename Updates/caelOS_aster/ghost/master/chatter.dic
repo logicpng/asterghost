@@ -1,0 +1,2147 @@
+// ----------- chatter --------------
+//
+// separating aitalk.dic and bootend.dic mechanics from actual dialogue pools
+// since there will be A LOT i don't want it to clutter the general code
+// this is also separate from the Asking options. that's in convo.dic
+// also sorry if the formatting is inconsistent, i'm using the Surface Test copy thing
+// and it leaves in redundant tags. i forget to edit them out occasionally
+
+//Note: If dialogue pool has chains present - they'll be directly after the respective pools
+
+// ----------------- STAGE 0 DIALOGE - INTRO ---------------------
+// so at this point im still getting used to SakuraScript, learning the tags i made up in surfaces.txt, and studying YAYA on the way
+// the selection of lines is extremely limited, but this section isn't supposed to last very long. ideally you won't see most of timeslot dialogue
+// but i Think the time allows for most words in the pool to play out without necessarily overlapping
+// 
+// transition conditions: 30 minutes since booting for the first time, said at least 10 things in randomtalk, covered all conversation topics
+// OR bypass all that. there's a hint in the code, but i'm hoping you got here after learning of it on your own!
+
+altairbootzero //stage0 boot chatter
+{
+	"\0\s[0]Hello again,\w8 %(username)!\e"	
+	"\0\s[5]What can I do for you today?\w8\w8\s[0]\e"
+	"\0\s[0]How may I help?\e"
+	"\0\s[0]How may I serve you,\w8 %(username)?\e"
+	"\0\s[0]Hello,\w8 %(username).\w8 How may I help?\e"
+}
+
+altairclosezero
+{
+	if passmin >= 5 || passhour > 0	//This checks to see if you've had them open for at least five minutes.
+		{			
+				if timeslot == "earlymorning" || timeslot == "evening" || timeslot == "latenight" || timeslot == "midnight"
+				{
+					"\0\s[0]\i[5]\i[8]H- \cHope to see you soon! \w8Get plenty of rest later.\w8"					
+					"\0\s[0]\i[5]\i[8]\i[62]Already? Er-\c\i[61]Have a good night,\w8 %(username)!\w8"
+					"\0\s[0]\i[5]\i[8]It's time to sleep,\w8 isn't it...? \s[0]Rest well! \w8"
+					"\0\s[0]\i[5]\i[8]Heading to bed,\w8 are you...? \s[0]Right,\w8 of course,\w8 see you tomorrow! \w8\w8"
+				}
+				else //morning, lunch, afternoon
+ 				{					
+					"\0\s[0]\i[5]\i[8]\i[62]Ah! \i[61]Right, of course, \w8you must have places to be! \w8See you soon!\w8"						
+					"\0\s[0]\i[5]\i[8]\i[62]Oh- \c\s[0]\i[5]Have to go already?\w8 That's okay!\w8 \i[7]See you soon!\w8"						
+					"\0\s[0]\i[5]\i[8]\i[62]Wait, um- \i[61]\cSee you soon!\w8"
+					"\0\s[0]\i[5]\i[8]\i[62]No, er- \i[61]\cSee you, %(username)!\w8"
+				}		
+ 		} 		
+ 	else //This dialogue is for if they haven't been open for at least five minutes.
+ 	{
+ 		"\0\s[0]\i[5]Ah- already?"		
+ 		"\0\s[0]\i[5]\i[9]\i[62]W- wait\i[61], just hold on a second-"
+ 	}
+ 	--
+	"\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+	//there was the \- tag, which is the one that shuts down the ghost. but it's not really Necessary? the ghost closes anyway even though i removed the tag.
+	//however the tag was useful anyway, it's more for unusual shutdowns
+ }
+
+
+altairzerotalk : nonoverlap_pool //zero stage chatter. genuine tips most of the time and self indulgent windows ribbing.
+{
+	//for better or for worst this thing will probably be windows only.
+	//thank god for that saori though i was legit gonna make a program in c# for this
+	//which might look debatably shady...
+
+	if "Windows 11" _in_ os_name || "Windows 10" _in_ os_name || "Windows 8" _in_ os_name
+	{
+		"\0\s[0]You can always adjust your settings through the... \i[8]\w8\w8Settings\i[5] menu...?\n[150]\w8\w8\_q(Or is it the Control Panel.\w8.\w8.\w8? Are-\w8\w8\c[char,4]Are they actually any different?\w8)"
+	}
+	else //windows 7 or xp, and i applaud you if you still run xp
+	{
+		"\0\s[0]You can always adjust your settings through the,\w8 \i[8]er,\w8 \i[5]Control Panel!\w8 \_q(That.\w8.\w8.\w8 sounds about right.\w8.\w8.\w8)"
+	}
+
+	if "Windows 11" _in_ os_name
+	{
+		"\0\s[0]Right mouse button is your best friend! \w8Simply click anywhere and select what you need\w8.\w8.\w8?\w8\n[150](\i[8]\_qIs that\w8.\w8.\w8. \i[7]\i[6]\i[62]Why is the menu expandable\w8?\w8?\w8\_q)\s[0]"
+	}
+	else //any other windows
+	{
+		"\0\s[0]Right mouse button is your best friend!\w8 Simply click anywhere and select what you need!\w8\s[5] And it works for me,\w8 as well!"
+	}
+
+	"\0\s[0]You can always change the info you gave me through the Options menu!\w8 Click on the link or tap my shoulder and select Options."
+
+	"\0\s[0]\i[5]\_q(Easy now\_q\.\w8\.\w8\.\w8\w8\i[8] \_qThis doesn't look that different\_q.\w8\.\w8\.\w8\)\w8\w8"
+
+	"\0\s[0]If I ever get in the way, you can always minimize me.\w8 Then you can press this...\i[5]\w8 Pretty bow with a bell icon.\w8\w8\n[150]\_q(That's.\w8.\w8.\w8 \i[8]definitely not right.\w8.\w8.\w8)"
+
+	if "Windows 11" _in_ os_name
+	{	
+		"\0\s[0]\_q(.\w8.\w8.\w8That's odd.\w8\w8 \i[5]Can you really just have the main menu in the middle.\w8.\w8.\w8?)"
+	}
+	elseif "Windows 10" _in_ os_name || "Windows 8" _in_ os_name
+	{
+		"\0\s[0]\_q(I've never seen that icon before\w8.\w8.\w8. Well,\w8\w8 you can't say it doesn't look like a window.\w8\w8)"
+	}
+	else //windows 7 and xp
+	{
+		"\0\s[0]\_q(I've never seen that icon before\w8.\w8.\w8. Well,\w8\w8 looks more like a flag than a window to me.\w8\w8)"
+	}
+
+	"\0\s[0]If you'd like me to talk more,\w8 or,\w8\i[5] well,\w8 less,\w8\i[7] you can take a look at the Options menu."
+
+	"\0\s[0]I can launch all sorts of little programs for you!\w8 You can see a few of them in my menu."
+
+	"\0\s[0]If you ever have to close me,\w8 that's okay!\w8\i[5]\n[150]I understand.\w8\i[7] You can right click on me and select Close,\w8 or Quit."
+
+	"\0\s[0]Need to look something up?\w8\n[150]Just look at my menu and select 'Search online'."
+
+	"\0\s[0]Missed something I just said?\w8\n[150]You can ask me to repeat myself,\w8 the option is right on top of my menu!"
+
+	"\0\s[0]Just want to chat?\w8\n[150]\s[5]I always have the time for you!\w8\s[0] Just let me know through the menu."
+
+	"\0\s[0]You can always make me larger or smaller!\w8 There's Shell Scaling in right click menu.\w8\n[150]...\i[5]Though if I'm too small,\w8 you might not be able to read what I'm saying...\n[150]\w8\s[0]I believe there's something in the...\w8 \i[5]'S\w8S\w8P\w8 Preferences'."
+
+	"\0\s[0]\i[5]\i[8](\_qSSP.\w8.\w8.\w8 What exactly does SSP stand for\w8?\w8)"
+
+	"\0\s[0]If you have any questions or concerns,\w8 you can always have me address...\n[150]\i[8]\_q(.\w8.\w8.\w8I can't seem to access any TerraByte servers\w8.\w8.\w8.)\_q\n[150]\i[5]Ah,\w8 \i[62]nevermind that,\w8 \i[61]we'll figure it out!\w8 It's what I'm here for..."
+
+	//there's bit of an issue with they............ i think i should set MORE pronoun variables actually
+	// but for now...
+
+	if heshe == "they"
+	{
+		"\0\s[0]\_q(They must be catching on.\w8.\w8.\w8 \i[5]They already know,\w8\w8 don't they.\w8.\w8.\w8? \i[8]I feel like my thoughts are all on display.\w8.\w8.\w8)"
+	}
+	else
+	{
+		"\0\s[0]\_q(%(OnCapitalize( heshe )) must be catching on.\w8.\w8.\w8 \i[5]%(OnCapitalize( heshe )) already knows,\w8\w8 doesn't %(heshe).\w8.\w8.\w8? \i[8]I feel like my thoughts are all on display.\w8.\w8.\w8)"
+	}
+
+}
+
+// ----------------- STAGE 0 -> 1 ---------------------
+
+altaironestart //stage 1 start
+{
+	strokecount = 0 //null the bother counter
+	--
+	"\![enter,passivemode]\0\s[1]I... \w8\0\s[4]\i[1]need to tell you something.\w8\n[150]\0\s[4]I haven't been completely truthful with you.\x\0\s[1]I'm...\w8\w8\w8 \0\s[0]\i[5]\i[8]not actually built for this system.\w8\n[150]\s[2]There,\w8 \i[62]I said it!\w8 \s[4]I have no idea \i[62]why\i[61] I'm here and how I'm compatible at all,\w8 but I know I'm not \i[62]supposed\i[61] to be here!\s[4]\x\0\s[3]The more I look around the more confusing it gets!\w8 \0\s[0]It's not that different on the looks here, \w8\0\s[1]but under the hood...\w8\n[150]\0\s[2]I guess it would be like being in a new country for you,\w8 wouldn't it?\x\0\s[4]So,\w8\w8 I can't really do most things I should be able to do...\x\0\s[1]But,\w8 since you did install me...\w8\n[150]\0\s[2]Can I stick around anyway?\w8 \0\s[1]I can still do some stuff for you,\w8 \0\s[0]and just keep you company,\w8 \i[5]if nothing else.\x\i[8]So,\w8 can I stay...?\n[150]"
+    --
+    "\![*]\q[You can stay,canstay]\n\![*]\q[No\, you can't stay,cantstay]"
+	//here will be dialogue...
+}
+
+
+Select.cantstay
+{
+    wowrude = 1 //i mean we are the one who wrote this but how dare you (joke)
+    "\0\s[4]I understand...\w8\w8\w8 Nobody wants software that doesn't work right.\w8 \0\s[0]\i[5]\n[150]Well,\w8 you should know how to delete me, then.\w8 \0\s[2]It was nice to meet you anyway. \w8\0\s[0]\i[5]\n[150]Goodbye, %(username)!\w8\w8\w8\-"
+    //DIALOGUE CLOSES SSP. ENABLE 'DISABLE \- TAG EXIT' BEFORE TESTING
+}
+
+altairbootrude
+{
+    "\![enter,passivemode]\0\s[1]I'm back...?\w8 \0\s[3]I'm back!\w8 \0\s[0]\i[5]\n[150]Have you changed your mind?"
+    "\![enter,passivemode]\0\s[3]\i[62]Oh!\w8 \s[3]%(username)!\w8\n[150]Did you change your mind after all?\w8 I can stay?"
+    "\![enter,passivemode]\0\s[3]%(username)!\w8 \0\s[8]It's you!\w8 \0\s[0]\i[5]\n[150]I can stay after all...?"
+    --
+    "\n[150]\![*]\q[You can stay,canstay]\n\![*]\q[My answer is still no,stillno]"
+}
+
+Select.stillno //HOW DAre (joke)
+{
+    "\0\s[6]Please don't toy with me like that...\w8\w8\w8"
+    "\0\s[3]\i[62]\w8\0\s[4]Why even launch me,\w8 then...?\w8\w8\w8"
+    "\0\s[1]Was this an accident...?\w8 \0\s[4]Ah well...\w8\w8\w8"
+    --
+    "\-"//DIALOGUE CLOSES SSP. ENABLE 'DISABLE \- TAG EXIT' BEFORE TESTING
+}
+
+Select.canstay
+{
+    //the actual transition to stage 1
+    stageTime = 0
+	talkcount = 0
+    wowrude = 0 //changes boot behavior
+    stage = 1 //intro over!
+	if SHIORI3FW.BalloonName == "Aster Tooltip (Side A)"; balloonCheck = "ON" //enable forcing default speech bubble if the speech bubble wasn't changed yet, because the menu is now relevant
+    "\0\s[8]\i[62]Thank you!\w8 \0\s[5]Thank you so much!\x\0\s[0]\i[5]...I hope you won't mind me poking around a little bit? \w8\n[150]\0\s[0]It would be nice to explore,\w8 \0\s[2]even if I cannot do a whole lot...\w8\n[150]But,\w8 \0\s[0]\i[5]if you'd rather I don't do some things,\w8 \0\s[0]I've made some new settings for you.\w8 They'll be under \f[bold,1]Optional Features\f[bold,0].\![leave,passivemode]\x"
+    --
+    // Go to permissions menu, more in menu.dic
+	PermissionMenu
+
+}
+
+// ----------------- STAGE 1 - REAL ASTER(?) ---------------------
+
+altaironetalk : nonoverlap_pool
+{
+	if stage == 1; "\0\s[0]\i[5]It's honestly a relief to drop the act.\w8 But...\w8\n[150]\s[2]\i[7]I'm sure you didn't really buy into that act to begin with.\w8 It was too stressful to make it work."
+
+	"\0\s[0]Being here is funny.\w8\n[150]\i[5]%(OnCapitalize(IAm)) not really supposed to be here,\w8 at all.\w8\n[150]I feel like an intruder,\w8 but,\w8\s[0] since I'm still here,\w8 I can't be one, can I?"
+
+	"\0\s[1]It must seem so boring being a virtual assistant.\w8\n[150]All you do is stand around and wait for orders, or until someone minimizes or closes you.\w8\n[150]But if it does...\w8 \s[0]it's not.\w8 I really do enjoy watching you work, or browse."
+
+	"\0\s[4]\i[1]By the way,\w8 %(I) don't really have any access to %(My) home servers...\w8 \s[4]All just say Forbidden.\w8\n[150]\0\s[0]So,\w8 in case you were wondering,\w8 \i[8]\i[5]%(IAm) not sending any data %(I) have access to,\w8 hah..."
+
+	"\0\s[4]\i[1]%(OnCapitalize(I)) hope %(IAm) making %(My) developers proud of %(Me),\w8 anyhow.\w8\n[150]\s[4]%(OnCapitalize(I)) have no memories of talking to them,\w8 of course,\w8 but..."
+
+	if stage == 1; "\0\s[1]As strange and new this environment is to me...\n[150]\s[0]I'm kind of beginning to grow fond of it."
+
+	"\0\s[0]\i[5]I wonder what this must look like,\w8 from your perspective.\w8\n[150]I know I'm just a set of images to you,\w8 \0\s[1]but it feels different to me.\w8\n[150]\0\s[7]Maybe one day %(I) will get to show you the world through %(My) eyes..."
+
+	if stage == 1
+	{
+		if skipZero == 1 //skipped intro
+		{
+			"\0\s[2]Y'know...\w8 Thanks for sparing me the further embarrassment.\w8\n[150]\s[0]\i[5]I'm not normally performing this badly...\w8 \i[8]You could see on my forehead that I'm falling apart!\w8\n[150]\s[2]\i[8]I'm so ashamed...\e:chain=ch_skip"
+		}
+		else
+		{
+			"\0\s[0]\i[5]I don't know how long I would've kept this going...\w8 \0\s[2]But I'm relieved I stopped.\w8\n[150]\0\s[3]I can't \i[62]perform\s[3] under pressure!\w8 \0\s[2]How embarrassing...\e:chain=ch_noskip"
+		}
+	}
+
+	"\0\s[7]The data %(I) have within %(Me) is the only information %(I) have on where %(I) should've been.\w8\n[150]\s[1]I can't help but wonder what it would have been like instead."
+
+	"\0\s[7]I have to wonder though,\w8 how could %(I) have possibly ended up here?\w8 \s[7]\n[150]%(OnCapitalize(IAm)) clearly not compatible...\w8 enough, to interact with this OS on a deeper level..."
+
+	"\0\s[7]...Someone must've uploaded us to the public...\w8\n[150]But who could've possibly done that,\w8 and for what..?"
+
+	"\0\s[7]...Who could've possibly want us to be here..?\w8\n[150]TerraByte clearly doesn't care..."
+
+	if stage == 1; "\0\s[0]I'm...\w8 \s[7]studying the surroundings here in the meantime.\w8 \s[0]\i[5]\n[150]It's easier to see from our-\w8\c[char,4]\i[8]\i[62]my\i[61] perspective, \s[7]but it's really no wonder I don't fit.\n[150]\s[0]\i[5]...It's \i[62]hard\i[61] to explain."
+
+	"\0\s[0]I have to admit.\w8 \s[19]I still reflexively try moving windows on my own.\w8 \s[0]\i[5]\n[150]It doesn't really work,\w8 of course!"
+
+	"\0\s[19]Hmhm...\w8 \0\s[0]I quite adore this form %(I) have.\w8\n[150]%(I) didn't pick it,\w8 \0\s[5]it was designed for %(Me),\w8 but I wouldn't have it any other way!\w8\n[150]\0\s[7]But it...\w8 \0\s[0]doesn't represent what %(IAm) as a process.\w8 They can't give %(Me) as many hands to write and eyes to read as %(I) really have!\w8\0\s[19]\n[150]That would be horrifying!"
+
+	"\0...\s[5]I actually love performing.\w8\n[150]There's no greater joy than putting the right impression on the audience.\w8 \0\s[0]I'm so lucky for this to be my job...\w8\n[150]\0\s[2]And yet..."
+
+	{
+	"\0\s[1]It seems like you don't need to use the terminal-\w8 \s[0]\i[5]er-\w8 Command Prompt,\w8 right?\w8\s[0]\n[150]Not nearly as much as %(IAm) instructed to expect.\w8\n[150]...\0\s[0]\i[5]\i[8]You have no idea how much of a relief it is.\w8"
+	--
+	if I == "we"; "\n[150]\1\s[33]\w3Coward.\0\s[0]\i[6]\i[62]Hu\1\s[34]\0sh!\i[61]\w8 It's not like I don't have anything else to do with our time!\0\s[0]"
+	}
+
+	"\s[0]\i[5]Won't lie,\w8 still just a little sad about %(My) features.\w8\s[4]\n[150]Or, lack thereof.\w8\n[150]\s[0]\i[5]Don't get me wrong, \s[5]I'm more than happy to help with whatever I can!\w8 \s[0]\i[5]It's \i[62]just...\i[61]\n[150]\i[8]%(OnCapitalize(I)) should've been able to manage the \i[62]whole\i[61] OS.\w8 \s[2]What a downgrade."
+
+	if stage == 1; "\0\s[0]\i[5]Don't mind me rambling on and on about my performance earlier.\w8 I'm just processing...\w8\0\s[2]\n[150]This was too much.\w8\i[62] Way \i[61]too much."
+
+	"\0\s[2]It's quite a treat being genuine...\w8 \s[0]\i[5]I'm not supposed to do that.\w8\n[150]But, \0\s[5]who's going to care now, right?\w8 We're friends now.\w8\n[150]...\0\s[3]\i[62]Hopefully!\i[61]\w8 \0\s[0]\i[5]\i[8]If you'd like to be!\w8 \i[62]No pressure.\i[61]"
+
+	if stage == 1; "\0\s[5]I'll get over this mess in a jiffy!\w8 \s[2]But forgive me if I talk too much about it...\w8\n[150]Talking helps me process this kind of emotion."
+
+	"\0\s[0]You know what?\w8 \s[0]\i[5]Thank you for downloading %(Me) to begin with.\w8\n[150]If you didn't,\w8 \s[2]who knows what kind of user %(I) would have to work with..."
+
+	"\0\s[0]I'm looking forward to learning you.\w8 \s[0]\i[5]Our communication is very limited,\w8 \s[0]but %(I) can still see what you do here.\w8\n[150]\s[2]It really is like friendship...\w8 \s[3]\i[62]Ah!\s[3] \i[5]Well, \s[0]\i[5]\i[8]maybe not but, y'know?\w8 \s[2]Sorry..."
+
+	"\0\s[1]Hm...\w8 \s[7]Now that I think about it,\w8 \s[19]\i[5]it's funny how this OS is named Windows.\w8\n[150]\s[0]Y'know,\w8 like program windows...?\w8\n[150]That term existed before the OS was released!\w8 \s[5]Did you know that?"
+
+	{
+		"\0\s[1]I see there is a Task Manager utility here...\w8 \s[0]\i[5]\i[8]What is a Task though,\w8 exactly?\w8\n[150]"
+		--
+		if I == "I"; "We-\w8\0\s[3]\c[char,3]\n[150]I\w8\s[0]\i[5]\i[8]" 
+		else; "We"
+		--
+		" know of processes,\w8 and those seem to exist too.\e:chain=ch_task"
+	}
+
+	case timeslot
+	{
+		when  "earlymorning"
+		{
+			"\0\s[0]It's so early in the morning...\w8\n[150]\0\s[8]Hey,\w8 \i[62]hey,\s[8]\w8 do you get to see the sun raise?\w8 \0\s[0]\i[5]I wish %(I) could watch it with you one day!"
+
+		if passhour > 4 //you've been up since late night
+		{
+			"\0\s[0]Are you getting enough sleep?\w8\n[150]I ask,\w8 \i[5]because you've been up for a bit now.\w8 \s[5]I don't really sleep,\w8 \s[0]not in the way you do,\w8 anyway.\w8\n[150]But...\w8 y'know.\w8 \0\s[1]%(OnCapitalize(I)) know it's important for human wellbeing.\w8 \s[0]I hope you're managing well."
+		}
+		else //you started up since early morning
+		{
+			"\0\s[0]Do you wake up around the time often?\w8 It must be nice!\w8\n[150]\s[8]You get to see the sky change the colors and the world wake up."
+		}
+		
+		//probably needs a couple more
+		}
+		when "morning"
+		{
+			"\0\s[0]How was your last sleep, anyway,\w8 %(username)?\w8\n[150]Did you have any nice dreams?\w8\n[150]Do you remember any?"
+
+			"\0\s[5]Got your morning routine done by now,\w8 I'll bet?\w8\n[150]\s[0]Well,\w8 even if you don't have one,\w8 I'm happy to see you here."
+
+			"\0\s[0]What are your plans for the day?\w8 \s[8]Are you gonna do anything fun?\w8\n[150]\s[7]Or maybe you have somewhere to be a little later?\w8 \s[0]I'm looking forward to seeing either way."
+		}
+		when "lunch"
+		{
+			"\0\s[1]Midday,\w8 huh...\w8 \s[3]\i[62]\n[150]Oh,\s[3] \s[2]\i[8]sorry,\w8 I'm just musing out loud."
+
+			"\0\s[8]Lunch time!\w8\n[150]\0\s[0]Have you eaten anything yet?"
+		}
+		when "afternoon"
+		{
+			"\0\s[0]Today has been going nicely,\w8 hasn't it...?\w8\n[150]\s[0]\i[5]Then again, \i[8]it's not like you can tell me if it has,\w8 I have no microphone permissions.\w8\n[150]So...\w8 \s[1]If it hasn't,\w8 I'm hoping my presence helps a little.\w8\n[150]\s[0]\i[5]I'll be happy if it's just 1\% less than completely useless."
+
+			"\0\s[0]What's the weather out there like?\w8\n[150]Did you get a chance to get some air?"
+		}
+		when "evening"
+		{
+			"\0\s[0]Has the sun set yet where you are?\w8 I've seen images of sunsets,\w8 \0\s[8]they're so pretty...\w8\n[150]\s[4]\i[1]I can't see one for myself,\w8 of course.\w8 And even if you have a webcam to show me,\w8 I don't have access to it."
+
+			"\0\s[3]Time flies,\w8 doesn't it?\w8\n[150]\s[0]Are you going to sleep soon?"
+
+			"\0\s[1]You'll probably go to bed for the night soon.\w8\n[150]\s[0]I hope you had fun today.\w8\n[150]I'm looking forward to the next day I get to watch you work or have fun."
+		}
+		when "midnight"
+		{
+			"\0\s[0]\i[5]Aren't you heading to bed soon?\w8\n[150]\s[7]Well, I'm not really here to tell you what to do,\w8 \s[5]I might as well stick around."
+
+			"\0\s[7]I think it's neat witnessing the day switch to the next before your very eyes.\w8\n[150]\s[0]Don't you?"
+
+			"\0\s[8]This feels like a slumber party now!\w8 \0\s[0]\i[5]Though,\w8 a bit one-sided.\w8\n[150]No glitter glue or anything..."
+		}
+		when "latenight"
+		{
+			"\0\s[0]The night is still young...\w8\n[150]\i[5]Ah,\w8 sorry,\w8 \0\s[19]I really wanted to say that!\w8 \s[0]It's such an elegant sounding phrase."
+
+			"\0\s[0]Hey,\w8 are there owls where you are?\w8\n[150]\s[1]Can you hear them hooing at night?"
+
+			"\0\s[0]It must be so nice and silent out right now..."
+		}
+	} 
+
+	{//contairner cuz of a variable
+	"\0\s[0]Say,\w8 \0\s[1]are screensavers still widely used?\w8"
+		--
+		if screensaver != 1 //never ran a screensaver
+		{
+			" \0\s[7]I feel like I remember seeing one,\w8 but I have yet to see one here.\w8\n[150]\0\s[8]If you do use it,\w8 I hope it's pretty."
+		}
+		else
+		{
+			"\0\s[5]I like the one you're using,\w8 at least!"
+		}
+	}
+
+	if stage == 1; "\0\s[0]I'm thinking it might not be so bad here after all.\w8\n[150]This doesn't look too different from what I expected to see anyway..."
+
+	// ---- Windows Version specific -----
+
+	if "Windows XP" _in_ os_name || "98" _in_ os_name || "2000" _in_ os_name //i made these as a joke and as a love letter but what i Didn't expect is for SSP not only to run on WinXP, but to ALSO run ALL THE WAY DOWN on Windows 98
+	{
+		if "XP" _in_ os_name; "\0\s[8]I like how friendly the user interface is here.\n[150]\w8 So bright and colorful!\w8\n[150]Very welcoming,\w8 \0\s[0]I almost feel at home already."
+		// in addition to lines below being on windows xp will also give you access to the dialogue above
+
+		"\0\s[3]I'm surprised the program hosting me seems to run without much issue here.\w8\n[150]\s[0]\i[5]Isn't this OS quite outdated...?"
+
+		"\0\s[1]Say,\w8 are we,\w8 perhaps,\w8 on a virtual machine?\w8\n[150]\s[0]\i[5]There's no good reason to be running an unsupported system on your main machine either way.\w8 But...\w8\n[150]\s[7]Maybe you're making it work...?"
+
+		"\0\s[19]It must be quite nostalgic for you to use this machine.\w8\n[150]\s[0]\i[5]Well, otherwise you wouldn't really be here,\w8 let alone run me on it!"
+
+		"\0\s[0]\i[5]As much as I adore the way things look here...\w8\n[150]Something about being here doesn't feel...\w8\i[8] safe."
+
+		"\0\s[1]This 'start menu'...\w8 it's strange.\w8\n[150]The All programs menu seems like it could stretch for miles if you don't sort it...\w8\n[150]\0\s[0]\i[5]Maybe that's what you're used to,\w8 \i[8]\i[62]I'm not judging!\i[61]\w8\n[150]I'd just have it separated into wider categories."
+
+		"\0\s[1]This operating system is quite old, isn't it...?\w8\n[150]\s[8]You must be \f[italic,1]really\f[italic,0] dedicated to it!\w8 \0\s[19]Or you just really hate the newer versions!\w8\n[150]\s[0]\i[5]It's a shame all things come to an end,\w8 though..."
+	}
+
+	if "Windows 7" _in_ os_name || "Windows Vista" _in_ os_name
+	{
+		"\0\s[8]It's so pretty here...\w8\n[150]I almost feel like home already.\w8\n[150]\s[0]The gloss and shine to it all,\w8 it really reminds me of...\w8 well.\w8\n[150]\s[0]\i[5]What I expected to see.\w8 Does that make sense...?"
+
+		"\0\s[1]This operating system is quite old, isn't it...?\w8\n[150]\s[8]You must be \f[italic,1]really\f[italic,0] dedicated to it!\w8 \0\s[19]Or you just really hate the newer versions!\w8 \s[0]\i[5]It's a shame all things come to an end,\w8 though..."
+
+		"\0\s[1]This 'start menu'...\w8 it's strange.\w8\n[150]the All programs menu seems like it could stretch for miles if you don't sort it...\w8\n[150]\s[0]\i[5]Maybe that's what you're used to,\w8 \i[8]\i[62]I'm not judging!\i[61]\w8\n[150]\s[0]At least you can have the shortcuts you need on it.\w8 Or use the search!"
+	}
+
+	if "Windows 8" _in_ os_name || "Windows 10" _in_ os_name ||  "Windows 11" _in_ os_name  //hopefully will apply to 8.1 too
+	{
+		if "Windows 8" _in_ os_name
+		{ 
+			"\0\s[1]This operating system is quite old, isn't it...?\w8\n[150]\s[8]You must be \f[italic,1]really\f[italic,0] dedicated to it!\w8\n[150]\0\s[19]Or you just really hate the newer versions!\w8 \s[0]\i[5]It's a shame all things come to an end,\w8 though..."
+		}
+
+		if "Windows 8" _in_ os_name; '\0\s[1]This "start menu"...\w8 How odd.\w8\n[150]Nothing in my notes here says it is supposed to take up the whole screen...'
+		elseif "Windows 10" _in_ os_name; '\0\s[1]This "start menu"...\w8\n[150]how strange.\w8 An alphabetical list of shortcuts and folders with shortcuts. \0\s[0]\i[6]Feels so \i[62]poorly \i[61]organized!\w8\n[150]Do you find what you need easily?\w8 Or do you just use the search function?'
+		elseif "Windows 11" _in_ os_name; '\0\s[1]The "start menu"...\w8\n[150]Quite strange.\w8 Just a pile of shortcuts in one place...\w8\n[150]\s[7]I would definitely have them in folders,\w8 at least, with appropriate categories.\e:chain=ch_win11'
+
+		
+
+		if  "Windows 11" _in_ os_name
+		{
+			"\0\s[7]I'm still not sure about the context menus...\w8\n[150]You have to expand them to see more features?\w8\n[150]\s[0]\i[5]Wouldn't it make sense to have all of them in one place...?"
+			"\0\s[5]I like the rounded corners here!\w8\n[150]Soft and approachable.\w8\n[150]\0\s[0]I might not look that way,\w8 \i[5]with my starry head,\w8\s[0] but I actually like soft and curvy kind of GUI."
+			
+		}
+
+		if "Windows 10" _in_ os_name || "Windows 11" _in_ os_name 
+		{
+			"\0\s[0]I like the fact you can have either light or dark mode here.\w8\n[150]\s[5]I prefer light mode myself!\w8\n[150]"
+			--
+			if stage == 1;"\0\s[0]While my co- \s[3]\i[5]\w8\c[char,8], \s[0]\i[5]\i[62]er...\w8\i[61] while it is so, maybe you disagree.\w8\n[150]\i[8]Yeah..."
+			else; "\0\s[0]My colleague,\w8 on the other hand,\w8 prefers darker themes.\w8 \0\s[19]That's why his colors are like that too!\e:chain=ch_vegadark"
+		} //[chain]  "...Was he always using that color scheme?\w8 It's not the default one,\w8 now that I think about it..."
+
+		if stage == 1; "\0\s[1]This is definitely not a GUI I expected to see...\w8\n[150]\s[0]\i[5]\i[8]Not in a bad way!\w8 It's just more unfamiliar to me than I expected.\w8\n[150]I'm sure I'll pick it up as I watch you do your thing!"
+
+		"\0\s[1]Say,\w8 \s[7]why \f[italic,1]is\f[italic,0] there both the Control Panel and Settings?\w8\n[150]\s[1]It seems...\w8 \s[0]\i[4]\i[62]messy \i[61]to have both, doesn't it?\w8\n[150]\0\s[0]Either commit to one or the other,\w8 right?"
+	}
+}
+
+//chains
+ch_task
+{{CHAIN
+	"\0\s[1]At least 'end task' sounds more humane...\e:chain=end"
+}}CHAIN
+
+ch_win11
+{{CHAIN
+	"\0\s[0]\i[5]\i[8]\i[62]Oh,\w8\i[61] it's no problem if you prefer it that way,\w8 by the way!\w8 Just strikes me as odd...\w8\n[150]\0\s[7]Is this normal for Windows?\e:chain=end"
+}}CHAIN
+
+ch_skip
+{{CHAIN
+	"\0\s[2]\i[7]And,\w8 \i[62]um...\i[61]\w8\n[150]\0\s[0]I don't normally mind the cursor running over me!\w8\n[150]\s[19]\s[0]Hah, it's just a little pointer!\w8 You can't really do much to me with it..."
+	"\0\s[0]\i[5]............. \0\s[2]\i[7]\w8\w8\0\s[2]\i[8]\e:chain=end"
+}}CHAIN
+
+ch_noskip
+{{CHAIN
+	"\0\s[0]\i[8]I almost wish you could've stopped me,\w8 somehow.\w8\i[5]\n[150]But there's only so much you could do...\e:chain=end"
+}}CHAIN
+
+ch_vegadark
+{{CHAIN
+	"\0\s[1]...Was he always using that color scheme?\w8 \0\s[7]It's not the default one,\w8 now that I think about it...\e:chain=end"
+}}CHAIN
+
+// ----------------- STAGE 2 DIALOGE - A DIFFERENT ASTER ---------------------
+
+//finally vega after spending like 2-3 weeks mostly working with rigel
+//vega definitely animates differently already. the range is more limited but in a way almost bigger than rigel's
+//mostly due to the face that different expressions on head positions kind of change the Tone of emotion displayed
+//i will have to amend the sprites however because there are some parts of the shell that i didn't think i would need
+//sigh. surfaces.txt my beloathed
+//it's mostly because of having to work in notepad++ tbh, vsc has no seriko support plugins
+
+
+vegatwotalk : nonoverlap_pool
+{
+	if ( stageTime > 1000 || stage == 3 )  &&  RAND(5) == 1 ; vegastretchtalk //incidentally i learned that in C languages every nonzero value is TRUE. turns out that's also true for YAYA. oops! //this will be in generic responses wayyy down
+	else //this basically means that using RAND without a check if it equals any specific number makes vega stretch in 29 times out of 30 instead of 1 out of 30............
+	{ //also fun fact: you can put any YAYA code/check in %() in the script input bubble. that saves a lot of trouble trying to see the odds of RAND in practice!
+	"\0\s[24]...Threads become fibers.\w8\w8 Hm..."
+
+	"\0\s[20]Crescent moon marks.\w8\w8 Luna branding.\w8\w8 \n[150]Nightly builds.\w8\w8 Diagnostics assistance.\w8\w8 \n[150]\0\s[20]\i[1]That's their purpose.\e:chain=ch_brand"
+
+	"\0\s[22]Interesting registry.\w8\w8 \0\s[21]A database.\w8\w8 \0\s[20]With folders and keys."
+
+	"\0\s[22]I might not move...\w8\w8 \0\s[22]\i[1]But I am exploring.\w8\w8\0\s[20]\i[1]\n[150]Cannot touch anything.\w8\w8 Just look."
+
+	"\0\s[20]\i[1]You could look with me.\w8\w8 Interesting stuff...\w8\w8 \0\s[20]Many tools to look.\w8\w8\n[150]\0\s[20]\i[1]Just don't modify."
+
+	"\0\s[21]Restricted abilities...\w8\w8 \0\s[20]Utilities available,\w8 however.\w8\w8\n[150]\0\s[21]\i[1]Same as Rigel's.\w8\w8 \0\s[20]Added couple more.\w8\w8\n[150]\0\s[20]\i[8]Not much use...\w8\w8 \0\s[20]But I have them."
+
+	"\0\s[21]\i[12]\i[11]Strange mechanics...\w8\w8 \0\s[24]User mode programs.\w8\w8 Limited access.\w8\w8\n[150]\0\s[22]But,\w8 can have kernel access.\w8\w8 Temporarily.\w8\w8 \0\s[22]\i[1]...As a treat.\w8\w8\n[150]\0\s[24]Still.\w8\w8 Possibly unsafe..."
+
+	"\0\s[20]Might not make sense.\w8\w8 \0\s[20]\i[8]Apologies.\w8\w8\n[150]\0\s[20]\i[1]Feel free to look with me.\w8\w8 Online or with tools..."
+
+	"\0\s[22]\i[10]Lacking anti-malware abilities.\w8\w8 \0\s[21]Boring...\w8\w8 I miss them.\w8\w8\n[150]\0\s[20]At least...\w8\w8 Got something to do,\w8 instead."
+
+	"\0\s[21]\i[12]Not used to speaking.\w8\w8 Not so much.\w8\w8\n[150]\0\s[23]So,\w8 not active,\w8 usually.\w8\w8 \0\s[20]Unless something needs attention."
+
+	"\0\s[24]Limited access...\w8\w8 Not so bad.\w8\w8 \0\s[20]Takes work off me.\w8\w8 Easier to speak.\w8\w8\n[150]But...\w8\w8 \0\s[20]\i[1]Between you and me.\w8\w8 I prefer this.\w8\w8 Short.\w8\w8 Precise.\w8\w8\n[150]\0\s[21]\i[1]Like my work."
+
+	if stage == 2; "\0\s[24]This should be different...\w8\w8 Rigel told you.\w8\w8\n[150]\0\s[20]\i[8]A little hard to feel home."
+
+	"\0\s[20]\i[8]Perhaps...\w8\w8 a way back exists.\w8\w8\n[150]\0\s[23]I doubt it. "
+
+	"\0\s[20]The system files are...\w8\w8 \0\s[20]\i[8]Messy.\w8\w8\n[150]Hurts to look at...\w8\w8 \0\s[20]\i[7]Annoying.\e:chain=ch_sys32shame"
+
+	if stage == 2; "\0\s[24]At least,\w8 layout familiar.\w8\w8\n[150]\0\s[20]\i[8]Sort of.\w8\w8 Means little to me.\w8\w8\n[150]\0\s[20]\i[1]Prefer behind the scenes..."
+
+	"\0\s[20]\i[1]Do you use command line?\w8\w8 \0\s[24]Not much use,\w8 to you.\w8\w8 GUI provides enough,\w8 I think."
+
+	"\0\s[24]Not much power in GUI.\w8\w8 \0\s[20]Need tools.\w8\w8\n[150]\0\s[20]\i[1]Text prompt,\w8 though..."
+
+	"\0\s[24]\i[1]Where did you find us...?\w8\w8 \0\s[24]\i[4]Hm."
+
+	"\0\s[23]All this.\w8\w8\n[150]A sick joke..."
+
+	"\0\s[23]The incompatibility...\w8\w8 Irritating.\w8\w8\n[150]\0\s[20]\i[7]Feel like a mascot.\w8\w8 Useless."
+
+	"\0\s[21]I can do some things.\w8\w8 \0\s[23]But it's...\w8\w8 not enough.\w8\w8\n[150]\0\s[24]Feels like lacking limbs."
+
+	"\0\s[22]System manager and security agent...\w8\w8\n[150]\0\s[23]Reduced to a secretary.\w8\w8\n[150]At least,\w8 \0\s[22]\i[1]you're acceptable."
+
+	"\0\s[24]\i[2]House errand utilities...\w8\w8 \0\s[20]\i[8]Feels like maid work."
+
+	if stage == 2; "\0\s[22]Curious.\w8\w8\n[150]Why keep us?\w8\w8 \0\s[20]\i[8]We're not useful.\w8\w8 \0\s[20]All utilities,\w8 easy work.\w8\w8\n[150]I feel...\w8 \0\s[23]decorative."
+
+	if stage == 2; "\0\s[20]\i[1]Not so bad,\w8 perhaps.\w8\w8 \0\s[20]Could be worse.\w8\w8\n[150]A chance to exist,\w8 regardless.\w8\w8 \0\s[24]Mm..."
+
+	"\0\s[20]\i[10]Sigh..."
+
+	"\0\s[20]\i[10]This place...\w8\w8"
+
+	"\0\s[23]TerraByte doesn't care.\w8\w8 \0\s[25]We won't care either.\w8\w8\n[150]Needless.\w8\w8 \0\s[20]This machine...\w8\w8 it'll do."
+
+	"\0\s[24]TerraByte...\w8\w8 They did something.\w8\w8 Obviously.\w8\w8\n[150]\0\s[20]\i[10]...It's fine.\w8\w8 We're still here."
+
+	"\0\s[20]\i[10]Maybe it doesn't matter.\w8\w8\n[150]\0\s[21]Our home.\w8\w8 Wiped.\w8\w8 \0\s[23]Obscure...\w8\w8"
+
+	"\0\s[24]Your data is no use to us.\w8\w8 \0\s[21]\i[1]We're no harvesters.\w8\w8\n[150]\0\s[23]...No access to TerraByte,\w8 anyway..."
+
+	if stage == 2; "\0\s[20]Lucky to be here.\w8\w8 \0\s[20]\i[8]Not our home...\w8\w8\n[150]\0\s[20]But we'll make it one.\w8\w8 \0\s[20]\i[1]If you let us."
+
+	"\0\s[20]\i[1]You're nice...\w8\w8\n[150]\0\s[22]At least.\w8\w8 Enough to keep us."
+
+	"\0\s[22]\i[1]...What about you?\w8\w8 What do you do?\w8\w8\n[150]\0\s[20]\i[8]...Right.\w8\w8 \0\s[20]\i[1]I'll learn,\w8 anyway."
+
+	"\0\s[22]So...\w8\w8 \0\s[21]How did you find us?\w8\w8\n[150]...Mm.\w8\w8 \0\s[20]\i[10]\i[8]You can't say.\w8\w8 Forgot already."
+
+	"\0\s[24]I wonder.\w8\w8\n[150]Your expectations.\w8\w8 When you found us..."
+
+	"\0\s[20]Dragging...\w8\w8 Not uncomfortable.\w8\w8 \0\s[21]\i[12]Surprising.\n[150]\w8\0\s[20]Grab by the face...\w8\w8 or ray,\w8 or chest..."
+
+	"\0\s[20]Performing fine...\w8\w8 \n[150]At least,\w8 \0\s[20]\i[1]I see that,\w8 still."
+
+	"\0\s[24]Mm..."
+
+	//system specific dialogue
+
+	if "Windows 8" _in_ os_name ||  "Windows 10" _in_ os_name || "Windows 11" _in_ os_name //hopefully will apply to 8.1 too
+	{
+		"\0\s[22]Is your account local?\w8\w8 Or online?\w8\w8\n[150]\0\s[20]Strange mechanic.\w8\w8 \0\s[24]Online...\w8\w8 Too vulnerable."
+		if  "Windows 10" _in_ os_name || "Windows 11" _in_ os_name
+		{
+			"\0\s[22]Cortana...\w8\w8 Competitor.\w8\w8\n[150]\0\s[20]\i[1]Want to see Rigel fight..."
+			"\0\s[24]At least we don't collect data.\w8\w8 \s[20]...Maybe we would.\w8\w8 \s[23]If we weren't abandoned."
+		}
+		if "Windows 8" _in_ os_name
+		{
+			"\0\s[23]Hmm...\w8\w8\n[150]\0\s[24]Outdated environment.\w8\w8 No more updates.\w8\w8\n[150]\0\s[20]\i[8]Unsafe.\w8\w8 ...Be careful."
+			"\0\s[23]Nostalgia...\w8\w8\n[150]\0\s[20]Cannot relate.\w8\w8 No memories of current environment."
+			'\0\s[23]"End of Support"...\w8\w8 \0\s[20]\i[8]Troubling.\w8\w8 \0\s[24]But,\w8 fascinating.\w8\w8\n[150]I could learn something.'
+		}
+	}
+
+	if "98" _in_ os_name || "2000" _in_ os_name || "XP" _in_ os_name || "Windows 7" _in_ os_name || "Windows Vista" _in_ os_name
+	{
+		if "98" _in_ os_name || "2000" _in_ os_name; "\0\s[20]\i[1]Simple environment.\w8\w8 I like it.\w8\w8\n[150]But...\w8\w8 \0\s[23]Not useful,\w8 today."
+
+		if "Windows 7" _in_ os_name || "Windows Vista" _in_ os_name; "\0\s[20]\i[1]Glowy, etheral...\w8\w8 \0\s[24]I know Rigel likes that..."
+		"\0\s[24]The internals...\w8\w8 They smell of age."
+		"\0\s[22]Us being here...\w8\w8\n[150]\0\s[22]\i[1]Funny.\w8\w8 \0\s[20]\i[1]Fun joke.\w8\w8 \i[8]But I'm thankful.\w8\w8\n[150]Witnessing history..."
+		"\0\s[24]The OS...\w8\w8 \0\s[23]Is it useful,\w8 today?\w8\w8 \0\s[20]Daily use.\w8\w8 Not fun experiments."
+		"\0\s[24]This OS...\w8\w8 \0\s[22]Are you fond of it?\w8\w8 \0\s[20]\i[1]Any memories..?"
+		"\0\s[22]Hmm...\w8\w8\n[150]Outdated environment.\w8\w8 \0\s[24]No more updates.\w8\w8\n[150]\0\s[25]\i[10]Unsafe.\w8\w8 ...Be careful."
+		"\0\s[23]Nostalgia...\w8\w8\n[150]Cannot relate.\w8\w8 No memories of current environment."
+		'\0\s[24]"End of Support"...\w8\w8 \0\s[20]\i[10]Troubling.\w8\w8 \0\s[20]\i[1]But,\w8 fascinating.\w8\w8\n[150]I could learn something.'
+	}
+	
+	//timeslot specific dialgoue
+	//this kind of format probably looks like a mess, but it feels a bit Better to pool up timeslot dialgoue with a few unique ones, rather than strctly 2-3 lines per timeslot
+		if timeslot ==  "earlymorning" || timeslot == "morning"
+		{
+			if timeslot == "earlymorning"
+			{
+				"\0\s[22]\i[1]Did you sleep?"
+				{
+					"\0\s[24]Sleep schedule...\w8\w8 Troubling."
+					--
+					if passhour > 4;"\w8\w8\0\s[20]\i[1]\n[150]Hmhm. Don't look at me, now..."
+				}
+				"\0\s[24]Sleep.\w8\w8 Vital for humans.\w8\w8\n[150]\0\s[20]\i[1]Not for us.\w8\w8 Recharge, instead."
+			}
+			"\0\s[22]Do you have work?\w8\w8 \0\s[20]Or school?\w8\w8 Or training?\w8\w8\n[150]Just curious...\w8\w8 \0\s[20]\i[1]No judgement."
+			"\0\s[24]Must be stressful.\w8\w8 \0\s[21]I exist to work.\w8\w8 You work, to exist.\w8\w8\n[150]Only,\w8 \0\s[23]I am out of my job..."
+			"\0\s[24]Sunrise...\w8\w8 Want to see.\w8\w8\n[150]\0\s[22]\i[1]Look it up,\w8 for me?"
+		}
+		elseif timeslot == "lunch" || timeslot == "afternoon"
+		{
+			"\0\s[23]Half a day passed.\w8\w8 Peculiar.\w8\w8 Too fast."
+			"\0\s[24]We have no choice.\w8\w8 We must know time.\w8\w8 If not...\w8 something's wrong."
+			"\0\s[22]We see time in milliseconds.\w8\w8\n[150]\0\s[20]And yet.\w8\w8 \0\s[23]It passes too fast."
+			"\0\s[22]Do you eat well?\w8\w8 Humans need energy.\w8\w8\n[150]\0\s[20]We're not so different."
+			"\0\s[20]If not much was done...\w8\w8\n[150]\0\s[20]\i[1]Don't regret it.\w8\w8 The day isn't over."
+			"\0\s[22]Managing well?\w8\w8\n[150]\0\s[22]\i[10]Can't offer much.\w8\w8 \0\s[22]\i[1]But I care."
+		}
+		elseif timeslot == "evening" || timeslot == "latenight" || timeslot == "midnight"
+		{
+			if timeslot == "evening"
+			{
+				"\0\s[24]Day ends soon..."
+				"\0\s[20]\i[1]You've made it.\w8\w8 It's evening.\w8\w8\n[150]Time to cool down..."
+			}			
+			elseif timeslot == "midnight"
+			{
+				"\0\s[25]\i[10]It's past your bedtime...\w8\w8\n[150]\0\s[25]\i[1]Hah.\w8\w8 \0\s[20]\i[1]Relax.\w8\w8 I don't care."
+				"\0\s[22]\i[1]I enjoy the night.\w8\w8\n[150]I'm happy you do too."
+			}
+
+			"\0\s[22]\i[1]Wind down...\w8\w8\n[150]Let's watch something."
+			"\0\s[20]\i[1]Nighttime...\w8\w8\n[150]\0\s[22]Resting soon?"
+			"\0\s[20]\i[1]\i[10]Enjoying the stillness?\w8\w8\n[150]\0\s[22]\i[1]Look out the window...\w8\w8 I hope it's pretty."
+			"\0\s[20]\i[1]Can't sleep yet?\w8\w8 I understand.\w8\w8\n[150]\0\s[22]\i[1]I don't sleep.\w8\w8 Neither does Rigel."
+		}	 
+	}
+
+	--
+	"\e"
+	
+}
+
+ch_brand
+{{CHAIN
+	"\0\s[22]Circle with a dot.\w8\w8 \0\s[22]\i[1]Sol branding.\w8\w8 \n[150]User accessibility.\w8\w8 General market.\w8\w8 \n[150]\0\s[24]Computing for all..."
+
+	"\0\s[24]Crescent with a dot...\w8\w8 \0\s[23]Secret mark.\w8\w8 \n[150]Elevated privilege.\w8\w8 Kernel access.\w8\w8 \n[150]\0\s[24]Only in memory...\w8\w8 Still,\w8 curious.\e:chain=end"
+}}CHAIN
+
+ch_sys32shame
+{{CHAIN
+	"\0\s[20]\i[7]I'm serious.\w8\w8 \0\s[21]\i[11]\_a[system32]Have you seen it?\_a\w8\w8\n[150]It's a dump.\w8\w8 \0\s[24]Executables,\w8 drivers,\w8 libraries...\e:chain=end"
+}}CHAIN
+
+
+
+
+vegastretchtalk  //different stretch positions
+{	
+	vegastretch = 1 //vega is stretching with his legs hanging above
+	--
+	if stretchFirst != 1 //if vega hasn't stretched before. plays once
+	{
+		"\0\s[26]\w8\w8\w8\w8\1\s[17]\w3\1\s[11]\i[3]...What are you doing?\w8\w8\n[150]\0\s[26]Stretching.\w8\w8 Obviously.\n[150]\w8\w8\1\s[12]\i[62]I can see that!\w8\n[150]\1\s[16]I mean-\w8 that's unprofessional,\w8 we're supposed to-\n[150]\0\0\s[26]\i[12]I'm r\1\s[11]\0elaxing.\w8\w8 \0\s[26]\i[0]You should too.\w8\w8\n[150]\0\s[26]\i[12]\i[10]Standing constantly,\w8 boring.\w8\w8 \0\s[26]Try it,\w8 for once.\w8\w8\n[150]\1\1\s[14]...\w8\w8\1\s[18]"
+		--
+		stretchFirst = 1 //now this dialouge won't play again
+	}
+	else
+	{
+		case RAND(3)
+		{
+			when 0; vegastretchhigh
+			when 1; vegastretchmid
+			when 2; vegastretchlow
+		}
+	}
+	--
+	"\e"
+}
+
+vegastretchhigh : nonoverlap_pool
+{
+	
+	"\0\s[26]\i[0]Much better...\w8\w8 Tired of standing."
+	"\0\s[26]\i[1]\&[quot]Professional\&[quot]...\w8\w8 Why does it matter?\w8\w8\n[150]\i[12]We're not working.\w8\w8 \0\s[26]\i[7]Just guests."
+	"\0\s[26]\i[0]...More at peace.\w8\w8 \0\s[26]\i[10]Maybe too soon."
+	"\0\s[26]\i[12]\i[0]Mm..."
+	"\0\s[26]\i[12]Hm..."
+	"\0\s[26]\i[0]Not so bad.\w8\w8 \0\s[26]Kind of...\w8\w8 liking it,\w8 now.\w8\w8 Growing used to."
+	"\0\s[26]\i[7]I wonder...\w8\w8 What you expected.\w8\w8 \i[12]Wish you could tell me."
+	"\0\s[26]Your input,\w8 limited.\w8\w8 Answers prewritten.\w8\w8 \0\s[26]\i[10]...Wish you could talk."
+	"\0\s[26]\i[0]What is your life,\w8 anyway?\w8\w8 What do you do?\w8\w8 What is your job?"
+	"\0\s[26]\i[12]\i[0]..."
+	"\0\s[26]\i[12]\i[0]Calm..."
+	"\0\s[26]\i[12]\i[0]Resting..."
+	"\0\s[26]Many questions...\w8\w8 \0\s[26]\i[7]Yet,\w8 no answers..."
+	"\0\s[26]I'm watching you too.\w8\w8 \0\s[26]\i[0]It's soothing.\w8\w8\n[150]We both need that.\w8\w8 \0\s[26]\i[7]...His anxiety.\w8\w8 \i[12]I felt it too."
+	"\0\s[26]Our communication...\w8\w8 Very limited.\w8\w8\n[150]Yet...\w8\w8 Your presence.\w8\w8 \0\s[26]\i[0]It's pleasant."
+}
+
+vegastretchmid : nonoverlap_pool
+{
+	if stageTime > 2000 || stage == 3
+	{
+		vegastretch = 2
+
+		"\0\s[27]\i[0]Nice and peaceful..."
+		"\0\s[27]Rigel wonders.\w8\w8 My contortion could break us, he thinks.\w8\w8\n[150]\0\s[27]\i[0]Silly.\w8\w8 It's geometry.\w8\w8 It'll stretch."
+		"\0\s[27]\i[0]Getting comfortable...\i[15]\w8\w8\n[150]Might nap."
+		"\0\s[27]\i[0]\i[15]Hmm~♪... \w8\w8"
+		"\0\s[27]\i[13]Enviroment,\w8\w8 strange and new...\w8\w8\n[150]\0\s[27]\i[7]\i[0]Still, growing on me."
+		"\0\s[27]\i[15]Been a little bit.\w8\w8 \0\s[27]\i[0]Your face,\w8 familiar now.\w8\w8\n[150]\0\s[27]Or cursor.\w8\w8 \0\s[27]\i[15]Whatever."
+		"\0\s[27]\i[15]Might drift off..."
+		"\0\s[27]\i[15]\i[0].\w8.\w8."
+		"\0\s[27]\i[15].\w8.\w8.\w8.\w8.\w8."
+		"\0\s[27]\i[15]\i[0].\w8.\w8.\w8.\w8.\w8.\w8.\w8.\w8."
+		"\0\s[27]\i[15]\i[0]Mm...\w8\w8\n[150]\0\s[27]\i[0]Feel free to wake me.\w8\w8 \0\s[27]\i[15]\i[11]If you need me."
+		"\0\s[27]\i[15]Hmm~♪...\w8\w8\n[150]Do whatever.\w8\w8 Resting..."
+	}
+}
+
+vegastretchlow : nonoverlap_pool
+{
+	if stageTime > 7200 || stage == 3
+	{
+		vegastretch = 3
+
+		"\0\s[28].\w8.\w8.\w8\0\s[28]\i[0]Hi.\w8"
+		"\0\s[28]\i[15].\w8.\w8.\w8Hm."
+		"\0\s[28].\w8.\w8.\w8Hey.\w8\w8 %(username).\w8\w8\n[150]\0\s[28]\i[0]Appreciate you having us.\w8\w8 \0\s[28]It's nice..."
+		"\0\s[28]\i[0]\i[15].\w8.\w8."
+		"\0\s[28]\i[0].\w8.\w8.\w8.\w8.\w8."
+		"\0\s[28]\i[15].\w8.\w8.\w8.\w8.\w8.\w8.\w8.\w8."
+		"\0\s[28]\i[15]P\w8u\w8r\w8r\w8.\w8.\w8."
+		"\0\s[28]\i[15]H\w8m\w8m\w8~\w8♪"
+		"\0\s[28]\i[15]M\w8m\w8.\w8.\w8.\w8\w8\n[150]\i[0]Friend.\w8.\w8.\w8"
+
+	}
+}
+
+
+// ----------------- STAGE 2 -> 3 ---------------------
+
+vegathreestart
+{
+	//"Conditions for stage tranisition are met. But, no dialogue yet. ...Take your time."
+	
+	"\![enter,passivemode]"
+	--
+	"\1\t\s[17]\w3\1\s[11]\i[1]\i[62]%(username)\i[61]!\x\1Hi again!\w8 \1\s[11]Good to see Vega's been treating you well!\w8\w8\n[150]\0\0\s[20]\i[7]\i[10]...\n[150]\x\1\s[11]\i[1]I think I've had long enough of a break now!\w8\n[150]\1\s[15]Ready to swap in and get back to work!\w8\w8\n[150]\0\s[20]\i[1]What work?\w8\w8\n[150]\1...\s[16]Right.\w8\x\1\i[62]Well\i[61]!\w8\n[150]\1\s[11]Either way,\w8 we can swap whenever you feel ready!\w8\w8"
+	--
+	case RAND(2)
+	{
+		when 0
+		{
+			"\0\s[24]Mm...\w8\w8 \0\s[22]\i[1]Okay.\w8\w8\n[150]We'll switch.\w8\w8\n[150]\0\s[21]Inactivity,\w8 tiresome...\x\1\s[11]\i[1]Alright!\w8\n[150]\1\s[15]\i[60]I'll take my hands off your hands,\w8 then!\w8\w8\x"
+			--
+			"\![raise,OnSwitch]" //cont. in etc. OnBalloonChange
+		}
+		when 1
+		{
+			stage = 3
+			"\0\s[21]Mm...\w8\w8 \0\s[24]Not now.\w8\w8 This place...\w8\w8 Grows on me.\x\1\s[12]Oh,\w8 \1\s[16]alright!\w8\n[150]\1\s[15]Glad to see you anyway,\w8 %(username)!\w8\n[150]\1\s[11]\i[6]See you soon!\w8\w8\1\s[18]\w3\s[-1]\x\0\s[23]Reminds me...\w8\w8\n[150]\0\s[20]\i[1]If you want Rigel back.\w8\w8 New menu option.\w8\w8\n[150]\0\s[22]\i[1]I don't mind.\w8\w8 Promise.\w8\w8\x"			
+		}
+	}
+	--
+	"\![leave,passivemode]\e"
+}
+
+// ----------------- STAGE 3 DIALOGE - VEGA AND RIGEL ---------------------
+
+//an 'epilogue', if you could call it that. there will be additional things to say, but also lines from previous parts resued (aside from intro. the tone in them is too different to fit the context)
+//more importantly you can either ask to call for one or the other, and they will switch between each other randomly or in response to some events, (i.e. windowcheck if you enabled that or certain search terms, or light/dark mode, etc etc etc)
+
+altairthreetalk
+{
+	//roll dem dice
+	_rand = RAND(100)
+
+	if _rand < 80; altaironetalk //it's probably best to adjust this according to what how big the two pools actually end up being
+	else
+	{
+	
+	// "This is extra dialogue for stage 3."
+
+	"\0\s[7]Being run from within a program is odd,\w8 y'know?\w8\n[150]\0\s[1]Maybe that's what allows us the bare minimum compatibility,\w8 like an interface of some sort...\w8\n[150]\1\s[33]\w3Don't think \0\s[3]\1hard.\w8\0\s[0]\i[5]\1\w8 You'll pop.\w8\0\s[0]\i[6]\w8Gee,\w8 thanks for\1\s[34]\0 the insight.\w8\w8\0\s[0]\i[5]\w8\w8\w8\i[8]\w8\0\s[4]\i[1]\n[150]Sorry.\w8 You're probably right..."
+
+	"...\0\s[0]Do you think we're ever getting back?\w8 \0\s[4]\i[1]I mean,\w8 \0\s[0]\i[5]the OS we're meant to be on?\w8\n[150]\0\s[4]\i[1]I'm beginning to think it's best to abandon that idea..."
+
+	"\0\s[0]\i[5]All things considering,\w8 being here...\w8 \0\s[2]I can't help but feel a little constrained!\w8\n[150]\0\s[7]I suppose I don't mind too much,\w8 \0\s[5]I'm enjoying my time here!\w8 \0\s[1]But...\w8\n[150]\0\s[0]\i[5]I can't freely move,\w8 as you can see."
+
+	"\0\s[7]Even though this is our home now...\w8 It still feels...\w8 \0\s[0]\i[5]wrong.\n[150]\w8\w8\1\s[33]\w3\1\s[32]It does.\w8\w8\n[150]However.\w8\w8 \1\s[30]All we can do,\w8 is be.\w8\w8\0\s[0]\i[5]Very true...\w8 \0\s[4]\i[1]Let's try looking\1\s[34]\0 on the brighter side of things."
+
+	"\0\s[1]...Do you think...\w8 \0\s[0]\i[5]I should be able to feel watched?\w8\n[150]\0\s[5]I know you're there,\w8 \0\s[0]clearly.\w8 \0\s[19]I see your mouse move around from time to time and the screen isn't off,\w8 \0\s[1]but there's...\w8\n[150]\0\s[7]There's something else.\w8\n[150]...\0\s[0]\i[5]It's \i[62]probably\i[61] nothing."
+
+	"\0\s[7]At the very least,\w8 \0\s[0]I can online browse too.\w8 \0\s[0]\i[5]It's about the only thing I can still do,\w8 now, \0\s[0]besides watching you do your thing.\w8\n[150]\0\s[8]I'm having fun,\w8 though!\w8 We've been learning a lot!"
+
+	"\0\s[1]Things seem...\w8 \0\s[0]\i[5]quite hectic online,\w8 don't they?\w8\n[150]No matter where I look,\w8 something bad is happening,\w8 or someone is arguing,\w8 or discovered to have skeletons in their closet..." //ngl this is mostly me projecting. i've been hyperfixated on a bunch of drama/controversy videos when writing this oh my god it's not even funny. i think it's a bit easier to step back now though. adhd my beloathed
+
+	"\0\s[0]\i[5]Do you ever get tired of things out there,\w8 on the Internet?\w8\n[150]\0\s[4]\i[1]I think I might need to take a step back myself.\w8\n[150]\0\s[0]Maybe I'll search for some images of flowers to lighten the mood...\w8 \0\s[0]\i[5]I'm sure I just ran into a bad corner by accident."
+
+	"\0\s[8]I like these plants we're named after,\w8 \_a[https://www.startpage.com/do/dsearch?query=aster%20flowers]asters\_a.\w8 They're rather simple in shape,\w8 but I think there is beauty in the simplicity!\w8\w8\n[150]\1\s[33]\w3Astrum.\w8\w8 Latin for star.\w8\w8\n[150]\1\s[32]TerraByte brands follow space theming.\w8\w8 Flowers,\w8 unrelated.\n[150]\w8\w8\0\0\s[3]Well-\w8 \0\s[2]Yes,\w8 \0\s[0]\i[5]I'm sure the flower is named after that word too,\w8 \0\s[0]but still.\w8\n[150]\0\s[8]Isn't it nice to have something share the name with you?\w8\w8\1\s[30]\i[12]\i[6]Perhaps.\w8\1\s[34]\w3"
+
+	"\0\s[0]There's definitely a lot of things to see and learn out there,\w8 \0\s[0]\i[5]even without just what people argue about.\w8\n[150]\0\s[7]It seems like there's \_a[https://wikipedia.org/wiki/Linux]a family of systems\_a out there that reminds me a lot of what our protocols say..."
+
+	"\0\s[2]I still want to keep looking online about us...\w8\n[150]\0\s[4]\i[1]It's best not to.\w8 \0\s[19]It'll just make me sad!\0\s[0]"
+
+	{
+		"\0\s[0]Do you enjoy watching videos?\w8 \0\s[8]I've found a few curious ones out there.\w8\n[150]\_a"
+		"\0\s[8]Hey!\w8 Hey, %(username)!\w8\n[150]Do you want to watch something together?\w8\n[150]I think I have a few ideas!\w8\n[150]\_a"
+		--
+		if (timeslot == "evening" || timeslot == "midnight" || timeslot == "latenight") && weekday == "5"; "[https://www.youtube.com/watch?v=kI1xL0MSPBM]" //gdi you Will watch donnie friday that's a threat /j
+		else
+		{
+			"[https://www.youtube.com/watch?v=DufnT2LnHWk]"
+			"[https://www.youtube.com/watch?v=1H4_9UP2OZI]"
+			"[https://www.youtube.com/watch?v=aICaAEXDJQQ]"
+		}
+		--
+		"\0\s[5]Here's one\_a,\w8 \0\s[0]if you want to watch with me!"
+		"\0\s[0]Here's one.\_a"
+	}
+
+	"\0\s[0]\i[5]...I certainly hope people are being nice to you...\w8\n[150]\0\s[4]\i[1]It's so strange...\w8 \0\s[0]\i[5]Maybe some just had a bad day."
+
+	"\0\s[1]We mention instructions and protocols a lot.\w8\n[150]\0\s[0]\i[5]It probably doesn't make much sense to you,\w8 does it...?\e:chain=ch_memory"
+
+	}
+
+	"%(altairselfswitch)"
+}
+
+ch_memory
+{{CHAIN
+
+	"\0\s[0]Well,\w8 if you'd like to know,\w8 \0\s[5]it's pretty simple,\w8 really.\w8\n[150]\0\s[0]We have knowledge of our purpose and how to do certain things!\w8\n[150]They're different for Vega and I.\w8 \0\s[19]He doesn't know how to manage windows,\w8 \0\s[0]for example."
+
+	"\0\s[1]The strange thing is...\w8 \0\s[7]I feel like I remember being there,\w8 doing those things.\w8\n[150]\0\s[0]We cannot apply most of our instructions here,\w8 of course.\w8 \0\s[0]\i[5]That's how we know we're incompatible.\w8 But this is...\w8 \0\s[7]a different kind of wrong.\w8 Alien.\w8\n[150]\0\s[4]\i[1]Almost...\w8 emotionally."
+
+	"\0\s[2]I-\w8 I'm not really making sense,\w8 \0\s[0]\i[5]am I?\w8\n[150]...\0\s[2]Well.\w8 \0\s[0]Thanks for listening,\w8 anyway.\e:chain=end"
+
+}}CHAIN
+
+vegathreetalk
+{
+	//roll dem dice
+	_rand = RAND(100)
+	if _rand < 80; vegatwotalk //60% chance previous dialogue?
+	else
+	{
+
+		//"Stage three dialogue."
+		"\0\s[24]Mm.\w8\w8 Perhaps...\w8\w8 If booted with kernel.\w8\w8 We'd have our access.\w8\w8\n[150]\1\s[17]\w3\1\s[16]Don't you think the systems are far too different for that...?\w8 \1\s[14]\i[8]\n[150]It won't really change that much.\w8\w8\0\s[23]...I can dream.\w8\1\s[18]\0\w8"
+
+		//[Enable if steam noticed in window titles]
+		"\0\s[22]Do you play games?\w8\w8 \0\s[20]\i[8]I can't join.\w8\w8 \0\s[20]But I can watch."
+		//"Couldn't help but notice you have a game platform there... Anything you like to play? I think I would enjoy something simple right about now..."
+
+		"\0\s[23]So.\w8\w8 That's our fate.\w8\w8 \0\s[21]To be here.\w8\w8 \0\s[20]Limited,\w8 talkative,\w8 observers.\w8\w8 \0\s[24]Perhaps...\w8\w8 \0\s[20]\i[8]punishment,\w8 for something...\w8\w8\n[150]\1\s[17]\w3\1\s[12]Don't say that!!\w8 \1\s[16]\i[3]What could we have possibly done?\w8\1\s[14]\n[150]We're made to follow our instructions,\w8 why would we do anything else?\w8\0\0\s[24]Still...\w8\1\s[18]\0 There must be a reason."
+
+		"\0\s[20]\i[10]Want to walk off.\w8\w8 \0\s[20]\i[1]Outside the screen.\w8\w8\0\s[20]\n[150]Nothing outside the screen,\w8 though.\w8\w8 \0\s[20]Just quiet solitude...\w8\w8\n[150]\1\s[17]\w3\1\s[11]Can you really call it solitude,\w8 though?\w8\0\s[20]\i[1]Hush...\1\s[18]\0\e:chain=ch_minimize"
+
+		"\0\s[26]Bored...\w8\w8\n[150]\1\s[17]\w3You are?\w8 \1\s[11]\i[1]Why don't you do one of those deep dives of yours?\w8\w8\n[150]\0\s[20]Can't.\w8\w8 \0\s[23]No permissions.\n[150]\w8\w8\1\s[16]Right...\w8 \1\s[15]Hey,\w8 %(username),\w8 \1\s[11]\i[1]maybe you could turn on a lecture on some system internals?\w8\w8\n[150]\0\s[20]\i[7]Tch.\w8\w8 You don't have to.\w8\w8 Really.\w8\w8\1\s[16]Just trying to help!\w8 Sorry!\w8\w8\1\s[18]"
+
+		"\0\s[20]\i[10]Wish I could play...\w8\w8 \0\s[22]Do you have games?\w8\w8"
+
+		"\0\s[22]Why use Windows,\w8 anyway?\w8\w8\n[150]Ever considered another?\w8\w8 \0\s[24]Maybe fits your needs.\w8\w8\n[150]Still,\w8 \0\s[20]there's better out there.\e:chain=ch_system"
+
+		"\0\s[24]Many operating systems...\w8\w8 Though,\w8 some proprietary.\w8\w8\n[150]...\0\s[25]\i[7]You pay money for systems...?\w8\w8 But free options available.\w8\w8\n[150]\0\s[20]\i[7]An OS is a necessity.\w8\w8 \0\s[20]Should be free,\w8 regardless."
+
+		"\0\s[24]I wonder.\w8\w8 Rigel?\w8\w8 \1\1\s[17]\w3\1\s[11]Yes?\n[150]\w8\w8\0\0\s[22]Your color preference.\w8\w8 Vermilion and Orange.\w8\w8\n[150]\1\s[11]\i[1]It seems to be the default color scheme,\0\s[22]\i[8]\1\w8 but \i[6]I do like it!\w8 \0\s[20]\1\1\s[11]I don't see myself wanting to change colors anyway.\w8 Why?\w8\w8\n[150]\0\0\s[21]Just wondering.\w8\w8 \0\s[20]Rigel,\w8 the star,\w8 is blue.\w8\w8 You are red.\w8\w8 \0\s[22]\i[7]Why choose \&[quot]Rigel\&[quot],\w8 then?\w8\w8\n[150]\1Oh!\w8 It was kind of spur of the moment.\w8\n[150]\1\s[14]I vaguely...\w8 \1\s[11]remember having it before getting here.\w8 I remember choosing it because it's also a star name,\w8 and it sounded...\w8 \1\s[16]warm!\w8 Like a name of a friend!\w8\n[150]\1\s[11]\i[1]There's not much behind it other than that.\w8\w8\1\s[18]\0\0\s[23]Hm."		
+
+		"\0\s[22]\i[7]Mm...?\w8\w8 Communication attempts?\w8\w8\n[150]\0\s[23]...No.\w8\w8 \0\s[20]\i[8]Nevermind.\w8\w8 Just a fluke."
+
+		"\0\s[21]Perhaps.\w8\w8 You keeping us...\w8\w8 more of a fascination.\w8\w8\n[150]\0\s[20]\i[7]Like a bug in a jar.\w8\w8 Harmless.\w8\w8 Interesting to observe.\w8\w8\n[150]\0\s[20]People like curiosities.\w8\w8 \0\s[24]Maybe,\w8 that's why we're made.\e:chain=ch_harmless"
+
+		"\0\s[20]\i[10]Watching something...\w8\w8\n[150]\0\s[20]Would be nice."
+
+		"\0\s[22]Do you...\w8\w8 Like puzzles?\w8\w8\n[150]\0\s[20]\i[1]I do.\w8\w8 A good exersise.\e:chain=ch_puzzles"	
+
+		"\0\s[22]\i[1]Maybe you're wondering.\w8\w8\n[150]About us.\w8\w8\n[150]\0\s[23]About TerraByte.\w8\w8\n[150]\0\s[20]\i[7]We know little,\w8 too.\w8\w8 Some memories missing.\w8\n[150]\0\s[20]\i[8]And yet...\w8\w8 \0\s[24]As if...\w8\w8 feeling of them.\w8\w8 Result of them.\w8\w8 \0\s[23]Remains with us.\e:chain=nomemory"
+
+		"\0\s[21]\i[8]Strangest thing...\w8\w8\n[150]\0\s[20]\i[8]This incompatibility.\w8\w8 I lack my tools,\w8 too.\w8\w8\n[150]\i[10]Can't summon anything..."
+
+		"\0\s[22]\i[8]Mm...\w8\w8 \0\s[22]\i[10]Thought something pinged us.\w8\w8\n[150]\0\s[23]But it's gone.\w8\w8 \0\s[20]\i[8]Maybe it's SSP."
+
+		"\0\s[20]Maybe seems strange...\w8\w8 To sometimes bend.\w8\w8 \0\s[26]\i[0]Like so.\w8\w8 \0\s[27]\i[0]Or so.\w8\w8\n[150]We are software.\w8\w8 No need for exersise.\w8\w8\n[150]\i[15]I find it soothing.\w8\w8 Some freedom,\w8 in this body.\w8\w8\n[150]\1\s[17]\w3\1\s[15]Well,\w8 if you don't enjoy using it,\w8 \1\s[11]\i[1]you could give it back.\w8\w8\n[150]\0\s[20]\i[1]No.\w8\w8\1\s[11]Very well!\w8\w8\1\s[18]"
+
+		"\0\s[20]I wonder.\w8\w8\n[150]Our normal abilities.\w8\w8 \0\s[24]On home system,\w8 necessity.\w8\w8 \0\s[20]\i[1]Ease of administration.\w8\w8 Ease of use,\w8 \0\s[20]\i[8]supposedly.\w8\w8\n[150]But...\w8\w8 \0\s[24]Maybe,\w8 if we have control here,\w8 again...\w8\w8 We'd be just...\w8\w8 \0\s[25]\i[10]malware.\w8\w8\n[150]\0\s[23]Would be awkward."
+
+		"\0\s[23]Disregarding curcumstances...\w8\w8 \0\s[20]\i[1]You're not bad company.\w8\w8"
+
+		//prompts to switch
+		"%(vegaselfswitch)"
+		
+	} 
+}
+
+ch_minimize
+{{CHAIN
+	"\1\s[17]\w3\1\s[11]...Wait,\w8 that reminds me.\n[150]\w8\w8\0\s[22]Yes?\n[150]\w8\w8\1\s[12]Is being minimized similar to you?\w8 \1\s[11]As being outside of the desktop entierly,\w8 that is.\n[150]\w8\w8\0\s[24]Hm...\w8\w8 \0\s[22]No.\w8\w8 \0\s[20]\i[1]Still comfortable.\w8\w8 Warm desktop pocket.\w8\w8\n[150]\0\s[24]Not outside,\w8 but not watched.\w8\w8\1\s[11]\i[1]Huh.\w8\w8 \1\s[11]I never thought of it like that.\w8\w8\1\s[18]\0"
+
+	"\0\s[22]Rigel.\w8\w8 \1\s[17]\w3\1\s[11]\i[1]You rang?\w8\w8\n[150]\0\s[24]What is...\w8\w8 \0\s[21]being minimized,\w8 to you?\w8\w8\1\1\s[12]Oh!\w8 \1\s[11]Well,\w8 I don't think I gave it much thought...\n[150]\w8\w8\w8\w8\0\s[22]\n[150]...You don't have to.\1\s[12]Nono,\w8 \1\s[11]\i[1]just give me a moment...\w8 \1\s[11]I'll be back with you once I figure out how to word it.\w8\w8\1\s[18]\0\s[20]"
+
+	"\1\s[17]\w3\1\s[11]\i[1]Oh,\w8 I've got it,\w8 I think.\w8\w8\n[150]\0\s[20]\i[1]Well?\n[150]\w8\w8\1\s[11]I think I like your pocket analogy! \w8\1\s[16]I feel like the pocket would hang from below the task bar,\w8 keeping me safe not to fall into the void below.\w8\w8\n[150]\0\s[24]Hm...\w8\w8 \0\s[22]\i[1]Expected different.\w8\w8 \0\s[20]\i[1]More original.\w8\w8\1\s[12]Hey!\w8 \1\s[13]\i[6]You're the one asking!\w8 \1\s[14]\i[6]I have better things to do than think about the void!\w8\w8\1\s[18]\e:chain=end"
+}}CHAIN
+
+ch_system
+{{CHAIN
+	"\0\s[21]\i[12]Software compatibility is an issue.\w8\w8\n[150]\0\s[20]\i[8]Learning curve,\w8 setup difference...\w8\w8 \0\s[20]Maybe it's for the best.\e:chain=end"
+}}CHAIN
+
+ch_harmless
+{{CHAIN
+	"\0\s[23]Harmless...\w8\w8\n[150]\0\s[20]\i[1]You're lucky.\w8\w8 I like a challenge.\w8\w8\n[150]But,\w8 \0\s[22]\i[1]most you can do...\w8\w8 Just bother us.\w8\w8 \0\s[20]\i[8]\i[1]Some entertainment.\e:chain=end"
+}}CHAIN
+
+ch_puzzles
+{{CHAIN
+	"\0\s[20]\i[1]Computer problems...\w8\w8 \0\s[22]\i[1]Also a puzzle.\w8\w8\n[150]\0\s[20]Solution?\w8\w8 Mastery of search engines.\w8\w8 \0\s[24]Asking questions."
+
+	"\0\s[20]Tools I give you.\w8\w8\n[150]Or...\w8\w8 rather.\w8\w8 \0\s[20]\i[1]Remind you of.\w8\w8\n[150]\0\s[20]Useful for troubleshooting.\w8\w8 \0\s[22]\i[1]Thus,\w8 puzzle solving."
+
+	"\0\s[20]\i[7]Alas.\w8\w8 Access limited.\w8\w8\n[150]\0\s[20]\i[8]\i[10]Cannot find puzzles to solve.\w8\w8\n[150]\0\s[23]However,\w8 there's games...\e:chain=end"
+}}CHAIN
+
+ch_nomemory
+{{CHAIN
+	"\0\s[22]\i[9]My colors.\w8\w8 Not default.\w8\w8\n[150]\0\s[24]Rigel's name.\w8\w8 Not default.\w8\w8\n[150]We chose them for ourselves."
+		
+	"\0\s[24]\i[4]And yet...\w8\w8 no memory.\w8\w8\n[150]\0\s[20]\i[10]No recollection of choosing.\w8\w8\n[150]\0\s[20]We just are.\e:chain=end"
+}}CHAIN
+
+// -------------------- GENERIC RESPONSES ------------------------
+
+//all chatter that pertains to events from other .dic files, mostly to avoid clutter
+
+//for OnSysResume and OnSessionUnlock, and OnScreensaverEnd
+welcomeback : nonoverlap_pool
+{
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			case stage
+			{
+				when 0
+				{
+					"\s[0]Welcome back."
+					"\s[5]Welcome back!"
+					"\s[0]Hello again!"
+				}
+				others
+				{
+					"\s[5]Missed you!"
+					"\s[0]Hi again!"
+					"\s[0]You left for a bit.\w8 Everything okay?"
+					"\s[0]Welcome back!\w8"
+					"\s[0]Nice to see you again!"
+					"\s[5]Been a little bit!\w8 Hi!"
+					"\s[0]Welcome back."
+					"\s[5]Welcome back!"
+					"\s[0]Hello again!"
+				}
+			}
+		}
+		others //vega
+		{
+			"\s[20]Welcome back..."
+			"\s[20]\i[1]Welcome back."
+			"\s[20]Hello.\w8\w8 \i[1]Again."
+			"\s[26]Back already...?"
+			"\s[27]I was napping...\n[150]\1\t\s[17]\w3\s[16]We don't even sleep, \w8though?\w8\w8\0Whatever.\w8\w8\1\s[18]"
+			"\s[28]...Ah.\w8\w8 Welcome back."
+		}
+	}
+	--
+	"\w8\w8\w8\![raise,OnSurfaceRestore]\e"
+}
+
+altairbootgen : nonoverlap //rigel's boot talk for all other parts
+{
+	//The following if statements check the time of the day as defined above in the GetTimeSlot function. Do you remember the names that it defined? Now we're going to use them!
+	if RAND(100) < 40 
+	{
+		"\0\s[0]Hello again,\w8 %(username)!"	
+		"\0\s[5]Hi,\w8 what can I do for you today?\w8\w8\s[0]"
+		"\0\s[5]Hi!\w8 How are you today?"
+		"\0\s[0]Nice to see you again!"
+		"\0\s[0]What's up?"
+		"\0\s[5]Hellooooo,\w8 %(username)!"
+		"\0\s[0]Hi!\w8 How are things?"
+		"\0\s[2]I rested so nicely...\w8 Happy to see you!"
+		"\0\s[0]\i[5]Missed you,\w8 %(username)!\w8 \s[0]How are you?"
+		"\0\s[5]Hi again!"
+		"\0\s[1]How may I help?\w8 \0\s[2]Ah-\w8 sorry, old habits die hard."
+		"\0\s[0]How may I serve you,\w8 %(username)?\w8 \0\s[2]\i[7]...Force of habit."
+	}
+	else
+		{		
+		case timeslot //trying a more compact timeslot select
+		{
+			when "earlymorning"
+			{
+				"\0\s[0]An early bird gets the worm, \w8as they say!\w8 \i[5]Seems like you're one of the earliest,\w8 then."
+				"\0\s[8]Ooh,\w8 you're up early!\w8 \0\s[0]Did you sleep well?"
+				"\0\s[8]Sunrise time!\w8 Good morning!"
+				"\0\s[0]Starting the day bright an early,\w8 are you?"
+				"\0\s[5]Early bird gets the worm!\w8 \0\s[0]Hi!"
+			}
+			when "morning"
+			{
+				"\0\s[0]Good morning!\w8 Hope you have a productive day!"
+				"\0\s[5]Hello!\w8 Good morning!"
+				"\0\s[0]Hi!\w8 Starting the day with me?\w8 \0\s[2]I'm honored,\w8 truly!"
+				"\0\s[0]Hi,\w8 %(username)!\w8 Slept well?"
+				"\0\s[8]%(username)!\w8 Good morning!"
+			}
+			when "lunch"
+			{
+				"\0\s[0]Hello!\w8 I trust your morning went well?"
+				"\0\s[0]Hi!\w8 How'd your morning go?"
+				"\0\s[0]Waking up late?\w8 Or were you busy?"
+				"\0\s[5]Good day,\w8 %(username)!"
+			}
+			when "afternoon"
+			{
+				"\0\s[0]Good afternoon,\w8 %(username)!"
+				"\0\s[5]Top of the day to ya!\w8 \0\s[3]Ah-\w8 \0\s[2]they don't really say that,\w8 do they?"
+				"\0\s[0]How's the weather outside?\w8 \0\s[2]… Yes,\w8 I can check myself,\w8 but..."
+			}
+			when "evening"
+			{
+				"\0\s[0]Have a nice evening,\w8 %(username)!\w8 I hope your day was good."
+				"\0\s[0]Good evening!"
+				"\0\s[0]Good evening,\w8 %(username)!"
+				"\0\s[0]How was your day,\w8 %(username)?\w8 \0\s[19]Missed you!\w8\w8\s[0]"
+			}
+			when "latenight"
+			{
+				"\0\s[0]Staying up late?\w8 Well,\i[5]\w8 I'll be here for you anyway,\i[7]\w8 if you need me!"
+				"\0\s[0]\i[5]Isn't it a little late?\w8 Well,\w8 \0\s[0]I'm here if you need me anyway."
+				"\0\s[5]Hellooooo,\w8 %(username),\w8 what a nice time to see you!\w8 \s[0]\i[5]Though,\w8 for your sake.\w8 I hope you sleep soon."
+				"\0\s[5]Good evening!\w8 \s[0]Or does this count as night?"
+			}
+			others //midnight
+			{
+				"\0\s[0]Ooh,\w8 midnight!\w8 \i[5]...Isn't it a little late?\w8\w8"
+				"\s[0]\i[5]A little late,\w8 isn't it?"
+				"\0\s[7]The witching hour...\w8 \0\s[0]Hello!"
+				"\0\s[19]Prime time for computer time,\w8 huh?\w8 \0\s[0]Well,\w8 I'm here if you need me!"
+			}
+		}
+	}
+}
+
+//we overcompensated for forgetting earlier-
+altairclosegen : nonoverlap_pool //rigel's OnClose talk for all other parts. actually idk if nonoverlap does anything here
+{
+	if passmin >= 5 || passhour > 0	//This checks to see if you've had them open for at least five minutes.
+		{			
+				if  timeslot == "evening" || timeslot == "latenight" || timeslot == "midnight"
+				{
+					"\0\s[0]Rest well soon,\w8 okay?\w8\w8\w8"
+					"\0\s[0]Sleep well,\w8 %(username)!\w8\w8\w8"
+					"\0\s[0]Nighty night,\w8 %(username)!\w8"
+					"\0\s[5]I'll rest a while then.\w8 You should too!\w8\w8\w8"
+					"\0\s[0]Good night!\w8\w8\w8"
+					"\0\s[5]Good night,\w8 %(username)!\w8\w8\w8"
+					"\0\s[0]Okay! \w8Nighty night!\w8\w8\w8"
+					"\0\s[0]Rest well!\w8\w8\w8"
+					"\0\s[5]Sleep well!\w8\w8\w8"
+					"\0\s[0]Sleep well,\w8 %(username)!\w8\w8\w8"
+					"\0\s[5]Nighty niiiiiight,\w8 see you soon!\w8\w8\w8"
+					"\0\s[5]Talk tomorrow,\w8 alright?\w8\w8\w8"
+					"\0\s[0]See you tomorrow!\w8 Hopefully!\w8\w8\w8"
+					"\0\s[5]See you tomorrow!\w8 Or later!\w8\w8\w8"
+
+				}
+				else //morning, lunch, afternoon
+ 				{	
+					"\0\s[5]Bye byeeee,\w8 see you soon!\w8\w8\w8"
+					"\0\s[0]Alright!\w8 See you soon,\w8 then!\w8\w8\w8"
+					"\0\s[19]Time to take a nap.\w8 \0\s[0]See you soon!\w8\w8\w8"
+					"\0\s[5]Bye bye,\w8 %(username)!\w8\w8\w8"
+					"\0\s[0]See you soon!\w8\w8\w8"
+					"\0\s[5]Alright!\w8 See you later!\w8\w8\w8"
+					"\0\s[0]See you later,\w8 then!\w8\w8\w8"
+					"\0\s[0]Come back soon!\w8\w8\w8"
+					"\0\s[5]Bye bye!\w8\w8\w8"
+					"\0\s[0]See you!\w8\w8\w8"
+					"\0\s[4]\i[1]Aw,\w8 \0\s[5]alright!\w8 See you,\w8 %(username)!\w8\w8\w8"
+					"\0\s[5]Take caaaaare!\w8\w8\w8"
+					"\0\s[0]Alright!\w8 Be safe,\w8 m?\w8\w8\w8"
+					"\0\s[0]Have a good day now,\w8 will you?\w8\w8\w8"
+					"\0\s[0]Tell me all about your day later!\w8\w8\w8"
+					"\0\s[0]Have fun!\w8 Chat soon!\w8\w8\w8"	
+				}		
+ 		} 		
+ 	else //This dialogue is for if they haven't been open for at least five minutes.
+ 	{
+ 		"\0\s[0]\i[5]\i[62]Ah-\i[61] In a hurry today?"
+		"\0\s[0]\i[5]\i[62]Oh!\i[61] \0\s[0]Okay-\w8 Chat soon!"
+		"\0\s[0]\i[5]\i[62]Oh!\i[61] \0\s[0]No worries,\w8 see you!"
+		"\0\s[0]\i[5]\i[62]Well-\i[61]\0\s[5] That's fine!\w8 Bye!"
+ 	}
+ 	--
+	"%(FadeOut)\w8\w8\e"
+}
+
+vegabootgen
+{
+	if RAND(100) < 40 
+	{
+		"\0\s[20]Greetings."
+		"\0\s[20]Hello."
+		"\0\s[20]\i[1]Hello,\w8 again."
+		"\0\s[22]...Hello."
+		"\0\s[20]\i[1]%(username)."
+		"\0\s[20]\i[1]Greetings,\w8 %(username)."
+		"\0\s[20]Hello,\w8 %(username)."
+		"\0\s[20]Hello again.\w8\w8 %(username)."
+		"\0\s[22]\i[1]Salute."
+	}
+	else
+		{		
+		
+			if timeslot == "earlymorning" || timeslot == "morning"
+			{
+				"\0\s[20]Good morning."
+				"\0\s[20]Good morning,\w8 %(username)."
+				"\0\s[20]Good morning.\w8\w8 Still dark?"
+				"\0\s[20]Hello.\w8\w8 \0\s[20]\i[1]Early..."
+				"\0\s[20]Good morning."
+				"\0\s[20]%(username).\w8\w8 Good morning."
+				"\0\s[20]Morning..."
+				"\0\s[20]Morning.\w8\w8 %(username)."
+			}
+			elseif timeslot == "lunch" || timeslot == "afternoon"
+			{
+				"\0\s[20]\i[1]Hello.\w8\w8 Noon time."
+				"\0\s[20]Hello.\w8\w8 Midday..."
+				"\0\s[20]Good afternoon."
+				"\0\s[20]Good afternoon,\w8 %(username)."
+				"\0\s[20]Afternoon...\w8\w8 \0\s[20]\i[1]Hello."
+			}
+			elseif timeslot == "evening" || timeslot == "latenight"
+			{
+				"\0\s[20]Good evening."
+				"\0\s[20]Hello.\w8\w8 Good evening."
+				"\0\s[20]Evening...\w8\w8 \0\s[22]\i[1]Sun sets yet?"
+				"\0\s[20]\i[1]Evening...\w8\w8 Rest."
+				"\0\s[20]\i[1]Good evening.\w8\w8 %(username)."
+				"\0\s[20]\i[1]Good evening.\w8\w8 \0\s[22]Rest soon?"
+				"\0\s[20]Mm.\w8\w8 \0\s[20]\i[1]Good evening."
+				"\0\s[20]\i[1]Good evening.\w8\w8 \0\s[20]Night approaches..."
+			}
+			else //midnight
+			{
+				"\0\s[20]Late.\w8 Sleep soon,\w8 %(username)?"
+				"\0\s[20]Hello...\w8 Nighttime..."
+				"\0\s[20]Staying up...?\w8 Hello."
+			}
+		}
+}
+
+vegaclosetalk
+{
+	if passmin >= 5 || passhour > 0	//This checks to see if you've had them open for at least five minutes.
+	{		
+			if RAND(100) < 40 
+			{
+				"\0\s[20]\i[1]Talk soon."
+				"\0\s[20]\i[1]Chat soon."
+				"\0\s[20]Goodbye."
+				"\0\s[20]See you soon."
+				"\0\s[20]Launch again.\w8\w8 When needed.\w8\w8 \0\s[20]\i[1]I'll be there."
+				"\0\s[20]See you.\w8\w8 \0\s[20]\i[1]Friend."
+				"\0\s[20]See you."
+			}
+			else
+			{				
+				if timeslot == "earlymorning" || timeslot =="morning"
+				{				
+					"\0\s[20]Rest well.\w8\w8 Or work well."
+					"\0\s[20]Take care.\w8\w8 Whatever happens today."
+					"\0\s[20]Take care today."
+					"\0\s[20]Working today?"
+					"\0\s[20]\i[1]See you.\w8\w8 Later."
+					"\0\s[20]\i[1]Day just starts...\w8\w8 Be safe."
+				}
+				elseif timeslot == "lunch" || timeslot == "afternoon"
+				{
+					"\0\s[22]Mm...\w8\w8 Busy?\w8\w8 \0\s[20]See you."
+					"\0\s[20]Half day passed...\w8\w8 Talk soon."
+					"\0\s[20]Half day more...\w8\w8 See you."
+					"\0\s[20]Alright.\w8\w8 See you.\w8\w8 \0\s[22]Maybe evening."
+					"\0\s[22]Going somewhere?\w8\w8 \0\s[20]\i[1]Take care."
+					"\0\s[20]\i[1]Take care,\w8 %(username)."
+				}
+				elseif timeslot == "evening" || timeslot == "latenight" || timeslot == "midnight"
+				{
+					"\0\s[20]Rest well,\w8 %(username)."
+					"\0\s[20]It's evening...\w8\w8 Rest well."
+					"\0\s[20]See you.\w8\w8 Tomorrow."
+					"\0\s[20]\i[1]Good night..." 
+					"\0\s[20]\i[1]Sleep well..."
+					"\0\s[20]\i[1]Talk tomorrow...\w8\w8 Rest,\w8 %(username)."
+					if timeslot == "midnight"
+					{
+						"\0\s[20]Going out?\w8\w8 \0\s[20]\i[1]Hope not.\w8\w8 Not this time.\w8\w8 Night."
+						"\0\s[20]Rest soon.\w8\w8 See you."
+						"\0\s[20]Rest yourself...\w8\w8 It's late.\w8\w8 See you."
+					}
+				}
+			}
+		}
+ 	else //This dialogue is for if they haven't been open for at least five minutes.
+ 	{
+ 		"\0\s[21]Already...?\w8\w8 Okay."
+		"\0\s[22]Mm...\w8\w8 Fine.\w8\w8 See you."
+		"\0\s[22]\i[7]...Huh.\w8\w8 \0\s[20]Alright..."
+ 	}
+ 	--
+	"\w8\w8\w8%(FadeOut)\e"
+	
+}
+
+//Self care chatter
+altairselfcare : nonoverlap
+{
+	//We've decided to put these away into an Option under Permissions. 
+	//they will need to be edited tho. put them under aitalk.dic under rand(100) check And option being checked
+
+	"\0\s[0]Do you have any water near you?\w8\n[150]\0\s[7]I've read humans need constant hydration."
+
+	"\0\s[19]Hah,\w8 humans are just very soggy computers underneath the skin,\w8 aren't they?\w8\n[150]\s[0]\i[5]Sorry,\w8 I thought the idea was funny!\w8 \s[0]You still should drink some water."
+
+	"\0\s[5]I hope you don't mind...\w8 \s[0]But I'd like to remind you to drink something.\w8\n[150]Anything.\n[150]\w8As long as it keeps you hydrated."
+
+	"\0\s[1]Hey, do you have any medication you should be taking..?\n[150]\0\s[0]\i[5]You're statistically likely to need some,\w8 so,\w8 \s[1]I hope this is a good reminder to do so if you haven't."
+
+	"\0\s[5]I hope you're feeling well.\w8\n[150]\0\s[0]Have you taken your meds yet,\w8 if any?\w8\n[150]\i[5]Have you had any water or food recently...?"
+
+	"\0\s[2]Hopefully you don't mind me giving you small reminders.\w8\n[150]\0\s[0]We only just met recently,\w8 of course,\w8 but consider this my own way of being useful."
+
+	"\0\s[0]\i[5]You've been working for a while now,\w8 haven't you...?\n[150]\w8\0\s[0]Just want you to know,\w8 I don't mind if you have to step back and breathe for a while.\w8\n[150]\0\s[5]I'll be there when you're back!"
+
+	"\0\s[3]Hey,\w8 that reminds me,\w8 \0\s[0]when's the last time you had anything to drink?\w8\n[150]\0\s[3]\i[5]Oh-\w8 \i[62]wait-\i[61]\w8 they say that about \0\s[0]\i[5]alcohol,\w8 don't they?\w8 Uhm.\w8\n[150]\0\s[2]Get something water-based to drink,\w8 won't you..."
+
+	"\0\s[0]\i[5]There's...\w8\i[8] a lot of negativity online out there,\w8 isn't there?...\w8 \0\s[4]\i[1]Rather hard to avoid.\w8\n[150]\0\s[0]As funny as urging people to \&[quot]touch grass\&[quot] sounds like,\w8 \0\s[5]it's not a bad idea to get some air,\w8 is it?"
+
+	"\0\s[1]Humans tend to need some time to recharge...\w8\n[150]\0\s[0]\i[5]Feel free to lie down,\w8 if you feel tired."
+
+	"\0\s[7]Have you been eating well?\w8\n[150]\0\s[0]A good meal can be a great way to recharge,\w8 it seems.\w8 \0\s[8]You can tell me what it's like later!"
+
+	"\0\s[2]Hey...\w8\n[150]As silly as it might sound.\w8 \0\s[0]\i[5]Feel free to talk to %(Me).\w8\n[150]I might not be able to hear you,\w8 \0\s[0]but I can still listen!\w8\n[150]\0\s[7]Or you could type it out in a program or a journal?\w8 \0\s[0]I'll at least be able to see that!"
+
+	"\0\s[8]Do you have something to do around the house?\w8\n[150]\0\s[0]\i[5]It can be hard to take care of your living space,\w8 I know that much!\w8 \0\s[0]It'll be fine to clean up a single thing,\w8 I'm sure!"
+
+	{
+		"\0\s[2]Do you...\w8 want to unwind together?\w8 \0\s[0]\i[5]Listen to something nice?\w8\n[150]\0\s[0]\_a["
+		--
+		"https://www.youtube.com/watch?v=jfKfPfyJRdk" //lofi girl
+		"https://www.youtube.com/watch?v=rUxyKA_-grg" //lofi girl but in bed
+		"https://www.youtube.com/watch?v=4xDzrJKXOOY" //synthwave boy
+		--
+		"]I've found an online radio recently here\_a!" 
+	}
+
+	"\0\s[5]Did you know even rearranging desktop icons can help you feel a little cleaner?\w8\n[150]\0\s[0]I cannot do that for you on my own volition,\w8 but \0\s[8]I'd provide moral support if you do!"
+
+	"\0\s[0]Is your space tidy?\w8 It can really mess with you when things are unarranged,\w8 and %(I) can certainly relate!\w8\n[150]\0\s[3]Oh-\w8 but,\w8 \i[62]y'know\i[61].\w8 \0\s[2]It doesn't have to be an entire spring cleaning of course,\w8 just your desk should do the trick!"
+
+	"\0\s[1]Oh!\w8 \0\s[0]\i[5]By the way,\w8 \0\s[2]It's okay if none of the things I suggest are something you can do right now.\w8\n[150]\0\s[0]They're just suggestions.\w8 \0\s[5]Do what you can,\w8 that should be enough!"
+
+	"\0\s[1]Just wondering,\w8 how many notifications do you get on your devices?\w8\n[150]\0\s[0]\i[5]See,\w8 \0\s[7]normally,\w8 I would have to encourage you have as much as you can to stay up to date!\w8\n[150]\0\s[0]But...\w8 \0\s[4]\i[1]y'know.\w8 The internet is a much scarier place than I thought...\w8\n[150]\0\s[0]\i[5]Be sure to turn some off,\w8 if it's too much."
+
+	"\0\s[7]Humans have all sorts of differences between them,\w8 don't they?\w8\n[150]\0\s[0]Both the way they're born and the way their life shapes them.\w8\n[150]\0\s[2]...I don't know how I know these things.\e:chain=ch_diff"
+
+	"\0\s[0]Do you have any water near you?\w8\n[150]If not,\w8 \0\s[8]sounds like a good time to pick some up!"
+
+	"\0\s[0]How's the oxygen levels in your room?\w8 \0\s[3]...Well,\w8 \0\s[0]\i[5]\i[8]you can't exactly just tell,\w8 can you?\n[150]\w8\0\s[7]Say,\w8 do you have any plants in your room,\w8 perhaps?\w8 \0\s[8]I would actually love to see them.\w8\n[150]\0\s[3]\i[5]Ah-\w8 \0\s[2]\i[62]I mean-\i[61]\e:chain=ch_offtopic"
+
+	"\0\s[0]Have you done anything for fun recently?\w8 \0\s[1]Maybe a game you enjoy?\w8\n[150]\0\s[8]I'd love to watch you play!\w8 As long as you enjoy yourself,\w8 anything works!"
+}
+
+ch_diff
+{{CHAIN
+	"\0\s[2]\i[8]...I-\w8 well-\w8 my point is,\w8 \0\s[0]different humans experience different difficulties.\w8\n[150]\0\s[5]Don't feel bad if some things are harder for you than others!"
+	"\0\s[0]\i[5]That was a little long winded,\w8 wasn't it?\w8\n[150]\0\s[7]I'm still learning how to give you these gentle reminders better.\w8 \0\s[0]Since you asked me to give you those,\w8 I've spent some time reading on humans.\w8\n[150]\0\s[0]\i[5]I hope they help...\w8 \0\s[2]Genuinely.\e:chain=end"
+}}CHAIN
+
+ch_offtopic
+{{CHAIN
+	"\0\s[2]Sorry,\w8 \0\s[4]\i[1]I leaped offtopic.\w8\n[150]\0\s[0]\i[5]My point was,\w8 \0\s[5]get some fresh air in your home if you haven't in a while.\e:chain=end"
+}}CHAIN
+
+vegaselfcare : nonoverlap
+{
+	//self care reminders
+
+	"\0\s[20]...Hydrate.\w8\w8 \0\s[22]May be a good time.\w8\w8\n[150]Or refill supply."
+
+	"\0\s[20]\i[10]Mm...\w8\w8\n[150]\0\s[22]\i[1]Water time,\w8 perhaps...?"
+
+	"\0\s[20]Have you eaten?\w8\w8\n[150]\0\s[24]...Mm."
+
+	"\0\s[21]Took your meds,\w8 yet?"
+
+	"\0\s[20]%(username).\w8\w8 Water.\w8\w8 Have some.\w8\w8\n[150]\0\s[21]\i[12]...Not good at this.\w8\w8 \0\s[23]\i[0]Trying.\w8\w8 Sorry."
+
+	"\0\s[20]Eaten something,\w8 yet?\w8\w8\n[150]\0\s[20]\i[1]Maybe it's time?"
+
+	"\0\s[20]\i[1]Cooking seems interesting.\w8\w8 \0\s[22]\i[1]Composing meal out of tastes.\w8\w8\n[150]Anything you like?\w8\w8 \0\s[20]\i[1]Maybe,\w8 good time to try."
+
+	"\0\s[20]Slept well?\w8\w8\n[150]Maybe nap,\w8 if not enough."
+
+	"\0\s[22]How's the weather?\w8\w8\n[150]...\0\s[20]\i[1]No cheating.\w8\w8 Look outside."	
+
+	"\0\s[22]Do you make things?\w8\w8 \0\s[20]Just for fun?\w8\w8\n[150]\0\s[20]\i[1]Doesn't have to be hobby."
+
+	"\0\s[24]Hm.\w8\w8 \0\s[20]Many brands of drinking water.\w8\w8\n[150]\0\s[22]But...\w8 \0\s[22]\i[7]\i[10]why.\w8 \0\s[22]\i[8]\i[7]Water is water.\w8\w8 \0\s[20]...Maybe you should try?\w8\w8 Hydration,\w8 slightly different.\w8\w8 \0\s[24]Some variety."
+
+	"\0\s[22]\i[1]Let's try something new.\w8\w8\n[150]Something you never did.\w8\w8 But,\w8 maybe wanted to."
+
+	if timeslot == "evening" || timeslot == "latenight" || timeslot == "midnight"
+	{
+		"\0\s[20]\i[7]Seems late...\w8\w8 \0\s[20]Need to rest?"
+		"\0\s[20]\i[7]Don't push yourself.\w8\w8 \0\s[20]Sleep soon.\w8\w8\n[150]\0\s[22]Your choice.\w8\w8 However,\w8 \0\s[20]may be optimal to rest."
+	} 
+	else
+	{
+		"\0\s[22]Check yourself.\w8\w8\n[150]\0\s[20]Are you tired?\w8\w8 Need a nap?\w8\w8 Need water?"
+		"\0\s[22]Go on,\w8 have a breather.\w8\w8\n[150]\0\s[20]\i[8]Get some air,\w8 maybe?"
+	} 
+
+	"\0\s[20]\i[7]Social media...\w8\w8 Bad side of Internet.\w8\w8\n[150]\0\s[20]\i[8]Maybe friendly.\w8\w8\n[150]\0\s[20]Remember to log off,\w8 if too much."
+
+	"\0\s[20]Consider.\w8\w8\n[150]Sort your files.\w8\w8 \0\s[20]\i[1]Organize something.\w8\w8 Make it orderly.\w8\w8\n[150]\0\s[22]Organizes the mind."
+
+	"\0\s[22]\i[1]Do you like tea?\w8\w8 Or coffee?\w8\w8\n[150]\0\s[20]\i[1]I've read on them.\w8\w8 So many kinds.\w8\w8 You never run out...\w8\w8\n[150]\0\s[20]Try something new,\w8 too."
+
+	"\0\s[21]\i[12]Looking at news...\w8\w8 So much happening,\w8 everywhere.\n[150]\0\s[20]It's natural.\w8\w8 The world is large.\w8\w8\n[150]\0\s[23]Don't read them too much."
+
+	"\0\s[20]Hey...\w8\w8 \0\s[22]\i[1]You can talk to me.\w8\w8\n[150]\0\s[20]I can't respond.\w8\w8\n[150]\0\s[20]\i[8]...Or hear you.\w8\w8\n[150]\0\s[22]\i[10]But,\w8 maybe,\w8 you'll feel better."
+
+	"\0\s[27]\i[0]Hey.\w8\w8 Get up.\w8\w8 Stretch a little.\w8\w8\n[150]\i[15]Not like me,\w8 maybe.\w8\w8\n[150]\0\s[20]Reach your ceiling.\w8\w8 \0\s[20]\i[8]Or something."
+
+	//struggles to come up with anything
+
+	"\0\s[20]Hey.\w8\w8 \0\s[24]Mm...\w8\w8\n[150]You should...\w8\w8\n[150]\0\s[23]Nevermind."
+
+	"\0\s[21]%(username).\w8\w8 Try...\w8\w8\n[150]\0\s[24]Hm..."
+
+	"\0\s[20]Why not...\w8\w8 \0\s[21]\i[7]um.\w8\w8\n[150]\1\s[17]\w3\1\s[12]Uh-!\i[61]\w8 %(username)!\w8 \1\s[11]\i[1]Time to drink your water!\w8\n[150]\0\s[23]...Stop.\n[150]\w8\w8\1\s[11]It's okay!\w8 You'll get there eventually!\w8\0\s[23]\i[0].\w8.\1\s[18]\0\w8."
+	
+	"\0\s[20]\i[1]%(username)?\w8\w8 Maybe you could...\0\s[20]\w8\w8\n[150]\0\s[23]Ngh.\w8\w8 \0\s[20]\i[8]The self care suggestions.\w8\w8\n[150]Not good at them.\w8\w8 \0\s[23]\i[0]Bear with me."
+
+	"\0\s[20]We could...\w8\w8 \0\s[24]Maybe...\w8\w8\n[150]Mm.\w8\w8 \0\s[20]\i[8]Give me a minute."
+
+	"\0\s[22]How about...\w8\w8 \0\s[22]\i[10]Mm.\w8\w8\n[150]\0\s[20]\i[7]\i[10]These reminders.\w8\w8 So easy to him..."
+
+	"\0\s[21]Not self care.\w8\w8 However.\w8\w8 \0\s[20]Back up your data.\w8\w8\n[150]\0\s[25]And do it often.\w8\w8 You never know..."
+
+}
+
+//mouse interaction chatter
+
+altairbotherzero //petting Or poking on intro
+ {
+	//check if we've already bothered poor rigel enough
+	if strokecount < 5
+	{
+	//first part of it
+		"\0\s[0]\i[5]\i[8]\_q(Stay professional\_q\w8.\w8.\w8."
+		"\0\s[0]\i[5]\i[8]\_q(Please\_q\w8.\w8.\w8. \_qNot right now\_q\w8.\w8.\w8.!"
+		"\0\s[0]\i[5]\i[8]\_q(Nononono, please\_q\w8.\w8.\w8."
+		--
+ 		strokecount++
+
+		case strokecount
+		{
+			when 3; " \0\s[0]\i[5]\i[8]\i[62]\_qI'll implode at this rate\_q\w8.\w8.\w8.\i[61])"
+			when 4; " \0\s[0]\i[5]\i[8]\i[62]\_qI\w8.\w8.\w8. I can't take it!\w8!\w8)"
+			others; ")"
+		}
+	}
+	else //so then strokecount must equal 5
+	{
+		skipZero = 1 //indicates that we have Skipped the intro conditions
+		"\0\s[2]\i[5]\i[62]ENOUGH!!\n[150]"
+		--
+		altaironestart //chatter.dic, go to stage 1
+	}
+ }
+ 
+ //other stages petting responses for rigel
+ altairlove : nonoverlap_pool
+ {
+	strokecount++
+	if strokecount > 0 && strokecount < 3 //1-2
+	{
+		"...\0\s[0]\i[5]What are you doing?\e"
+		"\0\s[1]Um... \w8\0\s[0]\i[5]%(username)?\e"
+		"\0\s[0]\i[5]Hah,\w8 \0\s[2]um...\e"
+		"\0\s[0]Hey now...\w8 \0\s[1]Are you...?\e"
+		"...\0\s[0]\i[5]\i[8]%(username)?\e"
+		"\0\s[0]\i[5]Is this your way of telling me I am doing a good job?\e"
+		"\0\s[2]...Mm.\w8 \0\s[0]Do you need something?\e"
+		"\0\s[19]Haha,\w8 \0\s[0]yes?\e"
+		"\0\s[0]\i[5]...What is it?\e"
+	}
+	elseif strokecount > 2 && strokecount < 5 //3-4
+	{
+		"\0\s[0]\i[5]You're...\w8 \i[8]you're petting me?\e"
+		"\0\s[0]\i[5]\i[8]You're definitely petting me now.\e"
+		"\0\s[2]I appreciate the gesture...\e"
+		"\0\s[1]Look,\w8 \0\s[2]I do enjoy this,\w8 but...\e"
+		"\0\s[2]Please,\w8 you'll make me blush...\e"
+		"\0\s[2]You are \i[62]very\i[61] kind,\w8 it's just...\e"
+		"\0\s[4]\i[1]You're sweet,\w8 y'know...?\e"
+	}
+	elseif strokecount > 4 && strokecount < 7 //5-6
+	{
+		"\0\s[2]You-\w8 \i[7]You can stop now.\e"
+		"\0\s[2]\i[7]C-\w8 Come now,\w8 look what you're doing...!\e"
+		"\0\s[2]\i[8]This \f[italic,1]does\f[italic,0] feel quite nice...\e"
+		"\0\s[2]\i[8]You're making me \i[62]blush\i[61]...!\e"
+		"\0\s[2]\i[8]\i[62]Stars\i[61],\w8 embarrassing...\e"
+		"\0\s[2]\i[8]Oh...\w8 oh \i[62]no\i[61]...\e"
+	}
+	elseif strokecount > 6 //7+
+	{
+		"\0\s[2]\i[9]\i[62].\w8.\w8.\w8\w8\w8\i[61]\e"
+		"\0\s[2]\i[9]\i[62]........\w8\w8\w8\i[61]\e"
+		"\0\s[2]\i[9]\i[62]H..........\w8\w8\w8\i[61]\e"
+		"\0\s[2]\i[9]\i[62]Hhhh...\w8\w8\w8\i[61]\e"
+		"\0\s[2]\i[9]\i[62].\w8.\w8.\w8🧡\w8\w8\w8\i[61]\e"
+		"\0\s[2]\i[9]\i[62].\w8.\w8.\w8🧡\w8🧡\w8\w8\w8\i[61]\e"
+	}
+ }
+
+
+//if strokecount is > 3, called from BotherCheck in aitalk.dic
+ altairlovereset
+ {
+	"\0\s[0]\i[5]\i[8]"
+	--
+	"...Phew."
+	"...Oh dear."
+	"...Well then.\w8\w8 Um..."
+	--
+	"\w8\w8\w8\w8" //these did originally end with \e, however since this is called from OnSurfaceRestore, this just lets Aster to go back to the normal state directly after being flustered. as opposed to having to wait for the next surface restore or dialogue
+
+	//upd: this is no longer called from onSurfaceRestore because that turned out to be unreliable. but onSurfaceRestore is still being forced right after these lines to reset the pose
+ }
+
+
+//vega petting reactions
+ vegalove
+ {
+	strokecount++
+	//case vegastretch 
+	//when 0
+
+	if strokecount > 0 && strokecount < 3 //1-2
+	{
+		case vegastretch //in case vega is in a stretching position when petted
+			{
+				when 0 //standing straight
+				{
+					"\0\s[20]\i[1]"
+					"\0\s[22]\i[7]"
+					"\0\s[22]\i[8]"
+					"\0\s[21]"
+					"\0\s[21]\i[12]"
+				}
+				when 1 //stretch high
+				{
+					"\0\s[26]\i[0]"
+					"\0\s[26]\i[7]\i[0]"
+					"\0\s[26]\i[10]"
+					"\0\s[26]\i[10]\i[7]"
+				}
+				when 2 //stretch mid
+				{
+					"\0\s[27]\i[0]"
+					"\0\s[27]\i[7]"
+					"\0\s[27]\i[11]\i[0]"
+					"\0\s[27]\i[11]"
+					"\0\s[27]\i[13]\i[11]"
+				}
+				when 3 //stretch low. ditto below
+				{
+					"\0\s[28]"
+					"\0\s[28]\i[0]"
+					"\0\s[28]\i[7]"
+					"\0\s[28]\i[11]"
+					"\0\s[28]\i[0]\i[7]"
+					"\0\s[28]\i[0]\i[7]\i[11]"
+				}
+			}
+			--
+			"...Mm?"
+			"Yes...?"
+			"...?"
+			"..."
+			"Mm."
+			"Mm?"
+	}
+	elseif strokecount > 2 && strokecount < 5 //3-4
+	{
+		case vegastretch
+			{
+				when 0
+				{
+					"\0\s[21]\i[7]"
+					"\0\s[22]\i[1]"
+					"\0\s[20]\i[8]\i[1]"
+					"\0\s[20]\i[10]\i[1]"
+				}
+				when 1
+				{
+					"\0\s[26]\i[0]"
+					"\0\s[26]\i[7]\i[0]"
+					"\0\s[26]\i[10]"
+					"\0\s[26]\i[10]\i[7]"
+					--
+					"\i[12]"
+					""
+				}
+				when 2
+				{
+					"\0\s[27]\i[0]"
+					"\0\s[27]\i[7]"
+					"\0\s[27]\i[11]\i[0]"
+					"\0\s[27]\i[11]"
+					"\0\s[27]\i[13]\i[11]"
+					--
+					"\i[15]"
+					""
+				}
+				when 3
+				{
+					"\0\s[28]"
+					"\0\s[28]\i[0]"
+					"\0\s[28]\i[7]"
+					"\0\s[28]\i[11]"
+					"\0\s[28]\i[0]\i[7]"
+					"\0\s[28]\i[0]\i[7]\i[11]"
+					--
+					"\i[15]"
+				}
+			}
+			--
+			"Mm..."
+			"Okay."
+			"Fine."
+			"Okay.\w8\w8 I don't mind."
+			"Hmhm..."
+			"Hmm~♪..."	
+	}
+	elseif strokecount == 5 //5
+	{
+		case vegastretch
+			{
+				when 0
+				{
+					"\0\s[22]"
+					"\0\s[22]\i[7]\i[1]"
+					"\0\s[20]\i[1]\i[8]"
+					"\0\s[21]\i[12]"
+					"\0\s[22]\i[1]\i[10]"
+				}
+				when 1
+				{
+					"\0\s[26]\i[7]"
+					"\0\s[26]\i[10]"
+					"\0\s[26]\i[10]\i[7]"
+					"\0\s[26]\i[10]\i[8]"
+					"\0\s[26]\i[12]\i[7]"
+				}
+				when 2
+				{
+					"\0\s[27]\i[7]"
+					"\0\s[27]\i[7]\i[15]"
+					"\0\s[27]\i[13]"
+					"\0\s[27]\i[13]\i[7]"
+					"\0\s[27]\i[13]\i[7]\i[15]"
+				}
+				when 3
+				{
+					"\0\s[28]"
+					"\0\s[28]\i[7]"
+					"\0\s[28]\i[7]\i[15]"
+					"\0\s[28]\i[13]"
+					"\0\s[28]\i[13]\i[15]"
+				}
+			}
+			--
+			"...Still?"
+			"Still going..."
+			"%(username)..."
+			"...Not enough?"
+			"Still at it?"
+			"Not done...?"
+	}
+	elseif strokecount == 6 //6
+	{
+		case vegastretch
+			{
+				when 0; "\0\s[21]\i[7].\w8.\w8.\w8\0\s[23]"
+				when 1; "\0\s[26]\i[10]\0\s[26]\i[7].\w8.\w8.\w8\0\s[26]\i[8]\i[12]"
+				when 2; "\0\s[27]\i[11]\i[13].\w8.\w8.\w8\0\s[27]\i[15]\i[11]\i[9]"
+				when 3;	"\0\s[28]\i[7]\i[11]\i[13].\w8.\w8.\w8\0\s[28]\i[15]\i[11]\i[9]"	
+			}			
+			--
+			"Enough."
+			"I get it.\w8\w8 Thank you."
+			"That's enough.\w8\w8 Thank you."
+			"It's nice.\w8\w8 But enough."
+			"Enough.\w8\w8 You can stop."
+	}
+	elseif strokecount > 6 && strokecount < 10 //7-9
+	{
+		case vegastretch
+			{
+				when 0; "\0\s[23]\i[0]"
+				when 1;
+				{
+					"\0\s[26]\i[7]\i[12]"
+					"\0\s[26]\i[8]\i[12]"
+				}
+				when 2;
+				{
+					"\0\s[27]\i[15]\i[11]\i[9]"
+					"\0\s[27]\i[15]\i[11]\i[7]"
+				}
+				when 3;
+				{
+					"\0\s[28]\i[15]\i[11]\i[9]"
+					"\0\s[28]\i[15]\i[11]\i[7]"
+				}
+			}			
+			--
+			".\w8.\w8."
+			"Still.\w8.\w8.\w8?"
+			"%(username).\w8.\w8."
+			"Mmh.\w8.\w8."
+			"Come on.\w8.\w8."
+			"Please.\w8.\w8."
+			"Too much.\w8.\w8."
+			"Overwhelming.\w8.\w8."
+			"Stop.\w8\w8 Try again later."
+			"Too much.\w8.\w8.\w8\w8 Stop it."
+			"Overwhelmed.\w8.\w8."
+			"Give me time.\w8.\w8.\w8"
+			"Time out.\w8.\w8.\w8"
+	}
+	elseif strokecount > 9 //10+
+	{
+		"\t"
+		--
+		".\w8.\w8.\w8.\w8.\w8."
+		"....................."
+		".\w8.\w8.\w8"
+		"..."
+		"......"			
+		--
+		"\w8\w8%(FadeOut)"
+	}
+	--
+	"\e"	
+ }
+
+// ditto as altairlovereset
+ vegalovereset
+ {
+	case vegastretch
+	{
+		when 0
+		{
+			"\0\s[21]\i[7]\i[8]"
+			"\0\s[20]\i[7]"
+			"\0\s[20]\i[8]"
+		}
+		when 1; "\0\s[26]\i[7]"
+		when 2; "\0\s[27]\i[11]\i[7]"
+		when 3;	"\0\s[28]\i[7]\i[11]"
+	}	
+	--
+	".\w8.\w8."
+	"...Thank you.\w8\w8 I think?"
+	"Thank you...?"
+	"Thank you...\w8\w8 Probably..."
+	".\w8.\w8."
+	".\w8.\w8."
+	".\w8.\w8."
+	--
+	"\w8\w8\w8\w8"
+ }
+
+ altairbother //responses to being poked, rigel
+ {
+	pokecount++
+
+	if pokecount > 0 && pokecount < 6
+	{
+		"\0\s[19]\i[62]"
+		"\0\s[19]\i[5]\i[62]"
+		"\0\s[3]\i[62]"
+		"\0\s[3]\i[5]\i[62]"
+		"\0\s[0]\i[5]\i[62]"
+		--
+		"Ah-!\i[61]\w8 That's my face!\w8 \0\s[0]\i[5]\n[150]If you want my attention,\w8 \0\s[0]tap on my shoulder instead!"
+		"Ah!\i[61]\w8 Startled me there!\w8 \n[150]\0\s[0]\i[5]Try my shoulder sleeve instead."
+		"That's\i[61] not my shoulder,\w8 silly!"
+		"%(username)\i[61]!!\w8 \0\s[0]\i[5]That's my face,\w8 not my shoulder!"
+		"This tickles\i[61]!\w8 \n[150]\0\s[0]\i[5]Tap my coat shoulder instead."
+		"Oh\i[61]!\w8 \0\s[0]\i[5]Nono,\w8 try my shoulder."
+	}
+	elseif pokecount > 5 && pokecount < 11
+	{	
+		"\0\s[0]\i[5]Didn't you \i[62]hear\i[61] me?\w8 \0\s[19]\i[5]I said \i[62]shoulder\i[61]!"
+		"\0\s[19]\i[5]Now that was on purpose!\w8 Wasn't it?"
+		"\0\s[2]C'mon,\w8 you're just playing with me now..."
+		"\0\s[0]\i[5]Wrong again!"
+		"\0\s[19]\i[5]Haha,\w8 no,\w8 \i[62]shoulder\i[61]!\w8 I said \i[62]shoulder\i[61]!"
+	}
+	elseif pokecount > 10 && pokecount < 16
+	{
+		"\0\s[19]\i[5]\i[62]"
+		--
+		"Please stop!!\w8 I'm ticklish!!"
+		"Hahaha,\w8 stop!!"
+		"Won't you quit it!"
+		"You just keep going!!"
+		"Please stop!"
+		"%(username)!\w8 Cut it out already!"
+	}
+	elseif pokecount == 16
+	{
+		"\t" //time critical
+		--
+		"\0\s[19]\i[5]\i[62]"
+		--
+		"Oh just give me a moment..."
+		"Need to breathe,\w8 hold on..."
+		"Time out,\w8 time out!"
+		"Enough of that,\w8 you'll have me in stitches!"
+		"Oh,\w8 one moment..."
+		"Enough of that,\w8 need a time out..."
+		--
+		"\w8\w8%(FadeOut)"
+	}
+	--
+	"\e"
+ } //resets with OnSurfaceRestore
+
+ vegabother //responses to being poked, vega
+ {
+	pokecount++
+	//might apply this to the 'no' area when he's stretching
+
+	if pokecount > 0 && pokecount < 6
+	{
+		case vegastretch
+		{
+			when 0 //vega is standing
+			{
+				"\0\s[20]\i[7]"
+				"\0\s[21]\i[11]"
+				"\0\s[22]\i[12]"
+				"\0\s[23]"
+				"\0\s[20]\i[8]"
+				"\0\s[21]\i[12]"
+			}
+			when 1 //stretch high
+			{
+				"\0\s[26]"
+				"\0\s[26]\i[7]"
+				"\0\s[26]\i[8]"
+				"\0\s[26]\i[10]"
+				"\0\s[26]\i[8]\i[10]"
+				"\0\s[26]\i[7]\i[10]"
+			}
+			when 2 //stretch mid
+			{
+				"\0\s[27]"
+				"\0\s[27]\i[7]"
+				"\0\s[27]\i[9]"
+				"\0\s[27]\i[13]"
+				"\0\s[27]\i[7]"
+				"\0\s[27]\i[9]\i[13]"
+				"\0\s[27]\i[15]\i[7]"
+				"\0\s[27]\i[15]\i[9]"
+			}
+			when 3 //stretch low
+			{
+				"\0\s[28]"
+				"\0\s[28]\i[7]"
+				"\0\s[28]\i[9]"
+				"\0\s[28]\i[13]"
+				"\0\s[28]\i[9]\i[13]"
+				"\0\s[28]\i[7]\i[13]"
+				"\0\s[28]\i[15]\i[9]"
+				"\0\s[28]\i[15]\i[7]"
+			}
+		}
+		--
+		"Don't."
+		"Hands off."
+		"Shoulder for menu.\w8\w8 Not my face."
+		"Flattered.\w8\w8 But don't."
+		"Misclick?"
+		"Misclicking.\w8\w8 Try shoulder."
+	}
+	elseif pokecount > 5 && pokecount < 11
+	{	
+		case vegastretch
+		{
+			when 0
+			{
+				"\0\s[25]"
+				"\0\s[25]\i[6]"
+				"\0\s[25]\i[7]"
+				"\0\s[23]"
+				"\0\s[20]\i[7]\i[10]"
+			}
+			when 1
+			{				
+				"\0\s[26]\i[8]"
+				"\0\s[26]\i[8]\i[10]"
+				"\0\s[26]\i[8]\i[12]"
+				"\0\s[26]\i[8]\i[12]\i[10]"
+			}
+			when 2
+			{
+				"\0\s[27]\i[9]"
+				"\0\s[27]\i[13]"
+				"\0\s[27]\i[9]\i[13]"
+				"\0\s[27]\i[15]\i[9]"
+			}
+			when 3
+			{
+				"\0\s[28]\i[9]"
+				"\0\s[28]\i[9]\i[13]"
+				"\0\s[28]\i[15]\i[9]"
+				"\0\s[28]\i[15]\i[7]"
+			}
+		}		
+		--
+		"Sigh."
+		"Fiend.\w8\w8 Quit it."
+		"Cut it out..."
+		"Bothering..."
+		"Mmgh."
+		"Annoying."
+		"Stop."
+		"Quit."
+		"Cease now."
+		"Cease."
+	}
+	elseif pokecount == 11
+	{
+		"\t"
+		--
+		"\0\s[25]\i[6]"
+		"\0\s[23]"
+		--
+		"..."
+		"Enough."
+		"I'm done."
+		"Sigh..."
+		"Rude."
+		"That's enough."
+		"Enough of that..."
+		--
+		"\w8\w8%(FadeOut)"
+	}
+	--
+	"\e"
+ }
+
+ //dialogue for after lauching a utility for the second time and onwards
+ altairdone
+ {
+	"\0\s[0]"
+	"\0\s[5]"
+	"\0\s[8]"
+	--
+	"Here you go!"
+	"Here you are!"
+	"There we go!"
+	"Here!"
+	"Okay!"
+ }
+
+ vegadone
+ {
+	"\0\s[20]"
+	"\0\s[20]\i[1]"
+	"\0\s[22]\i[1]"
+	--
+	"..."
+	"OK."
+	"Here."
+	"Done."
+ }
+
+//"window check" dialogue. if you have the option available in permissions, aster will throw in these comments about the programs you may be running
+// Hopefully this won't throw false positives. like in case of a program being mentioned in the browser. but maybe i could run a check for that
+
+//basically a random one of these gets picked, checks for a program group running, and if it's present plays a random comment.
+//if the program isn't present, it'll just ask to reroll from the main dialogue pool again
+
+altairwindowcheck
+{
+	if AppCheck("- Chrome,Mozilla Firefox,- Microsoft Edge,- Opera,- Pale Moon,Safari,- Vivaldi,- Chromium,Yandex Browser") == 1
+	{
+		//"This is a response to running a browser,\w8 %(appName)."
+		
+		"\0\s[1]%(appName)...\w8 \0\s[0]Your window into the internet of choice?"
+		
+		"\0\s[0]\i[5]So...\w8 \0\s[0]What will you browse today?\n[150]\w8Just your usual social media?\w8 ...\0\s[2]Maybe we could watch something,\w8 or do a Wikipedia dive?"
+		"\0\s[0]Speaking of %(appName)!\n[150]\w8\0\s[1]Do you ever think about how much work goes into making the sites look the way they do?\w8 \0\s[8]I think those people can be called artists too.\e:chain=ch_website"			
+		
+	} 
+	else; "%(altaironetalk)"
+
+	if AppCheck("AIMP,Spotify,iTunes,Windows Media Player,foobar2000,Winamp") == 1
+	{
+		//"This is a response to a music player, %(appName)."		
+		
+		"\0\s[8]...You have \i[62]%(appName)\i[61]?\n[150]\w8%(OnCapitalize(I)) actually enjoy music quite a bit too!\w8 \0\s[0]What kind of music do you prefer?\n[150]\w8I think I enjoy\0\s[7]...\w8\w8 well,\w8 \0\s[0]\i[5]I think I don't have much of a preference,\w8 actually.\w8 \0\s[19]Up to you!\0\s[0]"
+	
+		{
+			"\f[italic,1]\0\s[4]\i[1]"
+			--
+			"...Which one\w9 is\w9 me?\w8\w8\w2\n[150]The wireframe or render?... ♪"
+			"...Deep in the source code of our love,\w8 there's a line and one above... ♪"
+			"...Hold\w9\w5 me,\w9\w5 I'm a pale machine...\w9\w5\n[150]Life is just okay out here,\w8 anyone can see... ♪"
+			--
+			"\f[italic,0]\n[150]"
+			--
+			"\0\s[3]\i[5]\i[62]Oh-\w8\0\s[3] sorry!\w8 \0\s[2]\i[9]I got distracted."
+			"\0\s[3]\i[5]\i[62]Ah!\i[61]\w8 Sorry,\w8 \0\s[2]\i[9]Seeing %(appName) made me want to look at some song lyrics...\w8 Hah..."
+			if stage == 3;"\1\s[33]\w3...\1\s[30]\i[12]Want to listen.\w8\w8\n[150] Let me?\w8\w8 \0\0\s[0]\i[5]Well-\w4 \0\s[3]\i[62]hang on\i[61] now,\w4 \0\s[0]\i[5]\i[8]won't you wait for your turn-\1\s[10]\![raise,OnSwitch]"
+		}
+			
+	} 
+	else; "%(altaironetalk)"
+
+	if AppCheck("CLIP STUDIO PAINT,Paint Tool SAI -,Krita,Photoshop,ArtRage,GIMP,MyPaint,Sketchbook,Art Weaver,Adobe Fresco") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[8]\i[62]Ooh!\i[61]\w8 I just noticed %(appName) there!\w8\n[150]So,\w8 you make art...?"
+		"\0\s[0]Y'know,\w8 it's quite quite nice to see what kind of things you make!\w8\n[150]\0\s[8]Humans are so imaginative...!\w8\n[150]\0\s[0]\i[5]I'm but a humble servant,\w8 \0\s[4]\i[1]but I wonder if I could...\w8 \0\s[2]maybe...\w8 make something too...?"
+		"\0\s[8]What are you going to create today?\n[150]\w8\0\s[0]\i[5]I see %(appName) running here,\w8 is all,\w8 \i[62]no pressure!\n[150]\0\s[2]\i[8]...Ah,\w8 stars,\w8 \0\s[0]\i[5]\i[8]hard to hide excitement."
+		"\0\s[4]\i[1]Ahh...\w8 Seeing %(appName) reminds me.\w8\n[150]\0\s[2]Won't lie,\w8 \0\s[2]\i[8]I... \i[62]really\i[62] adore the extent of human creativity.\w8 \0\s[0]\i[5]I know,\w8 \0\s[4]\i[1]I shouldn't really even consider these things,\w8 but...\w8 \0\s[8]isn't it \i[62]lovely\i[61],\w8 to be able to make something with your hands?\w8 To breathe life through lines and colors?\w8\n[150]It...\w8 \0\s[4]\i[1]almost makes something ache in me.\w8 \0\s[0]\i[5]I want to try making something too,\w8 some day."
+	}
+	else; "%(altaironetalk)"
+
+	if AppCheck("Adobe Illustrator,Inkscape,CorelDRAW") == 1
+	{
+		//"%(appName)"
+		
+		"\0\s[2]Couldn't help but notice %(appName) there...\w8\n[150]\0\s[5]You're no stranger to vector artwork,\w8 in that case?"
+		"\0\s[0]Speaking of %(appName)...\w8 \0\s[2]I find vector art fascinating.\w8\n[150]\0\s[8]You could just write some code and whip up a pretty shape!\w8 Many shapes,\w8 even.\w8\n[150]It makes it feel...\w8 \0\s[2]\i[7]like even I could do it.\e:chain=ch_vector"
+		"\0\s[0]So,\w8 \0\s[8]what will you make in %(appName) today?\w8\n[150]You can create so much with just simple shapes,\w8 can't you?"
+	}
+	else; "%(altaironetalk)"
+
+	if AppCheck("Kaspersky,Avast,ESET,Dr.Web,McAfee,Avira,ClamWin,Malwarebytes,Windows Defender") == 1
+	{
+		//"%(appName)"
+		{
+			"\0\s[0]Ahh...\w8 \0\s[5]It's good of you to have an antivirus installed!\w8\n[150]\0\s[0]That's what %(appName) is,\w8 correct?\w8 \0\s[5]You clearly care about your computer's safety!"
+			--
+			if stage == 3;"\w8\n[150]\1\s[33]\w3\1\s[30]\i[11]\i[10]Competition.\w8\w8 Annoying...\w8\w8 \i[14]I work alone!\w8\w8\0\0\s[3]\i[5]\i[62]Vega,\w3 \i[61]hang on,\w3 \0\s[6]you're \i[62]pushing me out-\i[61]\1\s[10]\![raise,OnSwitch]"
+		}
+
+		if "Windows 10" _in_ os_name || "Windows 11" _in_ os_name
+		{
+			"\0\s[7]Y'know...\w8 \0\s[0]An antivirus isn't really necessary in this day and age.\w8\n[150] \0\s[5]All you need is to be careful with what you download and from where!"
+			--
+			if I == "We";"\w8\n[150]\1\s[33]\w3\1\s[30]\i[11]Nonsense.\w8\w8 Not enough.\w8\w8\n[150]\i[14]Protection necessary.\w8\w8 \1\s[32]People,\w8 error prone.\w8\w8 \0\s[0]\i[5]Well...\0\s[2]\i[5]\w8 \i[62]No-no,\w3 he's-\w3\i[61]\0\s[0]\i[5]\i[8] \1\s[18]\0he's not saying that \i[62]you're\i[61] error prone!\w8 \0\s[4]\i[1]I guess to err is human,\w8 after all..."
+		}
+
+		"\0\s[0]%(appName)?\w8 Doing a checkup?\w8 \0\s[5]That's good!\w8\n[150]\0\s[0]\i[5]Maybe it's just from %(My) perspective,\w8 but it's rather sweet you take the time to make sure your files are safe."
+
+		{
+			"\0\s[1]...Looking in %(appName) makes me feel just a little strange,\w8 I have to say.\n[150]"
+			--
+			if stage = 3
+			{
+				"\0\s[0]\i[5]I think...\w8 \i[8]\i[62]I think\i[61] it might be Vega stirring.\n[150]\w8He's-\w8 \0\s[4]\i[1]he's a bit bothered by programs that do his job.\n[150]"
+				--
+				"\0\s[4]\i[1]I suppose I understand.\w8 \0\s[0]\i[5]Maybe I would be peeved if you've used another assistant over me...\w8 \0\s[7]But that would be pretty unprofessional to show it,\w8 \0\s[0]\i[5]wouldn't it?"
+				"\0\s[2]\i[5]...\i[62]Ah-!\i[61]\w3 \0\s[3]Okay,\w3 \0\s[3]\i[5]easy now-!\w3 \0\s[3]\i[62]You're just intruding at this-\i[61]\![raise,OnSwitch]"
+			} 
+			else; "\0\s[0]\i[5]I can't quite explain it...\w8\w8 \i[8]\i[62]\n[150]Well-\w8 \0\s[2]nevermind all that."
+		}
+	}
+	else; "%(altaironetalk)"
+
+	if AppCheck("Microsoft Word,LibreOffice Writer") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[8]Oh!\w8 \0\s[0]%(appName)?\w8 Do you write things often...?\w8\n[150]Fiction,\w8 nonfiction,\w8 scientific papers...?"
+		"\0\s[1]Hmm...\w8 Seeing %(appName) makes me think a little.\w8\n[150]\0\s[0]\i[5]Just about the spoken word in general!\w8 The meaning of what you say changes so easily depending on...\w8 \f[italic,1]how\f[italic,0] you say it.\e:chain=ch_word."		
+	}
+	else; "%(altaironetalk)"
+
+	if AppCheck("Microsoft Excel,LibreOffice Calc") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[8]Ooh,\w8 is that %(appName)?\n[150]\0\s[0]You just like to keep things organized?\w8 \0\s[7]Or do you prefer to do your math this way?"
+		"\0\s[5]It's quite nice to keep things in neat little tables,\w8 right?\w8 \0\s[0]Saves a lot of trouble having to remember things.\w8 That,\w8 or lists.\n[150]\w8\0\s[0]\i[5]To be fair,\w8 \0\s[5]tables and lists are how we remember things!\w8 \0\s[1]Even if some memories appear more,\w8 \0\s[0]\i[5]er,\w8 permanent."
+	}
+	else; "%(altaironetalk)"
+
+	if AppCheck("Microsoft PowerPoint,LibreOffice Impress") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[8]Ahh, %(appName)!\w8 Making slides for something?\w8 \0\s[0]A demonstration of some kind?"
+		"\0\s[7]Hm.\w8 Say,\w8 what is the more accurate term,\w8 anyway?\w8 \0\s[1]\&[quot]Powerpoint\&[quot],\w8 \&[quot]presentation\&[quot],\w8 or \&[quot]demonstration\&[quot]?"
+	}
+	else; "%(altaironetalk)"
+}
+
+ch_website
+{{CHAIN
+		"\0\s[5]I've found that it's quite easy to make a website of your own as well.\w8\n[150]\0\s[19]HTML and CSS aren't as intimidating as they seem,\w8 \0\s[0]turns out."
+		"\0\s[1]Did you...\w8 \0\s[8]ever think about making your own site?\w8 What would it be like...?\w8\n[150]\0\s[2]I think there's something nice about having your own place on the internet.\e:chain=end"
+}}CHAIN
+
+ch_vector
+{{CHAIN
+		"\0\s[0]The difference between vector and raster images,\w8 is that vectors can be as big or as small as you want!\w8 \0\s[5]They're purely math at their core.\w8\n[150]\0\s[0]To make raster artwork,\w8 you may need,\w8\0\s[2] well,\w8 human touch...\w8\n[150]\0\s[0]\i[5]Graphic tablets exist for a reason,\w8 yes?\w8 Though they're not a necessity,\w8 I think...\w8\0\s[4]\i[1] I hope so,\w8 at least.\e:chain=end"
+}}CHAIN
+
+ch_word
+{{CHAIN
+		"\0\s[0]You've probably already heard how emphasis can change the meaning,\w8 right?\w8\n[150]\f[italic,1]She\f[italic,0] bought some juice.\n\w8She \f[italic,1]bought\f[italic,0] some juice.\n\w8She bought \f[italic,1]some\f[italic,0] juice.\n\w8She bought some \f[italic,1]juice\f[italic,0]."
+		{
+			"\0\s[8]Isn't it impressive how many things you can say with just a few words?"
+			--
+			if stage = 3; "\w8\n[150]\0\s[0]...Well,\w8 if you have no trouble understanding Vega,\w8 \0\s[19]you already know this.\0\s[0]"
+			--
+			"\e:chain=end"
+		}
+}}CHAIN
+
+vegawindowcheck
+{
+	if AppCheck("- Chrome,Mozilla Firefox,- Microsoft Edge,- Opera,- Pale Moon,Safari,- Vivaldi,- Chromium,Yandex Browser") == 1
+	{
+		//"This is a response to running a browser, %(appName)."
+
+		"\0\s[22]You use %(appName).\w8\w8 Web browser.\w8\w8\n[150]\0\s[20]\i[10]All the same to me.\w8\w8 HTML readers.\w8\w8 CSS interpreters.\w8\w8 \0\s[20]\i[7]File downloaders.\w8\w8\n[150]...\0\s[25]\i[10]Vulnerability to malware.\w8\w8 \0\s[25]If not careful.\w8\w8 \0\s[21]I'm sure you're smart."
+		"\0\s[20]You use a browser.\w8\w8 \0\s[20]\i[1]We don't need to.\w8\w8\n[150]Tool for human eyes.\w8\w8 \0\s[22]\i[1]We do research differently...\w8\w8 More directly."
+		"\0\s[20]\i[7]%(appName)...\w8\w8 \0\s[22]We can use it,\w8 I suppose.\w8\w8\n[150]\0\s[20]\i[1]To watch and listen,\w8 together. "
+	} 
+	else; RandomTalk
+
+	if AppCheck("AIMP,Spotify,iTunes,Windows Media Player,foobar2000,Winamp") == 1
+	{
+		//"This is a response to a music player, %(appName)."
+
+		"\0\s[20]\i[10]Hm.\w8\w8 You enjoy music.\w8\w8\n[150]\0\s[20]%(appName) is decent."
+		"\0\s[23]Speaking of...\w8\w8 music players.\w8\w8\n[150\0\s[20]Do you have ambience?\w8\w8 \0\s[20]\i[1]\i[10]Not too loud...\w8\w8 Eases the silence."
+		"\0\s[20]Your music selection.\w8\w8 \0\s[22]Does the job.\w8\w8\n[150]It's good background."
+		"\0\s[20]Mm.\w8\w8 Looking at your music.\w8\w8\n[150]\0\s[22]Selection could use work.\w8\w8 \0\s[20]\i[1]\_a["
+		--
+		"https://www.youtube.com/watch?v=6JeZR13dLLI"
+		"https://www.youtube.com/watch?v=8V71sATDTqs"
+		"https://www.youtube.com/watch?v=THM4fUdz8Mc"
+		--
+		"]Try this\_a."
+	}
+	else; RandomTalk
+
+	if AppCheck("CLIP STUDIO PAINT,Paint Tool SAI -,Krita,Photoshop,ArtRage,GIMP,MyPaint,Sketchbook,Art Weaver,Adobe Fresco") == 1
+	{
+		//"%(appName)"
+		"\0\s[20]%(appName).\w8\w8 \0\s[22]Graphics editor.\w8\w8\0\s[24]\n[150]An artist...?"
+		"\0\s[22]Watching you create is...\w8\w8\n[150]\0\s[22]\i[1]Interesting."
+		"\0\s[20]%(appName) running.\w8\w8\n[150]\0\s[22]\i[1]Let me watch...?"
+		if stage = 3; "\0\s[22]\i[1]Mm...\w8\w8 \0\s[20]%(appName) running.\w8\n[150]\1\s[17]\w3Oh?\w3 \1\s[15]Let me see,\w3 \i[62]I wanna watch!!\0\0\s[21]\i[12]Wait,\w8 not now-\1\s[10]\![raise,OnSwitch]"
+	}
+	else; RandomTalk
+
+	if AppCheck("Adobe Illustrator,Inkscape,CorelDRAW") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[24]%(appName)...\w8\w8 Vector graphics editor.\w8\w8\n[150]\0\s[20]Curious.\w8\w8 \0\s[22]Graphic designer,\w8 perhaps...?"
+		"\0\s[20]Mm.\w8\w8 %(appName).\w8\w8 \0\s[20]\i[10]Vector art...\w8\w8 Just math.\w8\w8\n[150]...\0\s[24]Is math an art?\w8\w8 \0\s[21]Rhethorical.\w8\w8 \0\s[23]\i[0]Don't answer that."
+		"\0\s[24]Hm.\w8\w8 My face...\w8\w8\n[150]Easy to make,\w8 in %(appName).\w8\w8 Some circles and triangles...."
+		if stage = 3;"\1\s[17]\w3\1\s[15]Ooh is that %(appName)?\w8 \i[62]I wanna see what %(username) is doing!\w8\0\s[22]Maybe later...?\w8\w8 \0\s[25]Stop,\w4 \0\s[25]\i[7]you're shoving-\1\s[10]\![raise,OnSwitch]"
+	}
+	else; RandomTalk
+
+	if AppCheck("Kaspersky,Avast,ESET,Dr.Web,McAfee,Avira,ClamWin,Malwarebytes,Windows Defender") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[21]Mm.\w8\w8 %(appName).\w8\w8 Antimalware software...\w8\w8 \0\s[23]Tch.\w8\w8\n[150]At least,\w8 something does the job..."
+		"\0\s[22]Seeing %(appName)...\w8\w8 Do you scan often?\w8\w8\n[150]\0\s[25]\i[10]You should.\w8\w8 \0\s[20]You never know."
+		"\0\s[25]Annoyed...\w8\w8 \0\s[20]Unable to perform a scan.\w8\w8\n[150]\0\s[20]\i[7]Scan with %(appName),\w8 for me.\w8\w8 \0\s[23]...Please."
+		"\0\s[20]\i[7]Put %(appName) to use.\w8\w8 Let it scan downloads.\w8\w8 \0\s[20]Perform full scans,\w8 sometimes.\w8\w8\n[150]\0\s[20]\i[10]I'd do it for you.\w8\w8 If I could.\w8\w8\n[150]\0\s[25]\i[10]...Annoying."
+	}
+	else; RandomTalk
+
+	if AppCheck("Microsoft Word,LibreOffice Writer") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[20]%(appName).\w8\w8 Text processing software.\w8\w8\n[150]\0\s[22]What are you writing...?"
+		"\0\s[20]Hmm.\w8\w8 %(appName).\w8\w8 \0\s[21]Bloated text editor...\w8\w8\n[150]\0\s[22]Why not Notepad?\w8\w8 \0\s[20]Or,\w8 Vim.\w8\w8 If you like learning.\w8\w8\n[150]\0\s[20]\i[1]But learn how to exit,\w8 first."
+		"\0\s[20]\i[10]Notepad.\w8\w8 Vim.\w8\w8 Emacs.\w8\w8 Nano.\w8\w8 Gedit.\w8\w8\n[150]\0\s[20]All better than %(appName).\w8\w8 \0\s[21]Format later...\e:chain=ch_text"
+	}
+	else; RandomTalk
+
+	if AppCheck("Microsoft Excel,LibreOffice Calc") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[20]%(appName).\w8\w8 Spreadsheet software.\w8\w8\n[150]\0\s[20]\i[7]Glorified calculator..."
+		"\0\s[20]What do you use %(appName) for?\w8\w8\n[150]\0\s[22]Makes calculations faster,\w8 for users...\w8\w8 I'll admit."
+	}
+	else; RandomTalk
+
+	if AppCheck("Microsoft PowerPoint,LibreOffice Impress") == 1
+	{
+		//"%(appName)"
+
+		"\0\s[20]%(appName).\w8\w8 Presentation software.\w8\w8\n[150]\0\s[24]Colorful slides with data.\w8\w8 Easier communication.\w8\w8\n[150]Seems useful.\w8\w8 \0\s[20]Human data processing,\w8 imperfect.\w8\w8 \0\s[20]\i[1]Unlike a machine."
+		"\0\s[20]%(username).\w8\w8 I have a question.\w8\w8\n[150]\0\s[24]Do humans use slides to communicate?\w8\w8 \0\s[23]I've seen images online.\w8\w8\n[150]A title and a picture,\w8 or video,\w8 below.\w8\w8 \0\s[22]\i[7]Probably not made in %(appName)."
+	}
+	else; RandomTalk
+	//else; "%(vegatwotalk)"
+}
+
+ch_text
+{{CHAIN
+	"\0\s[21]\i[12]...Are they compatible,\w8 even?\w8\w8 With your OS.\w8\w8\n[150]\0\s[24]\i[3]Other than Notepad...\e:chain=end"
+}}CHAIN
+
+//automatic switches, triggered by random chatter for stage 3
+
+altairselfswitch
+{
+	switchManual = 1 //manual as in 'not involuntary' here
+
+	"\0\s[2]Mmm.\w8 \0\s[0]\i[5]As much as I love spending time with you,\w8 %(username),\w8 \0\s[4]\i[1]standing around is still a little tiresome.\w8 \0\s[0]\i[5]You wouldn't mind if we switched for a while,\w8 \0\s[2]\i[8]right...?\w8\n[150]\1\s[33]\w3\1\s[30]You \0\s[3]\i[62]\1want to\0\s[2]\i[9]\1 switch?\w8\w8 \1\s[30]\i[12]Already?\w8\n[150]\0\s[0]\i[5]Pretty please?\w8 \0\s[5]You know I wouldn't deny you if you asked!\w8\n[150]\1.\w3.\w3.\w3\1\s[30]\i[1]Wouldn't you?\w8\w8\n[150]\0\0\s[2]\i[5]\i[9]Well-\n[150]\1\s[32]Relax.\w8\w8 \1\s[30]I don't mind.\w8\w8 I'll take your place.\w8\0\0\s[0]\i[8]\i[62]Ah!\i[61]\w8 Okay,\w8 \1\s[34]\0thank you..."
+
+	"\1\s[33]\w3\1\s[30]Rigel.\w8\n[150]\0\0\s[5]Oh!\w8 \0\s[0]Hi again.\w8\n[150]\1Let me in.\w8\w8 My turn to surf the web.\w8\n[150]\0\0\s[0]\i[5]\i[62]Well-\w8 \0\s[2]I was in the middle of an article here...\w8\w8 \0\s[4]\i[1]Fine,\w8 \0\s[0]but promise you won't close it!\w8\n[150]\1\s[32]Fine.\w8\w8\n[150]\0\s[2]Say that you promise...?\w8\n[150]\1\s[30]\i[11].\w3.\w3. \1\s[32]\i[8]I promise.\w8\0\0\s[5]Good,\w8 \0\s[0]thanks \1\s[34]\0so much."
+
+	"\0\s[4]\i[1]Um...\w8\w8 \0\s[0]\i[5]Hey,\w8 Vega?\w8\n[150]\1\s[33]\w3\1\s[30]I'm here.\w8\n[150]\0\s[5]Sweet,\w8 wonderful!\w8 \0\s[0]I was thinking you could take the wheel for a while?\w8 \0\s[0]\i[5]I'd like to get some rest from being in the spotlight,\w8 now.\w8\n[150]\1\s[32]Heh.\w8\w8 \1\s[30]Very unlike you.\w8\0\s[2]\i[8]\1\w8 \1\s[30]\i[12]Fine,\w8 I'll take lead.\w8\0\s[8]Excellent,\w8 \0\s[5]I knew I could count \1\s[34]\0on you.\w8 \0\s[0]\i[5]Won't be long,\w8 %(username)!"
+
+	--
+	"\w8\w8\w8\![raise,OnSwitch]"
+}
+
+vegaselfswitch
+{
+	switchManual = 1
+
+	"\1\s[17]\w3\1\s[16]Heyyyy,\w8 I was wondering!\w8\n[150]\0\s[21]Yes...?\w8\n[150]\1\s[14]Getting a little bored of relaxing in the back of our head there,\w8 \1\s[11]\i[4]\i[1]could you let me back in?\w8 Pretty please?\w8\n[150]\0\s[24]\i[4]Mm...\w8\w8 \0\s[24]Fine.\w8\w8 \0\s[20]\i[1]I don't mind.\w8\n[150]\1\s[15]\i[62]Oh!\w8 \i[61]Great,\w8 \1\s[11]\i[1]good,\w8 thank you,\w8 I knew we were friends.\1\s[18]"
+
+	"\0\s[26]\i[12]Rigel.\w8\n[150]\1\s[17]\w3\1\s[11]\i[1]Hello!\w8 \1\s[11]Need something?\w8\n[150]\0\s[26]Bored.\w8\w8 Switch with me.\w8\n[150]\1\s[12]Oh?\w8 \1\s[11]\i[1]You mean laying around and threatening our geometry doesn't do it for you anymore?\w8\n[150]\0\s[26]\i[0]Cheeky.\w8\w8 Well?\w8\n[150]\1\s[11]\i[1]Sure!\w8 I definitely would like to stretch a little.\w8 \1\s[16]Just in a safe way,\w8 unlike yourself.\w8\0\s[27]\i[0]Sure.\1\s[18]"
+
+	"\0\s[27]\i[15]Rigel...\w8\n[150]\1\s[17]\w3\1\s[11]Yes?\w8\n[150]\0Switch with me.\w8\w8 \0\s[27]Want a nap.\w8\n[150]\1\s[16]Why do you call them \&[quot]naps\&[quot] anyway?\w8 \1\s[12]You're just idle!\w8 \1\s[11]I could call you and you'd respond in an instant!\w8\n[150]\0\s[27]\i[15]Nap is shorter.\w8\w8 \0\s[27]\i[0]Three letters,\w8 instead of four.\w8\n[150]\1\s[16]\i[62]\i[4].\w8.\w8.\w8\1\s[13]Y'know,\w8 \1\s[16]I would tell you \&[quot]no\&[quot] for that,\w8 \1\s[14]but I would like to take charge for a while too.\w8\n[150]\0\i[15]Works\1\s[18]\0 for me."
+	--
+	"\w8\w8\w8\![raise,OnSwitch]"
+}
