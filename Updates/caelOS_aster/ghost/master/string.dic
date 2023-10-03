@@ -32,7 +32,7 @@ kero.popmenu.visible //kero's screentime is rather brief, so the menu for it was
 On_homeurl
 {
 	//"https://raw.githubusercontent.com/logicpng/aster_ghost/master/Updates/caelOS_aster/"
-	""
+	"https://raw.githubusercontent.com/logicpng/aster_ghost/main/Updates/caelOS_aster/"
 }
 
 
