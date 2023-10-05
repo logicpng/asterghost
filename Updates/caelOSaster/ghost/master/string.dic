@@ -31,8 +31,7 @@ kero.popmenu.visible //kero's screentime is rather brief, so the menu for it was
 
 On_homeurl
 {
-	//this is a comment
-	"https://raw.githubusercontent.com/logicpng/asterghost/main/Updates/caelOSaster"
+	"https://raw.githubusercontent.com/logicpng/asterghost/main/Updates/caelOSaster/"
 }
 
 

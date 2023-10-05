@@ -46,8 +46,6 @@ OnFirstBoot
 	--
 	OnInitFlags //conversation flags
 	--
-	
-
 	//would it make sense to move the introduction dialogue up ere first?
 	//no i think we'll make an abbreviated speech
 
@@ -449,7 +447,7 @@ BirthdayDone
 		firstsetup = 1 // first time setup complete, other menus will be set to redirect to menu instead i think
 		//Stage 0 dialogue starts here, initialize the values from cpuid saori
 		--
-		"\0\s[5]\![leave,passivemode]Thank you!\w8\0\s[0] \n\n[half]That concludes our setup. \w8Just double tap my shoulder,\w8 should you need any assistance. \n\n[half]\w8Or you can minimize me,\w8 or move me by dragging, \w8\0\s[0]\i[5]if I get in the way.\e"		
+		"\0\s[5]\![leave,passivemode]Thank you!\w8\0\s[0] \n\n[half]That concludes our setup. \w8Just double tap my shoulder,\w8 should you need any assistance. \n\n[half]\w8Or you can minimize me,\w8 or move me by dragging, \w8\0\s[0]\i[5]if I get in the way.%(FixMenuColors)\e"		
 		
 	}
 	else
@@ -538,7 +536,7 @@ OnBoot
 		}	
 	}
 	--
-	"\w8\w8%(FixMenuColors)"
+	"\w8\w8%(FixMenuColors)\w8\w8"
 	--
 	"\e"
 }
@@ -747,6 +745,7 @@ FixMenuColors //check whos menu color scheme it is and fix it if it doesn't matc
 	if ( vegafront > 0 && "Early Sunrise" _in_ _line ) || ( vegafront == 0 && "Nothern Lights" _in_ _line ) //does the menu scheme not match the character fronting?
 	{
 		SwapMenuColors //if so, swap the scheme
+		--
 		"\![reload,shell]" //and reload the shell. possibly will break shit
 	} 
 }

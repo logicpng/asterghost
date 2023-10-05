@@ -1,3 +1,0 @@
-//--Balloons1s.txt
-//Because these balloons all match in this template, this and the k versions are all just going to be copies of the first balloons0s.txt file. However, if you need to change these or any other settings for any of your individual balloons, feel free to do so!
-
