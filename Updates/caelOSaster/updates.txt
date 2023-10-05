@@ -37,7 +37,7 @@ file,ghost/master/yaya.dll56e3af56c88e696cea1f39d53b239cefsize=880640date=202
 file,ghost/master/yaya.txtd1e6f675fb5d52d4f410470c124e6431size=1545date=2023-10-03T18:47:03
 file,ghost/master/yaya_config.txt134ca91eba1f7864526eaa3a2142dd20size=3920date=2017-03-18T17:07:23
 file,install.txt7f4c734e6c091927fb98ed2e1db2e853size=156date=2023-07-15T20:18:26
-file,readme.txte4491a2466bc64ce2e5ccb35f4f5f759size=1514date=2023-10-03T18:34:08
+file,readme.txt5327a3ac3fe4a9c3ae6d09cd27f8afb1size=1531date=2023-10-06T06:34:47
 file,shell/master/alt/descript.txt8b77ab89d7517aa16bcd84f33040057csize=1085date=2023-08-14T19:22:20
 file,shell/master/alt/menu_background.pnge504c6358706edc5e9e19ddac3204b5esize=11041date=2023-07-16T12:21:29
 file,shell/master/alt/menu_foreground.png0c9a3df7cb432d2ec0498b3b931dc2b6size=12897date=2023-07-16T12:21:39
