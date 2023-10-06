@@ -447,7 +447,7 @@ BirthdayDone
 		firstsetup = 1 // first time setup complete, other menus will be set to redirect to menu instead i think
 		//Stage 0 dialogue starts here, initialize the values from cpuid saori
 		--
-		"\0\s[5]\![leave,passivemode]Thank you!\w8\0\s[0] \n\n[half]That concludes our setup. \w8Just double tap my shoulder,\w8 should you need any assistance. \n\n[half]\w8Or you can minimize me,\w8 or move me by dragging, \w8\0\s[0]\i[5]if I get in the way.%(FixMenuColors)\e"		
+		"\0\s[5]\![leave,passivemode]Thank you!\w8\0\s[0] \n\n[half]That concludes our setup. \w8Just double tap my shoulder,\w8 should you need any assistance. \n\n[half]\w8Or you can minimize me,\w8 or move me by dragging, \w8\0\s[0]\i[5]if I get in the way.\e"		
 		
 	}
 	else
@@ -494,7 +494,7 @@ dayslot
 
 OnBoot
  {
-	"\0\![set,alpha,0]" //show our character
+	"\0\![set,alpha,0]" //hide our character to fade him in
 	--
 	if wowrude == 1
 	{
@@ -536,7 +536,7 @@ OnBoot
 		}	
 	}
 	--
-	"\w8\w8%(FixMenuColors)\w8\w8"
+	"\w8\w8%(FixMenuColors)\w8\w8" //if colors were swapped for whatever reason while they were out, fix
 	--
 	"\e"
 }
@@ -746,11 +746,11 @@ FixMenuColors //check whos menu color scheme it is and fix it if it doesn't matc
 	{
 		SwapMenuColors //if so, swap the scheme
 		--
-		"\![reload,shell]" //and reload the shell. possibly will break shit
+		"\![reload,shell]" //and reload the shell. possibly will break shit. for that reason Do Not pack vega's menu colors with update or .nar!
 	} 
 }
 
-SwapMenuColors
+SwapMenuColors //if i were to rehash the entire thing from scratch i would probably use two shells instead. this is a lot more rudimentary, but it does the job
 {
 	void MKDIR( '..\..\shell\master\temp' )
 

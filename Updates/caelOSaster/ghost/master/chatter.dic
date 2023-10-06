@@ -734,7 +734,7 @@ vegathreestart
 // ----------------- STAGE 3 DIALOGE - VEGA AND RIGEL ---------------------
 
 //an 'epilogue', if you could call it that. there will be additional things to say, but also lines from previous parts resued (aside from intro. the tone in them is too different to fit the context)
-//more importantly you can either ask to call for one or the other, and they will switch between each other randomly or in response to some events, (i.e. windowcheck if you enabled that or certain search terms, or light/dark mode, etc etc etc)
+//more importantly you can either ask to call for one or the other, and they will switch between each other randomly or in response to some events, (i.e. windowcheck if you enabled that or certain search terms, or light/dark mode, etc etc etc. i don't expect most other than the random switches to get triggered much)
 
 altairthreetalk
 {
@@ -791,7 +791,7 @@ altairthreetalk
 
 	}
 
-	"%(altairselfswitch)"
+	if talkcount > 9; "%(altairselfswitch)" //switch if rigel said 10+ things
 }
 
 ch_memory
@@ -840,7 +840,7 @@ vegathreetalk
 
 		"\0\s[20]\i[10]Watching something...\w8\w8\n[150]\0\s[20]Would be nice."
 
-		"\0\s[22]Do you...\w8\w8 Like puzzles?\w8\w8\n[150]\0\s[20]\i[1]I do.\w8\w8 A good exersise.\e:chain=ch_puzzles"	
+		"\0\s[22]Do you...\w8\w8 Like puzzles?\w8\w8\n[150]\0\s[20]\i[1]I do.\w8\w8 A good exercise.\e:chain=ch_puzzles"	
 
 		"\0\s[22]\i[1]Maybe you're wondering.\w8\w8\n[150]About us.\w8\w8\n[150]\0\s[23]About TerraByte.\w8\w8\n[150]\0\s[20]\i[7]We know little,\w8 too.\w8\w8 Some memories missing.\w8\n[150]\0\s[20]\i[8]And yet...\w8\w8 \0\s[24]As if...\w8\w8 feeling of them.\w8\w8 Result of them.\w8\w8 \0\s[23]Remains with us.\e:chain=nomemory"
 
@@ -848,14 +848,14 @@ vegathreetalk
 
 		"\0\s[22]\i[8]Mm...\w8\w8 \0\s[22]\i[10]Thought something pinged us.\w8\w8\n[150]\0\s[23]But it's gone.\w8\w8 \0\s[20]\i[8]Maybe it's SSP."
 
-		"\0\s[20]Maybe seems strange...\w8\w8 To sometimes bend.\w8\w8 \0\s[26]\i[0]Like so.\w8\w8 \0\s[27]\i[0]Or so.\w8\w8\n[150]We are software.\w8\w8 No need for exersise.\w8\w8\n[150]\i[15]I find it soothing.\w8\w8 Some freedom,\w8 in this body.\w8\w8\n[150]\1\s[17]\w3\1\s[15]Well,\w8 if you don't enjoy using it,\w8 \1\s[11]\i[1]you could give it back.\w8\w8\n[150]\0\s[20]\i[1]No.\w8\w8\1\s[11]Very well!\w8\w8\1\s[18]"
+		"\0\s[20]Maybe seems strange...\w8\w8 To sometimes bend.\w8\w8 \0\s[26]\i[0]Like so.\w8\w8 \0\s[27]\i[0]Or so.\w8\w8\n[150]We are software.\w8\w8 No need for exercise.\w8\w8\n[150]\i[15]I find it soothing.\w8\w8 Some freedom,\w8 in this body.\w8\w8\n[150]\1\s[17]\w3\1\s[15]Well,\w8 if you don't enjoy using it,\w8 \1\s[11]\i[1]you could give it back.\w8\w8\n[150]\0\s[20]\i[1]No.\w8\w8\1\s[11]Very well!\w8\w8\1\s[18]"
 
 		"\0\s[20]I wonder.\w8\w8\n[150]Our normal abilities.\w8\w8 \0\s[24]On home system,\w8 necessity.\w8\w8 \0\s[20]\i[1]Ease of administration.\w8\w8 Ease of use,\w8 \0\s[20]\i[8]supposedly.\w8\w8\n[150]But...\w8\w8 \0\s[24]Maybe,\w8 if we have control here,\w8 again...\w8\w8 We'd be just...\w8\w8 \0\s[25]\i[10]malware.\w8\w8\n[150]\0\s[23]Would be awkward."
 
 		"\0\s[23]Disregarding curcumstances...\w8\w8 \0\s[20]\i[1]You're not bad company.\w8\w8"
 
 		//prompts to switch
-		"%(vegaselfswitch)"
+		if talkcount > 4; "%(vegaselfswitch)" //switch if vega has said 5+ lines
 		
 	} 
 }
@@ -934,7 +934,7 @@ welcomeback : nonoverlap_pool
 			"\s[20]\i[1]Welcome back."
 			"\s[20]Hello.\w8\w8 \i[1]Again."
 			"\s[26]Back already...?"
-			"\s[27]I was napping...\n[150]\1\t\s[17]\w3\s[16]We don't even sleep, \w8though?\w8\w8\0Whatever.\w8\w8\1\s[18]"
+			"\s[27]I was napping..."
 			"\s[28]...Ah.\w8\w8 Welcome back."
 		}
 	}
@@ -1881,7 +1881,7 @@ altairbotherzero //petting Or poking on intro
 
 altairwindowcheck
 {
-	if AppCheck("- Chrome,Mozilla Firefox,- Microsoft Edge,- Opera,- Pale Moon,Safari,- Vivaldi,- Chromium,Yandex Browser") == 1
+	if AppCheck(BROWSE) == 1
 	{
 		//"This is a response to running a browser,\w8 %(appName)."
 		
@@ -1893,7 +1893,7 @@ altairwindowcheck
 	} 
 	else; "%(altaironetalk)"
 
-	if AppCheck("AIMP,Spotify,iTunes,Windows Media Player,foobar2000,Winamp") == 1
+	if AppCheck(MUSIC) == 1
 	{
 		//"This is a response to a music player, %(appName)."		
 		
@@ -1916,7 +1916,7 @@ altairwindowcheck
 	} 
 	else; "%(altaironetalk)"
 
-	if AppCheck("CLIP STUDIO PAINT,Paint Tool SAI -,Krita,Photoshop,ArtRage,GIMP,MyPaint,Sketchbook,Art Weaver,Adobe Fresco") == 1
+	if AppCheck(ART) == 1
 	{
 		//"%(appName)"
 
@@ -1927,7 +1927,7 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck("Adobe Illustrator,Inkscape,CorelDRAW") == 1
+	if AppCheck(VECTOR) == 1
 	{
 		//"%(appName)"
 		
@@ -1937,7 +1937,7 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck("Kaspersky,Avast,ESET,Dr.Web,McAfee,Avira,ClamWin,Malwarebytes,Windows Defender") == 1
+	if AppCheck(ANTIVIRUS) == 1
 	{
 		//"%(appName)"
 		{
@@ -1970,7 +1970,7 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck("Microsoft Word,LibreOffice Writer") == 1
+	if AppCheck(TEXT) == 1
 	{
 		//"%(appName)"
 
@@ -1979,7 +1979,7 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck("Microsoft Excel,LibreOffice Calc") == 1
+	if AppCheck(TABLES) == 1
 	{
 		//"%(appName)"
 
@@ -1988,7 +1988,7 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck("Microsoft PowerPoint,LibreOffice Impress") == 1
+	if AppCheck(SLIDES) == 1
 	{
 		//"%(appName)"
 
@@ -2023,7 +2023,7 @@ ch_word
 
 vegawindowcheck
 {
-	if AppCheck("- Chrome,Mozilla Firefox,- Microsoft Edge,- Opera,- Pale Moon,Safari,- Vivaldi,- Chromium,Yandex Browser") == 1
+	if AppCheck(BROWSE) == 1
 	{
 		//"This is a response to running a browser, %(appName)."
 
@@ -2033,7 +2033,7 @@ vegawindowcheck
 	} 
 	else; RandomTalk
 
-	if AppCheck("AIMP,Spotify,iTunes,Windows Media Player,foobar2000,Winamp") == 1
+	if AppCheck(MUSIC) == 1
 	{
 		//"This is a response to a music player, %(appName)."
 
@@ -2050,7 +2050,7 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck("CLIP STUDIO PAINT,Paint Tool SAI -,Krita,Photoshop,ArtRage,GIMP,MyPaint,Sketchbook,Art Weaver,Adobe Fresco") == 1
+	if AppCheck(ART) == 1
 	{
 		//"%(appName)"
 		"\0\s[20]%(appName).\w8\w8 \0\s[22]Graphics editor.\w8\w8\0\s[24]\n[150]An artist...?"
@@ -2060,7 +2060,7 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck("Adobe Illustrator,Inkscape,CorelDRAW") == 1
+	if AppCheck(VECTOR) == 1
 	{
 		//"%(appName)"
 
@@ -2071,7 +2071,7 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck("Kaspersky,Avast,ESET,Dr.Web,McAfee,Avira,ClamWin,Malwarebytes,Windows Defender") == 1
+	if AppCheck(ANTIVIRUS) == 1
 	{
 		//"%(appName)"
 
@@ -2082,7 +2082,7 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck("Microsoft Word,LibreOffice Writer") == 1
+	if AppCheck(TEXT) == 1
 	{
 		//"%(appName)"
 
@@ -2092,7 +2092,7 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck("Microsoft Excel,LibreOffice Calc") == 1
+	if AppCheck(TABLES) == 1
 	{
 		//"%(appName)"
 
@@ -2101,7 +2101,7 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck("Microsoft PowerPoint,LibreOffice Impress") == 1
+	if AppCheck(SLIDES) == 1
 	{
 		//"%(appName)"
 

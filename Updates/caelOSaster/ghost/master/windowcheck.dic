@@ -7,8 +7,69 @@
 // specifically the SAORI-universal page
 // https://github.com/Zichqec/YAYA_Fundamentals/blob/main/module_09_saori/01_saori-universal.md
 
-// we give the user an option to OPT IN during transition to stage 1 through Permissions menu
+// we give the user an option to OPT IN during transition to stage 1 through Permissions menu, for unreality reasons.
 // my dumb ass wanted to make this check work in real time. honestly looking at the process table would be more accurate. however i didn't really find something that wouldn't make aster freeze when the script actually does so
+
+SetAppGroups //set arrays for program groups. mostly so that its easier to add to or remove from
+{
+    BROWSE = "- Chrome,Mozilla Firefox,- Microsoft Edge,- Opera,- Pale Moon,Safari,- Vivaldi,- Chromium,Yandex Browser"
+    MUSIC = "AIMP,Spotify,iTunes,Windows Media Player,foobar2000,Winamp"
+    ART = "CLIP STUDIO PAINT,Paint Tool SAI -,Krita,Photoshop,ArtRage,GIMP,MyPaint,Sketchbook,Art Weaver,Adobe Fresco"
+    VECTOR = "Adobe Illustrator,Inkscape,CorelDRAW"
+    ANTIVIRUS = "Kaspersky,Avast,ESET,Dr.Web,McAfee,Avira,ClamWin,Malwarebytes,Windows Defender"
+    TEXT = "Microsoft Word,LibreOffice Writer"
+    TABLES = "Microsoft Excel,LibreOffice Calc"
+    SLIDES = "Microsoft PowerPoint,LibreOffice Impress"
+}
+
+AppCheck //just check for any program(s) existing
+{
+    void FUNCTIONEX("window_info.dll","enum") //get the window list
+    SetAppGroups
+    _open_windows = valueex
+    _appPresent = 0 
+    
+        foreach _open_windows; _window
+        {
+            if _argc > 1 //if arguments are all listed within the funcion call; more than one argument
+            {
+                foreach _argv; _app
+                {
+                    if _app _in_ _window
+                    { 
+                        _appPresent = 1 //app name present in argument list? then 1 else 0
+                        _app = REPLACE(_app,"- ","") //removing some helper characters that would Hopefully make sure we're responding to the actual program and not the word being dropped in other context
+                        //_app = REPLACE(_app,"Ч ","") 
+                        _app = REPLACE(_app," -","")
+                        appName = _app //in case we need to namedrop the program we found
+                    }
+                }
+            }
+            else //one argument, probably refers to an array
+            {
+                foreach _argv[0]; _app
+                {
+                    if _app _in_ _window
+                    {  
+                        _appPresent = 1 //app name present in the array referred to? ditto
+                        _app = REPLACE(_app,"- ","")
+                        //_app = REPLACE(_app,"Ч ","")
+                        _app = REPLACE(_app," -","")
+                        appName = _app
+                    }
+                }
+            }
+        }  
+    --
+    _appPresent
+}
+
+
+
+
+
+
+// leaving all the old code in here just in case
 
 //so, we refer here from OnSecondChange...
 // OnWindowCheck
@@ -116,47 +177,3 @@
 //     --
 //     _BROWSER   
 // }
-
-
-//nevermind all this is useless and i have a much better way in mind for these. lol
-
-AppCheck //just check for any program(s) existing. this should null the need for the function above.
-{
-    void FUNCTIONEX("window_info.dll","enum") //get the window list
-    _open_windows = valueex
-    _appPresent = 0 
-    
-        foreach _open_windows; _window
-        {
-            if _argc > 1 //if arguments are all listed within the funcion call; more than one argument
-            {
-                foreach _argv; _app
-                {
-                    if _app _in_ _window
-                    { 
-                        _appPresent = 1 //app name present in argument list? then 1 else 0
-                        _app = REPLACE(_app,"- ","") //removing some helper characters that would Hopefully make sure we're responding to the actual program and not the word being dropped in other context
-                        //_app = REPLACE(_app,"Ч ","") 
-                        _app = REPLACE(_app," -","")
-                        appName = _app //in case we need to namedrop the program we found
-                    }
-                }
-            }
-            else //one argument, probably refers to an array
-            {
-                foreach _argv[0]; _app
-                {
-                    if _app _in_ _window
-                    {  
-                        _appPresent = 1 //app name present in the array referred to? ditto
-                        _app = REPLACE(_app,"- ","")
-                        //_app = REPLACE(_app,"Ч ","")
-                        _app = REPLACE(_app," -","")
-                        appName = _app
-                    }
-                }
-            }
-        }  
-    --
-    _appPresent
-}

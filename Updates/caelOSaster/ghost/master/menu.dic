@@ -85,7 +85,7 @@ MenuRun
 	--
 	//if stage != 0;"\![*]\q[Рermissions,permmenu]\n"	
 	-- //if this doesn't agree with people who Aren't based in russia, i'll do somethin else
-	"\![*]\q[Swtitch to stage...,testvariable]\n"
+	//"\![*]\q[Swtitch to stage...,testvariable]\n"
 	--
 	"\![*]\q[Utilitiеs,dosomething]\n\n[half]/
  	\![*]\q[Nevermind,CANCEL]\n\n[half]It is %(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"

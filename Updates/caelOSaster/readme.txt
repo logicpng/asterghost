@@ -1,5 +1,3 @@
-//update test
-
 Content Warnings:
 ! Unreality - No 4th wall, meta themes. An optional function addresses some software you've used while the Ukagaka was running, it's not enabled by default.
 ! Photosensitivity - Character often vibrates in place, in short bursts. Enable "Ignore SERIKO move" in SSP's Preferences (Ghost (2) > Ignore SERIKO Move) if this may cause an issue.
@@ -22,13 +20,9 @@ Compiling from the code alone is useless for me, naturally, should've known that
 
 -----------------------------------------------------------------
 
-!! Work in progress! A lot of things still may change between this version and final, and a lot of things aren't yet done. If something feels strange or unintentional, please let me know on nyx_os @ discord !!
-
-!! You'll know you've gone through the main "story" once the option to switch between the two opens and the menu shows "Thanks for playing" at the bottom. !!
-
 Based on the Girl & Triangle template by Zarla-s (http://www.ashido.com)
 
-Shell: Logic.png @ NyxOS
+Shell: Logic.png @ NyxOS (https://logicpng.neocities.org)
 Code (not template's): Logic.png @ NyxOS
 Dialogue: Logic, Rigel, Vega @ NyxOS
 

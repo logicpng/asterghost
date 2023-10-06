@@ -301,6 +301,7 @@ OnKeyPress
 OnSwitch //Switch between Rigel and Vega
 {
 	lastTalk = ""; //wipe last said thing, in case it contains pre-switch line and breaks things
+	if stage = 3; talkcount = 0 //reset dialogue counter. it already wipes during stage transition, this is more necessary for stage 3 switches 
 	switching = 1 //flag for OnBallonChange
 	case vegafront //who's in front?
 	{

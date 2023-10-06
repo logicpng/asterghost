@@ -300,6 +300,8 @@ OnInstallRefuse
 	"\e"
 	//...reference0 makes them restart the line in testing for some reason. i'll mark if this happens when installing an unsupported shell
 	//reference0 in this function refers to the ghost this file is associated with, probably the name of the ghost listed in its install.txt file. You would see this if you dropped a shell made for a different ghost on your current ghost, for example. They can't install a shell for themselves they can't use, right? Anyway, replace this with what you wish, you can use the reference0 envelope or not if you want.
+
+	//the funny thing is, when i attempted to test this with a shell for Needle (i have yet to actually play with, maybe after i'm done), there was no restriction on the ghost... while i didn't try to apply it, would be mega scary to try it
  }
 
 
@@ -570,8 +572,12 @@ OnUpdateBegin
  {
 	case vegafront
 		{
-			when 0; "\0\s[0]\i[5]\i[8]\i[62]I'm...\i[61]\w8 \0\s[4]not really sure there's anything out there,\w8 \0\s[4]\i[1]but..."
-			others; "\0\s[22]\i[7]An...\w8\w8 \0\s[22]\i[8]\i[10]Update?\w8\w8\n[150]Really?\w8\w8 \0\s[23]Mm..."
+			when 0
+			{ 
+				if stage == 0; "\0\s[5]Alright!\w8\n[150]\0\s[0]Let me check for a new version\w8.\w8.\w8." //the other one was a bit uncharacteristic for rigel on stage 0
+				else; "\0\s[0]\i[5]\i[8]\i[62]I'm...\i[61]\w8 \0\s[4]not really sure there's anything out there,\w8 \0\s[4]\i[1]but\w8.\w8.\w8."
+			}
+			others; "\0\s[22]\i[7]An...\w8\w8 \0\s[22]\i[8]\i[10]Update?\w8\w8\n[150]Really?\w8\w8 \0\s[23]Mm\w8.\w8.\w8."
 		}
 		--
 		"\e"
@@ -590,7 +596,11 @@ OnUpdateReady
 	case vegafront
 		{
 			when 0; "\0\s[3]A \i[62]real\i[61] update!?\w8 \0\s[8]I \i[62]need to\i[61] see this!\w8\n[150]\0\s[5]Let's take a look!!"
-			others; "\0\s[22]\i[10]...How?\w8\w8 \0\s[24]\i[1]\i[3]Well.\w8\w8 \0\s[20]\i[1]Okay.\w8\w8\n[150]Preparing to download..."
+			others; "\0\s[22]\i[10]...%(reference0) file"
+			--
+			if reference0 > 1; "s"
+			--
+			"?\w8\w8 \0\s[24]\i[1]\i[3]Well.\w8\w8 \0\s[20]\i[1]Okay.\w8\w8\n[150]Preparing to download..."
 		}
 		--
 		"\e"
@@ -609,8 +619,12 @@ OnUpdateComplete
  	{
  		case vegafront
 		{
-			when 0; "\0\s[4]\i[1]Just as I thought,\w8 still nothing..."
-			others; "\0\s[23]No updates.\w8\w8 All blank."
+			when 0;
+			{
+				if stage == 0; "\0\s[0]\i[5]\i[8]...I'm still on current version?\w8 N-\w8 no worries!\w8\n[150]Any day now,\w8 hah..."
+				else; "\0\s[4]\i[1]Just as I thought,\w8 still nothing..."
+			} 
+			others; "\0\s[23]No updates.\w8\w8 All current."
 		}	
 		--
 		"\e"
@@ -623,7 +637,7 @@ OnUpdateComplete
 			others; "\0\s[20]\i[1]Update successful.\w8\w8\n[150]\0\s[24]...Hmm..."
 		}	
 		--
-		"\e"
+		"\w8\w8%(FixMenuColors)\w8\w8\e" //if the update swapped the menu colors, change them back
  	}
 }
 
