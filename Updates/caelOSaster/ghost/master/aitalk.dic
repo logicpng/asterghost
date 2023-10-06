@@ -283,10 +283,10 @@ OnKeyPress
 	{
 	"\![open,readme]"
 	}
-	elseif reference0 == "d"
-	{
-	"\![open,developer]"
-	}
+	// elseif reference0 == "d"
+	// {
+	// "\![open,developer]"
+	// }
 	// elseif reference0 == "q"
 	// {
 	// 	"\0\s[1]I see there is a Task Manager utility here...\w8 \s[0]\i[5]\i[8]What is a Task though,\w8 exactly?\w8\n[150]"
@@ -301,7 +301,7 @@ OnKeyPress
 OnSwitch //Switch between Rigel and Vega
 {
 	lastTalk = ""; //wipe last said thing, in case it contains pre-switch line and breaks things
-	if stage = 3; talkcount = 0 //reset dialogue counter. it already wipes during stage transition, this is more necessary for stage 3 switches 
+	if stage == 3; talkcount = 0 //reset dialogue counter. it already wipes during stage transition, this is more necessary for stage 3 switches 
 	switching = 1 //flag for OnBallonChange
 	case vegafront //who's in front?
 	{
@@ -334,9 +334,9 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 		--
 		FadeIn
 		--
-		if vegafront == 1 && stage == 2 && vegamet != 1 //okay so this worked. ideally this should play ONLY ONCE when stage 2 starts. vega begins fronting, the balloon changes, and he begins to speak
+		if vegafront == 1 && vegamet != 1 //okay so this worked. ideally this should play ONLY ONCE when stage 2 starts. vega begins fronting, the balloon changes, and he begins to speak
 		{
-			"\b[\0\s[20]Hello again.\w8\w8 I am Aster.\w8\w8 \0\s[22]Call me Vega.\w8\w8 \0\s[22]\i[1]I do what Rigel can't.\w8\w8\n[150]\1\t\s[17]\w8\1\s[12]\i[62]...Really?\w8 \1\s[13]I already told %(himher) what we do!\w8\w8\n[150]\0\s[20]\i[1]Rest.\w8\w8\1\s[14]Fine...\w8\w8\w8\1\s[18]"
+			"\0\s[20]Hello again.\w8\w8 I am Aster.\w8\w8 \0\s[22]Call me Vega.\w8\w8 \0\s[22]\i[1]I do what Rigel can't.\w8\w8\n[150]\1\t\s[17]\w8\1\s[12]\i[62]...Really?\w8 \1\s[13]I already told %(himher) what we do!\w8\w8\n[150]\0\s[20]\i[1]Rest.\w8\w8\1\s[14]Fine...\w8\w8\w8\1\s[18]"
 			--
 			"\![leave,passivemode]\e"
 			vegamet = 1 //so that this doesn't get triggered if the bubble is switched during stage 2

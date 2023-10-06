@@ -228,7 +228,7 @@ OnConvoCaelos
 {
     "\0\s[7]So,\w8 %(I)'ve given it a shot,\w8 and...\w8 \n[150]\s[4]%(OnCapitalize(I)) can't find anything about CaelOS.\w8\n[150]\0\s[0]\i[5]There's...\w8 \i[62]nothing\i[61] about it online...\w8\n[150]And %(OnCapitalize(I)) can't even ask anyone from the inside either.\w8 It's all blocked...\x"
     --
-    if stage == 1; "\0\s[0]\i[5]\i[62]Were\i[61]...\w8\w8\w8 \0\s[4]Were we doing a bad job...?\w8\w8\x\0\s[0]\i[5]Ah-\w8 what a \i[62]horrible\i[61] thought-\w8 \0\s[4]\i[1]I'd really rather not think about that.\w8\0\s[0]\n[150]In the meantime,\w8 \0\s[5]We'll keep looking into what your OS is.\w8"
+    if stage == 1; "\0\s[0]\i[5]\i[62]Were\i[61]...\w8\w8\w8 \0\s[4]Were we doing a bad job...?\w8\w8\x\0\s[0]\i[5]Ah-\w8 what a \i[62]horrible\i[61] thought-\w8 \0\s[4]\i[1]I'd really rather not think about that.\w8\0\s[0]\n[150]In the meantime,\w8 \0\s[5]we'll keep looking into what your OS is.\w8"
     else; "\0\s[0]\i[5]Frankly,\w8 I'd rather focus on you and your system now.\w8\n[150]\0\s[8]May as well enjoy our time while we're here,\w8 right?\w8"
     --
     " \0\s[0]This is our home now too,\w8 after all."
@@ -240,7 +240,7 @@ OnConvoCaelos
 //the rest still remain "optional" in a sense. like you have to go through them but
 Select.plural
 {
-    "\0\s[3]\i[5]\i[62]Ah-!\i[61]\w8 Oh,\w8 \0\s[3]I just \i[62]misspoke\i[61]!\w8 \n[150]Or- \0\s[0]\i[5]\i[8]or \i[62]maybe\i[61] \f[italic,1]you\f[italic,0] misheard,\w8 \0\s[3]or,\w8 er,\w8 \i[62]misread\i[61], I-\n[150]\1\s[33]...Enough.\w8\w8 \1\s[32]Too obvious.\0\8[chord.wav]\s[3]\i[5]\i[62]\t\p[2]\s[50]\0\w8\w3\i[61]\n[150]\1\x\1\s[30]Startled?\w8\w8\0\s[3]...You tear the curtain without warning and ask me if I'm \0\s[6]\i[62]startled??\0\s[6]\w8\w8\1\s[32]\n[150]\i[8]Secret's out.\w8\w8 \1\s[32]No point hiding.\x\1\s[30]Hello,\w8 %(username).\w8\w8 We are two.\w8\w8 \n[150]\1\s[32]Both Aster.\w8\w8 Different functions.\w8\w8 \n[150]\1\s[30]Nice to meet you.\0\s[6]\i[5]Nice to meet you, he says, what ab\1\s[34]\0out-\w8 \i[62]Grrrgh...\i[61]\x\0\s[4]...Sigh.\w8 \0\s[1]I'm sorry,\w8 %(username),\w8 \0\s[0]\i[5]I didn't really want you to find out already.\w8 \n[150]\0\s[6]I'll...\w8 \0\s[4]have a talk with him later.\p[2]\s[51]\0"
+    "\0\s[3]\i[5]\i[62]Ah-!\i[61]\w8 Oh,\w8 \0\s[3]I just \i[62]misspoke\i[61]!\w8 \n[150]Or- \0\s[0]\i[5]\i[8]or \i[62]maybe\i[61] \f[italic,1]you\f[italic,0] misheard,\w8 \0\s[3]or,\w8 er,\w8 \i[62]misread\i[61], I-\n[150]\1\s[33]...Enough.\w8\w8 \1\s[32]Too obvious.\0\8[chord.wav]\s[3]\i[5]\i[62]\t\p[2]\s[50]\0\w8\w3\i[61]\n[150]\1\x\1\s[30]Startled?\w8\w8\0\s[3]...You tear back the curtain without warning and ask me if I'm \0\s[6]\i[62]startled??\0\s[6]\w8\w8\1\s[32]\n[150]\i[8]Secret's out.\w8\w8 \1\s[32]No point hiding.\x\1\s[30]Hello,\w8 %(username).\w8\w8 We are two.\w8\w8 \n[150]\1\s[32]Both Aster.\w8\w8 Different functions.\w8\w8 \n[150]\1\s[30]Nice to meet you.\0\s[6]\i[5]Nice to meet you, he says, what ab\1\s[34]\0out-\w8 \i[62]Grrrgh...\i[61]\x\0\s[4]...Sigh.\w8 \0\s[1]I'm sorry,\w8 %(username),\w8 \0\s[0]\i[5]I didn't really want you to find out already.\w8 \n[150]\0\s[6]I'll...\w8 \0\s[4]have a talk with him later.\p[2]\s[51]\0"
     --
     I = "we"
 	Me = "us"
@@ -258,7 +258,7 @@ Select.morethanone
     if stage == 1; "\n[150]Though,\w8 \0\s[0]\i[5]you haven't seen the other one yet.\w8 That little panel is just an extra mouth and eye to us.\x"
     else; "\0\s[5]We have different preferred color schemes...\w8 \0\s[7]for some reason.\w8\n[150]\0\s[0]But we still inhabit the same model you see before you!\x"
     --
-    "\0\s[0]We have responsibilities and abilities split between us,\w8 and would have different control of different areas of the OS.\w8\n[150]\0\s[5]I'm more of a GUI and user data manager and the face of Aster!\w8 \0\s[0]He's the main housekeeper and works in deeper system areas.\xHe's a little blunt,\w8 but...\w8 \0\s[0]\i[5]I do enjoy working with him.\w8\0\n[150]"
+    "\0\s[0]We have responsibilities and abilities split between us,\w8 and would have different control of different areas of the OS.\w8\n[150]\0\s[5]I'm more of a GUI and user data manager,\w8 and the face of Aster!\w8 \0\s[0]He's the main housekeeper and works in deeper system areas.\xHe's a little blunt,\w8 but...\w8 \0\s[0]\i[5]I do enjoy working with him.\w8\0\n[150]"
     --
     talkedStageone[6] = 1
     if stage == 1;"\![*]\q[Two Asters is a little confusing...,names]" //wouldn't wanna cause stage transition to 2 out of the fucking epilogue

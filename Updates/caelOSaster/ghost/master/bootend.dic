@@ -550,7 +550,7 @@ OnBoot
 
 altairboottalk //boottalk for rigel
 {
-	if weekday == 5 && hour >= 19 && RAND(50) == 1 //... a link to a bunch of animations i think are funny. also adding == 1 should actually make it rare
+	if weekday == 5 && hour >= 19 && RAND(3) == 1 //... a link to a bunch of animations i think are funny. also adding == 1 should actually make it rare
 	{
 		"\0\s[0]\f[underline,1]\_a[https://www.snakepixel.art/donniefriday]It's friday night!\_a\f[underline,0]\e"
 	}
@@ -566,7 +566,7 @@ altairboottalk //boottalk for rigel
 
 vegaboottalk
 {
-	if weekday == 5 && hour >= 19 && RAND(50) == 1 //since there aren't real boolean values, just 0 and 1, this should work. if RAND turns into 1 it will give you...
+	if weekday == 5 && hour >= 19 && RAND(3) == 1 //since there aren't real boolean values, just 0 and 1, this should work. if RAND turns into 1 it will give you...
 	{ 
 		"\0\s[20]\i[1]\f[underline,1]\_a[https://www.snakepixel.art/donniefriday]Friday night...\_a\f[underline,0]\e"
 	} 

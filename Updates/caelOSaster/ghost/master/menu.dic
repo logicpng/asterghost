@@ -1147,6 +1147,11 @@ PermissionMenu
 Select.wincheckon
 {
 	windowCheck = "ON"
+		case vegafront
+	{
+		when 0; "\0\s[5]Okay!\w8 \0\s[0]Won't lie,\w8 \0\s[8]I am curious about what you do here!\w8\n[150]\0\s[0]\i[5]Thank you for letting me watch you work."
+		others; "\0\s[20]Okay.\w8\w8 \0\s[20]\i[1]Not afraid of judgement?"
+	}	
 	--
 	"\x"
 	--
@@ -1156,6 +1161,11 @@ Select.wincheckon
 Select.wincheckoff
 {
 	windowCheck = "OFF"
+	case vegafront
+	{
+		when 0; "\0\s[3]Oh!\w8 \0\s[0]\i[5]Okay.\w8\n[150]\0\s[5]No commentary on your software!\w8 \0\s[0]I can do that."
+		others; "\0\s[20]Mm.\w8\w8\n[150]\0\s[22]\i[1]Still can see your software.\w8\w8 \0\s[20]\i[1]Just won't say anything."
+	}	
 	--
 	"\x"
 	--

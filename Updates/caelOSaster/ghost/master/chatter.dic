@@ -1958,7 +1958,7 @@ altairwindowcheck
 		{
 			"\0\s[1]...Looking in %(appName) makes me feel just a little strange,\w8 I have to say.\n[150]"
 			--
-			if stage = 3
+			if stage == 3
 			{
 				"\0\s[0]\i[5]I think...\w8 \i[8]\i[62]I think\i[61] it might be Vega stirring.\n[150]\w8He's-\w8 \0\s[4]\i[1]he's a bit bothered by programs that do his job.\n[150]"
 				--
@@ -2015,7 +2015,7 @@ ch_word
 		{
 			"\0\s[8]Isn't it impressive how many things you can say with just a few words?"
 			--
-			if stage = 3; "\w8\n[150]\0\s[0]...Well,\w8 if you have no trouble understanding Vega,\w8 \0\s[19]you already know this.\0\s[0]"
+			if stage == 3; "\w8\n[150]\0\s[0]...Well,\w8 if you have no trouble understanding Vega,\w8 \0\s[19]you already know this.\0\s[0]"
 			--
 			"\e:chain=end"
 		}
@@ -2056,7 +2056,7 @@ vegawindowcheck
 		"\0\s[20]%(appName).\w8\w8 \0\s[22]Graphics editor.\w8\w8\0\s[24]\n[150]An artist...?"
 		"\0\s[22]Watching you create is...\w8\w8\n[150]\0\s[22]\i[1]Interesting."
 		"\0\s[20]%(appName) running.\w8\w8\n[150]\0\s[22]\i[1]Let me watch...?"
-		if stage = 3; "\0\s[22]\i[1]Mm...\w8\w8 \0\s[20]%(appName) running.\w8\n[150]\1\s[17]\w3Oh?\w3 \1\s[15]Let me see,\w3 \i[62]I wanna watch!!\0\0\s[21]\i[12]Wait,\w8 not now-\1\s[10]\![raise,OnSwitch]"
+		if stage == 3; "\0\s[22]\i[1]Mm...\w8\w8 \0\s[20]%(appName) running.\w8\n[150]\1\s[17]\w3Oh?\w3 \1\s[15]Let me see,\w3 \i[62]I wanna watch!!\0\0\s[21]\i[12]Wait,\w8 not now-\1\s[10]\![raise,OnSwitch]"
 	}
 	else; RandomTalk
 
@@ -2067,7 +2067,7 @@ vegawindowcheck
 		"\0\s[24]%(appName)...\w8\w8 Vector graphics editor.\w8\w8\n[150]\0\s[20]Curious.\w8\w8 \0\s[22]Graphic designer,\w8 perhaps...?"
 		"\0\s[20]Mm.\w8\w8 %(appName).\w8\w8 \0\s[20]\i[10]Vector art...\w8\w8 Just math.\w8\w8\n[150]...\0\s[24]Is math an art?\w8\w8 \0\s[21]Rhethorical.\w8\w8 \0\s[23]\i[0]Don't answer that."
 		"\0\s[24]Hm.\w8\w8 My face...\w8\w8\n[150]Easy to make,\w8 in %(appName).\w8\w8 Some circles and triangles...."
-		if stage = 3;"\1\s[17]\w3\1\s[15]Ooh is that %(appName)?\w8 \i[62]I wanna see what %(username) is doing!\w8\0\s[22]Maybe later...?\w8\w8 \0\s[25]Stop,\w4 \0\s[25]\i[7]you're shoving-\1\s[10]\![raise,OnSwitch]"
+		if stage == 3;"\1\s[17]\w3\1\s[15]Ooh is that %(appName)?\w8 \i[62]I wanna see what %(username) is doing!\w8\0\s[22]Maybe later...?\w8\w8 \0\s[25]Stop,\w4 \0\s[25]\i[7]you're shoving-\1\s[10]\![raise,OnSwitch]"
 	}
 	else; RandomTalk
 
