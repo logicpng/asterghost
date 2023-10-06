@@ -1138,36 +1138,56 @@ OnShellScaling
 		{
 			if reference0 >= 150 //this number is the percentage that you're scaling the ghost up to. In this case, it's 150%.
 			{
-				"\0\s[0]\i[5]Getting a little more cramped in here,\w8 isn't it...?"
+				"\0\s[0]\i[5]Getting a little more cramped in here,\w8 isn't it...?\e"
 			}
 			elseif reference0 == 100 //this is 100%
 			{
-				"\0\s[5]Ahh...\w8 Back to normal.\w8 \0\s[0]Thank you."
+				"\0\s[5]Ahh...\w8 Back to normal.\w8 \0\s[0]Thank you.\e"
 			}
 			elseif reference0 <= 50 //this is 50%. You can add any percentage that's listed under shell scaling if you want using more elseifs.
 			{
-				"\0\s[3]Hello?\w8 Can you hear me okay?\w8\n[150]\0\s[0]\i[5]You may want to reset the scale if you can't read this!\w8 \0\s[4]\i[1]Ah-\w8 but then,\w8 you can't read this..."
+				"\0\s[3]Wow...\w8 \0\s[8]I'll bet my voice could really echo through the desktop now...\w8\w8\w8"
+				//if there is a link to balloon scaling it should get followed up by balloon scaling i htink
 			}
 		}
 		others //vega
 		{
 			if reference0 >= 150 //this number is the percentage that you're scaling the ghost up to. In this case, it's 150%.
 			{
-				"\0\s[21]\i[1]...Feeling powerful.\w8\w8 \0\s[20]\i[8]Still can't do much.\w8\w8"
+				"\0\s[21]\i[1]...Feeling powerful.\w8\w8 \0\s[20]\i[8]Still can't do much.\w8\w8\e"
 			}
 			elseif reference0 == 100 //this is 100%
 			{
-				"\0\s[20]\i[1]Feels familiar."
+				"\0\s[20]\i[1]Feels familiar.\e"
 			}
 			elseif reference0 <= 50 //this is 50%. You can add any percentage that's listed under shell scaling if you want using more elseifs.
 			{
-				"\0\s[20]\i[8]Possibly inaccessible...\w8\w8 \0\s[22]Hope you can hear me."
+				"\0\s[28]Small...\w8\w8\w8"
 			}
 		}
-		--
-		"\e"
-	}
-	
+	}	
+}
+
+//i didn't find a way to Check whether balloon scale link to the shell is enabled, but if there is it would be nice to make here a nod like hey. you can have me small and not have a font for ants actually ehre's how you do it
+OnBalloonScaling
+{
+	case vegafront
+	{
+		when 0 //rigel
+		{
+			if reference0 <= 50 //this is 50%. You can add any percentage that's listed under shell scaling if you want using more elseifs.
+			{
+				"\0...\0\s[3]Um.\w8 \0\s[0]\i[5]Can you hear me,\w8 actually?\n[150]This font is quite small, isn't it...?\e"
+			}
+		}
+		others //vega
+		{
+			if reference0 <= 50 //this is 50%. You can add any percentage that's listed under shell scaling if you want using more elseifs.
+			{
+				"\0\s[20]\i[8]Possibly inaccessible...\w8\w8 \0\s[22]Hope you can hear me.\e"
+			}
+		}
+	}	
 }
 
 //just screwing around. if tama allows you to do that why not right?
@@ -1183,7 +1203,7 @@ On_tamaOpen{
 			SHIORI3FW.Push_X_SSTP_PassThru('background.color','D9FFD6')
 			SHIORI3FW.Push_X_SSTP_PassThru('default.color','200203')
 			--
-			"\0\s[3]D-\w8 Debugging?\w8 ...\s[0]\i[6]Wait, that's not my name!"
+			"\0\s[3]D-\w8 Debugging?\w8 ...\s[0]\i[6]I'd prefer it didn't call me that..."
 			"\0\s[0]Good luck!\w8 \i[5]Don't break anything in there, will you..?"
 			"\0\s[8]What are we learning today?"
 		}
@@ -1199,6 +1219,7 @@ On_tamaOpen{
 			"\0\s[26]Mm...\w8\w8 Let me know.\w8\w8 Once done."
 		}
 	}
+	--
 	"\e"
 }
 On_tamaExit{

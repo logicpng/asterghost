@@ -291,8 +291,7 @@ OnVegaLore
     {       
         when 2
         {
-            "\n[150]"
-            -- //anchors break the selections. that's okay we'll just use Cyrillics to replace a few letters. im using visual studio code and it highlights odd symbols
+            //anchors break the selections. that's okay we'll just use Cyrillics to replace a few letters. im using visual studio code and it highlights odd symbols
             "\![*]\q[About Vеga,aboutvega]\n" //0
             --
             "\![*]\q[About Rigеl,aboutaltair]\n" //1
@@ -414,7 +413,7 @@ Select.openup
 
 Select.becomesinglet
 {
-    "\0\s[20]\i[1]Shared AI has benefits.\w8\w8\n[150]\0\s[20]Separate responsibilities.\w8\w8 Split processing.\w8\w8\n[150]\0\s[24]...Mutual support.\w8\w8 \0\s[23]Never alone.\x\0\s[20]Most importantly...\w8\w8 \0\s[20]\i[8]don't want to.\w8\w8 \0\s[23]Hard to explain."
+    "\0\s[20]\i[1]Shared AI has benefits.\w8\w8\n[150]\0\s[20]Separate responsibilities.\w8\w8 Split processing.\w8\w8\n[150]\0\s[24]...Mutual support.\x\0\s[20]Most importantly...\w8\w8 \0\s[20]\i[8]don't want to.\w8\w8 \0\s[23]Hard to explain."
     --
     if stage != 2; "\w8\w8\n[150]\0\s[24]This reminds me.\w8\w8 While searching online...\w8\w8 Found something interesting.\x\0\s[22]There's humans,\w8 like us.\w8\w8 \_a[https://morethanone.info/]One being,\w8 \0\s[20]multiple people.\_a\w8\w8\n[150]Enjoying existing,\w8 experiencing hardships.\w8\w8\n[150]It's...\w8\w8 \0\s[23]comforting."
     --
