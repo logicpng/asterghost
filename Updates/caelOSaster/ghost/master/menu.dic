@@ -872,7 +872,7 @@ OnSearchOnline
 		{
 			case vegafront
 			{
-				when 0; "\0\s[8]Space is so beautiful,\w8 isn't it?\w8 You ever think about how vast it is,\w8 out there?\w8 \0\s[0]How seemingly boundaryless space is?\n[150]\0\s[0]\i[5]\i[8]I do..."
+				when 0; "\0\s[8]Space is so beautiful,\w8 isn't it?\w8 You ever think about how vast it is,\w8 out there?\w8 \0\s[0]How seemingly boundaryless space is?\w8\n[150]\0\s[0]\i[5]\i[8]I do..."
 				others; "\0\s[26]\i[0]Peaceful..."
 			}	
 		}
