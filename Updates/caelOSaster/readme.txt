@@ -28,3 +28,5 @@ Code (not template's): Logic.png @ NyxOS
 Dialogue: Logic, Rigel, Vega @ NyxOS
 
 uses window_info.dll, saori_cpuid.dll, gomi.dll
+
+Special thanks to @justjest, @sulfersnout, @crazedauthor on tumblr for testing the project, pointing out typos, and general encouragment.

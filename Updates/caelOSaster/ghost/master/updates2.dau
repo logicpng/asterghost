@@ -11,7 +11,7 @@ ghost/master/etc.dicb8ae24026ec4b2eb96b46247659ae6eesize=56725date=2023-10-07
 ghost/master/gomi.dll51fe9597398db01e684a0f9d52c63242size=13312date=2004-06-02T11:00:04
 ghost/master/logo_r.icodd8715db74ae5ada6e9bd1aefaaccc0fsize=124207date=2023-08-14T10:50:59
 ghost/master/mciaudior.dllb1082bccd2aac2017f7936baf2d967b3size=29696date=2003-03-14T07:23:26
-ghost/master/menu.dicfbcad811b9ef7748bac9b19369a2910csize=47140date=2023-10-07T15:14:13
+ghost/master/menu.dicd93d6d5d5ed2f78961e4bec671ad89e3size=47143date=2023-10-07T15:33:35
 ghost/master/mouse.dice8d984d6ab7538b0caf5f343ff5ec5fcsize=5389date=2023-10-03T12:10:32
 ghost/master/nameteach.dicf5888ac88108778c65e3f22dd96ea09esize=9640date=2023-07-31T12:19:07
 ghost/master/proxy_ex.dll8ff13a8c1b2b0261f61704c1f457cc8csize=48128date=2023-06-13T20:58:02
@@ -34,7 +34,7 @@ ghost/master/yaya.dll56e3af56c88e696cea1f39d53b239cefsize=880640date=2023-06-
 ghost/master/yaya.txtd1e6f675fb5d52d4f410470c124e6431size=1545date=2023-10-03T18:47:03
 ghost/master/yaya_config.txt134ca91eba1f7864526eaa3a2142dd20size=3920date=2017-03-18T17:07:23
 install.txt7f4c734e6c091927fb98ed2e1db2e853size=156date=2023-07-15T20:18:26
-readme.txt7c56c404ff543b94ac3a1bb53f3db8c4size=1248date=2023-10-07T08:41:35
+readme.txtbdc1a1a568cb3b714e652cb2018fc8c5size=1389date=2023-10-07T19:08:38
 shell/master/alt/descript.txt8b77ab89d7517aa16bcd84f33040057csize=1085date=2023-08-14T19:22:20
 shell/master/alt/menu_background.pnge504c6358706edc5e9e19ddac3204b5esize=11041date=2023-07-16T12:21:29
 shell/master/alt/menu_foreground.png0c9a3df7cb432d2ec0498b3b931dc2b6size=12897date=2023-07-16T12:21:39
