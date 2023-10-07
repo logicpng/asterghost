@@ -3,6 +3,7 @@ Content Warnings:
 ! Photosensitivity - Character often vibrates in place, in short bursts. Enable "Ignore SERIKO move" in SSP's Preferences (Ghost (2) > Ignore SERIKO Move) if this may cause an issue.
 
 Note: It is recommended to have the font Roboto Condensed installed.
+Note: Fast-forwarding is not recommended, as it can break certain events.
 
 -----------------------------------------------------------------
 

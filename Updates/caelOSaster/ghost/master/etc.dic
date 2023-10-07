@@ -596,11 +596,14 @@ OnUpdateReady
 	case vegafront
 		{
 			when 0; "\0\s[3]A \i[62]real\i[61] update!?\w8 \0\s[8]I \i[62]need to\i[61] see this!\w8\n[150]\0\s[5]Let's take a look!!"
-			others; "\0\s[22]\i[10]...%(reference0) file"
-			--
-			if reference0 > 1; "s"
-			--
-			"?\w8\w8 \0\s[24]\i[1]\i[3]Well.\w8\w8 \0\s[20]\i[1]Okay.\w8\w8\n[150]Preparing to download..."
+			others
+			{ 
+				"\0\s[22]\i[10]...%(reference0) file"
+				--
+				if reference0 > 1; "s"
+				--
+				"?\w8\w8 \0\s[24]\i[1]\i[3]Well.\w8\w8 \0\s[20]\i[1]Okay.\w8\w8\n[150]Preparing to download..."
+			}
 		}
 		--
 		"\e"
@@ -701,13 +704,16 @@ OnUpdateFailure
  
 OnUpdate.OnDownloadBegin
  {
- 	case vegafront
-		{
-			when 0; "\0\s[5]Downloading file...!"
-			others; "\0\s[20]\i[1]Preparing to download..."
-		}
-		--
-		"\e"
+ 	// case vegafront
+	// 	{
+	// 		when 0; "\0\s[5]Downloading file...!"
+	// 		others; "\0\s[20]\i[1]Preparing to download..."
+	// 	}
+	// 	--
+	// 	"\e"
+	reference1++
+	reference2++
+	"\0\_qDownloading %(reference0) (%(reference1)/%(reference2))...\w8\w8\e"
  }
 
  //---- OnUpdate.OnMD5CompareBegin ---------------------------------------------------

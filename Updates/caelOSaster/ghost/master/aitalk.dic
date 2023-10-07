@@ -343,7 +343,7 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 		}
 		elseif vegafront == 0 && stage == 2 //we've switched to rigel from vegathreestart
 		{
-			"\0\s[5]Hi again!\w8\n[150]Nice to see you!\w8\x\0\s[8]By the way,\w8 %(username),\w8 \0\s[0]if you ever need either of us,\w8 you can just ask!\w8\n[150]\0\s[5]I've added an option to the menu for you.\x"
+			"\0\s[5]Hi again!\w8\n[150]Nice to see you!\w8\x\0\s[8]By the way,\w8 %(username),\w8 now that we know you a little better...\w8\n[150]\0\s[0]If you ever need either of us,\w8 you can just ask!\w8 \0\s[5]I've added an option to the menu for you.\x"
 			--
 			stage = 3 //now we're at stage 3 and this dialogue shouldn't run again
 			"\![leave,passivemode]\e"

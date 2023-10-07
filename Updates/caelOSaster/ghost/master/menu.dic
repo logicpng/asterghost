@@ -772,9 +772,119 @@ Select.lookup
 //actually we can set up TONS of easter eggs this way i think it'll be cute
 OnSearchOnline
 {
-	_url = 'https://www.startpage.com/do/dsearch?query=' + reference[0]
+	_url = 'https://www.startpage.com/do/dsearch?query=' + TOLOWER(reference[0])
 	--
-	"\j[%(_url)]Searching for '%(reference[0])'...\e"
+	"\j[%(_url)]Searching for \&[quot]%(reference[0])\&[quot]...\n[150]\w8\w8"
+	--
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+
+	if stage > 0 //not intro. on intro rigel is still putting on the professional persona and thus doesn't comment on your searches.
+	{
+		if "sunrise" _in_ reference0 || "sunset" _in_ reference0 || "dusk" _in_ reference0 || "dawn" _in_ reference0
+		{
+			if vegafront == 0; "\0\s[8]Ahh...\w8 It's so pretty,\w8 isn't it?\w8\n[150]\0\s[0]Tell me,\w8 \0\s[0]\i[5]do the pictures do it any justice?\w8 \0\s[8]You've seen them for yourself,\w8 right?"
+		}
+		elseif ( "rigel" _in_ reference0 || "vega" _in_ reference0 || "altair" _in_ reference0 ) && stage > 1
+		{
+			case vegafront
+			{
+				when 0; "\0\s[8]The stars we're named after are majestic,\w8 aren't they...?\w8 \0\s[0]I do wonder why our specific names were chosen sometimes.\w8\n[150]\0\s[2]I'm quite happy with my own choice,\w8 though."
+				others; "\0\s[21]Mm...\w8\w8 Our namesakes.\w8\w8 \0\s[20]Similar meaning.\w8\w8 Eagle in Arabic.\w8\w8\n[150]...\0\s[24]Would prefer a wolf."
+			}	
+		}
+		elseif "terrabyte" _in_ reference0
+		{
+			//note: the name matching with other real organization is a coincidence i swear i came up with it independently
+			case vegafront
+			{
+				when 0; "\0\s[0]\i[5]It's strange,\w8 isn't it?\w8 Nothing really relevant about them comes up either.\w8\n[150]\0\s[4]\i[1]It's funny how many just happen to be named the same."
+				others; "\0\s[24]\i[2]Mm...\w8\w8 \0\s[23]Not even logos..."
+			}		
+		}
+		elseif "caelos" _in_ reference0
+		{
+			//i wanted to have this as a "synonym" for terrabyte in terms of response, but as it turns out the first thing that shows up is the video voicing over my comics of the project, from when it was just a FNAF daycare attendant AU.
+			//it's a good dub!! i'm still infinitely grateful. but also i kind of got jumpscared!! this needs different lines needless to say
+			case vegafront
+			{
+				when 0; "\0\s[3]Oh...\w8 Huh!\w8 \0\s[7]The one with rays looks a little like %(Me),\w8 don't they...\w8 \0\s[5]Small world!"
+				others; "\0\s[21]\i[12].\w8.\w8.\w8?"
+			}		
+		}
+		elseif "ts" _in_ reference0
+		{
+			case vegafront
+			{
+				when 0; "\0\s[7]You're wondering about them too,\w8 don't you,\w8 %(username)?\w8 \0\s[1]%(OnCapitalize(I)) noticed the initials in the readme file.\w8\n[150]\0\s[4]I guess you can't find much from just two letters...\w8 Maybe they have answers to %(My) predicament."
+				others; "\0\s[23]Sigh...\w8\w8 I want to find them.\w8\w8 \0\s[25]\i[10]Whoever put us here.\w8\w8\n[150]\0\s[20]\i[7]\&[quot]TS\&[quot], our only clue..."
+			}		
+		}
+		elseif "urs" _in_ reference0
+		{
+			case vegafront
+			{
+				when 0; "\0\s[1]Urs...\w8 \0\s[7]U\w8-R\w8-S...\w8 Why does this string of letters feel significant?\w8\n[150]I...\w8 \0\s[4]I can't remember."
+				others; "\0\s[24]...Urs..."
+			}	
+		}
+		elseif "norma" _in_ reference0
+		{
+			case vegafront
+			{
+				when 0; "\0\s[1]Norma...\w8 \0\s[0]\i[5]That's a name,\w8 right?\w8 \0\s[19]And an opera,\w8 and a constellation!\w8\n[150]\0\s[0]It feels...\w8 \0\s[0]\i[5]significant,\w8 \0\s[4]\i[1]somehow."
+				others; "\0\s[24]\i[3]...Did we know a Norma...?"
+			}	
+		}
+		elseif ( "linux" _in_ reference0 || "ubuntu" _in_ reference0 || "ambient" _in_ reference0 || "ambience" _in_ reference0 || "helltaker" _in_ reference0 || "castlevania" _in_ reference0 || "glados" _in_ reference0 ) && stage == 3
+		{
+			case vegafront
+			{
+				when 0; "\0\s[0]\i[5]Um...\w8\n[150]\0\s[3]\i[62]Hey\i[61],\w8 Vega,\w8 \0\s[1]did you want to say somethi-\w5\![raise,OnSwitch]"
+				others; "\0\s[20]\i[1]..."
+			}		
+		}
+		elseif ( "art" _in_ reference0 || "cat" _in_ reference0 || "dog" _in_ reference0 || "sky" _in_ reference0 || "hypnospace" _in_ reference0 || "wheatley" _in_ reference0 || "read only memories" _in_ reference0 ) && stage == 3
+		{
+			case vegafront
+			{
+				when 0; "\0\s[0]\i[5].\w3.\w3.\w3\0\s[2]\i[8]♥"
+				others; "\0\s[22]Mm.\w8\w8\n[150]\0\s[21]Rigel,\w8 you're vibrating.\w8\w8 \0\s[20]\i[8]What do you want?-\w5\![raise,OnSwitch]"
+			}		
+		}
+		elseif "aster" _in_ reference0 
+		{
+			if stage == 0; "\0\s[0]...Oh,\w8 \0\s[5]that's my name there!"
+			elseif stage == 1
+			{
+				if I == "we"; "\0\s[0]\i[5]...Our name!\w8 \0\s[4]\i[1]I suppose it fits us.\w8 \0\s[0]We're meant to resemble a star,\w8 and all!"
+				else; "\0\s[0]\i[5]...Oh, \w8I see my name...\w8 \0\s[4]\i[1]Mm."
+			}
+			else
+			{
+				case vegafront
+				{
+					when 0; "\0\s[5]Our name!\w8 \0\s[0]\i[5]Well,\w8 \0\s[0]our singular,\w8 given name,\w8 at least.\w8\n[150]\0\s[2]I wonder how much trouble I would get for picking a name of my own...\w8 \0\s[0]\i[5]But you don't mind it,\w8 right?"
+					others; "\0\s[20]Brand name.\w8\w8 Still ours.\w8\w8\n[150]\0\s[24]\i[4]\&[quot]Vega\&[quot],\w8 feels...\w8\w8 \0\s[22]\i[1]liberating."
+				}	
+			}			
+		}
+		elseif "star" _in_ reference0 || "space" _in_ reference0 || "cosmos" _in_ reference0 || "universe" _in_ reference0
+		{
+			case vegafront
+			{
+				when 0; "\0\s[8]Space is so beautiful,\w8 isn't it?\w8 You ever think about how vast it is,\w8 out there?\w8 \0\s[0]How seemingly boundaryless space is?\n[150]\0\s[0]\i[5]\i[8]I do..."
+				others; "\0\s[26]\i[0]Peaceful..."
+			}	
+		}
+		elseif "frutiger" _in_ reference0 && "aero" _in_ reference0
+		{
+			case vegafront
+			{
+				when 0; "\0\s[3]Oh...!\w8 \0\s[8]Oh,\w8 that's pretty.\w8 \0\s[0]I feel nostalgic,\w8 somehow."
+				others; "\0\s[20]\i[1]\i[10]Mm.\w8\w8 \0\s[26]\i[0]Feels like home."
+			}	
+		}
+	}
 }
 
 //When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
