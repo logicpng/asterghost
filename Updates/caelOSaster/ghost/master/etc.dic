@@ -331,7 +331,7 @@ OnVanishSelecting
 			{
 				"\0\s[3]\i[62]You\i[61]...\w8 "
 				--
-				if mercy = 1; "\0\s[0]\i[5]\i[62]\i[8]Well,\w8\i[61] remember what I asked you?\w8 "
+				if mercy == 1; "\0\s[0]\i[5]\i[62]\i[8]Well,\w8\i[61] remember what I asked you?\w8 "
 				--
 				"\0\s[4]\i[1]Please,\w8 close the program and remove the folders,\w8 if you have to.\w8\n[150]Don't put me through this.\e"
 			}
@@ -339,7 +339,7 @@ OnVanishSelecting
 			{
 				"\0\s[21]...Before you click.\w8\w8 "
 				--
-				if mercy = 1;"Remember the request.\w8\w8"
+				if mercy == 1;"Remember the request.\w8\w8"
 				else; "Consider.\w8\w8"
 				--
 				" Close,\w8 and remove manually.\w8\w8 \0\s[25]The least you could do...\e"

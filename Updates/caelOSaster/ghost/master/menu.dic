@@ -498,7 +498,7 @@ Select.calc
 				altairzerofirstcalc = 1
 				"\0\s[0]\i[5]\i[62]Sure\i[61]!\w8 Okay,\w8 one moment...\w8\w8\w8\n[150]\0\s[3]Uh-\w8 \0\s[5]Here!"
 			}
-			elseif altairfirstcalc != 1
+			elseif altairfirstcalc != 1 && stage != 0
 			{
 				altairfirstcalc = 1
 				"\0\s[5]Simple enough,\w8 right?\w8\n[150]\0\s[0]Any computing machine should have a calculator on it!\w8\n[150]\0\s[7]Let's see...\w8\w8\w8\n[150]\0\s[0]\i[62]Oh!\i[61]\w8 Here you are!"

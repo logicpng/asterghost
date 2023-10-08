@@ -246,7 +246,7 @@ altaironetalk : nonoverlap_pool
 
 	"\0\s[0]You know what?\w8 \s[0]\i[5]Thank you for downloading %(Me) to begin with.\w8\n[150]If you didn't,\w8 \s[2]who knows what kind of user %(I) would have to work with..."
 
-	"\0\s[0]I'm looking forward to learning you.\w8 \s[0]\i[5]Our communication is very limited,\w8 \s[0]but %(I) can still see what you do here.\w8\n[150]\s[2]It really is like friendship...\w8 \s[3]\i[62]Ah!\s[3] \i[5]Well, \s[0]\i[5]\i[8]maybe not but, y'know?\w8 \s[2]Sorry..."
+	"\0\s[0]I'm looking forward to learning about you.\w8 \s[0]\i[5]Our communication is very limited,\w8 \s[0]but %(I) can still see what you do here.\w8\n[150]\s[2]It really is like friendship...\w8 \s[3]\i[62]Ah!\s[3] \i[5]Well, \s[0]\i[5]\i[8]maybe not but, y'know?\w8 \s[2]Sorry..."
 
 	"\0\s[1]Hm...\w8 \s[7]Now that I think about it,\w8 \s[19]\i[5]it's funny how this OS is named Windows.\w8\n[150]\s[0]Y'know,\w8 like program windows...?\w8\n[150]That term existed before the OS was released!\w8 \s[5]Did you know that?"
 
