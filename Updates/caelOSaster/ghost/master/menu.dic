@@ -965,11 +965,20 @@ Select.ChoiceGarbagecan
 	
 	case vegafront
 		{
-			when 0;"\0\s[5]Not a problem!\w8 \0\s[0]I'll be back in a moment.\w8\w8\b[-1]\s[-1]\w8\w8\w8\w8\w8\c\b1\0\s[19]Wouldn't you know it,\w8 \0\s[0]it's already empty!"
-			others;"\0\s[25]...Do I-\n[150]\1\t\s[17]\w3\i[1]\1\s[12]No ne\0\s[22]\i[7]\1ed!\w8 \1\s[11]\i[1]I'll do it,\w8 I don't mind.\w8\w8\n[150]\0\s[22]\i[1]Okay. \w8\w8\0\s[20]\i[1]Thank you,\w8 Rigel.\w8\w8\1\1\s[11]Just give me a couple moments,\w8 okay?\w8\w8\b[-1]\s[18]\c"
-			--
-			if _gomicheck == 0; "\w8\w8\w8\w8\w8\b1\1\s[17]\w3\1\s[11]\i[1]Looks empty to me!\n[150]\w8\1\s[16]I'll go back to rest a while,\w8 then.\w8\w8\1\s[18]"
-			elseif _gomicheck >= 1; "\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\b1\1\s[17]\w3\1\s[11]\i[1]There was some stuff in there,\w8 but it's gone now,\w8 took it out for you two.\n[150]\w8See you soon!\w8\w8\1\s[18]"
+			when 0
+			{
+				"\0\s[5]Not a problem!\w8 \0\s[0]I'll be back in a moment.\w8\w8\b[-1]%(FadeOut)\w8\w8\w8\w8\w8%(FadeIn)\c\b1"
+				--
+				if _gomicheck == 0; "\0\s[19]Wouldn't you know it,\w8 \0\s[0]it's already empty!"
+				elseif _gomicheck >= 1; "\![raise,OnGarbagecanEmpty]\0\s[19]There!\w8 \s[0]Should be clean in a few moments,\w8 now."
+			}
+			others
+			{
+				"\0\s[25]...Do I-\n[150]\1\t\s[17]\w3\i[1]\1\s[12]No ne\0\s[22]\i[7]\1ed!\w8 \1\s[11]\i[1]I'll do it,\w8 I don't mind.\w8\w8\n[150]\0\s[22]\i[1]Okay. \w8\w8\0\s[20]\i[1]Thank you,\w8 Rigel.\w8\w8\1\1\s[11]Just give me a couple moments,\w8 okay?\w8\w8\b[-1]\s[18]\c"
+				--
+				if _gomicheck == 0; "\w8\w8\w8\w8\w8\b1\1\s[17]\w3\1\s[11]\i[1]Looks empty to me!\n[150]\w8\1\s[16]I'll go back to rest a while,\w8 then.\w8\w8\1\s[18]"
+				elseif _gomicheck >= 1; "\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\b1\1\s[17]\w3\1\s[11]\i[1]There was some stuff in there,\w8 but it's gone now,\w8 took it out for you two.\n[150]\w8See you soon!\w8\w8\1\s[18]"
+			}
 		}
 		--
 		"\e"
