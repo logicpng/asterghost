@@ -537,7 +537,7 @@ Select.notepad
 				altairzerofirstnote = 1
 				"\0\s[0]\i[5]\i[8]Notepad,\w8\i[62] sure\i[61]!\w8 \0\s[7]Just a moment please...\w8\w8\w8\n[150]\0\s[5]There!"
 			}
-			elseif altairfirstnote != 1
+			elseif altairfirstnote != 1 && stage != 0
 			{
 				altairfirstnote = 1
 				"\0\s[0]Oh?\w8 \0\s[1]Do you need to write something down?\w8\n[150]\0\s[7]You'll just have to gi\i[62]ve me\i[61] a secon\i[62]d to\i[61] find it on yo\i[62]ur sys\i[61]tem...\w8\i[62]\w4\i[61]\w8\w8\n[150]\0\s[8]Ah!\w8 \0\s[0]That was easy enough.\w8 Here!"
@@ -714,7 +714,7 @@ OnSetHomepage //set or change homepage
 //actually launch the browser... but threre's a twist
 OnLaunchBrowser //also im an idiot lol i didn't remember you can open a browser through a sakurascript command... i legit was launching it with EXECUTE( explorer ) too that was nonsense. and also had a chance of... opening your file browser instead
 {
-	if RAND(8) == 1 && rickrolled != 1 && vegafront == 1
+	if RAND(2) == 1 && rickrolled != 1 && vegafront == 1
 	{
 		rickrolled = 1 //you know exactly what this does
 		"\![open,browser,https://www.youtube.com/watch?v=dQw4w9WgXcQ]\0\s[20]\i[1].\w8.\w8.\w8\n[150]\1\t\s[17]\w3\1\s[13]\i[62]Vega\i[61]!!\w8 "
@@ -927,7 +927,7 @@ Select.sspconfig
 				altairzerofirstssp = 1
 				"\0\s[1]What?-\w8 \0\s[0]\i[5]\i[8]\i[62]Oh\i[61]!\w8\n[150]Sure,\w8 here!"
 			}
-			elseif altairfirstssp != 1 //not intro stage, hasn't launched ssp pref during stage 1+
+			elseif altairfirstssp != 1 && stage != 0//not intro stage, hasn't launched ssp pref during stage 1+
 			{
 				altairfirstssp = 1
 				"\0\s[0]\i[5]Still not sure what SSP means...\w8"
@@ -1124,6 +1124,8 @@ OnChoiceTimeout
 
 
 //This is when they select bug report. This is mostly meant to briefly give the user information about you, the creator, and how to report a problem to you. This can be handy if the person forgot where they got their ghost or how to contact you. Add whatever info you like here.
+
+//unused, i felt like this breaks immersion a bit too much
 Select.bugreport
 {
   //"\1\s[10]This is the bug report dialogue. \w5Report bugs to youremailaddress@emailprovider.com. \w5We were downloaded from \_a[http://www.whereveryoupostedthem.com/]some place\_a.\e"

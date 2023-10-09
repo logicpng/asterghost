@@ -99,7 +99,12 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 					}
 					else; altaironetalk				
 				}
-				when 3; altairthreetalk	
+				when 3
+				{
+					if RAND(100) > 97 && talkcount > 10; altairselfswitch //less chance of switch, feels obligated to stick around. may tweak later
+					else; altairthreetalk
+					
+				} 
 				others; "\0\s[0]This shouldn't be available yet. Come back soon!\e" //okay don't forget it's OTHERS not OTHER
 			}
 		}
@@ -119,7 +124,11 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 				if stageTime > 2700 && talkcount > 9 && talkedStagetwo[7] == 1; vegathreestart // 45 minutes, 29 lines, topics covered
 				else; vegatwotalk
 			}
-			when 3; vegathreetalk
+			when 3;
+			{
+				if RAND(100) > 92 && talkcount > 5; vegaselfswitch //less chance to switch, more preference towards private time. may tweak later
+				else; vegathreetalk
+			} 
 			others;	"\0\s[20]\b[4]Not ready yet. Maybe soon.\e"
 		}
 		}

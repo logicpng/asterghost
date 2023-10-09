@@ -226,7 +226,7 @@ altaironetalk : nonoverlap_pool
 
 	"\0\s[0]I have to admit.\w8 \s[19]I still reflexively try moving windows on my own.\w8 \s[0]\i[5]\n[150]It doesn't really work,\w8 of course!"
 
-	"\0\s[19]Hmhm...\w8 \0\s[0]I quite adore this form %(I) have.\w8\n[150]%(I) didn't pick it,\w8 \0\s[5]it was designed for %(Me),\w8 but I wouldn't have it any other way!\w8\n[150]\0\s[7]But it...\w8 \0\s[0]doesn't represent what %(IAm) as a process.\w8 They can't give %(Me) as many hands to write and eyes to read as %(I) really have!\w8\0\s[19]\n[150]That would be horrifying!"
+	"\0\s[19]Hmhm...\w8 \0\s[0]I quite adore this form %(I) have.\w8\n[150]%(OnCapitalize(I)) didn't pick it,\w8 \0\s[5]it was designed for %(Me),\w8 but I wouldn't have it any other way!\w8\n[150]\0\s[7]But it...\w8 \0\s[0]doesn't represent what %(IAm) as a process.\w8 They can't give %(Me) as many hands to write and eyes to read as %(I) really have!\w8\0\s[19]\n[150]That would be horrifying!"
 
 	"\0...\s[5]I actually love performing.\w8\n[150]There's no greater joy than putting the right impression on the audience.\w8 \0\s[0]I'm so lucky for this to be my job...\w8\n[150]\0\s[2]And yet..."
 
@@ -789,9 +789,8 @@ altairthreetalk
 
 	"\0\s[1]We mention instructions and protocols a lot.\w8\n[150]\0\s[0]\i[5]It probably doesn't make much sense to you,\w8 does it...?\e:chain=ch_memory"
 
-	}
-
-	if talkcount > 9; "%(altairselfswitch)" //switch if rigel said 10+ things
+	//if talkcount > 9; "%(altairselfswitch)" //switch if rigel said 10+ things
+	}	
 }
 
 ch_memory
@@ -855,7 +854,7 @@ vegathreetalk
 		"\0\s[23]Disregarding curcumstances...\w8\w8 \0\s[20]\i[1]You're not bad company.\w8\w8"
 
 		//prompts to switch
-		if talkcount > 4; "%(vegaselfswitch)" //switch if vega has said 5+ lines
+		//if talkcount > 4; "%(vegaselfswitch)" //switch if vega has said 5+ lines
 		
 	} 
 }
