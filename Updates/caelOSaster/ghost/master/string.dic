@@ -52,7 +52,7 @@ On_sakura.recommendsites
 	//You don't have to space these out like this between sites, but I thought it'd make it a bit easier to read.
 	"More about CaelOS..."
 	--
-	"%ASC(1)https://logicpng.neocities.org/caelos"
+	"%ASC(1)https://logicpng.neocities.org/caelos%ASC(2)"
 	--
 	"Aster Ghost Devlog(?)"
 	--
