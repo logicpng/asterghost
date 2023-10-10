@@ -49,10 +49,7 @@ altairclosezero
  		"\0\s[0]\i[5]Ah- already?"		
  		"\0\s[0]\i[5]\i[9]\i[62]W- wait\i[61], just hold on a second-"
  	}
- 	--
-	"\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
-	//there was the \- tag, which is the one that shuts down the ghost. but it's not really Necessary? the ghost closes anyway even though i removed the tag.
-	//however the tag was useful anyway, it's more for unusual shutdowns
+ 	
  }
 
 
@@ -1068,7 +1065,7 @@ altairclosegen : nonoverlap_pool //rigel's OnClose talk for all other parts. act
 		"\0\s[0]\i[5]\i[62]Well-\i[61]\0\s[5] That's fine!\w8 Bye!"
  	}
  	--
-	"%(FadeOut)\w8\w8\e"
+	"%(FadeOut)\w8\w8"
 }
 
 vegabootgen
@@ -1185,7 +1182,7 @@ vegaclosetalk
 		"\0\s[22]\i[7]...Huh.\w8\w8 \0\s[20]Alright..."
  	}
  	--
-	"\w8\w8\w8%(FadeOut)\e"
+	"\w8\w8\w8%(FadeOut)"
 	
 }
 

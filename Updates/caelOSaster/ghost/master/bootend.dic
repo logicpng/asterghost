@@ -586,6 +586,10 @@ OnClose //similar check to boot. first who's fronting and then what progression 
 		when 0; altairclosetalk //for when rigel is fronting
 		others; vegaclosetalk //for when vega is fronting. function in chatter.dic, it doesn't have any branches
 	}
+	--
+	"\-\e"
+	//this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+	//however the tag was useful anyway, it's more for unusual shutdowns
 }
 
 altairclosetalk
@@ -710,8 +714,8 @@ OnGhostChanged
 		}
 		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
 	}
-	--
-	"\![set,sticky-window,1,0,2]"
+	//--
+	//"\![set,sticky-window,1,0,2]"
 }
 
 OnInitBoot //initialize variables during boot...
@@ -729,8 +733,8 @@ OnInitBoot //initialize variables during boot...
 	//MusicDone = 0 //have we reacted to a music player being up since ghost started?
 	strokecount = 0 //reset petting counter
 	pokecount = 0 //reset poking counter
-	--
-	"\![set,sticky-window,1,0,2]" //makes sure both are moved + message gag
+	//--
+	//"\![set,sticky-window,1,0,2]" //makes sure both are moved + message gag
 }
 
 FixMenuColors //check whos menu color scheme it is and fix it if it doesn't match lol

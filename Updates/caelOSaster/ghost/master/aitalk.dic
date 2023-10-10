@@ -241,6 +241,8 @@ OnSurfaceRestore //ngl im not sure what exactly defines how long does it take un
 		"\e" //interrupt surface restore if too flustered
 	}
 	--
+	"\![set,alpha,100]" //in case alpha got a bit botched due to script interruption or the like
+	--
 	if vegafront == 0 //rigel fronting
 	{
 		"\0\s[0]\1\s[10]\e"

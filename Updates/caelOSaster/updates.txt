@@ -1,8 +1,8 @@
 charset,windows-1251
-file,ghost/master/aitalk.dice158f680a29b952364e0a1332700ece8size=16322date=2023-10-09T19:22:11
+file,ghost/master/aitalk.dic59196d371883bf5b42c557a60a24ae86size=16422date=2023-10-10T12:50:51
 file,ghost/master/anchor.dicc4dfbb16973f161aa7371243c498b91dsize=5629date=2023-07-31T12:26:24
-file,ghost/master/bootend.dic15f3900882f72e7c208eb8428a4135cbsize=29791date=2023-10-06T16:46:20
-file,ghost/master/chatter.dic8cb1f54125c158a973836af23ca2f932size=108145date=2023-10-09T19:23:05
+file,ghost/master/bootend.dic159ccd01536d1e2ca2296081b108a6basize=30077date=2023-10-10T12:42:45
+file,ghost/master/chatter.dicbae0bec8bb4e0003d6fdfc6d2a938fe6size=107714date=2023-10-10T12:39:16
 file,ghost/master/chord.wavebfcb7a68ebad9f5f8362bc25300886csize=24994date=2023-07-18T16:38:44
 file,ghost/master/click.wav53a172ddbd16aa7accead0f5b263b70fsize=1404date=2007-06-26T20:25:44
 file,ghost/master/commu.dic39f252973d398e90ec19ba6ed6ce96fesize=6649date=2023-07-31T12:10:08
@@ -36,11 +36,11 @@ file,ghost/master/yaya.txtd1e6f675fb5d52d4f410470c124e6431size=1545date=2023-
 file,ghost/master/yaya_config.txt134ca91eba1f7864526eaa3a2142dd20size=3920date=2017-03-18T17:07:23
 file,install.txt7f4c734e6c091927fb98ed2e1db2e853size=156date=2023-07-15T20:18:26
 file,readme.txtbdc1a1a568cb3b714e652cb2018fc8c5size=1389date=2023-10-07T19:08:38
-file,shell/master/alt/descript.txt8b77ab89d7517aa16bcd84f33040057csize=1085date=2023-08-14T19:22:20
+file,shell/master/alt/descript.txtafb634f99a87dda50f6fd6edb7c673bdsize=1113date=2023-10-10T12:53:42
 file,shell/master/alt/menu_background.pnge504c6358706edc5e9e19ddac3204b5esize=11041date=2023-07-16T12:21:29
 file,shell/master/alt/menu_foreground.png0c9a3df7cb432d2ec0498b3b931dc2b6size=12897date=2023-07-16T12:21:39
 file,shell/master/alt/menu_sidebar.png54671dd1e3f7fe853148c6f94f3164e7size=17314date=2023-07-16T12:23:52
-file,shell/master/descript.txtbe282f760fc8dc84fd851b2cf3766094size=1082date=2023-08-14T19:22:21
+file,shell/master/descript.txt73f9e82c278791ba98d5f88d83f3ee0dsize=1110date=2023-10-10T12:55:01
 file,shell/master/menu_background.pngdbeb01b1f399f0d0537db45e34dbf8bfsize=4204date=2023-07-16T12:26:38
 file,shell/master/menu_foreground.png249927e3a015d44740b2cc6b22d7a5ccsize=4701date=2023-07-16T12:28:08
 file,shell/master/menu_sidebar.pnge452e0307835cfe408a8788a668f25c9size=18522date=2023-07-16T12:29:16
