@@ -1244,8 +1244,6 @@ PermissionMenu
 	//Comment on windows: ON OFF
 	//add more as features are ADDED not all we WANT
 	//Comment on devices inserted - more for me because i want it my tablet is going to drive me Insane
-
-	//add self care reminders later
 	--
 	"\![*]\f[bold,1]Comment on opened programs?\f[bold,0] (NOW : %(windowCheck))\n\q[ON,wincheckon] \q[OFF,wincheckoff]\n[150]"
 	--
@@ -1253,8 +1251,9 @@ PermissionMenu
 	--
 	"\![*]\f[bold,1]Give self care reminders?\f[bold,0] (NOW : %(careCheck))\n\q[ON,careon] \q[OFF,careoff]\n[150]"
 	--
-	"\![*]\f[bold,1]Force default speech balloon?\f[bold,0] (NOW : %(balloonCheck))\n\q[ON,balloonon] \q[OFF,balloonoff]\n[150]"
-	//"\f[bold,1](* Turn on at your own risk! Might slow down your computer!)\n[150]"
+	"\![*]\f[bold,1]Force default balloons*?\f[bold,0] (NOW : %(balloonCheck))\n\q[ON,balloonon] \q[OFF,balloonoff]\n[150]"
+	--
+	"\f[bold,1](* When ON, disables manual balloon change for a cosmetic effect. Disable the feature to unlock the Balloon menu again.)\n[150]"
 	--
 	//"\f[bold,1](* As of writing only the first option is unfinished. You can turn it on but it'll just spout test dialogue.)\n[150]"
 	--
