@@ -100,10 +100,10 @@ Select.SetWallpaper_0
 	case vegafront
 	{
 		when 0; "\0\s[5]Here you go!\w8 \0\s[0]Should be centered,\w8 like you asked."
-		others; "\1\t\s[11]\i[1]Here you go!\w8 \1\s[11]Should be centered,\w8 like you asked.\w8\w8\1\s[18]"
+		others; "\1\t\s[11]\i[1]Here you go!\w8 \1\s[11]Should be centered,\w8 like you asked.\w8\w8\1\s[18]\0\s[20]"
 	}
 	--
-	"\0\s[20]\e"
+	"\e"
 }
 Select.SetWallpaper_1
 {
@@ -112,10 +112,10 @@ Select.SetWallpaper_1
 	case vegafront
 	{
 		when 0; "\0\s[5]Here you go!\w8 \0\s[0]Should be tiled,\w8 like you asked."
-		others; "\1\t\s[11]\i[1]Here you go!\w8 \1\s[11]Should be tiled,\w8 like you asked.\w8\w8\1\s[18]"
+		others; "\1\t\s[11]\i[1]Here you go!\w8 \1\s[11]Should be tiled,\w8 like you asked.\w8\w8\1\s[18]\0\s[20]"
 	}
 	--
-	"\0\s[20]\e"
+	"\e"
 }
 Select.SetWallpaper_2
 {
@@ -124,20 +124,20 @@ Select.SetWallpaper_2
 	case vegafront
 	{
 		when 0; "\0\s[5]Here you go!\w8 \0\s[0]Should be stretched,\w8 like you asked."
-		others; "\1\t\s[11]\i[1]Here you go!\w8 \1\s[11]Should be stretched,\w8 like you asked.\w8\w8\1\s[18]"
+		others; "\1\t\s[11]\i[1]Here you go!\w8 \1\s[11]Should be stretched,\w8 like you asked.\w8\w8\1\s[18]\0\s[20]"
 	}
 	--
-	"\0\s[20]\e"
+	"\e"
 }
 Select.SetWallpaper_Cancel
 {
 	case vegafront
 	{
 		when 0; "\0\s[3]Oh!\w8 \0\s[0]\i[5]Well,\w8 thanks for showing me anyway."
-		others; "\1\t\s[12]Oh!\w8 \1\s[16]Well,\w8 thanks for showing us anyway.\w8\w8\1\s[18]"
+		others; "\1\t\s[12]Oh!\w8 \1\s[16]Well,\w8 thanks for showing us anyway.\w8\w8\1\s[18]\0\s[20]"
 	}
 	--
-	"\0\s[20]\e"
+	"\e"
 }
 
 

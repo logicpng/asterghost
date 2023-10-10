@@ -8,7 +8,7 @@ file,ghost/master/click.wav53a172ddbd16aa7accead0f5b263b70fsize=1404date=2007
 file,ghost/master/commu.dic39f252973d398e90ec19ba6ed6ce96fesize=6649date=2023-07-31T12:10:08
 file,ghost/master/convo.dic3ec969fe3bd798e8959ae5e481504fe9size=24991date=2023-10-10T18:04:31
 file,ghost/master/descript.txtffc9c926adf6505146dc33d298a9d3c7size=493date=2023-10-07T06:31:32
-file,ghost/master/etc.dic37013c6543288071bb187328337f0c8esize=56727date=2023-10-08T19:48:48
+file,ghost/master/etc.dicbcfdd847b74d6b7696321586c291d6e9size=56727date=2023-10-11T07:31:07
 file,ghost/master/gomi.dll51fe9597398db01e684a0f9d52c63242size=13312date=2004-06-02T11:00:04
 file,ghost/master/logo_r.icodd8715db74ae5ada6e9bd1aefaaccc0fsize=124207date=2023-08-14T10:50:59
 file,ghost/master/mciaudior.dllb1082bccd2aac2017f7936baf2d967b3size=29696date=2003-03-14T07:23:26
