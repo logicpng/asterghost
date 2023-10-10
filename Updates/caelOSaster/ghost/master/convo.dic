@@ -248,11 +248,19 @@ Select.plural
     IAm = "we are"
 	IWas = "we were"
     talkedStageone[5] = 1
+    messagegag = 1 //flag for the message being shown
     "\x%(OnAltairLore)"
 }
 
 Select.morethanone
 {
+    if messagegag == 1
+    {
+        "\t\8[click.wav]\p[2]\i[2]\w8\w8\s[-1]"
+        messagegag = 0
+    } 
+     //close the message
+    --
     "\0\s[4]\i[1]So,\w8 we are indeed two.\w8 "
     --
     if stage == 1; "\n[150]Though,\w8 \0\s[0]\i[5]you haven't seen the other one yet.\w8 That little panel is just an extra mouth and eye to us.\x"
@@ -267,6 +275,12 @@ Select.morethanone
 
 Select.names //transition to stage 2
 {
+    if messagegag == 1
+    {
+        "\t\8[click.wav]\p[2]\i[2]\w8\w8\s[-1]"
+        messagegag = 0
+    }  //close the message; again, just in case the dialogue w/ message was triggered again
+    --
     "\![enter,passivemode]"
     --
     "\0\s[3]Oh!\w8 \i[62]Right!\i[61]\w8 The names!\x\0\s[8]Here's an idea!\w8 \0\s[5]We're called differently internally.\w8 \0\s[0]\n[150]My companion is Vega,\w8 and,\w8 for me,\w8 \0\s[5]call me \nRigel instead!\w8\w8\1\t\s[32]Not your name.\w8\w8\0\s[0]\i[6]\n[150]Well-!\w8 \0\s[0]\i[5]I don't \f[italic,1]like\f[italic,0] Altair, it's so \0\s[0]\i[6]\i[62]regal!\i[61]\w8 \0\s[2]It doesn't really fit me...\w8\x\s[0]\i[5]Um-\w8 \s[0]Oh hey,\w8 I could actually use a break,\w8 \0\s[0]\i[5]could you...\w8 \0\s[4]\i[1]Um.\w8\n[150]I'd like to switch places.\n[150]\w8\w8\1\s[30]Rigel?\w8\w8 \s[30]\i[1]Our face and salesman?\w8\w8 \f[italic,1]Switch?\f[italic,0]\n[150]\w8\w8\0\s[0]\i[6]Rub it in,\w8 \i[62]will you-\i[61] \0\s[6]No,\w8 \0\s[1]\i[62]enough\i[61],\w8 \i[62]\0\s[4]\i[62]enough\i[61] \0\s[7]\i[62]enough\i[61].\w8 \0\s[1]I'm sorry,\w8 it was a long day.\w8 \0\s[0]\i[5]You don't need that either.\w8\w8\n[150]\1\s[32]No offense taken.\w8\w8 \s[30]Let me help.\w8\w8\0\s[4]\i[1]Thank you...\w8 \0\s[0]I'll be around,\w8 %(username),\w8 \0\s[5]just resting to the side.\x\b[-1]"
