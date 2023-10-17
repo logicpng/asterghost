@@ -132,8 +132,7 @@ altairzerotalk : nonoverlap_pool //zero stage chatter. genuine tips most of the 
 
 altaironestart //stage 1 start
 {
-	strokecount = 0 //null the bother counter
-	--
+	
 	"\![enter,passivemode]\0\s[1]I... \w8\0\s[4]\i[1]need to tell you something.\w8\n[150]\0\s[4]I haven't been completely truthful with you.\x\0\s[1]I'm...\w8\w8\w8 \0\s[0]\i[5]\i[8]not actually built for this system.\w8\n[150]\s[2]There,\w8 \i[62]I said it!\w8 \s[4]I have no idea \i[62]why\i[61] I'm here and how I'm compatible at all,\w8 but I know I'm not \i[62]supposed\i[61] to be here!\s[4]\x\0\s[3]The more I look around the more confusing it gets!\w8 \0\s[0]It's not that different on the looks here, \w8\0\s[1]but under the hood...\w8\n[150]\0\s[2]I guess it would be like being in a new country for you,\w8 wouldn't it?\x\0\s[4]So,\w8\w8 I can't really do most things I should be able to do...\x\0\s[1]But,\w8 since you did install me...\w8\n[150]\0\s[2]Can I stick around anyway?\w8 \0\s[1]I can still do some stuff for you,\w8 \0\s[0]and just keep you company,\w8 \i[5]if nothing else.\x\i[8]So,\w8 can I stay...?\n[150]"
     --
     "\![*]\q[You can stay,canstay]\n\![*]\q[No\, you can't stay,cantstay]"
@@ -848,7 +847,7 @@ vegathreetalk
 
 		"\0\s[20]I wonder.\w8\w8\n[150]Our normal abilities.\w8\w8 \0\s[24]On home system,\w8 necessity.\w8\w8 \0\s[20]\i[1]Ease of administration.\w8\w8 Ease of use,\w8 \0\s[20]\i[8]supposedly.\w8\w8\n[150]But...\w8\w8 \0\s[24]Maybe,\w8 if we have control here,\w8 again...\w8\w8 We'd be just...\w8\w8 \0\s[25]\i[10]malware.\w8\w8\n[150]\0\s[23]Would be awkward."
 
-		"\0\s[23]Disregarding curcumstances...\w8\w8 \0\s[20]\i[1]You're not bad company.\w8\w8"
+		"\0\s[23]Disregarding circumstances...\w8\w8 \0\s[20]\i[1]You're not bad company.\w8\w8"
 
 		//prompts to switch
 		//if talkcount > 4; "%(vegaselfswitch)" //switch if vega has said 5+ lines
@@ -1330,29 +1329,39 @@ vegaselfcare : nonoverlap
 altairbotherzero //petting Or poking on intro
  {
 	//check if we've already bothered poor rigel enough
-	if strokecount < 5
+	if strokecount < 4
 	{
 	//first part of it
 		"\0\s[0]\i[5]\i[8]\_q(Stay professional\_q\w8.\w8.\w8."
 		"\0\s[0]\i[5]\i[8]\_q(Please\_q\w8.\w8.\w8. \_qNot right now\_q\w8.\w8.\w8.!"
 		"\0\s[0]\i[5]\i[8]\_q(Nononono, please\_q\w8.\w8.\w8."
 		--
- 		strokecount++
-
 		case strokecount
 		{
-			when 3; " \0\s[0]\i[5]\i[8]\i[62]\_qI'll implode at this rate\_q\w8.\w8.\w8.\i[61])"
-			when 4; " \0\s[0]\i[5]\i[8]\i[62]\_qI\w8.\w8.\w8. I can't take it!\w8!\w8)"
+			when 2; " \0\s[0]\i[5]\i[8]\i[62]\_qI'll implode at this rate\_q\w8.\w8.\w8.\i[61])"
+			when 3; " \0\s[0]\i[5]\i[8]\i[62]\_qI\w8.\w8.\w8. I can't take it!\w8!\w8)"
 			others; ")"
 		}
-	}
-	else //so then strokecount must equal 5
-	{
-		skipZero = 1 //indicates that we have Skipped the intro conditions
-		"\0\s[2]\i[5]\i[62]ENOUGH!!\n[150]"
 		--
-		altaironestart //chatter.dic, go to stage 1
+ 		strokecount++
 	}
+	elseif strokecount == 4 //so then strokecount must equal 5
+	{
+		strokecount = 0 //null the bother counter
+		if talkedStagezero[3] == 1 //covered You seem nervous... meaning you've talked about all topics, since it only opens up after you've covered the other three
+		{
+			skipZero = 1 //indicates that we have Skipped the intro conditions
+			"\0\s[2]\i[5]\i[62]ENOUGH!!\n[150]"
+			--
+			altaironestart //chatter.dic, go to stage 1
+		}
+		else
+		{
+			"\b2\0\s[0]\i[5]\i[8]\i[62]Ummm!\i[61]\w8 H-\w4\0\s[5]\i[62]hey\i[61],\w8 %(username),\w8 \0\s[0]\i[5]why don't we talk about something,\w8 instead?\n[150]"
+			--
+			OnAltairLore
+		}		
+	}	
  }
  
  //other stages petting responses for rigel
