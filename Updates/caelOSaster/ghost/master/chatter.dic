@@ -1877,7 +1877,8 @@ altairbotherzero //petting Or poking on intro
 
 altairwindowcheck
 {
-	if AppCheck(BROWSE) == 1
+	//if AppCheck(BROWSE) == 1
+	if ProcessCheck(BROWSEexe,BROWSE) == 1
 	{
 		//"This is a response to running a browser,\w8 %(appName)."
 		
@@ -1889,7 +1890,8 @@ altairwindowcheck
 	} 
 	else; "%(altaironetalk)"
 
-	if AppCheck(MUSIC) == 1
+	//if AppCheck(MUSIC) == 1
+	if ProcessCheck(MUSICexe,MUSIC) == 1
 	{
 		//"This is a response to a music player, %(appName)."		
 		
@@ -1912,18 +1914,20 @@ altairwindowcheck
 	} 
 	else; "%(altaironetalk)"
 
-	if AppCheck(ART) == 1
+	//if AppCheck(ART) == 1
+	if ProcessCheck(ARTexe,ART) == 1
 	{
 		//"%(appName)"
 
 		"\0\s[8]\i[62]Ooh!\i[61]\w8 I just noticed %(appName) there!\w8\n[150]So,\w8 you make art...?"
-		"\0\s[0]Y'know,\w8 it's quite quite nice to see what kind of things you make!\w8\n[150]\0\s[8]Humans are so imaginative...!\w8\n[150]\0\s[0]\i[5]I'm but a humble servant,\w8 \0\s[4]\i[1]but I wonder if I could...\w8 \0\s[2]maybe...\w8 make something too...?"
+		"\0\s[0]Y'know,\w8 it's quite nice to see what kind of things you make!\w8\n[150]\0\s[8]Humans are so imaginative...!\w8\n[150]\0\s[0]\i[5]I'm but a humble servant,\w8 \0\s[4]\i[1]but I wonder if I could...\w8 \0\s[2]maybe...\w8 make something too...?"
 		"\0\s[8]What are you going to create today?\n[150]\w8\0\s[0]\i[5]I see %(appName) running here,\w8 is all,\w8 \i[62]no pressure!\n[150]\0\s[2]\i[8]...Ah,\w8 stars,\w8 \0\s[0]\i[5]\i[8]hard to hide excitement."
 		"\0\s[4]\i[1]Ahh...\w8 Seeing %(appName) reminds me.\w8\n[150]\0\s[2]Won't lie,\w8 \0\s[2]\i[8]I... \i[62]really\i[62] adore the extent of human creativity.\w8 \0\s[0]\i[5]I know,\w8 \0\s[4]\i[1]I shouldn't really even consider these things,\w8 but...\w8 \0\s[8]isn't it \i[62]lovely\i[61],\w8 to be able to make something with your hands?\w8 To breathe life through lines and colors?\w8\n[150]It...\w8 \0\s[4]\i[1]almost makes something ache in me.\w8 \0\s[0]\i[5]I want to try making something too,\w8 some day."
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck(VECTOR) == 1
+	//if AppCheck(VECTOR) == 1
+	if ProcessCheck(VECTORexe,VECTOR) == 1
 	{
 		//"%(appName)"
 		
@@ -1933,7 +1937,8 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck(ANTIVIRUS) == 1
+	//if AppCheck(ANTIVIRUS) == 1
+	if ProcessCheck(ANTIVIRUSexe,ANTIVIRUS) == 1
 	{
 		//"%(appName)"
 		{
@@ -1966,7 +1971,8 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck(TEXT) == 1
+	//if AppCheck(TEXT) == 1
+	if ProcessCheck(TEXTexe,TEXT) == 1
 	{
 		//"%(appName)"
 
@@ -1975,7 +1981,8 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck(TABLES) == 1
+	//if AppCheck(TABLES) == 1
+	if ProcessCheck(TABLESexe,TABLES) == 1
 	{
 		//"%(appName)"
 
@@ -1984,7 +1991,8 @@ altairwindowcheck
 	}
 	else; "%(altaironetalk)"
 
-	if AppCheck(SLIDES) == 1
+	//if AppCheck(SLIDES) == 1
+	if ProcessCheck(SLIDESexe,SLIDES) == 1
 	{
 		//"%(appName)"
 
@@ -2019,7 +2027,8 @@ ch_word
 
 vegawindowcheck
 {
-	if AppCheck(BROWSE) == 1
+	//if AppCheck(BROWSE) == 1
+	if ProcessCheck(BROWSEexe,BROWSE) == 1
 	{
 		//"This is a response to running a browser, %(appName)."
 
@@ -2029,7 +2038,8 @@ vegawindowcheck
 	} 
 	else; RandomTalk
 
-	if AppCheck(MUSIC) == 1
+	//if AppCheck(MUSIC) == 1
+	if ProcessCheck(MUSICexe,MUSIC) == 1
 	{
 		//"This is a response to a music player, %(appName)."
 
@@ -2046,7 +2056,8 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck(ART) == 1
+	//if AppCheck(ART) == 1
+	if ProcessCheck(ARTexe,ART) == 1
 	{
 		//"%(appName)"
 		"\0\s[20]%(appName).\w8\w8 \0\s[22]Graphics editor.\w8\w8\0\s[24]\n[150]An artist...?"
@@ -2056,7 +2067,8 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck(VECTOR) == 1
+	//if AppCheck(VECTOR) == 1
+	if ProcessCheck(VECTORexe,VECTOR) == 1
 	{
 		//"%(appName)"
 
@@ -2067,7 +2079,8 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck(ANTIVIRUS) == 1
+	//if AppCheck(ANTIVIRUS) == 1
+	if ProcessCheck(ANTIVIRUSexe,ANTIVIRUS) == 1
 	{
 		//"%(appName)"
 
@@ -2078,7 +2091,8 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck(TEXT) == 1
+	//if AppCheck(TEXT) == 1
+	if ProcessCheck(TEXTexe,TEXT) == 1
 	{
 		//"%(appName)"
 
@@ -2088,7 +2102,8 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck(TABLES) == 1
+	//if AppCheck(TABLES) == 1
+	if ProcessCheck(TABLESexe,TABLES) == 1
 	{
 		//"%(appName)"
 
@@ -2097,7 +2112,8 @@ vegawindowcheck
 	}
 	else; RandomTalk
 
-	if AppCheck(SLIDES) == 1
+	//if AppCheck(SLIDES) == 1
+	if ProcessCheck(SLIDESexe,SLIDES) == 1
 	{
 		//"%(appName)"
 

@@ -592,7 +592,8 @@ OnRequestBrowser
 	else
 	{
 		//if OnBrowserCheck == 1
-		if AppCheck("Internet Explorer","Firefox","Opera","Chrome","Chromium","Vivaldi","Edge","Yandex") //do we even need == 1 like. it's either 0 or 1, that's false or true for a c code anyway
+		//if AppCheck("Internet Explorer","Firefox","Opera","Chrome","Chromium","Vivaldi","Edge","Yandex") //do we even need == 1 like. it's either 0 or 1, that's false or true for a c code anyway
+		if ProcessCheck(BROWSEexe,BROWSE) == 1
 		{
 			if homepage != '' //homepage isn't blank
 			{

@@ -1,7 +1,7 @@
 ghost/master/aitalk.dic59196d371883bf5b42c557a60a24ae86size=16422date=2023-10-10T12:50:51charset=windows-1251
 ghost/master/anchor.dicc4dfbb16973f161aa7371243c498b91dsize=5629date=2023-07-31T12:26:24
 ghost/master/bootend.dic159ccd01536d1e2ca2296081b108a6basize=30077date=2023-10-10T12:42:45
-ghost/master/chatter.dicbae0bec8bb4e0003d6fdfc6d2a938fe6size=107714date=2023-10-10T12:39:16
+ghost/master/chatter.dicfab6b63ca0f1a1c2b13b2f92f080fa3asize=108384date=2023-10-18T07:51:25
 ghost/master/chord.wavebfcb7a68ebad9f5f8362bc25300886csize=24994date=2023-07-18T16:38:44
 ghost/master/click.wav53a172ddbd16aa7accead0f5b263b70fsize=1404date=2007-06-26T20:25:44
 ghost/master/commu.dic39f252973d398e90ec19ba6ed6ce96fesize=6649date=2023-07-31T12:10:08
@@ -11,9 +11,10 @@ ghost/master/etc.dicbcfdd847b74d6b7696321586c291d6e9size=56727date=2023-10-11
 ghost/master/gomi.dll51fe9597398db01e684a0f9d52c63242size=13312date=2004-06-02T11:00:04
 ghost/master/logo_r.icodd8715db74ae5ada6e9bd1aefaaccc0fsize=124207date=2023-08-14T10:50:59
 ghost/master/mciaudior.dllb1082bccd2aac2017f7936baf2d967b3size=29696date=2003-03-14T07:23:26
-ghost/master/menu.dic4c4bbea132caf7bdb73db23a41090971size=47477date=2023-10-10T12:08:53
+ghost/master/menu.dic764031aa4021460353c4fdf3d0119961size=47521date=2023-10-18T07:58:15
 ghost/master/mouse.dice8d984d6ab7538b0caf5f343ff5ec5fcsize=5389date=2023-10-03T12:10:32
 ghost/master/nameteach.dicf5888ac88108778c65e3f22dd96ea09esize=9640date=2023-07-31T12:19:07
+ghost/master/process.dlla6c337c40a9e80532fea6676be61056bsize=61440date=2023-10-16T18:39:02
 ghost/master/proxy_ex.dll8ff13a8c1b2b0261f61704c1f457cc8csize=48128date=2023-06-13T20:58:02
 ghost/master/saori_cpuid.dlld13370aee8e579fe2517d789dba7c45esize=225280date=2004-04-18T10:47:18
 ghost/master/string.dicba005eea2ee302949b441f02c71669a4size=8953date=2023-10-10T05:38:01
@@ -27,8 +28,7 @@ ghost/master/system/yaya_optional.dicf97af1ee6f108ee881d66d7f3de3f7d3size=1031
 ghost/master/system/yaya_shiori3.dic18b395e9ffcd3fb772ded9046ed4b57csize=54846date=2023-06-11T11:55:52
 ghost/master/system/yayashiori3.dic9dc65d9b8bc29e0c717ea9264f071093size=52088date=2021-12-21T23:54:00
 ghost/master/system_config.txt398943de62d5c9d25e3d3b286ba0ae92size=926date=2017-03-18T17:06:57
-ghost/master/window_info.dllf746413fcc0f999f61363b81a80d0bd5size=49152date=2023-06-05T19:00:57
-ghost/master/windowcheck.dic2cb9a445970019bac3ff957019f7b97dsize=7266date=2023-10-06T11:15:23
+ghost/master/windowcheck.dic7e0596f503e2b5374442c6b94032a1d9size=3488date=2023-10-18T08:03:57
 ghost/master/word.dic55bad35124aba26b80c852c0a5ff4870size=373date=2023-10-03T18:46:49
 ghost/master/yaya.dll56e3af56c88e696cea1f39d53b239cefsize=880640date=2023-06-11T12:45:30
 ghost/master/yaya.txtd1e6f675fb5d52d4f410470c124e6431size=1545date=2023-10-03T18:47:03
