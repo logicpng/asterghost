@@ -72,66 +72,77 @@ OnAiTalk
 
 RandomTalk //pick a pool for random chatting depending on stage, who's fronting, and some conditions to proceed between stages
 {	
+	_rand = RAND(100)
+
 	if vegafront == 0 //rigel in front
-	{	
-		if windowCheck =="ON" && RAND(100) > 90; "%(altairwindowcheck)\e" //window commentary
-		elseif careCheck == "ON" && RAND(100) > 70; "%(altairselfcare)\e" //selfcare chatter		
-		else//everything else!
-		{	
+	{
 		case stage
+		{
+			when 0	//intro
 			{
-				when 0	//intro
+				if talkedStagezero[4] == 1 && talkcount > 9  && stageTime > 1799 //'secret' tranistion to stage one: covered the coversations, said more than 9 random things, and has lasted at least half an hour
 				{
-					if talkedStagezero[4] == 1 && talkcount > 9  && stageTime > 1799 //'secret' tranistion to stage one: covered the coversations, said more than 9 random things, and has lasted at least half an hour
-					{
-						"\0\s[1]Hey,\w8 %(username)..?\x"
-						--
-						altaironestart
-					}
-					else; altairzerotalk
+					"\0\s[1]Hey,\w8 %(username)..?\x"
+					--
+					altaironestart
 				}
-				when 1 //real aster(?)
-				{
-					if talkedStageone[1] == 1 && talkedStageone[3] == 1 && talkcount > 9 && stageTime > 1799 //30 minutes runtime on stage 1, covered topics up to CaelOS, said 10 random lines
-					{
-						if talkedStageone[4] == 0; "\0\s[1]Um... %(username)?\w8\s[0]\i[5] Do you have a moment?\x\![raise,OnConvoCaelos]" //if i called the function separately it would just. load up the entire thing and mark the flag as conversation read. agony.
-						else; altaironetalk					
-					}
-					else; altaironetalk				
-				}
-				when 3
-				{
-					if RAND(100) > 97 && talkcount > 10; altairselfswitch //less chance of switch, feels obligated to stick around. may tweak later
-					else; altairthreetalk
-					
-				} 
-				others; "\0\s[0]This shouldn't be available yet. Come back soon!\e" //okay don't forget it's OTHERS not OTHER
+				else; altairzerotalk
 			}
-		}
+			when 1 //real aster(?)
+			{
+				if talkedStageone[1] == 1 && talkedStageone[3] == 1 && talkcount > 9 && stageTime > 1799 //30 minutes runtime on stage 1, covered topics up to CaelOS, said 10 random lines
+				{
+					if talkedStageone[4] == 0; "\0\s[1]Um... %(username)?\w8\s[0]\i[5] Do you have a moment?\x\![raise,OnConvoCaelos]" //if i called the function separately it would just. load up the entire thing and mark the flag as conversation read. agony.
+					else; altaironetalk					
+				}
+				else
+				{
+					if windowCheck =="ON" && _rand > 80; "%(altairwindowcheck)\e" //window commentary
+					elseif careCheck == "ON" && _rand > 60; "%(altairselfcare)\e" //selfcare chatter
+					else; altaironetalk
+				} 
+			}
+			when 3
+			{
+				if _rand >= 98 && talkcount > 10; altairselfswitch //less chance of switch, feels obligated to stick around. may tweak later
+				elseif _rand > 65; altairthreetalk 
+				elseif windowCheck =="ON" && _rand > 40; "%(altairwindowcheck)\e" //window commentary
+				elseif careCheck == "ON" && _rand > 25; "%(altairselfcare)\e" //selfcare chatter
+				else; altaironetalk
+				
+			} 
+			others; "\0\s[0]This shouldn't be available yet. Come back soon!\e" //okay don't forget it's OTHERS not OTHER
+		}		
 	}
 	else //vega in front
 	{
 		vegastretch = 0
-		--
-		if windowCheck =="ON" && RAND(100) > 90; "%(vegawindowcheck)\e" //window commentary
-		elseif careCheck == "ON" && RAND(100) > 85; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty
-		else //everything else!
-		{	
+		--		
 		case stage
 		{
 			when 2 //a different aster
 			{
 				if stageTime > 2700 && talkcount > 9 && talkedStagetwo[7] == 1; vegathreestart // 45 minutes, 29 lines, topics covered
-				else; vegatwotalk
+				else
+				{
+					if stagetime > 1000 && _rand > 90; "%(vegastretchtalk)\e"
+					if windowCheck =="ON" && _rand > 75; "%(vegawindowcheck)\e" //window commentary
+					elseif careCheck == "ON" && _rand > 65; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty\
+					else; vegatwotalk
+				} 
 			}
 			when 3;
 			{
-				if RAND(100) > 92 && talkcount > 5; vegaselfswitch //less chance to switch, more preference towards private time. may tweak later
-				else; vegathreetalk
+				if RAND(100) >= 96 && talkcount > 5; vegaselfswitch //more chance to switch, more preference towards private time. may tweak later				
+				elseif _rand > 80; "%(vegastretchtalk)\e"		
+				elseif _rand > 65; vegathreetalk
+				elseif windowCheck =="ON" && _rand > 50; "%(vegawindowcheck)\e" //window commentary
+				elseif careCheck == "ON" && _rand > 40; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty				
+				else; vegatwotalk
+				
 			} 
 			others;	"\0\s[20]\b[4]Not ready yet. Maybe soon.\e"
-		}
-		}
+		}		
 	}
 	--
 	talkcount++
@@ -361,48 +372,51 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 			--
 			//"\![raise,OnSwitch]" //switch back for debug purposes
 		}
-		elseif switchManual == 1 //user asked aster to swap, or rigel and vega agreed to swap. the option to switch is only available during switch 3 
+		else  //not a story event, stage 3
 		{
-			switchManual = 0 //so that the "accidental" switches have different dialogue
-			case vegafront
+			if switchManual == 1 //user asked aster to swap, or rigel and vega agreed to swap. the option to switch is only available during switch 3 
 			{
-				when 0;"%(altairbootgen)"
-				others;"%(vegabootgen)"
-			}
-		}
-		else //it's stage 3 (there's no switching during 1 and intro) and the switch happened due to an event or a random line
-		{
-			case vegafront
-			{
-				when 0
+				switchManual = 0 //so that the "accidental" switches have different dialogue
+				case vegafront
 				{
-					"\0\s[3]Oh?\w8 \0\s[0]\i[5]\i[8]Wait,\w8 did \i[62]something happen\i[61]?\w8\n[150]I guess I'm here now!"
-					"\0\s[3]\i[5]Huh?\w8 \0\s[3]Oh,\w8 \0\s[0]hi,\w8 %(username)!\w8\n[150]\0\s[19]Did you call for me...? \w8\w8\w8\0\s[0]\i[5]\i[8]No...?"
-					"\0\s[3]\i[5]\i[62]Whoa!\i[61]\w8\n[150]\0\s[3]Well,\w8 \0\s[0]\i[5]I'm here now!\w8 Hi!"
-					{
-						"%(altairbootgen)\n[150]\w8\0\s[3]"
-						--
-						"...Hey,\w8 wait a minute,\w8 \0\s[0]\i[5]wasn't Vega in charge...?"
-						"W-\w8 wait a second,\w8 \0\s[0]\i[5]\i[8]did we switch?"
-						"...Did somehting happen?\w8 \0\s[7]\i[5]I can't quite recall..."
-						"...Wait.\w8 \0\s[1]Um.\w8 \0\s[2]Nevermind.\w8\w8\0\s[0]"
-					}
+					when 0;"%(altairbootgen)"
+					others;"%(vegabootgen)"
 				}
-				others
+			}
+			else //it's stage 3 (there's no switching during 1 and intro) and the switch happened due to an event or a random line
+			{
+				case vegafront
 				{
+					when 0
 					{
-						"%(vegabootgen)\w8\w8\n[150]"
-						--
-						"\0\s[20]\i[8]...Hang on."
-						"\0\s[20]\i[10]\i[7]...Dizzy."
-						"\0\s[21]\i[12]...Did we switch?\w8\w8 \0\s[24]Can't rememeber."
-						"\0\s[21]\i[12]...What happened?"
-						"\0\s[20]\i[10]\i[7]...Why am I dizzy?"
+						"\0\s[3]Oh?\w8 \0\s[0]\i[5]\i[8]Wait,\w8 did \i[62]something happen\i[61]?\w8\n[150]I guess I'm here now!"
+						"\0\s[3]\i[5]Huh?\w8 \0\s[3]Oh,\w8 \0\s[0]hi,\w8 %(username)!\w8\n[150]\0\s[19]Did you call for me...? \w8\w8\w8\0\s[0]\i[5]\i[8]No...?"
+						"\0\s[3]\i[5]\i[62]Whoa!\i[61]\w8\n[150]\0\s[3]Well,\w8 \0\s[0]\i[5]I'm here now!\w8 Hi!"
+						{
+							"%(altairbootgen)\n[150]\w8\0\s[3]"
+							--
+							"...Hey,\w8 wait a minute,\w8 \0\s[0]\i[5]wasn't Vega in charge...?"
+							"W-\w8 wait a second,\w8 \0\s[0]\i[5]\i[8]did we switch?"
+							"...Did somehting happen?\w8 \0\s[7]\i[5]I can't quite recall..."
+							"...Wait.\w8 \0\s[1]Um.\w8 \0\s[2]Nevermind.\w8\w8\0\s[0]"
+						}
 					}
-					"\0\s[21]\i[8]Huh...?\w8\w8 \0\s[20]\i[8]Hello..."
-					"\0\s[22]\i[8]Mm..?\w8\w8 %(username)?\w8\w8 \0\s[20]\i[8]I was napping..."
-					"\0\s[22]\i[10]What happened...?\w8\w8 \0\s[21]I'm back...?"
-					"\0\s[21]...Well.\w8\w8 \0\s[20]Okay.\w8\w8 %(vegabootgen)"
+					others
+					{
+						{
+							"%(vegabootgen)\w8\w8\n[150]"
+							--
+							"\0\s[20]\i[8]...Hang on."
+							"\0\s[20]\i[10]\i[7]...Dizzy."
+							"\0\s[21]\i[12]...Did we switch?\w8\w8 \0\s[24]Can't rememeber."
+							"\0\s[21]\i[12]...What happened?"
+							"\0\s[20]\i[10]\i[7]...Why am I dizzy?"
+						}
+						"\0\s[21]\i[8]Huh...?\w8\w8 \0\s[20]\i[8]Hello..."
+						"\0\s[22]\i[8]Mm..?\w8\w8 %(username)?\w8\w8 \0\s[20]\i[8]I was napping..."
+						"\0\s[22]\i[10]What happened...?\w8\w8 \0\s[21]I'm back...?"
+						"\0\s[21]...Well.\w8\w8 \0\s[20]Okay.\w8\w8 %(vegabootgen)"
+					}
 				}
 			}
 		}

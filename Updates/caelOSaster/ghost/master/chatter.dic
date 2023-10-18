@@ -435,9 +435,9 @@ ch_vegadark
 
 vegatwotalk : nonoverlap_pool
 {
-	if ( stageTime > 1000 || stage == 3 )  &&  RAND(5) == 1 ; vegastretchtalk //incidentally i learned that in C languages every nonzero value is TRUE. turns out that's also true for YAYA. oops! //this will be in generic responses wayyy down
-	else //this basically means that using RAND without a check if it equals any specific number makes vega stretch in 29 times out of 30 instead of 1 out of 30............
-	{ //also fun fact: you can put any YAYA code/check in %() in the script input bubble. that saves a lot of trouble trying to see the odds of RAND in practice!
+	// if ( stageTime > 1000 || stage == 3 )  &&  RAND(5) == 1 ; vegastretchtalk //incidentally i learned that in C languages every nonzero value is TRUE. turns out that's also true for YAYA. oops! //this will be in generic responses wayyy down
+	// else //this basically means that using RAND without a check if it equals any specific number makes vega stretch in 29 times out of 30 instead of 1 out of 30............
+	// { //also fun fact: you can put any YAYA code/check in %() in the script input bubble. that saves a lot of trouble trying to see the odds of RAND in practice!
 	"\0\s[24]...Threads become fibers.\w8\w8 Hm..."
 
 	"\0\s[20]Crescent moon marks.\w8\w8 Luna branding.\w8\w8 \n[150]Nightly builds.\w8\w8 Diagnostics assistance.\w8\w8 \n[150]\0\s[20]\i[1]That's their purpose.\e:chain=ch_brand"
@@ -593,7 +593,7 @@ vegatwotalk : nonoverlap_pool
 			"\0\s[20]\i[1]\i[10]Enjoying the stillness?\w8\w8\n[150]\0\s[22]\i[1]Look out the window...\w8\w8 I hope it's pretty."
 			"\0\s[20]\i[1]Can't sleep yet?\w8\w8 I understand.\w8\w8\n[150]\0\s[22]\i[1]I don't sleep.\w8\w8 Neither does Rigel."
 		}	 
-	}
+	// }
 
 	--
 	"\e"
@@ -732,17 +732,8 @@ vegathreestart
 //an 'epilogue', if you could call it that. there will be additional things to say, but also lines from previous parts resued (aside from intro. the tone in them is too different to fit the context)
 //more importantly you can either ask to call for one or the other, and they will switch between each other randomly or in response to some events, (i.e. windowcheck if you enabled that or certain search terms, or light/dark mode, etc etc etc. i don't expect most other than the random switches to get triggered much)
 
-altairthreetalk
+altairthreetalk : nonoverlap_pool
 {
-	//roll dem dice
-	_rand = RAND(100)
-
-	if _rand < 80; altaironetalk //it's probably best to adjust this according to what how big the two pools actually end up being
-	else
-	{
-	
-	// "This is extra dialogue for stage 3."
-
 	"\0\s[7]Being run from within a program is odd,\w8 y'know?\w8\n[150]\0\s[1]Maybe that's what allows us the bare minimum compatibility,\w8 like an interface of some sort...\w8\n[150]\1\s[33]\w3Don't think \0\s[3]\1hard.\w8\0\s[0]\i[5]\1\w8 You'll pop.\w8\0\s[0]\i[6]\w8Gee,\w8 thanks for\1\s[34]\0 the insight.\w8\w8\0\s[0]\i[5]\w8\w8\w8\i[8]\w8\0\s[4]\i[1]\n[150]Sorry.\w8 You're probably right..."
 
 	"...\0\s[0]Do you think we're ever getting back?\w8 \0\s[4]\i[1]I mean,\w8 \0\s[0]\i[5]the OS we're meant to be on?\w8\n[150]\0\s[4]\i[1]I'm beginning to think it's best to abandon that idea..."
@@ -785,8 +776,6 @@ altairthreetalk
 
 	"\0\s[1]We mention instructions and protocols a lot.\w8\n[150]\0\s[0]\i[5]It probably doesn't make much sense to you,\w8 does it...?\e:chain=ch_memory"
 
-	//if talkcount > 9; "%(altairselfswitch)" //switch if rigel said 10+ things
-	}	
 }
 
 ch_memory
@@ -800,13 +789,10 @@ ch_memory
 
 }}CHAIN
 
-vegathreetalk
+vegathreetalk : nonoverlap_pool
 {
 	//roll dem dice
-	_rand = RAND(100)
-	if _rand < 80; vegatwotalk //60% chance previous dialogue?
-	else
-	{
+	
 
 		//"Stage three dialogue."
 		"\0\s[24]Mm.\w8\w8 Perhaps...\w8\w8 If booted with kernel.\w8\w8 We'd have our access.\w8\w8\n[150]\1\s[17]\w3\1\s[16]Don't you think the systems are far too different for that...?\w8 \1\s[14]\i[8]\n[150]It won't really change that much.\w8\w8\0\s[23]...I can dream.\w8\1\s[18]\0\w8"
@@ -848,11 +834,6 @@ vegathreetalk
 		"\0\s[20]I wonder.\w8\w8\n[150]Our normal abilities.\w8\w8 \0\s[24]On home system,\w8 necessity.\w8\w8 \0\s[20]\i[1]Ease of administration.\w8\w8 Ease of use,\w8 \0\s[20]\i[8]supposedly.\w8\w8\n[150]But...\w8\w8 \0\s[24]Maybe,\w8 if we have control here,\w8 again...\w8\w8 We'd be just...\w8\w8 \0\s[25]\i[10]malware.\w8\w8\n[150]\0\s[23]Would be awkward."
 
 		"\0\s[23]Disregarding circumstances...\w8\w8 \0\s[20]\i[1]You're not bad company.\w8\w8"
-
-		//prompts to switch
-		//if talkcount > 4; "%(vegaselfswitch)" //switch if vega has said 5+ lines
-		
-	} 
 }
 
 ch_minimize
@@ -1884,7 +1865,7 @@ altairbotherzero //petting Or poking on intro
 //basically a random one of these gets picked, checks for a program group running, and if it's present plays a random comment.
 //if the program isn't present, it'll just ask to reroll from the main dialogue pool again
 
-altairwindowcheck
+altairwindowcheck : nonoverlap_pool
 {
 	//if AppCheck(BROWSE) == 1
 	if ProcessCheck(BROWSEexe,BROWSE) == 1
@@ -2045,7 +2026,7 @@ vegawindowcheck
 		"\0\s[20]You use a browser.\w8\w8 \0\s[20]\i[1]We don't need to.\w8\w8\n[150]Tool for human eyes.\w8\w8 \0\s[22]\i[1]We do research differently...\w8\w8 More directly."
 		"\0\s[20]\i[7]%(appName)...\w8\w8 \0\s[22]We can use it,\w8 I suppose.\w8\w8\n[150]\0\s[20]\i[1]To watch and listen,\w8 together. "
 	} 
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 
 	//if AppCheck(MUSIC) == 1
 	if ProcessCheck(MUSICexe,MUSIC) == 1
@@ -2055,15 +2036,17 @@ vegawindowcheck
 		"\0\s[20]\i[10]Hm.\w8\w8 You enjoy music.\w8\w8\n[150]\0\s[20]%(appName) is decent."
 		"\0\s[23]Speaking of...\w8\w8 music players.\w8\w8\n[150\0\s[20]Do you have ambience?\w8\w8 \0\s[20]\i[1]\i[10]Not too loud...\w8\w8 Eases the silence."
 		"\0\s[20]Your music selection.\w8\w8 \0\s[22]Does the job.\w8\w8\n[150]It's good background."
-		"\0\s[20]Mm.\w8\w8 Looking at your music.\w8\w8\n[150]\0\s[22]Selection could use work.\w8\w8 \0\s[20]\i[1]\_a["
-		--
-		"https://www.youtube.com/watch?v=6JeZR13dLLI"
-		"https://www.youtube.com/watch?v=8V71sATDTqs"
-		"https://www.youtube.com/watch?v=THM4fUdz8Mc"
-		--
-		"]Try this\_a."
+		{
+			"\0\s[20]Mm.\w8\w8 Looking at your music.\w8\w8\n[150]\0\s[22]Selection could use work.\w8\w8 \0\s[20]\i[1]\_a["
+			--
+			"https://www.youtube.com/watch?v=6JeZR13dLLI"
+			"https://www.youtube.com/watch?v=8V71sATDTqs"
+			"https://www.youtube.com/watch?v=THM4fUdz8Mc"
+			--
+			"]Try this\_a."
+		}
 	}
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 
 	//if AppCheck(ART) == 1
 	if ProcessCheck(ARTexe,ART) == 1
@@ -2074,7 +2057,7 @@ vegawindowcheck
 		"\0\s[20]%(appName) running.\w8\w8\n[150]\0\s[22]\i[1]Let me watch...?"
 		if stage == 3; "\0\s[22]\i[1]Mm...\w8\w8 \0\s[20]%(appName) running.\w8\n[150]\1\s[17]\w3Oh?\w3 \1\s[15]Let me see,\w3 \i[62]I wanna watch!!\0\0\s[21]\i[12]Wait,\w8 not now-\1\s[10]\![raise,OnSwitch]"
 	}
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 
 	//if AppCheck(VECTOR) == 1
 	if ProcessCheck(VECTORexe,VECTOR) == 1
@@ -2086,7 +2069,7 @@ vegawindowcheck
 		"\0\s[24]Hm.\w8\w8 My face...\w8\w8\n[150]Easy to make,\w8 in %(appName).\w8\w8 Some circles and triangles...."
 		if stage == 3;"\1\s[17]\w3\1\s[15]Ooh is that %(appName)?\w8 \i[62]I wanna see what %(username) is doing!\w8\0\s[22]Maybe later...?\w8\w8 \0\s[25]Stop,\w4 \0\s[25]\i[7]you're shoving-\1\s[10]\![raise,OnSwitch]"
 	}
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 
 	//if AppCheck(ANTIVIRUS) == 1
 	if ProcessCheck(ANTIVIRUSexe,ANTIVIRUS) == 1
@@ -2098,7 +2081,7 @@ vegawindowcheck
 		"\0\s[25]Annoyed...\w8\w8 \0\s[20]Unable to perform a scan.\w8\w8\n[150]\0\s[20]\i[7]Scan with %(appName),\w8 for me.\w8\w8 \0\s[23]...Please."
 		"\0\s[20]\i[7]Put %(appName) to use.\w8\w8 Let it scan downloads.\w8\w8 \0\s[20]Perform full scans,\w8 sometimes.\w8\w8\n[150]\0\s[20]\i[10]I'd do it for you.\w8\w8 If I could.\w8\w8\n[150]\0\s[25]\i[10]...Annoying."
 	}
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 
 	//if AppCheck(TEXT) == 1
 	if ProcessCheck(TEXTexe,TEXT) == 1
@@ -2109,7 +2092,7 @@ vegawindowcheck
 		"\0\s[20]Hmm.\w8\w8 %(appName).\w8\w8 \0\s[21]Bloated text editor...\w8\w8\n[150]\0\s[22]Why not Notepad?\w8\w8 \0\s[20]Or,\w8 Vim.\w8\w8 If you like learning.\w8\w8\n[150]\0\s[20]\i[1]But learn how to exit,\w8 first."
 		"\0\s[20]\i[10]Notepad.\w8\w8 Vim.\w8\w8 Emacs.\w8\w8 Nano.\w8\w8 Gedit.\w8\w8\n[150]\0\s[20]All better than %(appName).\w8\w8 \0\s[21]Format later...\e:chain=ch_text"
 	}
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 
 	//if AppCheck(TABLES) == 1
 	if ProcessCheck(TABLESexe,TABLES) == 1
@@ -2119,7 +2102,7 @@ vegawindowcheck
 		"\0\s[20]%(appName).\w8\w8 Spreadsheet software.\w8\w8\n[150]\0\s[20]\i[7]Glorified calculator..."
 		"\0\s[20]What do you use %(appName) for?\w8\w8\n[150]\0\s[22]Makes calculations faster,\w8 for users...\w8\w8 I'll admit."
 	}
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 
 	//if AppCheck(SLIDES) == 1
 	if ProcessCheck(SLIDESexe,SLIDES) == 1
@@ -2129,7 +2112,7 @@ vegawindowcheck
 		"\0\s[20]%(appName).\w8\w8 Presentation software.\w8\w8\n[150]\0\s[24]Colorful slides with data.\w8\w8 Easier communication.\w8\w8\n[150]Seems useful.\w8\w8 \0\s[20]Human data processing,\w8 imperfect.\w8\w8 \0\s[20]\i[1]Unlike a machine."
 		"\0\s[20]%(username).\w8\w8 I have a question.\w8\w8\n[150]\0\s[24]Do humans use slides to communicate?\w8\w8 \0\s[23]I've seen images online.\w8\w8\n[150]A title and a picture,\w8 or video,\w8 below.\w8\w8 \0\s[22]\i[7]Probably not made in %(appName)."
 	}
-	else; RandomTalk
+	else; "%(vegatwotalk)"
 	//else; "%(vegatwotalk)"
 }
 

@@ -44,9 +44,176 @@ OnDisplayPowerStatus
 	if reference0 == 1; "%(welcomeback)" //if the screen powered off after a while and you came back
 }
 
+OnDirectoryDrop
+{
+	if reference1 == 0 //sakura
+	{	
+		dropped = reference0 // trying to see if this helps for file info
+		_filepath = SPLITPATH(reference0)
+		_folderpath = SPLIT(_filepath[1],'\')
+		_foldername = _folderpath[ ARRAYSIZE(_folderpath) - 2 ]
+
+		if vegafront == 0; "\0\s[1]This would be...\w8 \0\s[0]one of your folders,\w8 \&[quot]%(_foldername)\&[quot].\w8\n[150]\0\s[0]\i[5]\i[8]I'm not really supposed to go over your personal files...\w8 Not without your consent,\w8 at least.\w8\n[150]\0\s[7]But I can show you some information?"
+		else; "\0\s[20]\i[10]Hm.\w8\w8 \&[quot]%(_foldername)\&[quot].\w8\w8\n[150]A directory.\w8\w8 \0\s[22]Can display attributes."
+		--
+		"\n[150]\_q\![*]\q[Show directory properties,OnFileInfo]\n"
+		--
+		"\![*]\q[Cancel,CANCEL]\e"
+	}
+}
+
+OnOtherObjectDropped
+{
+	if reference0 == 0 //sakura
+	{
+		if vegafront == 0; "\0\s[1]Oh,\w8 \0\s[7]this is...\w8 \&[quot]%(reference1)\&[quot].\w8\n[150]\0\s[0]\i[5]This isn't really a file,\w8 nor a folder,\w8 actually!\w8\n[150]\0\s[19]I can't do anything with this,\w8 \0\s[0]but thanks for showing to me."
+		else; "\0\s[22]\&[quot]%(reference1)\&[quot].\w8\w8\n[150]\0\s[20]Object for user's benefit.\w8\w8 \0\s[20]\i[8]Can't use this."
+	}
+	--
+	"\e"
+}
+
+OnFileInfo
+{
+	//using dropped as path to file
+	_filepath = SPLITPATH(dropped)
+	_attrib = FATTRIB( dropped ) //fun yaya thing that gives you information about a directory
+	_filename = ""
+	_folderpath = SPLIT(_filepath[1],'\')
+	_size = ""
+	_fileext =""
+	_modify = GETTIME(_attrib[10])
+	_created = GETTIME(_attrib[9])
+	//size = 0 //debug
+	if _attrib[2] == 0; _size = GetFileSize(dropped) //oh boy
+	//get the name
+	if _attrib[2] == 1 //is a folder
+	{		
+		_filename = _folderpath[ ARRAYSIZE(_folderpath) - 2 ] //get directory name. i don't know why it's different number now, it kind of replaced slashes with spaces instead
+	}
+	else
+	{
+		_filename = _filepath[2] //filename
+		_fileext = TOUPPER(_filepath[3]) //extension
+		_fileext = REPLACE(_fileext,".","") //get rid of the dot
+	}
+
+	//get size, if it's not a directory.
+
+	"\_q\f[bold,1]"
+	--
+	if _attrib[2] == 1; "Folder name: "
+	else; "File name: "
+	--
+	"\f[bold,0]%(_filename)\n[150]"
+	--	
+	if _attrib[2] == 0
+	{
+		"\f[bold,1]Size:\f[bold,0] %(_size)\n"
+		--
+		"\f[bold,1]Format:\f[bold,0] \_a[https://fileinfo.com/extension/%(TOLOWER(_fileext))]%(_fileext)\_a\n"
+	}
+	--
+	"\f[bold,1]Read-only:\f[bold,0] "
+	--
+	if _attrib[6] == 1; "Yes"
+	else; "No"
+	--
+	"\n\f[bold,1]Hidden:\f[bold,0] "
+	--
+	if _attrib[3] == 1; "Yes"
+	else; "No"
+	// -- //system thing doens't seem to react to system folders...??
+	// "\n\f[bold,1]System "
+	// --
+	// if _attrib[2] == 0; "file:\f[bold,0]"
+	// else; "folder:\f[bold,0]"
+	// --
+	// if _attrib[7] == 1; "Yes"
+	// else; "No"
+	--
+	"\n\f[bold,1]Created:\f[bold,0] %(_created[1]).%(_created[2]).%(_created[0]) %(_created[4]):%(_created[5]):%(_created[6])"
+	--
+	"\n\f[bold,1]Modified:\f[bold,0] %(_modify[1]).%(_modify[2]).%(_modify[0]) %(_modify[4]):%(_modify[5]):%(_modify[6])"
+
+	//taken from googletranslated ayaya for my own reference:
+	// _attrib[0] //Archiveable (Windows only)=1 Other=0
+	// _attrib[1] //Compression (Windows only)=1 Others=0
+	// _attrib[2] //directory=1 other=0
+	// _attrib[3] //Hidden files (Windows only)=1 Others=0
+	// _attrib[4] //Normal files=1 Other=0
+	// _attrib[5] //Offline files (Windows only)=1 Others=0
+	// _attrib[6] //read-only (Windows only)=1 other=0
+	// _attrib[7] //System files (Windows only)=1 Others=0
+	// _attrib[8] //Temporary files (Windows only)=1 Others=0
+	// _attrib[9] //File creation date and time For UNIX, inode update date and time
+	// _attrib[10] //Date and time the file was last updated
+	--
+	"\e"
+}
+
+GetFileSize
+{
+	_size = TOREAL(FSIZE(_argv[0]))
+	_postfix = ""
+	_number = 0
+
+	if _size <= 1023
+	{
+		_postfix = " Bytes"
+	}
+	else
+	{
+		if _size >= 1024
+		{
+			_size = _size / 1024
+			_postfix = "KB"
+			if _size >= 1024
+			{
+				_size = _size / 1024
+				_postfix = "MB"
+				if _size >= 1024
+				{
+					_size = _size / 1024
+					_postfix = "GB"
+					if _size >= 1024
+					{
+						_size = _size / 1024
+						_postfix = "TB"
+					}
+				}
+			}
+		}
+	}
+
+	//oh for fucks sake yaya only rounds to whole that's not what i want
+	_size = TOSTR(_size) //string manipulation it is
+	
+	while STRLEN(_size) > 4 //THIS is how you round decimals!!!!
+	{
+		_number = TOINT(SUBSTR(_size,-1,1)) // 8.12345(6) - get last digit
+		if _number < 5 //between 4 and 0 
+		{
+			_size = ERASE(_size,-1,1) //8.12345 - just erase the last digit
+		}
+		else //should be between 5-9. +1 to the digit before it and erase
+		{
+			_repnum = TOINT(SUBSTR(_size,-2,1)) //8.1234(5)6 - get the second last digit
+			_repnum++ // 5->6 - +1
+			_size = ERASE(_size,-1,2) //8.1234 - remove two last ones
+			_size = _size + TOSTRING(_repnum) //8.12346 - add the appended new digit
+		}
+	}
+	--
+	"%(_size)%(_postfix)"
+}
+
+
+
 //filedrop
 OnFileDrop2
 {
+	dropped = reference0
 	_filepath = SPLITPATH(reference0)
 	_filename = _filepath[2]
 	_fileext = TOLOWER(_filepath[3])
@@ -60,7 +227,9 @@ OnFileDrop2
 				when 0; "\0\s[8]Ooh,\w8 %(_filename)%(_fileext),\w8 huh?\w8 Looks nice!\w8 \0\s[7]Let's see...\w8\n[150]\0\s[0]I can set it as a wallpaper for you.\w8\n[150]Would you like me to?\w8\n[150]"
 				others; "\0\s[22]\i[8]...What's this?\w8\w8 What for?\w8\w8\n[150]\1\t\s[17]\w3\1\s[11]\i[1]It's an image file,\w8 dummy\0\s[25]\i[7]\i[6]\1!\w8 \1\s[11]We can set this as a wallpaper,\w8 if you want?\w8\n[150]"
 			}
-			--			
+			--
+			"\_q\![*]\q[Show file properties instead,OnFileInfo]\n"
+			--
 			"\![*]\q[Centered,SetWallpaper_0]\n/
 			\![*]\q[Tiled,SetWallpaper_1]\n/
 			\![*]\q[Stretched,SetWallpaper_2]\n\n[half]/
@@ -71,20 +240,24 @@ OnFileDrop2
 			case vegafront //i know there's ways to play the music but uh. that's in the Maybe pile
 			{
 				when 0; "\0\s[1]This is...\w8 \0\s[0]Oh!\w8 That's a %(_fileext)...\w8 \0\s[5]I'll listen to this later,\w8 thanks for showing me!"
-				others; "\0\s[24]Sound file...\w8\w8 \0\s[23]Can't do anything.\w8\w8 Sorry."
+				others; "\0\s[24]Sound file...\w8\w8 \0\s[22]Need attributes?"
 			}
 			--
-			"\e"
+			"\n[150]\_q\![*]\q[Show file properties,OnFileInfo]\n"
+			--
+			"\![*]\q[Cancel,CANCEL]\e"
 		}
 		others //Any other file format. As a note here, if you drop something ghost-related on them that does not have an install.txt, then they won't install it and will just say this response. If you are testing your balloon or nar files and you get this response instead of a proper installation, you should check and make sure you have an install.txt in the file!
 		{
 			case vegafront
 			{
-				when 0; "\0\s[0]What's this,\w8 %(username)?\w8\0\s[7]\n[150]...Mm,\w8 a %(_fileext)...\w8 \0\s[2]I can't do anything with this,\w8 sorry...\w8\n[150\0\s[5]But thanks for showing me anyway."
-				others; "\0\s[22]\i[7]A %(_fileext) file.\w8\w8\n[150]\0\s[20]\i[8]Can't work with this.\w8\w8 Awkward..."
+				when 0; "\0\s[0]What's this,\w8 %(username)?\w8\0\s[7]\n[150]...Mm,\w8 a %(_fileext)...\w8 \0\s[2]I can't do anything with this,\w8 sorry...\w8\n[150]\0\s[5]Did you want me to just show the file's properties?"
+				others; "\0\s[22]\i[7]A %(_fileext) file.\w8\w8\n[150]\0\s[20]\i[8]Can't work with this.\w8\w8 \0\s[20]Can analyze,\w8 though."
 			}
 			--
-			"\e"
+			"\n[150]\_q\![*]\q[Show file properties,OnFileInfo]\n"
+			--
+			"\![*]\q[Cancel,CANCEL]\e"
 		}
 	}
 }
