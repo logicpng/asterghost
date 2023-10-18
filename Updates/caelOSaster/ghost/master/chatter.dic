@@ -1231,7 +1231,7 @@ altairselfcare : nonoverlap
 
 	"\0\s[0]Is your space tidy?\w8 It can really mess with you when things are unarranged,\w8 and %(I) can certainly relate!\w8\n[150]\0\s[3]Oh-\w8 but,\w8 \i[62]y'know\i[61].\w8 \0\s[2]It doesn't have to be an entire spring cleaning of course,\w8 just your desk should do the trick!"
 
-	"\0\s[1]Oh!\w8 \0\s[0]\i[5]By the way,\w8 \0\s[2]It's okay if none of the things I suggest are something you can do right now.\w8\n[150]\0\s[0]They're just suggestions.\w8 \0\s[5]Do what you can,\w8 that should be enough!"
+	"\0\s[1]Oh!\w8 \0\s[0]\i[5]By the way,\w8 \0\s[2]it's okay if none of the things I suggest are something you can do right now.\w8\n[150]\0\s[0]They're just suggestions.\w8 \0\s[5]Do what you can,\w8 that should be enough!"
 
 	"\0\s[1]Just wondering,\w8 how many notifications do you get on your devices?\w8\n[150]\0\s[0]\i[5]See,\w8 \0\s[7]normally,\w8 I would have to encourage you have as much as you can to stay up to date!\w8\n[150]\0\s[0]But...\w8 \0\s[4]\i[1]y'know.\w8 The internet is a much scarier place than I thought...\w8\n[150]\0\s[0]\i[5]Be sure to turn some off,\w8 if it's too much."
 

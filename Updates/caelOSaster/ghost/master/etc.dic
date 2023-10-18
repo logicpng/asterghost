@@ -458,7 +458,7 @@ OnBIFFComplete
  	{
 		case vegafront
 		{
-			when 0; "\0\s[0]Seems like everything's read!"
+			when 0; "\0\s[0]Seems like there's nothing new!"
 			others; "\0\s[20]Nothing new.\w8\w8 There.\w8\w8 Done."
 		}
  		//"\0\s[0]There is no new mail.\e"
@@ -467,8 +467,8 @@ OnBIFFComplete
  	{
 		case vegafront
 		{
-			when 0; "\0\s[1]A single unread letter.\w8 \0\s[0]Why don't we take a look?"
-			others; "\0\s[20]One new message."
+			when 0; "\0\s[1]A single letter.\w8 \0\s[0]Why don't we take a look?"
+			others; "\0\s[20]One message."
 		}
  		//"\0\s[0]There is one new email.\e"
 	}
@@ -476,8 +476,8 @@ OnBIFFComplete
 	{
 		case vegafront
 		{
-			when 0; "\0\s[5]You've got %(reference0) unread letters!\w8 \0\s[0]Do you want to check them?"
-			others; "\0\s[20]%(reference0) new messages."
+			when 0; "\0\s[5]You've got %(reference0) letters!\w8 \0\s[0]Do you want to check them?"
+			others; "\0\s[20]%(reference0) messages."
 		}
 		//"\0\s[0]There are %(reference0) emails.\e"
 		//reference0 here stores the amount of new email it finds.
@@ -487,7 +487,7 @@ OnBIFFComplete
 		case vegafront
 		{
 			when 0; "\0\s[3]Ohh...\w8 You've got quite a backlog there.\w8 \0\s[0]\i[5]%(reference0) letters to be exact."
-			others; "\0\s[22]...%(reference0) unread messages.\w8\w8 \0\s[20]\i[7]Messy..."
+			others; "\0\s[22]...%(reference0) messages.\w8\w8 \0\s[20]\i[7]Messy..."
 		}
 		//"\0\s[0]There are %(reference0) emails unread.\w8\1\s[10]Woah.\e"
 	}
@@ -495,11 +495,47 @@ OnBIFFComplete
 	{
 		case vegafront
 		{
-			when 0; "\0\s[0]You have %(reference0) unread letters."
-			others; "\0\s[20]%(reference0) new messages."
+			when 0; "\0\s[0]You have %(reference0) letters."
+			others; "\0\s[20]%(reference0) messages."
 		}
 		//"\0\s[0]There are %(reference0) emails.\e"
  	}
+	--
+	
+	//list five last emails you've recieved
+	//following code adopted/adapted from zicheq
+	if reference0 > 0
+	{	
+		"\n[150]"
+		--
+		headers = ""
+		_display = ""
+		_iEnd = 0
+		_headSize = ""
+		
+		if reference7 != "" && reference0 <= 500
+		{
+			headers = SPLIT(reference.raw[7],C_BYTE1) //the reference.raw here is important, don't make this reference7 unless you've turned off AUTO_DATA_CONVERT
+		}
+
+		_headSize = ARRAYSIZE(headers) - 1 //get the amount of headers we got -1, since we start from 0
+		--
+		"%(reference0);%(_headSize)\n[150]"
+		--
+		if reference0 >= 1 && reference0 <= 5; _iEnd = reference0
+		else; _iEnd = 5; //how many letters to show
+
+		for _i = 0; _i < _iEnd; _i++ //show the latest up to 5 letter headers
+		{	
+			_display += "\![*]"
+			_display += SHIORI3FW.EscapeAllTags( headers[_headSize - _i] )
+			_display += "\n"
+		}
+		--
+		"\_q\![set,autoscroll,disable]%(_display)"
+		--
+		ERASEVAR("headers") //This erases the variable so you're not storing all those headers and bloating your save. Also, privacy reasons.
+	}	
 	--
 	"\e"
 }
