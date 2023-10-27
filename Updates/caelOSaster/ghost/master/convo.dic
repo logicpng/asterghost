@@ -305,7 +305,7 @@ OnVegaLore
     {       
         when 2
         {
-            //anchors break the selections. that's okay we'll just use Cyrillics to replace a few letters. im using visual studio code and it highlights odd symbols
+            //anchors break the selections. that's okay we'll just use Cyrillic to replace a few letters. im using visual studio code and it highlights odd symbols
             "\![*]\q[About Vеga,aboutvega]\n" //0
             --
             "\![*]\q[About Rigеl,aboutaltair]\n" //1

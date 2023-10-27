@@ -1,11 +1,11 @@
-ghost/master/aitalk.dic98df40064362cdd5060e69aeabb3b255size=17061date=2023-10-18T18:15:29charset=windows-1251
+ghost/master/aitalk.dic129f0fa288d6bc5cbee03cd74c029076size=19293date=2023-10-22T07:24:44charset=windows-1251
 ghost/master/anchor.dicc4dfbb16973f161aa7371243c498b91dsize=5629date=2023-07-31T12:26:24
 ghost/master/bootend.dic159ccd01536d1e2ca2296081b108a6basize=30077date=2023-10-10T12:42:45
-ghost/master/chatter.dic85e8720e0251a2f8079c1eda9be38f74size=108405date=2023-10-18T18:04:38
+ghost/master/chatter.dicf99836c0de30db828af2f00b774ae4ecsize=108530date=2023-10-22T07:36:50
 ghost/master/chord.wavebfcb7a68ebad9f5f8362bc25300886csize=24994date=2023-07-18T16:38:44
 ghost/master/click.wav53a172ddbd16aa7accead0f5b263b70fsize=1404date=2007-06-26T20:25:44
 ghost/master/commu.dic39f252973d398e90ec19ba6ed6ce96fesize=6649date=2023-07-31T12:10:08
-ghost/master/convo.dic3ec969fe3bd798e8959ae5e481504fe9size=24991date=2023-10-10T18:04:31
+ghost/master/convo.dicf53a16f76a28979dbde91f1f4d95f60fsize=24990date=2023-10-22T08:26:15
 ghost/master/descript.txtffc9c926adf6505146dc33d298a9d3c7size=493date=2023-10-07T06:31:32
 ghost/master/etc.dic16aa6a9c89ddd4cd726fe54b5a68637fsize=63056date=2023-10-18T17:10:33
 ghost/master/gomi.dll51fe9597398db01e684a0f9d52c63242size=13312date=2004-06-02T11:00:04
@@ -17,7 +17,7 @@ ghost/master/nameteach.dicf5888ac88108778c65e3f22dd96ea09esize=9640date=2023-
 ghost/master/process.dlla6c337c40a9e80532fea6676be61056bsize=61440date=2023-10-16T18:39:02
 ghost/master/proxy_ex.dll8ff13a8c1b2b0261f61704c1f457cc8csize=48128date=2023-06-13T20:58:02
 ghost/master/saori_cpuid.dlld13370aee8e579fe2517d789dba7c45esize=225280date=2004-04-18T10:47:18
-ghost/master/string.dicba005eea2ee302949b441f02c71669a4size=8953date=2023-10-10T05:38:01
+ghost/master/string.dicc6a7bebafbf2089e588af571489c69b8size=8953date=2023-10-27T11:06:06
 ghost/master/system/messagetxt/classical-chinese.txt82769639cb6060591d0797126ac5efabsize=5129date=2021-12-21T23:54:01
 ghost/master/system/messagetxt/english.txt5a11530a72b2e815b677c19dbd3fac03size=7112date=2021-12-21T23:54:01
 ghost/master/system/messagetxt/japanese.txted859fd30c66d2ad612c56ebe66324d2size=9190date=2021-12-21T23:54:02

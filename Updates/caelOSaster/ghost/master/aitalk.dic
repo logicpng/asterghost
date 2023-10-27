@@ -90,10 +90,14 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 			}
 			when 1 //real aster(?)
 			{
-				if talkedStageone[1] == 1 && talkedStageone[3] == 1 && talkcount > 9 && stageTime > 1799 //30 minutes runtime on stage 1, covered topics up to CaelOS, said 10 random lines
+				//if talkedStageone[1] == 1 && talkedStageone[3] == 1 && talkcount > 9 && stageTime > 1799 //30 minutes runtime on stage 1, covered topics up to CaelOS, said 10 random lines
+				if talkedStageone[1] == 1 && talkedStageone[3] == 1 && talkcount > 9 && stageTime > 1799 && talkedStageone[4] == 0
 				{
-					if talkedStageone[4] == 0; "\0\s[1]Um... %(username)?\w8\s[0]\i[5] Do you have a moment?\x\![raise,OnConvoCaelos]" //if i called the function separately it would just. load up the entire thing and mark the flag as conversation read. agony.
-					else; altaironetalk					
+					//...why is there another if/else? shouldn't the one above be enough? hm
+
+					//if talkedStageone[4] == 0; "\0\s[1]Um... %(username)?\w8\s[0]\i[5] Do you have a moment?\x\![raise,OnConvoCaelos]" //if i called the function separately it would just. load up the entire thing and mark the flag as conversation read. agony.
+					"\0\s[1]Um... %(username)?\w8\s[0]\i[5] Do you have a moment?\x\![raise,OnConvoCaelos]"
+					//else; altaironetalk					
 				}
 				else
 				{
@@ -111,7 +115,7 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 				else; altaironetalk
 				
 			} 
-			others; "\0\s[0]This shouldn't be available yet. Come back soon!\e" //okay don't forget it's OTHERS not OTHER
+			others; "\0\s[3]\i[5]Oh,\w8 \i[62]fiddlesticks\i[61]...\w8 \0\s[3]This shouldn't happen.\w8 \0\s[0]\i[5]\i[8]Maybe there's someone you could make aware?\e" //okay don't forget it's OTHERS not OTHER
 		}		
 	}
 	else //vega in front
@@ -141,12 +145,59 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 				else; vegatwotalk
 				
 			} 
-			others;	"\0\s[20]\b[4]Not ready yet. Maybe soon.\e"
+			others;	"\0\s[22]\i[8]Mm.\w8\w8 \0\s[25]Something broke.\w8\w8 \0\s[25]\i[7]We need maintenance.\e"
 		}		
 	}
 	--
 	talkcount++
 	stageTime += aitalkinterval //how much time has passed between the start of the stage. kind of.
+}
+
+RandomTalkTakeTwo // so windowcheck takes a category, and if it doesn't find a process needs to pick something else. this is the second random talk that excludes windowcheck
+{
+	_rand = RAND(100)
+
+	//will only be called starting from stage 1 so no need to cover the intro for rigel
+	if vegafront == 0 //rigel
+	{
+		case stage
+		{
+			when 1
+			{
+				if careCheck == "ON" && _rand > 80; "%(altairselfcare)\e" //selfcare chatter
+				else; altaironetalk
+			}
+			when 3
+			{
+				if _rand >= 98 && talkcount > 10; altairselfswitch //less chance of switch, feels obligated to stick around. may tweak later
+				elseif _rand > 65; altairthreetalk 
+				elseif careCheck == "ON" && _rand > 50; "%(altairselfcare)\e" //selfcare chatter
+				else; altaironetalk
+			}
+			others; "\0\s[3]\i[5]Oh,\w8 \i[62]fiddlesticks\i[61]...\w8 \0\s[3]This shouldn't happen.\w8 \0\s[0]\i[5]\i[8]Maybe there's someone you could make aware?\e"
+		}
+	}
+	else //vega
+	{
+		case stage
+		{
+			when 2
+			{
+				if stagetime > 1000 && _rand > 80; "%(vegastretchtalk)\e"					
+				elseif careCheck == "ON" && _rand > 50; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty\
+				else; vegatwotalk
+			}
+			when 3
+			{
+				if RAND(100) >= 96 && talkcount > 5; vegaselfswitch //more chance to switch, more preference towards private time. may tweak later				
+				elseif _rand > 80; "%(vegastretchtalk)\e"		
+				elseif _rand > 65; vegathreetalk
+				elseif careCheck == "ON" && _rand > 50; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty				
+				else; vegatwotalk
+			}
+			others; "\0\s[22]\i[8]Mm.\w8\w8 \0\s[25]Something broke.\w8\w8 \0\s[25]\i[7]We need maintenance.\e"
+		}
+	}
 }
 
 //Keeps track of if an hour has passed. Just ignore this.
@@ -360,7 +411,7 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 		{
 			"\0\s[20]Hello again.\w8\w8 I am Aster.\w8\w8 \0\s[22]Call me Vega.\w8\w8 \0\s[22]\i[1]I do what Rigel can't.\w8\w8\n[150]\1\t\s[17]\w8\1\s[12]\i[62]...Really?\w8 \1\s[13]I already told %(himher) what we do!\w8\w8\n[150]\0\s[20]\i[1]Rest.\w8\w8\1\s[14]Fine...\w8\w8\w8\1\s[18]"
 			--
-			"\![leave,passivemode]\e"
+			"\![leave,passivemode]"
 			vegamet = 1 //so that this doesn't get triggered if the bubble is switched during stage 2
 		}
 		elseif vegafront == 0 && stage == 2 //we've switched to rigel from vegathreestart
@@ -368,7 +419,7 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 			"\0\s[5]Hi again!\w8\n[150]Nice to see you!\w8\x\0\s[8]By the way,\w8 %(username),\w8 now that we know you a little better...\w8\n[150]\0\s[0]If you ever need either of us,\w8 you can just ask!\w8 \0\s[5]I've added an option to the menu for you.\x"
 			--
 			stage = 3 //now we're at stage 3 and this dialogue shouldn't run again
-			"\![leave,passivemode]\e"
+			"\![leave,passivemode]"
 			--
 			//"\![raise,OnSwitch]" //switch back for debug purposes
 		}
@@ -420,6 +471,8 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 				}
 			}
 		}
+		--
+		"\e:chain=end"  //to make sure any chains started won't continue after switch
 	}
 	else //not caused by switch, meaning this is a real balloon change
 	{
@@ -441,8 +494,7 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 			when 0; "\0\s[8]Okay!\w8 Testing!\w8 \0\s[0]Hello,\w8 %(reference0) balloon!"
 			others; "\0\s[20]\i[1]Hello,\w8 world.\w8\w8 \0\s[20]Testing."
 		}	
-		--
-		"\e"
+		
 	}
 }
 
