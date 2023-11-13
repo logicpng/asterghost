@@ -44,3 +44,4 @@ menu.foreground.bitmap.filename,menu_foreground.png
 menu.sidebar.bitmap.filename,menu_sidebar.png
 
 menu,hidden
+

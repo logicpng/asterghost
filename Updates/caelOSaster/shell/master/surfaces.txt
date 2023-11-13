@@ -1657,17 +1657,51 @@ surface.append11-16,30-33
 surface.append0-8,11-19
 {
 		//vibrate in place
-	60interval,always
+	60interval,never
 	60pattern0,0,3,move,-1,1
 	60pattern1,0,3,move,2,-2
 	60pattern2,0,3,move,-1,2
 	60pattern3,0,3,move,0,-1
 	
-	61interval,runonce
-	61pattern0,0,0,stop,60
-	
+	//61interval,runonce
+	61interval,never
+	//61pattern0,0,0,stop,60
+	61pattern0,0,0,stop,62
+
 	62interval,never
-	62pattern0,0,0,start,60	
+	//62pattern0,0,0,start,60
+	//62pattern1,0,12,start,60
+	//62pattern2,0,12,start,60
+	62pattern0,0,3,move,-1,1
+	62pattern1,0,3,move,2,-2
+	62pattern2,0,3,move,-1,2
+	62pattern3,0,3,move,0,-1
+	62pattern4,0,3,move,-1,1
+	62pattern5,0,3,move,2,-2
+	62pattern6,0,3,move,-1,2
+	62pattern7,0,3,move,0,-1
+	62pattern8,0,3,move,-1,1
+	62pattern9,0,3,move,2,-2
+	62pattern10,0,3,move,-1,2
+	62pattern11,0,3,move,0,-1
+	62pattern12,0,3,move,-1,1
+	62pattern13,0,3,move,2,-2
+	62pattern14,0,3,move,-1,2
+	62pattern15,0,3,move,0,-1
+	62pattern16,0,3,move,-1,1
+	62pattern17,0,3,move,2,-2
+	62pattern18,0,3,move,-1,2
+	62pattern19,0,3,move,0,-1
+	62pattern20,0,3,move,-1,2
+	62pattern21,0,3,move,0,-1
+	62pattern22,0,3,move,-1,1
+	62pattern23,0,3,move,2,-2
+	62pattern24,0,3,move,-1,2
+	62pattern25,0,3,move,0,-1
+	62pattern26,0,3,move,-1,1
+	62pattern27,0,3,move,2,-2
+	62pattern28,0,3,move,-1,2
+	62pattern29,0,3,move,0,-1
 }
 
 surface.append0-8,19,20-25
