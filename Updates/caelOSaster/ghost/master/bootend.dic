@@ -42,31 +42,73 @@ OnFirstBoot
 	IAm = "I am"
 	IWas = "I was"
 	--
+	vegaSeen = 0 //for panel adjustment mode
+	--
 	OnInitBoot //initialize vars we'll need during boot Regardless of whether it's first or any other boot
 	--
 	OnInitFlags //conversation flags
 	--
+	
 	//would it make sense to move the introduction dialogue up ere first?
 	//no i think we'll make an abbreviated speech
 
-	if reference0 == 0 //Don't touch this line.
- 	{
-		
-		//Entry dialogue here, move to name first
-		//rip encoded alt names you'll never be seen again
-		//maybe if i lose my mind and make al
 
-		"\![enter,passivemode]\0\![set,alpha,0]%(FadeIn)\s[rDef]Hello,\w8 and welcome!\w8\n[150]Thank you for choosing TerraByte software!\x\0\s[rHap]My name is Aster, \w8and I'll be your guide through the installation and usage of Ca- \w8\0\s[rNeu]\n\n[half]\w8.\0\s[rSup].\0\s[3]\i[5].W\0\s[0]\i[5]\i[8]\w8\w8- %property[system.os.name],\w8 \i[62]of course!\w8\i[61]\f[italic,0]\x\0\s[2]U\0\s[2]\i[5]h- \s[0]\i[5]\i[8]\i[62]I...\c\0\s[5]I see you've already set yourself up quite nicely!\w8\n[150]Well done!\w8 \w8\n[150]\0\s[0]\i[5]But I will still be more than happy to help you with anything to enhance your experience.\x\0\s[0]Since this is the first time we talk,\w8 I would love to get to know you!\n[150]\w8\0\s[0]I will need your name,\w8 pronouns,\w8 and birthday.\x"
-		//"\s[0]a"
+	//changing behavior of firstboot since we need a little toggle before anything is said and done
+	//saving the reference variable for branching if you uninstalled aster before
+	saveRef0 = reference0
+	//first just these for precaution
+	"\t\*\![enter,passivemode]\0\s[-1]\1\s[-1]"
+	--
+	//then the prompt, selections below
+	"\0\_q\f[bold,1][Would you like to allow Aster to vibrate? You can change this later.]\f[bold,0]\n[150]\![*]\q[Yes,vibryes]\n\![*]\q[No,vibrno]\_q"
+
+	
+	// if reference0 == 0 //Don't touch this line.
+ 	// {
 		
- 	}
-	else 
- 	{
-		//---- This is dialogue for when the user uninstalls the ghost for whatever reason, then reinstalls them again. They will run this dialogue instead of their normal dialogue above. You can change this to reflect the fact the user's uninstalled your ghost once, or you can make it the same as the above, it's up to you. You'll see this if you try to run OnFirstBoot using ![raise] without the extra 0 as mentioned above.
- 		{
- 		"\![enter,passivemode]\1\s[10]\0\s[0]\i[5]\i[8](\_qHave I.\w8.\w8.\w8 Been here before.\w8.\w8.\w8? No.\w8.\w8.\w8 That would be quite strange.\w8.\w8.\w8)\_q\w8\w8\x\0\s[5]Hello,\w8 and welcome to C-\w8\0\s[3]...\0\s[3]\i[5]\i[62]\w8\n[150]\0\s[0]\i[5]\i[8]\i[61]%property[system.os.name]!\w8\n[150]Yes!\w8 \i[62]Of course\i[61]!\x\0\s[2]\i[5]Uh, \i[62]I-\c[char,6]\0\s[5]To begin,\w8 I need to get to know you first!\n[150] I will need your name,\w8 pronouns,\w8 and birthday.\x"
-		}
- 	}
+	// 	//Entry dialogue here, move to name first
+	// 	//rip encoded alt names you'll never be seen again
+	// 	//maybe if i lose my mind and make al (upd: i am currently making al and i did not use the alias thing lol
+	// 	altairFirstBootZero
+	// 	//"\s[0]a"
+		
+ 	// }
+	// else 
+ 	// {
+	// 	//---- This is dialogue for when the user uninstalls the ghost for whatever reason, then reinstalls them again. They will run this dialogue instead of their normal dialogue above. You can change this to reflect the fact the user's uninstalled your ghost once, or you can make it the same as the above, it's up to you. You'll see this if you try to run OnFirstBoot using ![raise] without the extra 0 as mentioned above.
+ 		
+	// 		altairFirstBootElse
+		
+ 	// }	
+}
+
+Select.vibryes
+{
+	noVibrate = 0 //this initializes the variable toggle for vibration. user will be able to toggle this in settings
+	if saveRef0 == 0; altairFirstBootZero //this is the branching that used to be in firstboot
+	else;altairFirstBootElse
+	ERASEVAR('saveRef0') //no longer need the saved variable
+}
+
+Select.vibrno
+{
+	noVibrate = 1 //if we disable vibration the tags that thave rigel vibrate will be "eaten" by an OnTranslate function. more in anchor.dic
+	if saveRef0 == 0; altairFirstBootZero
+	else;altairFirstBootElse
+	ERASEVAR('saveRef0')
+}
+
+//and from here on out aster should behave as normal
+altairFirstBootZero
+{
+	"\0\![set,alpha,0]%(FadeIn)\s[rDef]Hello,\w8 and welcome!\w8\n[150]Thank you for choosing TerraByte software!\x\0\s[rHap]My name is Aster, \w8and I'll be your guide through the installation and usage of Ca- \w8\0\s[rNeu]\n\n[half]\w8.\0\s[rSup].\0\s[3]\i[5].W\0\s[0]\i[5]\i[8]\w8\w8- %property[system.os.name],\w8 \i[62]of course!\w8\i[61]\f[italic,0]\x\0\s[2]U\0\s[2]\i[5]h- \s[0]\i[5]\i[8]\i[62]I...\c\0\s[5]I see you've already set yourself up quite nicely!\w8\n[150]Well done!\w8 \w8\n[150]\0\s[0]\i[5]But I will still be more than happy to help you with anything to enhance your experience.\x\0\s[0]Since this is the first time we talk,\w8 I would love to get to know you!\n[150]\w8\0\s[0]I will need your name,\w8 pronouns,\w8 and birthday.\x"
+	--
+	NameInput
+}
+
+altairFirstBootElse
+{
+	"\t\*\![enter,passivemode]\1\s[10]\0\s[0]\i[5]\i[8](\_qHave I.\w8.\w8.\w8 Been here before.\w8.\w8.\w8? No.\w8.\w8.\w8 That would be quite strange.\w8.\w8.\w8)\_q\w8\w8\x\0\s[5]Hello,\w8 and welcome to C-\w8\0\s[3]...\0\s[3]\i[5]\i[62]\w8\n[150]\0\s[0]\i[5]\i[8]\i[61]%property[system.os.name]!\w8\n[150]Yes!\w8 \i[62]Of course\i[61]!\x\0\s[2]\i[5]Uh, \i[62]I-\c[char,6]\0\s[5]To begin,\w8 I need to get to know you first!\n[150] I will need your name,\w8 pronouns,\w8 and birthday.\x"
 	--
 	NameInput
 }
@@ -74,6 +116,8 @@ OnFirstBoot
 
 NameInput
 {
+	"\t\*"
+	--
 	if firstsetup == 0 //setting up for the first time
 	{	
 	//cont in nameteach.dic
@@ -95,6 +139,8 @@ NameInput
 // edit: on later inspection seems like other people have done this before. i didn't look into those ghosts too deeply, but that makes me happy!
 OnPronounTeach
 {
+	"\t\*"
+	--
 	case vegafront
 	{
 		when 0;"\0\s[0]Your pronouns?\n[150]"
@@ -167,6 +213,8 @@ Select.choiceneo
 
 NeoStart
 {
+	"\t\*"
+	--
 	presuffix = "undefined"
 	--
 	case vegafront
@@ -179,6 +227,8 @@ NeoStart
 
 neosmid
 {	
+	"\t\*"
+	--
 	case vegafront
 	{
 		when 0;"\0\s[0]Now,\w8 the objective case.\w8 \n\n[half](As in him, her, them).\![open,inputbox,OnSethimher,-1]"
@@ -187,6 +237,8 @@ neosmid
 }
 neosend
 {
+	"\t\*"
+	--
 	case vegafront
 	{
 		when 0;"\0\s[0]Lastly, the possessive case. \n\n[half](As in his, her, their).\![open,inputbox,OnSethisher,-1]"
@@ -235,6 +287,8 @@ OnSethisher
 
 testneo
 {
+	"\t\*"
+	--
 	//no capitalisation in the test sentence is bothering me so
 
 	//WOULD BE GOOD TO KNOW THAT UNDERSCORE MEANS THE VARIABLE IS LOCAL
@@ -281,6 +335,8 @@ Select.neosback
 //im basically changing the menu option into the first boot for now. move the shit in here
 BirthdayInput
 {	//wait this only scans during firstboot. hol up
+	"\t\*"
+	--
 	case vegafront
 	{
 		when 0 //rigel
@@ -309,6 +365,8 @@ BirthdayInput
 
 OnUserBornMonth
 {
+	"\t\*"
+	--
 	_tempmonth = TOSTR(reference0) //this stores what the user put in as a variable called _tempmonth
 	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
 	
@@ -370,6 +428,8 @@ Printday
 
 OnUserBornDay
 {
+	"\t\*"
+	--
 	_tempday = reference0 //storing the input in _tempday
 	_tempday = TOLOWER(_tempday) //changes it to lowercase
 	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
@@ -406,6 +466,8 @@ OnUserBornDay
 //sorry i have ruined your beautiful %(birthchecked) in the name of plugging my dialogue because i failed to see slash e at the end of the dialogue
 birthchecked
 {
+	"\t\*"
+	--
 	if userbirthday == dayslot //if today is the user's birthday
 	{
 		case vegafront
@@ -581,6 +643,8 @@ vegaboottalk
 
 OnClose //similar check to boot. first who's fronting and then what progression stage we're on
 {
+	if panelFix == 1; adjustStealthEnd
+	--
 	case vegafront
 	{
 		when 0; altairclosetalk //for when rigel is fronting
@@ -612,6 +676,8 @@ altairclosetalk
 //i've seen a couple messages on the bugtracker about it. so in case you're wondering it's probably not my code lol
  OnWindowStateMinimize
 {
+	if panelFix == 1; adjustStealthEnd //more in menu.dic
+	--
 	"\t"
 	--
 	case vegafront
@@ -668,6 +734,8 @@ OnWindowStateRestore
 //This runs whenever you change or reload the ghost.  
 OnGhostChanging
  {
+	if panelFix == 1; adjustStealthEnd
+	--
 	if reference0 == "Aster" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt.
 	{		
 		case vegafront
@@ -718,8 +786,19 @@ OnGhostChanged
 	//"\![set,sticky-window,1,0,2]"
 }
 
+//writing this months later. i had no idea OnInitialize already existed...
 OnInitBoot //initialize variables during boot...
 {
+	if vegaSeen == "" //for panel adjustment mode, more in menu.dic. normally is set to 1 during the specific conversation where vega first shows up
+	{
+		if stage == 2 || stage == 3 || talkedStageone[5] == 1; vegaSeen = 1
+		else; vegaSeen = 0
+	}
+	--
+	//if the user updates and has no variable, they obviously don't have their vibration locked. we set it to 0
+	//this also should set it to No should the user accidentally skip the query by accident
+	if noVibrate == ""; noVibrate = 0
+	--
 	//saori_cpuid.dll. required for certain dialogue
 	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
 	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")

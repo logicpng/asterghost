@@ -132,7 +132,8 @@ altairzerotalk : nonoverlap_pool //zero stage chatter. genuine tips most of the 
 
 altaironestart //stage 1 start
 {
-	
+	"\t\*"
+	--
 	"\![enter,passivemode]\0\s[1]I... \w8\0\s[4]\i[1]need to tell you something.\w8\n[150]\0\s[4]I haven't been completely truthful with you.\x\0\s[1]I'm...\w8\w8\w8 \0\s[0]\i[5]\i[8]not actually built for this system.\w8\n[150]\s[2]There,\w8 \i[62]I said it!\w8 \s[4]I have no idea \i[62]why\i[61] I'm here and how I'm compatible at all,\w8 but I know I'm not \i[62]supposed\i[61] to be here!\s[4]\x\0\s[3]The more I look around the more confusing it gets!\w8 \0\s[0]It's not that different on the looks here, \w8\0\s[1]but under the hood...\w8\n[150]\0\s[2]I guess it would be like being in a new country for you,\w8 wouldn't it?\x\0\s[4]So,\w8\w8 I can't really do most things I should be able to do...\x\0\s[1]But,\w8 since you did install me...\w8\n[150]\0\s[2]Can I stick around anyway?\w8 \0\s[1]I can still do some stuff for you,\w8 \0\s[0]and just keep you company,\w8 \i[5]if nothing else.\x\i[8]So,\w8 can I stay...?\n[150]"
     --
     "\![*]\q[You can stay,canstay]\n\![*]\q[No\, you can't stay,cantstay]"
@@ -142,6 +143,8 @@ altaironestart //stage 1 start
 
 Select.cantstay
 {
+	"\t\*"
+	--
     wowrude = 1 //i mean we are the one who wrote this but how dare you (joke)
     "\0\s[4]I understand...\w8\w8\w8 Nobody wants software that doesn't work right.\w8 \0\s[0]\i[5]\n[150]Well,\w8 you should know how to delete me, then.\w8 \0\s[2]It was nice to meet you anyway. \w8\0\s[0]\i[5]\n[150]Goodbye, %(username)!\w8\w8\w8\-"
     //DIALOGUE CLOSES SSP. ENABLE 'DISABLE \- TAG EXIT' BEFORE TESTING
@@ -149,6 +152,8 @@ Select.cantstay
 
 altairbootrude
 {
+	"\t\*"
+	--
     "\![enter,passivemode]\0\s[1]I'm back...?\w8 \0\s[3]I'm back!\w8 \0\s[0]\i[5]\n[150]Have you changed your mind?"
     "\![enter,passivemode]\0\s[3]\i[62]Oh!\w8 \s[3]%(username)!\w8\n[150]Did you change your mind after all?\w8 I can stay?"
     "\![enter,passivemode]\0\s[3]%(username)!\w8 \0\s[8]It's you!\w8 \0\s[0]\i[5]\n[150]I can stay after all...?"
@@ -158,6 +163,8 @@ altairbootrude
 
 Select.stillno //HOW DAre (joke)
 {
+	"\t\*"
+	--
     "\0\s[6]Please don't toy with me like that...\w8\w8\w8"
     "\0\s[3]\i[62]\w8\0\s[4]Why even launch me,\w8 then...?\w8\w8\w8"
     "\0\s[1]Was this an accident...?\w8 \0\s[4]Ah well...\w8\w8\w8"
@@ -167,6 +174,8 @@ Select.stillno //HOW DAre (joke)
 
 Select.canstay
 {
+	"\t\*"
+	--
     //the actual transition to stage 1
     stageTime = 0
 	talkcount = 0
@@ -704,7 +713,8 @@ vegastretchlow : nonoverlap_pool
 vegathreestart
 {
 	//"Conditions for stage transition are met. But, no dialogue yet. ...Take your time."
-	
+	"\t\*"
+	--
 	"\![enter,passivemode]"
 	--
 	"\1\t\s[17]\w3\1\s[11]\i[1]\i[62]%(username)\i[61]!\x\1Hi again!\w8 \1\s[11]Good to see Vega's been treating you well!\w8\w8\n[150]\0\0\s[20]\i[7]\i[10]...\n[150]\x\1\s[11]\i[1]I think I've had long enough of a break now!\w8\n[150]\1\s[15]Ready to swap in and get back to work!\w8\w8\n[150]\0\s[20]\i[1]What work?\w8\w8\n[150]\1...\s[16]Right.\w8\x\1\i[62]Well\i[61]!\w8\n[150]\1\s[11]Either way,\w8 we can swap whenever you feel ready!\w8\w8"
@@ -1898,7 +1908,7 @@ altairwindowcheck : nonoverlap_pool
 			--
 			"\0\s[3]\i[5]\i[62]Oh-\w8\0\s[3] sorry!\w8 \0\s[2]\i[9]I got distracted."
 			"\0\s[3]\i[5]\i[62]Ah!\i[61]\w8 Sorry,\w8 \0\s[2]\i[9]Seeing %(appName) made me want to look at some song lyrics...\w8 Hah..."
-			if stage == 3;"\1\s[33]\w3...\1\s[30]\i[12]Want to listen.\w8\w8\n[150] Let me?\w8\w8 \0\0\s[0]\i[5]Well-\w4 \0\s[3]\i[62]hang on\i[61] now,\w4 \0\s[0]\i[5]\i[8]won't you wait for your turn-\1\s[10]\![raise,OnSwitch]"
+			if stage == 3;"\1\s[33]\w3...\1\s[30]\i[12]Want to listen.\w8\w8\n[150] Let me?\w8\w8 \0\0\s[0]\i[5]\![set,balloonwait,60%]Well-\w4 \0\s[3]\i[62]hang on\i[61] now,\w4 \0\s[0]\i[5]\i[8]won't you wait for your turn-\1\s[10]\![raise,OnSwitch]"
 		}
 			
 	} 
@@ -1934,7 +1944,7 @@ altairwindowcheck : nonoverlap_pool
 		{
 			"\0\s[0]Ahh...\w8 \0\s[5]It's good of you to have an antivirus installed!\w8\n[150]\0\s[0]That's what %(appName) is,\w8 correct?\w8 \0\s[5]You clearly care about your computer's safety!"
 			--
-			if stage == 3;"\w8\n[150]\1\s[33]\w3\1\s[30]\i[11]\i[10]Competition.\w8\w8 Annoying...\w8\w8 \i[14]I work alone!\w8\w8\0\0\s[3]\i[5]\i[62]Vega,\w3 \i[61]hang on,\w3 \0\s[6]you're \i[62]pushing me out-\i[61]\1\s[10]\![raise,OnSwitch]"
+			if stage == 3;"\w8\n[150]\1\s[33]\w3\1\s[30]\i[11]\i[10]Competition.\w8\w8 Annoying...\w8\w8 \i[14]I work alone!\0\0\s[3]\i[5]\i[62]\![set,balloonwait,50%]Vega,\w3 \i[61]hang on,\w3 \0\s[6]\![set,balloonwait,60%]you're \i[62]pushing me out-\i[61]\1\s[10]\![raise,OnSwitch]"
 		}
 
 		if "Windows 10" _in_ os_name || "Windows 11" _in_ os_name
@@ -1954,7 +1964,7 @@ altairwindowcheck : nonoverlap_pool
 				"\0\s[0]\i[5]I think...\w8 \i[8]\i[62]I think\i[61] it might be Vega stirring.\n[150]\w8He's-\w8 \0\s[4]\i[1]he's a bit bothered by programs that do his job.\n[150]"
 				--
 				"\0\s[4]\i[1]I suppose I understand.\w8 \0\s[0]\i[5]Maybe I would be peeved if you've used another assistant over me...\w8 \0\s[7]But that would be pretty unprofessional to show it,\w8 \0\s[0]\i[5]wouldn't it?"
-				"\0\s[2]\i[5]...\i[62]Ah-!\i[61]\w3 \0\s[3]Okay,\w3 \0\s[3]\i[5]easy now-!\w3 \0\s[3]\i[62]You're just intruding at this-\i[61]\![raise,OnSwitch]"
+				"\0\s[2]\i[5]...\i[62]Ah-!\i[61]\w3 \0\s[3]Okay,\w3 \0\s[3]\i[5]easy now-!\w3 \0\s[3]\i[62]\![set,balloonwait,30%]You're just intruding at this-\i[61]\![raise,OnSwitch]"
 			} 
 			else; "\0\s[0]\i[5]I can't quite explain it...\w8\w8 \i[8]\i[62]\n[150]Well-\w8 \0\s[2]nevermind all that."
 		}
@@ -2055,7 +2065,7 @@ vegawindowcheck : nonoverlap_pool
 		"\0\s[20]%(appName).\w8\w8 \0\s[22]Graphics editor.\w8\w8\0\s[24]\n[150]An artist...?"
 		"\0\s[22]Watching you create is...\w8\w8\n[150]\0\s[22]\i[1]Interesting."
 		"\0\s[20]%(appName) running.\w8\w8\n[150]\0\s[22]\i[1]Let me watch...?"
-		if stage == 3; "\0\s[22]\i[1]Mm...\w8\w8 \0\s[20]%(appName) running.\w8\n[150]\1\s[17]\w3Oh?\w3 \1\s[15]Let me see,\w3 \i[62]I wanna watch!!\0\0\s[21]\i[12]Wait,\w8 not now-\1\s[10]\![raise,OnSwitch]"
+		if stage == 3; "\0\s[22]\i[1]Mm...\w8\w8 \0\s[20]%(appName) running.\w8\n[150]\1\s[17]\w3Oh?\w3 \1\s[15]\![set,balloonwait,80%]Let me see,\w3 \i[62]I wanna watch!!\0\0\s[21]\i[12]Wait,\w8 \![set,balloonwait,50%]not now-\1\s[10]\![raise,OnSwitch]"
 	}
 	else; RandomTalkTakeTwo
 
@@ -2067,7 +2077,7 @@ vegawindowcheck : nonoverlap_pool
 		"\0\s[24]%(appName)...\w8\w8 Vector graphics editor.\w8\w8\n[150]\0\s[20]Curious.\w8\w8 \0\s[22]Graphic designer,\w8 perhaps...?"
 		"\0\s[20]Mm.\w8\w8 %(appName).\w8\w8 \0\s[20]\i[10]Vector art...\w8\w8 Just math.\w8\w8\n[150]...\0\s[24]Is math an art?\w8\w8 \0\s[21]Rhethorical.\w8\w8 \0\s[23]\i[0]Don't answer that."
 		"\0\s[24]Hm.\w8\w8 My face...\w8\w8\n[150]Easy to make,\w8 in %(appName).\w8\w8 Some circles and triangles...."
-		if stage == 3;"\1\s[17]\w3\1\s[15]Ooh is that %(appName)?\w8 \i[62]I wanna see what %(username) is doing!\w8\0\s[22]Maybe later...?\w8\w8 \0\s[25]Stop,\w4 \0\s[25]\i[7]you're shoving-\1\s[10]\![raise,OnSwitch]"
+		if stage == 3;"\1\s[17]\w3\1\s[15]Ooh is that %(appName)?\w8 \i[62]I wanna see what %(username) is doing!\w8\0\s[22]Maybe later...?\w8\w8 \0\s[25]Stop,\w4 \0\s[25]\i[7]\![set,balloonwait,60%]you're shoving-\1\s[10]\![raise,OnSwitch]"
 	}
 	else; RandomTalkTakeTwo
 

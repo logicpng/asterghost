@@ -240,7 +240,9 @@ OnConvoCaelos
 //the rest still remain "optional" in a sense. like you have to go through them but
 Select.plural
 {
-    "\0\s[3]\i[5]\i[62]Ah-!\i[61]\w8 Oh,\w8 \0\s[3]I just \i[62]misspoke\i[61]!\w8 \n[150]Or- \0\s[0]\i[5]\i[8]or \i[62]maybe\i[61] \f[italic,1]you\f[italic,0] misheard,\w8 \0\s[3]or,\w8 er,\w8 \i[62]misread\i[61], I-\n[150]\1\s[33]...Enough.\w8\w8 \1\s[32]Too obvious.\0\8[chord.wav]\s[3]\i[5]\i[62]\t\p[2]\s[50]\0\w8\w3\i[61]\n[150]\1\x\1\s[30]Startled?\w8\w8\0\s[3]...You tear back the curtain without warning and ask me if I'm \0\s[6]\i[62]startled??\0\s[6]\w8\w8\1\s[32]\n[150]\i[8]Secret's out.\w8\w8 \1\s[32]No point hiding.\x\1\s[30]Hello,\w8 %(username).\w8\w8 We are two.\w8\w8 \n[150]\1\s[32]Both Aster.\w8\w8 Different functions.\w8\w8 \n[150]\1\s[30]Nice to meet you.\0\s[6]\i[5]Nice to meet you, he says, what ab\1\s[34]\0out-\w8 \i[62]Grrrgh...\i[61]\x\0\s[4]...Sigh.\w8 \0\s[1]I'm sorry,\w8 %(username),\w8 \0\s[0]\i[5]I didn't really want you to find out already.\w8 \n[150]\0\s[6]I'll...\w8 \0\s[4]have a talk with him later.\p[2]\s[51]\0"
+    "\![set,balloonwait,30%]\0\s[3]\i[5]\i[62]Ah-!\i[61]\w8 Oh,\w8 \0\s[3]\![set,balloonwait,100%]I just \i[62]misspoke\i[61]!\w8 \n[150]Or- \0\s[0]\i[5]\i[8]\![set,balloonwait,60%]or \i[62]maybe\i[61] \f[italic,1]you\f[italic,0] misheard,\w8 \0\s[3]or,\w8 er,\w8 \i[62]misread\i[61], I-\n[150]\![set,balloonwait,100%]\1\s[33]...Enough.\w8\w8 \1\s[32]Too obvious.\0\8[chord.wav]\s[3]\i[5]\i[62]\t\p[2]\s[50]\0\w8\w3\i[61]\n[150]\1\x\1\s[30]Startled?\w8\w8\0\s[3]...You tear back the curtain without warning and ask me if I'm \0\s[6]\i[62]startled??\0\s[6]\w8\w8\1\s[32]\n[150]\i[8]Secret's out.\w8\w8 \1\s[32]No point hiding.\x\1\s[30]Hello,\w8 %(username).\w8\w8 We are two.\w8\w8 \n[150]\1\s[32]Both Aster.\w8\w8 Different functions.\w8\w8 \n[150]\1\s[30]Nice to meet you.\0\s[6]\i[5]\![set,balloonwait,60%]Nice to meet you, he says, \![set,balloonwait,30%]what ab\1\s[34]\0out-\w8 \i[62]\![set,balloonwait,180%]\n[150]Grrrgh...\i[61]\x\0\s[4]...Sigh.\w8 \![set,balloonwait,100%]\0\s[1]I'm sorry,\w8 %(username),\w8 \0\s[0]\i[5]I didn't really want you to find out already.\w8\n[150]\0\s[6]I'll...\w8 \0\s[4]have a talk with him later.\p[2]\s[51]\0"
+    --
+    "\x\_q[Side panel adjustment was added to Options]\_q"
     --
     I = "we"
 	Me = "us"
@@ -248,6 +250,7 @@ Select.plural
     IAm = "we are"
 	IWas = "we were"
     talkedStageone[5] = 1
+    vegaSeen = 1 //now that we've seen vega we can enable adjustment panel setting
     messagegag = 1 //flag for the message being shown
     "\x%(OnAltairLore)"
 }
@@ -261,7 +264,7 @@ Select.morethanone
     } 
      //close the message
     --
-    "\0\s[4]\i[1]So,\w8 we are indeed two.\w8 "
+    "\t\*\0\s[4]\i[1]So,\w8 we are indeed two.\w8 "
     --
     if stage == 1; "\n[150]Though,\w8 \0\s[0]\i[5]you haven't seen the other one yet.\w8 That little panel is just an extra mouth and eye to us.\x"
     else; "\0\s[5]We have different preferred color schemes...\w8 \0\s[7]for some reason.\w8\n[150]\0\s[0]But we still inhabit the same model you see before you!\x"
@@ -283,7 +286,7 @@ Select.names //transition to stage 2
     --
     "\![enter,passivemode]"
     --
-    "\0\s[3]Oh!\w8 \i[62]Right!\i[61]\w8 The names!\x\0\s[8]Here's an idea!\w8 \0\s[5]We're called differently internally.\w8 \0\s[0]\n[150]My companion is Vega,\w8 and,\w8 for me,\w8 \0\s[5]call me \nRigel instead!\w8\w8\1\t\s[32]Not your name.\w8\w8\0\s[0]\i[6]\n[150]Well-!\w8 \0\s[0]\i[5]I don't \f[italic,1]like\f[italic,0] Altair, it's so \0\s[0]\i[6]\i[62]regal!\i[61]\w8 \0\s[2]It doesn't really fit me...\w8\x\s[0]\i[5]Um-\w8 \s[0]Oh hey,\w8 I could actually use a break,\w8 \0\s[0]\i[5]could you...\w8 \0\s[4]\i[1]Um.\w8\n[150]I'd like to switch places.\n[150]\w8\w8\1\s[30]Rigel?\w8\w8 \s[30]\i[1]Our face and salesman?\w8\w8 \f[italic,1]Switch?\f[italic,0]\n[150]\w8\w8\0\s[0]\i[6]Rub it in,\w8 \i[62]will you-\i[61] \0\s[6]No,\w8 \0\s[1]\i[62]enough\i[61],\w8 \i[62]\0\s[4]\i[62]enough\i[61] \0\s[7]\i[62]enough\i[61].\w8 \0\s[1]I'm sorry,\w8 it was a long day.\w8 \0\s[0]\i[5]You don't need that either.\w8\w8\n[150]\1\s[32]No offense taken.\w8\w8 \s[30]Let me help.\w8\w8\0\s[4]\i[1]Thank you...\w8 \0\s[0]I'll be around,\w8 %(username),\w8 \0\s[5]just resting to the side.\x\b[-1]"
+    "\t\*\0\s[3]Oh!\w8 \i[62]Right!\i[61]\w8 The names!\x\0\s[8]Here's an idea!\w8 \0\s[5]We're called differently internally.\w8 \0\s[0]\n[150]My companion is Vega,\w8 and,\w8 for me,\w8 \0\s[5]call me \nRigel instead!\w8\w8\1\t\s[32]Not your name.\w8\w8\0\s[0]\i[6]\n[150]Well-!\w8 \0\s[0]\i[5]I don't \f[italic,1]like\f[italic,0] Altair, it's so \0\s[0]\i[6]\i[62]regal!\i[61]\w8 \0\s[2]It doesn't really fit me...\w8\x\s[0]\i[5]Um-\w8 \s[0]Oh hey,\w8 I could actually use a break,\w8 \0\s[0]\i[5]could you...\w8 \0\s[4]\i[1]Um.\w8\n[150]I'd like to switch places.\n[150]\w8\w8\1\s[30]Rigel?\w8\w8 \s[30]\i[1]Our face and salesman?\w8\w8 \f[italic,1]Switch?\f[italic,0]\n[150]\w8\w8\0\s[0]\i[6]Rub it in,\w8 \i[62]will you-\i[61] \0\s[6]No,\w8 \0\s[1]\i[62]enough\i[61],\w8 \i[62]\0\s[4]\i[62]enough\i[61] \0\s[7]\i[62]enough\i[61].\w8 \0\s[1]I'm sorry,\w8 it was a long day.\w8 \0\s[0]\i[5]You don't need that either.\w8\w8\n[150]\1\s[32]No offense taken.\w8\w8 \s[30]Let me help.\w8\w8\0\s[4]\i[1]Thank you...\w8 \0\s[0]I'll be around,\w8 %(username),\w8 \0\s[5]just resting to the side.\x\b[-1]"
     --    
     //after this one we switch to Vega and the option will be unavailable
     //speaking of the name Altair. altair thematically fits alongside vega, both being names of stars meaning something like "flying eagle" and "falling eagle". however rigel grew way too quick on me, thanks to the name resembling a very human name of Nigel. i think if he were human that would be the name he'd go with

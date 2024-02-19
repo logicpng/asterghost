@@ -166,6 +166,7 @@ Select.configmenu
 //--TalkConfig
 //This menu allows the user to change their name and other information, as well as put in their birthday and change how often the ghost speaks. You can restructure how this looks if you want, but it's perfectly functional as is. You can of course change the dialogue though if you like.
 
+//jesus this is so messy now...
 TalkConfig
 {
 	if stage != 0 && mercy != 1
@@ -186,38 +187,125 @@ TalkConfig
 		mercy = 1
 	}
 	--
-	"\0\b[2]\_q\" 
+	"\0\b[2]\_q" 
 	--
-	"f[bold,1]Your name:\f[bold,0]\n   %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
+	"\f[bold,1]Your name:\f[bold,0] %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
 	--
-	"\f[bold,1]Your pronouns:\f[bold,0]\n   %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
+	"\f[bold,1]Your pronouns:\f[bold,0] %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
 	--
-	"\f[bold,1]Your birthday:\f[bold,0]\n   %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n[150]"
+	"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n[150]"
 	--
 	"\f[bold,1]Talk Rate:\f[bold,0]\n   Every %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]"
 	--
 	if firstbrowser == 1
 	{
-		"\n\f[bold,1]Homepage:\f[bold,0]\n   "
+		"\n\f[bold,1]Homepage:\f[bold,0] "
 		--
 		if homepage != ""; "%(homepage)"
 		else; "Disabled"
 		--
 		" \f[sup,1](\q[Change it,homepageChange])\f[sup,0]"
 	}
+	--
+	"\n[150]"
 	--	
 		if stage == 0	
 		{
-		"\n\![*]Enable Uninstall? (NOW : %(deleteshitai))\n\q[ON,deleteon] \q[OFF,deleteoff]"
+		"\![*]Enable Uninstall? (NOW : %(deleteshitai))\n\q[ON,deleteon] \q[OFF,deleteoff]\n"
 		}
 	--
-	"\n[150]"
+	"\![*]Enable vibration? (NOW : " //vibration setting
+	--
+	if noVibrate == 1; "OFF"
+	else; "ON"
+	--
+	")\n\q[ON,vibron] \q[OFF,vibroff]\n[150]"
+	--
+	//if we've seen vega talk for the first time already, allow the user to adjust position of the side panel
+	if vegaSeen == 1; "\![*]\q[Adjust side panel's position,OnAdjustSidePanel]\n"
 	--
 	if stage != 0;"\![*]\q[Optional Features,permmenu]\n" //moved permissions menu to options as just an extra page
 	--
 	"\![*]\q[Open SSP Preferences,sspconfig]\n"
 	--
 	"\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+Select.vibron
+{
+	noVibrate = 0
+	--
+	TalkConfig
+}
+
+Select.vibroff
+{
+	noVibrate = 1
+	--
+	TalkConfig
+}
+
+//Adjust side panel mode.
+OnAdjustSidePanel : all
+{
+	"\![reset,sticky-window]"
+	 //will change OnAITalk behavior, OnSecondChange, mouse interactions are disabled, OnSurfaceRestore doesn't hide the side panel either
+	case vegafront
+	{
+	when 0;"\0\s[3]Oh!\w8\n[150]\0\s[0]\i[5]Hey,\w8 could you say something for a second...?\w8\1\s[33]\w3\1\s[30]Hm?\w8"
+	others;"\0\s[20]\i[1]Rigel.\w8\1\s[17]\w3\1\s[11]Yes?\w8 Did you need anything?\w8"
+	}
+	--
+	"\n[150]\_q\f[bold,1][Move the panel as necessary. Double click on its face or wait to finish.]\f[bold,0]\_q"
+	--
+	"\![notify,OnPanelFixStart]\e"
+}
+
+OnPanelFixStart
+{
+	timer_interval = 0
+	timer_prev = systemuptime
+	panelFix = 1
+}
+
+//Mode above is ended by double clicking on side panel's face or waiting 5 seconds since moving (since OnDragEnd/Start)
+OnAdjustSidePanelEnd : all
+{
+	"\![set,sticky-window,1,0]"
+	panelFix = 0 //returning things to normal
+	case vegafront
+	{
+		when 0;"\1\s[32]Going back to sleep.\s[34]\w8\0\s[0]Ah,\w8 all done?"
+		others;"\1\s[16]Ah,\w8 that was it?\w8 Very well!\s[18]\w8\w8\0\s[20]\i[10]\i[1]There."
+	}
+	--
+	"\e"	
+}
+
+adjustTimerCheck
+{
+	if dragging != 1; timer_interval = systemuptime - timer_prev //calculate difference between current system time and time passed
+	//timer_prev = systemuptime
+	if timer_interval > 10 //if it's been 10 seconds
+	{	
+		OnAdjustSidePanelEnd //we end adjustment mode
+		ERASEVAR('timer_interval') //i forgot you have to enclose your variables in quotes goddammit
+		ERASEVAR('timer_prev')
+	}
+}
+
+adjustStealthEnd //for certain functions that will need premature end to the mode
+{
+	panelFix = 0
+	ERASEVAR('timer_interval')
+	ERASEVAR('timer_prev')
+	"\![set,sticky-window,1,0]"
+	--
+	case vegafront
+	{
+		when 0;"\1\s[34]"
+		others;"\1\s[18]"
+	}
 }
 
 //it felt more efficient to just reuse the functions already declared in bootend.dic. 
@@ -1403,6 +1491,7 @@ resetstage
 
 Select.gotoStageZero
 {
+	vegaSeen = 0
 	vegamet = 0
 	resetstage
 	stage = 0
@@ -1418,6 +1507,7 @@ Select.gotoStageZero
 Select.gotoStageOne
 {
 	vegamet = 0
+	vegaSeen = 0
 	resetstage
 	stage = 1
 	I = "I"
@@ -1432,6 +1522,7 @@ Select.gotoStageOne
 Select.gotoStageTwo
 {
 	resetstage
+	vegaSeen = 1
 	stage = 2
 	I = "we"
 	Me = "us"
@@ -1444,6 +1535,7 @@ Select.gotoStageTwo
 
 Select.gotoStageThree
 {
+	vegaSeen = 1
 	I = "we"
 	Me = "us"
 	My = "our"

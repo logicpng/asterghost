@@ -1,6 +1,6 @@
 ﻿seriko.alignmenttodesktop,free
 seriko.use_self_alpha,1
-seriko.sticky-window,0,1,2
+seriko.sticky-window,0,1
 
 charset,UTF-8
 type,shell

@@ -6,9 +6,10 @@
 OnAiTalk
  {
 	//if strokecount > 3 || ( pokecount > 10 && vegafront > 0 ) || ( pokecount > 15 && vegafront == 0 ) 
-	if BotherCondition  //character is hidden or too bothered
+	if BotherCondition || panelFix == 1 //character is hidden or too bothered; alternatively side panel adjustment is turned on and aster shouldn't speak
 	{
-		"\e" //if aster is bothered enough, skip section entirely until the counters reset
+		//"\e" //if aster is bothered enough, skip section entirely until the counters reset
+		return //forgot this exists lol
 	}
 	else
 	{
@@ -52,8 +53,8 @@ OnAiTalk
 			//"\1\5" //moves side character next to main one. it'll make a small pause before aster speaks, but it'll prevent situations where kero is on the other side of the screen
 			//in etc.dic
 			--
-			if mikireflag == 0
-			{
+			//if mikireflag == 0
+			//{
 				if CHAIN.IDName == "" {
 					lastTalk = RandomTalk
 				}
@@ -61,11 +62,11 @@ OnAiTalk
 					lastTalk = ChainTalk
 				}
 				lastTalk
-			}
-			else
-			{ 
-			MikireTalk //offscreen/overlap talk. strangely seems to only refer to sakura. you can make kero respond through OnOffscreen but i can't get it to consistenlty get it to do what i want
-			}
+			//}
+			// else
+			// { 
+			// MikireTalk //offscreen/overlap talk. strangely seems to only refer to sakura. you can make kero respond through OnOffscreen but i can't get it to consistenlty get it to do what i want
+			// }
 		}
 	}
  }
@@ -101,8 +102,8 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 				}
 				else
 				{
-					if windowCheck =="ON" && _rand > 80; "%(altairwindowcheck)\e" //window commentary
-					elseif careCheck == "ON" && _rand > 60; "%(altairselfcare)\e" //selfcare chatter
+					if windowCheck =="ON" && _rand > 80; "%(altairwindowcheck)" //window commentary
+					elseif careCheck == "ON" && _rand > 60; "%(altairselfcare)" //selfcare chatter
 					else; altaironetalk
 				} 
 			}
@@ -110,8 +111,8 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 			{
 				if _rand >= 98 && talkcount > 10; altairselfswitch //less chance of switch, feels obligated to stick around. may tweak later
 				elseif _rand > 65; altairthreetalk 
-				elseif windowCheck =="ON" && _rand > 40; "%(altairwindowcheck)\e" //window commentary
-				elseif careCheck == "ON" && _rand > 25; "%(altairselfcare)\e" //selfcare chatter
+				elseif windowCheck =="ON" && _rand > 40; "%(altairwindowcheck)" //window commentary
+				elseif careCheck == "ON" && _rand > 25; "%(altairselfcare)" //selfcare chatter
 				else; altaironetalk
 				
 			} 
@@ -129,19 +130,19 @@ RandomTalk //pick a pool for random chatting depending on stage, who's fronting,
 				if stageTime > 2700 && talkcount > 9 && talkedStagetwo[7] == 1; vegathreestart // 45 minutes, 29 lines, topics covered
 				else
 				{
-					if stagetime > 1000 && _rand > 90; "%(vegastretchtalk)\e"
-					if windowCheck =="ON" && _rand > 75; "%(vegawindowcheck)\e" //window commentary
-					elseif careCheck == "ON" && _rand > 65; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty\
+					if stagetime > 1000 && _rand > 90; "%(vegastretchtalk)"
+					if windowCheck =="ON" && _rand > 75; "%(vegawindowcheck)" //window commentary
+					elseif careCheck == "ON" && _rand > 65; "%(vegaselfcare)" //selfcare chatter. less chance since not as chatty\
 					else; vegatwotalk
 				} 
 			}
 			when 3;
 			{
 				if RAND(100) >= 96 && talkcount > 5; vegaselfswitch //more chance to switch, more preference towards private time. may tweak later				
-				elseif _rand > 80; "%(vegastretchtalk)\e"		
+				elseif _rand > 80; "%(vegastretchtalk)"		
 				elseif _rand > 65; vegathreetalk
-				elseif windowCheck =="ON" && _rand > 50; "%(vegawindowcheck)\e" //window commentary
-				elseif careCheck == "ON" && _rand > 40; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty				
+				elseif windowCheck =="ON" && _rand > 50; "%(vegawindowcheck)" //window commentary
+				elseif careCheck == "ON" && _rand > 40; "%(vegaselfcare)" //selfcare chatter. less chance since not as chatty				
 				else; vegatwotalk
 				
 			} 
@@ -164,14 +165,14 @@ RandomTalkTakeTwo // so windowcheck takes a category, and if it doesn't find a p
 		{
 			when 1
 			{
-				if careCheck == "ON" && _rand > 80; "%(altairselfcare)\e" //selfcare chatter
+				if careCheck == "ON" && _rand > 80; "%(altairselfcare)" //selfcare chatter
 				else; altaironetalk
 			}
 			when 3
 			{
 				if _rand >= 98 && talkcount > 10; altairselfswitch //less chance of switch, feels obligated to stick around. may tweak later
 				elseif _rand > 65; altairthreetalk 
-				elseif careCheck == "ON" && _rand > 50; "%(altairselfcare)\e" //selfcare chatter
+				elseif careCheck == "ON" && _rand > 50; "%(altairselfcare)" //selfcare chatter
 				else; altaironetalk
 			}
 			others; "\0\s[3]\i[5]Oh,\w8 \i[62]fiddlesticks\i[61]...\w8 \0\s[3]This shouldn't happen.\w8 \0\s[0]\i[5]\i[8]Maybe there's someone you could make aware?\e"
@@ -183,16 +184,16 @@ RandomTalkTakeTwo // so windowcheck takes a category, and if it doesn't find a p
 		{
 			when 2
 			{
-				if stagetime > 1000 && _rand > 80; "%(vegastretchtalk)\e"					
-				elseif careCheck == "ON" && _rand > 50; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty\
+				if stagetime > 1000 && _rand > 80; "%(vegastretchtalk)"					
+				elseif careCheck == "ON" && _rand > 50; "%(vegaselfcare)" //selfcare chatter. less chance since not as chatty\
 				else; vegatwotalk
 			}
 			when 3
 			{
 				if RAND(100) >= 96 && talkcount > 5; vegaselfswitch //more chance to switch, more preference towards private time. may tweak later				
-				elseif _rand > 80; "%(vegastretchtalk)\e"		
+				elseif _rand > 80; "%(vegastretchtalk)"		
 				elseif _rand > 65; vegathreetalk
-				elseif careCheck == "ON" && _rand > 50; "%(vegaselfcare)\e" //selfcare chatter. less chance since not as chatty				
+				elseif careCheck == "ON" && _rand > 50; "%(vegaselfcare)" //selfcare chatter. less chance since not as chatty				
 				else; vegatwotalk
 			}
 			others; "\0\s[22]\i[8]Mm.\w8\w8 \0\s[25]Something broke.\w8\w8 \0\s[25]\i[7]We need maintenance.\e"
@@ -219,10 +220,11 @@ OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
 	--	
 	//Don't touch this part.
 	//ok fair this is useful code
-	if mikireflag == 1
- 	{
- 		MikireTalk
-	}
+	//nevermind not useful anymore
+	// if mikireflag == 1
+ 	// {
+ 	// 	MikireTalk
+	// }
  }
 
 //--OnSecondChange
@@ -230,6 +232,11 @@ OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
 
 OnSecondChange
  {	
+	if panelFix == 1
+	{
+		adjustTimerCheck //in menu.dic
+	}
+	--
 	BotherCheck
 	--
 	if passsec == 59
@@ -241,66 +248,70 @@ OnSecondChange
  		{
 	 	passsec = passsec + 1
 		}
-	if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted (Like "Hey! What are you doing?"), and have MikireTalk below be for if they continue to be offscreen ("Why are you leaving me out here? Help!" for example). I'll add an example bit of dialogue and comment it out, you can uncomment it and use it if you like, or just leave it out and use MikireTalk below.
-	{
-		if stuck != 1
-		{
-			stuck = 1
-			case vegafront
-			{
-				when 0; "\0\s[3]Hey,\w0 \0\s[3]\i[62]hey now,\w0 \0\s[3]you-\w3\n[150]\0\s[2]You've \0\s[6]kind of \0\s[0]\i[5]\i[8]shoved me through the screen boundaries there,\w8 \0\s[2]could you,\w8 um...\w8\w5 \0\s[0]\i[5]Not do that?"
-				others; "\0\s[25]Um."
-			}
-		}
-		else; MikireTalk
-	}
-	if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
-	{
-		EndMikireTalk
-	}
-	mikireflag = reference1 //reference1 is if the ghost is offscreen or not
-	if reference2 == 1; "\1\4\e" //no need to prompt dialogue, the character isn't visible normally.
+
+	// removing the offscreen talk. it seems to be more of a nuisanse than helpful currently
+
+	// if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted (Like "Hey! What are you doing?"), and have MikireTalk below be for if they continue to be offscreen ("Why are you leaving me out here? Help!" for example). I'll add an example bit of dialogue and comment it out, you can uncomment it and use it if you like, or just leave it out and use MikireTalk below.
+	// {
+	// 	if stuck != 1
+	// 	{
+	// 		stuck = 1
+	// 		case vegafront
+	// 		{
+	// 			when 0; "\0\s[3]Hey,\w0 \0\s[3]\i[62]hey now,\w0 \0\s[3]you-\w3\n[150]\0\s[2]You've \0\s[6]kind of \0\s[0]\i[5]\i[8]shoved me through the screen boundaries there,\w8 \0\s[2]could you,\w8 um...\w8\w5 \0\s[0]\i[5]Not do that?"
+	// 			others; "\0\s[25]Um."
+	// 		}
+	// 	}
+	// 	else; MikireTalk
+	// }
+	// if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
+	// {
+	// 	EndMikireTalk
+	// }
+	// mikireflag = reference1 //reference1 is if the ghost is offscreen or not
+	// if reference2 == 1; "\1\4\e" //no need to prompt dialogue, the character isn't visible normally.
  }
 
  //---- MikireTalk ---------------------------------------------------------------------
  //MikireTalk is dialogue for when your main character is off-screen. Like if you dragged Girl over to the side of your monitor until she was partially concealed by it.
  
-MikireTalk //this is honestly interesting because the sakurascript docs mention OnOverlap shiori events. was this made before such functions were implemented? i could in theory remove this code and try replacing it with the response to the event, but. as they say: don't fix what aint broke.
- {
-	case vegafront
-	{
-		when 0 //rigel pleads with user to get him back
-		{
-			"\0\s[0]\i[5]Hey,\w8 um,\w8 a little uncomfortable here..."
-			"\0\s[2]%(username)?\w8 Could you...\w8\0\s[0]\i[5] bring me back?\w8 Please?"
-			"\0\s[4]\i[1]%(username)...?\w8 Are you there?"
-			"\0\s[0]\i[5]\i[8]Hey,\w8 if-\w8 um...\w8 If it's not too hard,\w8 could you at least press Ctrl-Shift-F12 for me?\w8\n[150]Up to you,\w8 of course,\w8 you're the boss!\w8\n[150]But I would really appreciate if you did that!"
-		} 
-		others //vega just gets himself out
-		{
-			stuck = 0
-			"\0\s[25]...Cramped.\w8\w8 \0\s[20]I'll fix that.\0\![move,--X=-461,--Y=-461,--base=screen,--base-offset=right.bottom]\1\![moveasync,--X=-350,--Y=-0,--base=0,--base-offset=center.center,--move-offset=center.center,--option=ignore-sticky-window]"
-		} 
-	}
-	--
-	"\e"
-	//maybe rigel needs more responses? while vega removes himself from below rigel could plead with the user before moving himself anyway. the dialogue runs every second, it could get annoying really fast
- }
+// MikireTalk //this is honestly interesting because the sakurascript docs mention OnOverlap shiori events. was this made before such functions were implemented? i could in theory remove this code and try replacing it with the response to the event, but. as they say: don't fix what aint broke.
+//  {
+// 	case vegafront
+// 	{
+// 		when 0 //rigel pleads with user to get him back
+// 		{
+// 			"\0\s[0]\i[5]Hey,\w8 um,\w8 a little uncomfortable here..."
+// 			"\0\s[2]%(username)?\w8 Could you...\w8\0\s[0]\i[5] bring me back?\w8 Please?"
+// 			"\0\s[4]\i[1]%(username)...?\w8 Are you there?"
+// 			"\0\s[0]\i[5]\i[8]Hey,\w8 if-\w8 um...\w8 If it's not too hard,\w8 could you at least press Ctrl-Shift-F12 for me?\w8\n[150]Up to you,\w8 of course,\w8 you're the boss!\w8\n[150]But I would really appreciate if you did that!"
+// 		} 
+// 		others //vega just gets himself out
+// 		{
+// 			stuck = 0
+// 			"\0\s[25]...Cramped.\w8\w8 \0\s[20]I'll fix that.\0\![move,--X=-461,--Y=-461,--base=screen,--base-offset=right.bottom]\1\![moveasync,--X=-350,--Y=-0,--base=0,--base-offset=center.center,--move-offset=center.center,--option=ignore-sticky-window]"
+// 		} 
+// 	}
+// 	--
+// 	"\e"
+// 	//maybe rigel needs more responses? while vega removes himself from below rigel could plead with the user before moving himself anyway. the dialogue runs every second, it could get annoying really fast
+//  }
 
  //----EndMikireTalk--------------------------------------------------------------------
  //For after you bring the character back on screen.
  
-EndMikireTalk
- {
-	stuck = 0
-	if vegafront == 0; "\0\s[8]Oh!\w8 \0\s[0]There,\w8 thank you." //vega fixes himself without asking you, so only rigel has dialogue
- }
+// EndMikireTalk
+//  {
+// 	stuck = 0
+// 	if vegafront == 0; "\0\s[8]Oh!\w8 \0\s[0]There,\w8 thank you." //vega fixes himself without asking you, so only rigel has dialogue
+//  }
 
 OnSurfaceRestore //ngl im not sure what exactly defines how long does it take until sufrace restores but
  {
-	if BotherCondition
+	if BotherCondition || panelFix == 1
 	{
-		"\e" //interrupt surface restore if too flustered
+		//"\e" //interrupt surface restore if too flustered
+		return //or if the panel is being adjussted
 	}
 	--
 	"\![set,alpha,100]" //in case alpha got a bit botched due to script interruption or the like
@@ -373,6 +384,8 @@ OnKeyPress
 
 OnSwitch //Switch between Rigel and Vega
 {
+	"\t\*"
+	--
 	lastTalk = ""; //wipe last said thing, in case it contains pre-switch line and breaks things
 	if stage == 3; talkcount = 0 //reset dialogue counter. it already wipes during stage transition, this is more necessary for stage 3 switches 
 	switching = 1 //flag for OnBallonChange

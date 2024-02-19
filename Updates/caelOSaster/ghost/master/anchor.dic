@@ -26,7 +26,12 @@ OnTranslate
 	_talk = REPLACE(_talk, "Altair", "\f[color,#C94948]Altair\f[default]")
 	_talk = REPLACE(_talk, "Vega", "\f[color,#2D418E]Vega\f[default]")
 
-	//due to a function
+	if noVibrate == 1 //if user disables rigel's visual vibration the related interval tags get eaten
+	{
+		_talk = REPLACE(_talk, "\i[60]", "")
+		_talk = REPLACE(_talk, "\i[61]", "")
+		_talk = REPLACE(_talk, "\i[62]", "")
+	}
 	
 		if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
             EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')

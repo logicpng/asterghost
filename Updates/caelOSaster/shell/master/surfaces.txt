@@ -62,8 +62,6 @@ element3,overlay,surface1003.png,0,0
 	//remove sweat	
 	9interval,never
 	9pattern0,0,0,stop,8
-	
-
 }
 
 

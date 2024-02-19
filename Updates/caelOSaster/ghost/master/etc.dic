@@ -493,6 +493,8 @@ OnInstallRefuse
 
 OnVanishSelecting
 {
+	if panelFix == 1; adjustStealthEnd //just to be safe...
+	--
 	case stage
 	{
 		when 0;"\0\s[3]\i[5]No, \i[62]wait-\i[61] \0\s[0]\i[5]\i[8]\i[62]Please\i[61], give me a chance!\n[150]\0\s[4]I've \0\s[0]\i[5]\i[8]just started!\n[150]Just need a little \0\s[3]\i[62]time\s[0]\i[5]\i[8]!\n[150]\w8Please...?\e"
@@ -527,6 +529,8 @@ OnVanishSelecting
 
 OnVanishSelected
 {
+	if panelFix == 1; adjustStealthEnd
+	--
 	case stage
 	{
 		when 0;"\0\s[0]\i[5]\i[8]...\i[62]A- Alright\i[61]! \0\s[5]It was a pleasure working with you!\n[150]Please let us...\w8\0\s[0]\i[5]\i[8] at TerraByte know what we can do to improve the service.\w8 Goodbye!\e"

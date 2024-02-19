@@ -15,7 +15,7 @@ craftmanurl,https://logicpng.tumblr.com
 sstp.allowunspecifiedsend,0
 shiori,yaya.dll
 
-icon,logo_r.ico
+icon,r_icon.ico
 
 balloon,Aster Tooltip (Side A)
 don't need bind,1
