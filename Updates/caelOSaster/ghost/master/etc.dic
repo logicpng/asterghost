@@ -618,7 +618,7 @@ OnBIFFBegin
  {
 		case vegafront
 	{
-		when 0; "\0\s[0]Sure,\w8 let's check your mail!\w8 Let's see..."
+		when 0; "\0\s[0]Sure,\w8 let's check your mail!\w8 \0\s[7]Please give me a minute..."
 		others; "\0\s[23]Sigh.\w8\w8 \0\s[20]Checking email..."		
 	}
 	--
@@ -644,7 +644,7 @@ OnBIFFComplete
  	{
 		case vegafront
 		{
-			when 0; "\0\s[1]A single letter.\w8 \0\s[0]Why don't we take a look?"
+			when 0; "\0\s[1]You've got a single new letter.\w8 \0\s[0]Will you take a look?"
 			others; "\0\s[20]One message."
 		}
  		//"\0\s[0]There is one new email.\e"
@@ -681,7 +681,7 @@ OnBIFFComplete
 	
 	//list five last emails you've recieved
 	//following code adopted/adapted from zicheq
-	if reference0 > 0
+	if reference7 != "" && reference0 > 0 //added in reference7 here because if there's no headers at all this code is irrelevant lol oops
 	{	
 		"\n[150]"
 		--
@@ -697,7 +697,7 @@ OnBIFFComplete
 
 		_headSize = ARRAYSIZE(headers) - 1 //get the amount of headers we got -1, since we start from 0
 		--
-		"%(reference0);%(_headSize)\n[150]"
+		//"%(reference0);%(_headSize)\n[150]" //debug?? i guess i just left those in
 		--
 		if reference0 >= 1 && reference0 <= 5; _iEnd = reference0
 		else; _iEnd = 5; //how many letters to show
@@ -752,6 +752,14 @@ OnBIFFFailure
  		//"\0\s[0]The email account was not set up properly.\w8\1\s[10]It can be reset at the POP menu.\w8\![open,configurationdialog]\e"
 		
 		//Note that this ends with \![open,configurationdialog]. This will open up the preferences menu I described above automatically. More on \! functions in the walkthrough. You can delete the \! tag here if you want to.
+	}
+	elseif reference0 == "artificial"
+	{
+		case vegafront
+		{
+			when 0; "\0\s[3]Ah,\w8 have you changed your mind...?\w8\n[150]\0\s[0]\i[5]Well,\w8 \0\s[4]\i[62]um.\i[61]\w8 \0\s[0]\i[5]I'm here if you'd like to take a look later..."
+			others; "\0\s[22]Check cancelled.\w8\w8\n[150]\0\s[25]\i[7]Hmph.\w8\w8 \0\s[20]\i[10]\i[7]Make up your mind."
+		}
 	}
  	else //if there's some other kind of error.
 	{

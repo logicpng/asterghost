@@ -773,7 +773,7 @@ altairthreetalk : nonoverlap_pool
 		if (timeslot == "evening" || timeslot == "midnight" || timeslot == "latenight") && weekday == "5"; "[https://www.youtube.com/watch?v=kI1xL0MSPBM]" //gdi you Will watch donnie friday that's a threat /j
 		else
 		{
-			"[https://www.youtube.com/watch?v=DufnT2LnHWk]"
+			"[https://www.youtube.com/watch?v=j4eYyBML4-M]"
 			"[https://www.youtube.com/watch?v=1H4_9UP2OZI]"
 			"[https://www.youtube.com/watch?v=aICaAEXDJQQ]"
 		}
