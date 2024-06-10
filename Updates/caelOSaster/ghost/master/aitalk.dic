@@ -6,7 +6,7 @@
 OnAiTalk
  {
 	//if strokecount > 3 || ( pokecount > 10 && vegafront > 0 ) || ( pokecount > 15 && vegafront == 0 ) 
-	if BotherCondition || panelFix == 1 //character is hidden or too bothered; alternatively side panel adjustment is turned on and aster shouldn't speak
+	if BotherCondition || panelFix == 1 || conversation != "" //character is hidden or too bothered; alternatively side panel adjustment is turned on and aster shouldn't speak; Alternatively talking to aldebaran
 	{
 		//"\e" //if aster is bothered enough, skip section entirely until the counters reset
 		return //forgot this exists lol
@@ -398,7 +398,7 @@ OnSwitch //Switch between Rigel and Vega
 			vegafront = 1
 			"\1\s[10]\0\s[9]\i[1]\w8\w8\w8\w8%(FadeOut)\w8\w8\w8\s[20]\![reload,shell]"
 			--
-			if balloonCheck == "ON"; "\![change,balloon,Aster Tooltip (Side B)]" //if default balloons are forced, change balloon
+			if balloonCheck == "ON"; "\![change,balloon,Aster Tooltip (Side B)]\![raise,OnBalloonChange]" //if default balloons are forced, change balloon
 			else; "\![raise,OnBalloonChange]" //if not, call the event as if the balloons were just swapped anyway, i'm not copying all that code
 		}
 		others //vega to rigel
@@ -406,7 +406,7 @@ OnSwitch //Switch between Rigel and Vega
 			vegafront = 0
 			"\1\s[10]\0\s[9]\i[0]\w8\w8\w8\w8%(FadeOut)\w8\w8\w8\s[0]\![reload,shell]"
 			--
-			if balloonCheck == "ON"; "\![change,balloon,Aster Tooltip (Side A)]"
+			if balloonCheck == "ON"; "\![change,balloon,Aster Tooltip (Side A)]\![raise,OnBalloonChange]"
 			else; "\![raise,OnBalloonChange]"
 		}
 	}
@@ -542,11 +542,13 @@ BotherCheck //this was reworked to tie into OnSecondChange from just OnSurfaceRe
 					when 0;altairlovereset
 					others;vegalovereset
 				}
-				--
+				//--
 				pokecount = 0 //reset 'offending' counters (lol)
 				strokecount = 0
-				OnSurfaceRestore //force surface restore, now that we've reset the condition to 0 it should work
+				//OnSurfaceRestore //force surface restore, now that we've reset the condition to 0 it should work
 			}
+			--
+			OnSurfaceRestore //probably best to put this here 
 		}
 		else //whether aster was too bothered or not, reset the counters to 0
 		{

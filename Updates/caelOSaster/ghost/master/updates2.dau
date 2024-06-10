@@ -1,7 +1,7 @@
-ghost/master/aitalk.dicf2334a5b0bc61c70ae2b5abc67eb619bsize=19831date=2024-03-31T09:34:54charset=windows-1251
+ghost/master/aitalk.dicf0e941726aedef50123d2489e17c44e7size=20005date=2024-06-10T04:31:54charset=windows-1251
 ghost/master/anchor.dic1d31be94dba6fe430851bb3a826d6304size=5835date=2024-02-08T09:13:17
-ghost/master/bootend.dic5ea16e3b7395583cf5fb738a009a51e2size=32298date=2024-02-19T11:38:05
-ghost/master/chatter.dicdc11ecbde99309dd51fa79af8c666e21size=108763date=2024-03-31T14:06:04
+ghost/master/bootend.dic3688c1d17519a9a959c29d91b7013642size=33823date=2024-04-28T17:48:53
+ghost/master/chatter.dic4d5722cc7d29a4b4222d793dfa6ebfdbsize=108693date=2024-04-08T10:45:37
 ghost/master/chord.wavebfcb7a68ebad9f5f8362bc25300886csize=24994date=2023-07-18T16:38:44
 ghost/master/click.wav53a172ddbd16aa7accead0f5b263b70fsize=1404date=2007-06-26T20:25:44
 ghost/master/commu.dic39f252973d398e90ec19ba6ed6ce96fesize=6649date=2023-07-31T12:10:08
@@ -11,7 +11,7 @@ ghost/master/etc.dic3f1fc29ab89850a601157a5808727bccsize=63711date=2024-03-31
 ghost/master/gomi.dll51fe9597398db01e684a0f9d52c63242size=13312date=2004-06-02T11:00:04
 ghost/master/mciaudior.dllb1082bccd2aac2017f7936baf2d967b3size=29696date=2003-03-14T07:23:26
 ghost/master/menu.dic7b5d3549960bd9223669e08912527022size=49872date=2024-02-08T09:40:19
-ghost/master/mouse.dic5f22d303ad77f4644ec6188bbfc3683dsize=6141date=2024-02-07T18:05:58
+ghost/master/mouse.dic8552e1a75b68aa3eb182f704c2396f19size=6159date=2024-06-10T16:23:01
 ghost/master/nameteach.dicf5888ac88108778c65e3f22dd96ea09esize=9640date=2023-11-08T14:12:07
 ghost/master/process.dlla6c337c40a9e80532fea6676be61056bsize=61440date=2023-10-16T18:39:02
 ghost/master/proxy_ex.dll8ff13a8c1b2b0261f61704c1f457cc8csize=48128date=2023-06-13T20:58:02

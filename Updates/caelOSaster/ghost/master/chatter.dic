@@ -602,10 +602,6 @@ vegatwotalk : nonoverlap_pool
 			"\0\s[20]\i[1]\i[10]Enjoying the stillness?\w8\w8\n[150]\0\s[22]\i[1]Look out the window...\w8\w8 I hope it's pretty."
 			"\0\s[20]\i[1]Can't sleep yet?\w8\w8 I understand.\w8\w8\n[150]\0\s[22]\i[1]I don't sleep.\w8\w8 Neither does Rigel."
 		}	 
-	// }
-
-	--
-	"\e"
 	
 }
 
@@ -643,8 +639,6 @@ vegastretchtalk  //different stretch positions
 			when 2; vegastretchlow
 		}
 	}
-	--
-	"\e"
 }
 
 vegastretchhigh : nonoverlap_pool
@@ -1630,8 +1624,6 @@ altairbotherzero //petting Or poking on intro
 		--
 		"\w8\w8%(FadeOut)"
 	}
-	--
-	"\e"	
  }
 
 // ditto as altairlovereset
@@ -1714,8 +1706,6 @@ altairbotherzero //petting Or poking on intro
 		--
 		"\w8\w8%(FadeOut)"
 	}
-	--
-	"\e"
  } //resets with OnSurfaceRestore
 
  vegabother //responses to being poked, vega
@@ -1839,8 +1829,6 @@ altairbotherzero //petting Or poking on intro
 		--
 		"\w8\w8%(FadeOut)"
 	}
-	--
-	"\e"
  }
 
  //dialogue for after lauching a utility for the second time and onwards

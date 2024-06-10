@@ -676,27 +676,37 @@ altairclosetalk
 //i've seen a couple messages on the bugtracker about it. so in case you're wondering it's probably not my code lol
  OnWindowStateMinimize
 {
-	if panelFix == 1; adjustStealthEnd //more in menu.dic
-	--
-	"\t"
-	--
-	case vegafront
+	if forcemin == 1 //if aster was minimized """forcibly""" by aldebaran
 	{
-		when 0 //rigel
+		if vegafront == 0; "\0\s[3]\i[5]\i[62]!?"
+		else; "\0\s[25]\i[10]\i[7]Who-"
+		--
+		"%(FadeOut)\i[61]\w8\w8"
+	} 
+	else
+	{
+		if panelFix == 1; adjustStealthEnd //more in menu.dic
+		--
+		"\t"
+		--
+		case vegafront
 		{
-			"\0\s[0]I'll be right there if you need me!\w8\w8"
-			"\0\s[0]Okay!\w8 See you in a moment!\w8\w8"
-			"\0\s[0]\i[5]Oh,\w8 I'll get out of the way.\w8\w8"
+			when 0 //rigel
+			{
+				"\0\s[0]I'll be right there if you need me!\w8\w8"
+				"\0\s[0]Okay!\w8 See you in a moment!\w8\w8"
+				"\0\s[0]\i[5]Oh,\w8 I'll get out of the way.\w8\w8"
+			}
+			others //vega
+			{
+				"\0\s[22]Hm.\w8\w8 Okay.\w8\w8"
+				"\0\s[27]Mm.\w8\w8 Nap time.\w8\w8"
+				"\0\s[28]Mm...\w8\w8"
+			}		
 		}
-		others //vega
-		{
-			"\0\s[22]Hm.\w8\w8 Okay.\w8\w8"
-			"\0\s[27]Mm.\w8\w8 Nap time.\w8\w8"
-			"\0\s[28]Mm...\w8\w8"
-		}		
+		--
+		"%(FadeOut)\w8\w8\e"
 	}
-	--
-	"%(FadeOut)\w8\w8\e"
 }
 
 
@@ -707,24 +717,33 @@ altairclosetalk
 OnWindowStateRestore
  {
 	//"\0\s[5]Hello, again!\s[0]\e"
-	"\t\w8%(FadeIn)\w8\![set,alpha,100]"
-	--
-	case vegafront
-	{		
-		when 0 //rigel
-		{
-			"\0\s[5]Hello,\w8 again!\s[0]"
-			"\0\s[5]Aaaand here I am!"
-			"\0\s[0]And back!\w8 \s[5]Hi!"
+	
+	
+	if forcemin == 1  //different response if aster was minimized """forcibly""" by aldebaran
+	{
+		if vegafront == 0; "\0\s[3]\i[62]%(FadeIn)\w8.\w8.\i[61]\w8.\_w[1000]\0\s[0]\i[5]\i[8]\n[150]What was that for...?"
+		else; "\0\s[25]\i[7]\i[10]%(FadeIn)\w8.\w8.\w8.\_w[1000]\0\s[24]\i[3]\i[2]\n[150]Rude."
+		ERASEVAR('forcemin')
+	}
+	else
+	{	
+		case vegafront
+		{		
+			when 0 //rigel
+			{
+				"\0\s[5]%(FadeIn)Hello,\w8 again!\s[0]"
+				"\0\s[5]%(FadeIn)Aaaand here I am!"
+				"\0\s[0]%(FadeIn)And back!\w8 \s[5]Hi!"
+			}
+			others //vega
+			{
+				"\0\s[26]%(FadeIn)Mm...?\w8\w8 \0\s[20]Need me?"
+				"\0\s[27]%(FadeIn)Ah...\w8\w8 \0\s[20]Already?"
+				"\0\s[28]%(FadeIn)Mm.\w8\w8 \0\s[20]Hello."
+			}
+			--
+			"\![set,alpha,100]\e"
 		}
-		others //vega
-		{
-			"\0\s[26]Mm...?\w8\w8 \0\s[20]Need me?"
-			"\0\s[27]Ah...\w8\w8 \0\s[20]Already?"
-			"\0\s[28]Mm.\w8\w8 \0\s[20]Hello."
-		}
-		--
-		"\e"
 	}
 }
 
@@ -744,6 +763,14 @@ OnGhostChanging
 			others;"\0\s[20]Rebooting...\w8\w8\e"
 		}
 		//Replace this dialogue with whatever you like.
+	}
+	elseif reference0 == "Aster(?)" //response to terror star
+	{
+		case vegafront
+		{
+			when 0;"\0\s[7]\i[2]This is...\w8 \i[5]some kind of a corrupted copy of us?\w8 \0\s[3]You're sure about this...?\w8\w8\n[150]\0\s[0]\i[5]Well,\w8 see you soon!\w8\w8\e"
+			others;"\0\s[23]Don't like this...\w8\w8\0\s[20]\i[10]Fine.\w8\w8\n[150]\0\s[20]Loading...\e"
+		}
 	}
  	else //If you're switching to another Ghost.
 	{		
@@ -786,6 +813,30 @@ OnGhostChanged
 	//"\![set,sticky-window,1,0,2]"
 }
 
+OnOtherGhostBooted
+{
+	if reference2 == "Aster™ Terror Star!"
+	{
+		case vegafront
+		{
+			when 0;"\0\s[0]\i[5].\w8.\w8.\w8Hello?"
+			others;"\0\s[21].\w8.\w8.\w8"
+		}
+	}
+}
+
+OnGhostCallComplete
+{
+	if reference2 == "Aster™ Terror Star!"
+	{
+		case vegafront
+		{
+			when 0;"\0\s[0]\i[5].\w8.\w8.\w8Hello?"
+			others;"\0\s[21].\w8.\w8.\w8"
+		}
+	}
+}
+
 //writing this months later. i had no idea OnInitialize already existed...
 OnInitBoot //initialize variables during boot...
 {
@@ -814,6 +865,8 @@ OnInitBoot //initialize variables during boot...
 	pokecount = 0 //reset poking counter
 	//--
 	//"\![set,sticky-window,1,0,2]" //makes sure both are moved + message gag
+
+	if forcemin == 1; ERASEVAR('forcemin') //wipe the variable if we have crashed or otherwise shut down while this flag is present, it should be temporary
 }
 
 FixMenuColors //check whos menu color scheme it is and fix it if it doesn't match lol
