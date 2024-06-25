@@ -848,7 +848,7 @@ OnUpdateComplete
 				if stage == 0; "\0\s[0]\i[5]\i[8]...I'm still on current version?\w8 N-\w8 no worries!\w8\n[150]Any day now,\w8 hah..."
 				else; "\0\s[4]\i[1]Just as I thought,\w8 still nothing..."
 			} 
-			others; "\0\s[23]No updates.\w8\w8 All current."
+			others; "\0\s[23]No updates.\w8\w8 All up to date."
 		}	
 		--
 		"\e"
@@ -861,7 +861,7 @@ OnUpdateComplete
 			others; "\0\s[20]\i[1]Update successful.\w8\w8\n[150]\0\s[24]...Hmm..."
 		}	
 		--
-		"\w8\w8%(FixMenuColors)\w8\w8\e" //if the update swapped the menu colors, change them back
+		FixMenuColors //if the update swapped the menu colors, change them back
  	}
 }
 

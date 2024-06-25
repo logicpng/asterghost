@@ -226,9 +226,34 @@ TalkConfig
 	--
 	if stage != 0;"\![*]\q[Optional Features,permmenu]\n" //moved permissions menu to options as just an extra page
 	--
-	"\![*]\q[Open SSP Preferences,sspconfig]\n"
+	if "Legacy" _in_ SHIORI3FW.ShellName; "\![*]\q[Change to default appearance,shelldefault]\n"
+	else; "\![*]\q[Change to legacy appearance,shelllegacy]\n"
+	--
+	"\![*]\q[Open SSP Preferences,sspconfig]\n[150]"
 	--
 	"\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+Select.shelldefault
+{
+	foreach installedshellname; _shell
+	{
+		if 'Legacy' _in_ _shell; continue
+		else; "\![change,shell,%(_shell)]"
+	}
+}
+
+Select.shelllegacy
+{
+	foreach installedshellname; _shell
+	{
+		if 'Legacy' !_in_ _shell; continue
+		else
+		{	
+			_shell = REPLACE(_shell,']','\]')
+			"\![change,shell,%(_shell)]"
+		} 
+	}
 }
 
 Select.vibron
@@ -1309,42 +1334,17 @@ PermissionMenu
 {
 	"\b2\_q"
 	--
-	// case vegafront //intro dialogue
-	// {
-	// 	when 0 //rigel
-	// 	{
-	// 		"\0\s[0]\i[5]You can change these anytime!"
-	// 		"\0\s[2]I wouldn't do anything you wouldn't want me to!"
-	// 		"\0\s[0]\i[5]I guess since I'm not...\w8 proprietary,\w8 anymore,\w8 \0\s[19]you can tell me no!"
-	// 		"\0\s[0]\i[5]I don't have to do these if you don't want me to!\w8 \0\s[0]It's just a little fun for us."
-	// 		//"\0\s[0]\i[5]Remember, these might not work right...\w8 \n[150]Or maybe you just don't like these. \w8\0\s[0]I understand!"
-	// 	}
-	// 	others //vega
-	// 	{
-	// 		//"\0\s[20]\i[1]Be careful."
-	// 		"\0\s[20]\i[1]Always optional. Don't forget."
-	// 		"\0\s[20]\i[1]Just for fun..."
-	// 		"\0\s[20]Remember. \0\s[20]\i[1]Always optional. "
-	// 	}
-	// 	--
-	// 	"\n[150]\_q"
-	// }
-	--
 	//Comment on windows: ON OFF
 	//add more as features are ADDED not all we WANT
 	//Comment on devices inserted - more for me because i want it my tablet is going to drive me Insane
 	--
 	"\![*]\f[bold,1]Comment on opened programs?\f[bold,0] (NOW : %(windowCheck))\n\q[ON,wincheckon] \q[OFF,wincheckoff]\n[150]"
 	--
-	//"\![*]Comment on devices? (NOW : %(deviceCheck))\n\q[ON,deviceon] \q[OFF,deviceoff]\n[150]"
-	--
 	"\![*]\f[bold,1]Give self care reminders?\f[bold,0] (NOW : %(careCheck))\n\q[ON,careon] \q[OFF,careoff]\n[150]"
 	--
 	"\![*]\f[bold,1]Force default balloons*?\f[bold,0] (NOW : %(balloonCheck))\n\q[ON,balloonon] \q[OFF,balloonoff]\n[150]"
 	--
 	"\f[bold,1](* When ON, disables manual balloon change for a cosmetic effect. Disable the feature to unlock the Balloon menu again.)\n[150]"
-	--
-	//"\f[bold,1](* As of writing only the first option is unfinished. You can turn it on but it'll just spout test dialogue.)\n[150]"
 	--
 	"\f[default]\![*]\q[Back to main options,configmenu]\n"
 	--

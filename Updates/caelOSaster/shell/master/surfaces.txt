@@ -1,3 +1,7 @@
+//Converted by olddef2newdef, by Zichqec. If there are errors in the conversion, contact Zichqec at https://zichqec.github.io/s-the-skeleton/ for assistance
+
+version,1
+
 //---------------------------Surfaces.txt--------------------------
 
 //abandon all hope ye who enter
@@ -10,95 +14,149 @@
 
 surface0
 {
-collision0,158,18,290,76,Head
-collision1,155,76,294,145,Face
+	collisionex0,Head,polygon,152,132,225,99,196,83,204,70,191,67,200,27,173,46,171,32,163,43,155,5,129,41,120,30,118,43,89,25,96,61,84,63,87,75,64,84,119,129,112,116,112,103,115,85,129,77,147,78,169,88,167,104
+	collisionex1,Face,polygon,113,88,124,79,153,81,168,96,164,112,156,128,141,138,127,137,115,123,110,107
 
-element0,overlay,surface0.png,0,0
-element1,interpolate,surface1001.png,0,0
-element2,overlay,surface1002.png,0,0
-element3,overlay,surface1003.png,0,0
+	element0,overlay,surface0.png,0,0
+	element1,interpolate,surface1001.png,0,0
+	element2,overlay,surface1002.png,0,0
+	element3,overlay,surface1003.png,0,0
+	//element4,interpolate,surface2001.png,0,0
 
-0interval,random,6
-0pattern0,-1,10,overlay,0,0
-0pattern1,1004,5,overlayfast,0,0
-0pattern2,10041,20,overlayfast,0,0
-0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1004,50,0,0
+	animation0.pattern2,overlayfast,10041,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 
-1interval,talk,4
-1pattern0,0,0,alternativestart,[2.3.4]
+	animation1.interval,talk,5
+	animation1.pattern0,alternativestart,(2,3,4)
 
-2interval,never
-2pattern0,1005,10,overlay,0,0
-2pattern1,1006,13,overlay,0,0
-2pattern2,-1,10,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,overlay,1005,0,0,0
+	animation2.pattern1,overlay,1006,150,0,0
+	animation2.pattern2,overlay,-1,150,0,0
 
-3interval,never
-3pattern0,1005,14,overlay,0,0
-3pattern1,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1005,0,0,0
+	animation3.pattern1,overlay,-1,150,0,0
 
-4interval,never
-4pattern0,1006,14,overlay,0,0
-4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1006,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 
 	// wry brow
 	
-	5interval,never
-	5pattern0,1007,0,overlayfast,0,0
+	animation5.interval,never
+	animation5.pattern0,overlayfast,1007,0,0,0
 	
 	// mad brow
 	
-	6interval,never
-	6pattern0,1008,0,overlayfast,0,0
+	animation6.interval,never
+	animation6.pattern0,overlayfast,1008,0,0,0
 	
 	// stop brow
 	
-	7interval,never
-	7pattern0,0,0,stop,5-6
+	animation7.interval,never
+	animation7.pattern0,stop,5-6
 	
 	// call sweat
-	8interval,never
-	8pattern0,1009,0,overlayfast,0,0
+	animation8.interval,never
+	animation8.pattern0,overlayfast,1009,0,0,0
 	
 	//remove sweat	
-	9interval,never
-	9pattern0,0,0,stop,8
+	animation9.interval,never
+	animation9.pattern0,stop,8
+
+	animation10.interval,runonce
+	animation10.option,background
+	animation10.pattern0,overlay,2001,0,0,0
+
+	//tail lower then back
+	animation11.interval,never
+	animation11.option,background
+	animation11.pattern0,stop,10
+	animation11.pattern1,overlay,2002,0,0,0
+	animation11.pattern2,overlay,2001,1000,0,0
+	animation11.pattern3,start,10
+	animation11.pattern4,overlay,-1,0,0,0
+
+	//tail wag down and up
+	animation12.interval,never
+	animation12.option,background
+	animation12.pattern0,stop,10
+	animation12.pattern1,overlay,2001,0,0,0
+	animation12.pattern2,overlay,2002,50,0,0
+	animation12.pattern3,overlay,2043,70,0,0
+	animation12.pattern4,overlay,2033,100,0,0
+	animation12.pattern7,overlay,2043,70,0,0
+	animation12.pattern8,overlay,2002,50,0,0
+	animation12.pattern9,overlay,2001,70,0,0
+	animation12.pattern11,start,10
+	animation12.pattern12,overlay,-1,100,0,0
+
+	//tail wag to left then to right
+	animation13.interval,never
+	animation13.option,background
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,2001,0,0,0
+	animation13.pattern2,overlay,2002,50,0,0
+	animation13.pattern3,overlay,2043,50,0,0
+	animation13.pattern4,overlay,2033,50,0,0
+	animation13.pattern5,overlay,2023,50,0,0
+	animation13.pattern6,overlay,2013,150,0,0
+	animation13.pattern7,overlay,2003,50,0,0
+	animation13.pattern8,overlay,2013,150,0,0
+	animation13.pattern9,overlay,2023,50,0,0
+	animation13.pattern10,overlay,2033,50,0,0
+	animation13.pattern11,overlay,2043,50,0,0
+	animation13.pattern12,overlay,2002,50,0,0
+	animation13.pattern13,overlay,2001,50,0,0
+	animation13.pattern14,start,10
+	animation13.pattern15,overlay,-1,100,0,0
+
+	animation14.interval,random,6
+	animation14.pattern0,parallelstop,(11,12,13)
+	animation14.pattern1,alternativestart,(11,12,13)
 }
 
 
 // Rigel - neutral expression
 surface1
 {
-	collision0,158,18,290,76,Head
-	collision1,155,76,294,145,Face
+		collisionex0,Head,polygon,152,132,225,99,196,83,204,70,191,67,200,27,173,46,171,32,163,43,155,5,129,41,120,30,118,43,89,25,96,61,84,63,87,75,64,84,119,129,112,116,112,103,115,85,129,77,147,78,169,88,167,104
+	collisionex1,Face,polygon,113,88,124,79,153,81,168,96,164,112,156,128,141,138,127,137,115,123,110,107
+
 	element0,overlay,surface0.png,0,0
 	element1,interpolate,surface1001.png,0,0
 	element2,overlay,surface1002.png,0,0
 	element3,overlay,surface1013.png,0,0
+	element4,interpolate,surface2002.png,0,0
 	
 	//blink 
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1014,5,overlayfast,0,0
-	0pattern2,10141,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1014,50,0,0
+	animation0.pattern2,overlayfast,10141,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//talk
 	
-	1interval,talk,4
-	1pattern0,0,0,alternativestart,[2.3.4]
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3,4)
 
-	2interval,never
-	2pattern0,1015,10,overlay,0,0
-	2pattern1,1006,13,overlay,0,0
-	2pattern2,-1,10,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,overlay,1015,0,0,0
+	animation2.pattern1,overlay,1016,150,0,0
+	animation2.pattern2,overlay,-1,150,0,0
 
-	3interval,never
-	3pattern0,1015,14,overlay,0,0
-	3pattern1,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1015,0,0,0
+	animation3.pattern1,overlay,-1,150,0,0
 
-	4interval,never
-	4pattern0,1006,14,overlay,0,0
-	4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1016,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 
 }
 
@@ -106,110 +164,125 @@ surface1
 
 surface2
 {
-	collision0,126,45,275,101,Head
-collision1,150,104,267,161,Face
+	collisionex0,Head,polygon,121,138,51,122,53,50,113,15,185,32,212,91,162,125,151,130,157,113,155,95,134,97,111,102,99,109,109,130
+	collisionex1,Face,polygon,135,144,150,133,157,110,153,95,135,95,113,100,99,108,106,122,113,135
 
 	element0,overlay,surface0.png,0,0
 	element1,overlay,surface1021.png,0,0
 	element2,overlay,surface1022.png,0,0
 	
 	//blink 
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1024,5,overlayfast,0,0
-	0pattern2,1023,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1024,50,0,0
+	animation0.pattern2,overlayfast,1023,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//talk
 	
-	1interval,talk,4
-	1pattern0,0,0,alternativestart,[2.3.4]
+	animation1.interval,talk,5
+	animation1.pattern0,alternativestart,(2,3,4)
 
-	2interval,never
-	2pattern0,1025,10,overlay,0,0
-	2pattern1,1026,13,overlay,0,0
-	2pattern2,-1,10,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,overlay,1025,0,0,0
+	animation2.pattern1,overlay,1026,150,0,0
+	animation2.pattern2,overlay,-1,150,0,0
 
-	3interval,never
-	3pattern0,1025,14,overlay,0,0
-	3pattern1,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1025,0,0,0
+	animation3.pattern1,overlay,-1,150,0,0
 
-	4interval,never
-	4pattern0,1026,14,overlay,0,0
-	4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1026,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 	
 	// flustered face
 	
-	5interval,never
-	5pattern0,1027,0,overlayfast,0,0
+	animation5.interval,never
+	animation5.pattern0,overlayfast,1027,0,0,0
 	
 	// stop flustered face
 	
-	6interval,never
-	6pattern0,0,0,stop,5
+	animation6.interval,never
+	animation6.pattern0,stop,5
 	
 	// blush
-	7interval,never
-	7pattern0,1028,0,overlayfast,0,0
+	animation7.interval,never
+	animation7.pattern0,overlayfast,1028,0,0,0
 	
 	// blush stronger
-	8interval,never
-	8pattern0,10281,0,overlayfast,0,0
+	animation8.interval,never
+	animation8.pattern0,overlayfast,10281,0,0,0
 	
 	//flushed
-	9interval,never
-	9pattern0,10282,0,overlayfast,0,0
+	animation9.interval,never
+	animation9.pattern0,overlayfast,10282,0,0,0
 	
 	//stop blush
-	10interval,never
-	10pattern0,0,0,stop,7
-	10pattern1,0,0,stop,8
-	10pattern2,0,0,stop,9
+	animation10.interval,never
+	animation10.pattern0,stop,7
+	animation10.pattern1,stop,8
+	animation10.pattern2,stop,9
+
+	//tail wag
+	animation11.interval,always
+	animation11.option,background
+	animation11.pattern0,overlay,2003,0,0,0
+	animation11.pattern1,overlay,2013,150,0,0
+	animation11.pattern2,overlay,2023,50,0,0
+	animation11.pattern3,overlay,2033,150,0,0
+	animation11.pattern4,overlay,2043,50,0,0
+	animation11.pattern5,overlay,2033,150,0,0
+	animation11.pattern6,overlay,2023,50,0,0
+	animation11.pattern7,overlay,2013,150,0,0
+	animation11.pattern8,overlay,2003,50,0,0
 }
 
 // Rigel Surprise!
 surface3
 {
-	collision0,178,25,298,86,Head
-collision1,181,86,283,149,Face
+	collisionex0,Head,polygon,116,127,64,87,106,18,185,21,229,76,210,134,142,133,157,118,164,103,161,92,147,84,133,81,121,84,113,98,112,112
+	collisionex1,Face,polygon,122,136,114,125,109,108,117,85,133,81,152,85,167,100,159,119,146,132,132,137
 
 	element0,overlay,surface0.png,0,0
 	element1,interpolate,surface1031.png,0,0
 	element2,overlay,surface1032.png,0,0
 	element3,overlay,surface1033.png,0,0
+	 //tail
+	element4,interpolate,surface2004.png,0,0
 	
 		//blink 
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1034,5,overlayfast,0,0
-	0pattern2,10341,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1034,50,0,0
+	animation0.pattern2,overlayfast,10341,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//talk
 	
-	1interval,talk,4
-	1pattern0,0,0,alternativestart,[2.3.4]
+	animation1.interval,talk,5
+	animation1.pattern0,alternativestart,(2,3,4)
 
-	2interval,never
-	2pattern0,1035,10,overlay,0,0
-	2pattern1,1036,13,overlay,0,0
-	2pattern2,-1,10,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,overlay,1035,0,0,0
+	animation2.pattern1,overlay,1036,150,0,0
+	animation2.pattern2,overlay,-1,150,0,0
 
-	3interval,never
-	3pattern0,1035,14,overlay,0,0
-	3pattern1,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1035,0,0,0
+	animation3.pattern1,overlay,-1,150,0,0
 
-	4interval,never
-	4pattern0,1036,14,overlay,0,0
-	4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1036,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 	
 	//shock
-	5interval,never
-	5pattern0,1037,0,overlayfast,0,0
+	animation5.interval,never
+	animation5.pattern0,overlayfast,1037,0,0,0
 	
 	//shock stop
-	6interval,never
-	6pattern0,0,0,stop,5
+	animation6.interval,never
+	animation6.pattern0,stop,5
 }
 
 //Rigel sad
@@ -217,45 +290,46 @@ collision1,181,86,283,149,Face
 surface4
 {
 	
-	collision0,126,45,275,101,Head
-collision1,150,104,267,161,Face
+	collisionex0,Head,polygon,111,142,46,134,44,118,52,49,102,26,168,35,206,64,218,108,168,135,142,143,153,131,155,116,151,107,134,111,115,117,100,118,94,116
+	collisionex1,Face,polygon,131,150,148,139,153,127,153,116,149,108,130,116,107,117,93,113,105,136,117,145
 
 	element0,overlay,surface0.png,0,0
 	element1,overlay,surface1041.png,0,0
 	element2,overlay,surface1042.png,0,0
+	element3,interpolate,surface2005.png,0,0
 	
 		//blink 
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1044,5,overlayfast,0,0
-	0pattern2,1043,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1044,50,0,0
+	animation0.pattern2,overlayfast,1043,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//call smile
-	1interval,never
-	1pattern0,1047,0,overlayfast,0,0
+	animation1.interval,never
+	animation1.pattern0,overlayfast,1047,0,0,0
 	
 	//remove smile
-	2interval,never
-	2pattern0,0,0,stop,1
+	animation2.interval,never
+	animation2.pattern0,stop,1
 	
 	//talk
 	
-	3interval,talk,4
-	3pattern0,0,0,alternativestart,[4.5.6]
+	animation3.interval,talk,5
+	animation3.pattern0,alternativestart,(4,5,6)
 
-	4interval,never
-	4pattern0,1045,10,overlay,0,0
-	4pattern1,1046,13,overlay,0,0
-	4pattern2,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1045,0,0,0
+	animation4.pattern1,overlay,1046,150,0,0
+	animation4.pattern2,overlay,-1,150,0,0
 
-	5interval,never
-	5pattern0,1045,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1045,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 
-	6interval,never
-	6pattern0,1046,14,overlay,0,0
-	6pattern1,-1,10,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,1046,0,0,0
+	animation6.pattern1,overlay,-1,150,0,0
 	
 	
 }
@@ -264,36 +338,38 @@ collision1,150,104,267,161,Face
 
 surface5
 {
-	collision0,144,20,277,77,Head
-collision1,154,82,273,152,Face
+	collisionex0,Head,polygon,122,136,97,133,93,124,84,126,79,130,74,124,75,112,83,102,77,99,78,93,82,82,76,72,69,72,58,65,48,51,63,33,98,5,183,14,232,73,205,118,161,119,147,129,155,114,157,99,154,85,134,82,111,87,100,100,105,121
+	collisionex1,Face,polygon,136,140,150,127,156,109,155,91,154,81,135,82,114,90,99,97,103,115,114,130
 	
 	element0,overlay,surface0.png,0,0
-	element1,interpolate,surface1051.png,0,0
-	element2,overlay,surface1052.png,0,0
-	element3,overlay,surface1053.png,0,0
+	element1,overlay,surface1053.png,0,0
+	element2,overlay,surface1051.png,0,0
+	element3,overlay,surface1052.png,0,0
+	element4,interpolate,surface2001.png,0,0 //tail from default
 	
 	//no blink, instead it's sparkling 
-	0interval,always
-	0pattern0,1054,15,overlay,0,0
-	0pattern1,10541,15,overlay,0,0	
+	animation0.interval,always
+	animation0.pattern0,overlay,1054,0,0,0
+	animation0.pattern1,overlay,10541,200,0,0
+	animation0.pattern2,overlay,1054,200,0,0
 	
 	//talk
 	
-	1interval,talk,4
-	1pattern0,0,0,alternativestart,[2.3.4]
+	animation1.interval,talk,5
+	animation1.pattern0,alternativestart,(2,3,4)
 
-	2interval,never
-	2pattern0,1055,10,overlay,0,0
-	2pattern1,1056,13,overlay,0,0
-	2pattern2,-1,10,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,overlay,1055,0,0,0
+	animation2.pattern1,overlay,1056,150,0,0
+	animation2.pattern2,overlay,-1,150,0,0
 
-	3interval,never
-	3pattern0,1055,14,overlay,0,0
-	3pattern1,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1055,0,0,0
+	animation3.pattern1,overlay,-1,150,0,0
 
-	4interval,never
-	4pattern0,1056,14,overlay,0,0
-	4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1056,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 }
 
 //Rigel anger
@@ -301,77 +377,83 @@ collision1,154,82,273,152,Face
 surface6
 {
 	
-	collision0,126,45,275,101,Head
-collision1,150,104,267,161,Face
+	collisionex0,Head,polygon,121,138,51,122,53,50,113,15,185,32,212,91,162,125,151,130,157,113,155,95,134,97,111,102,99,109,109,130
+	collisionex1,Face,polygon,135,144,150,133,157,110,153,95,135,95,113,100,99,108,106,122,113,135
 
-
-		element0,overlay,surface0.png,0,0
+	element0,overlay,surface0.png,0,0
 	element1,interpolate,surface1061.png,0,0
 	element2,overlay,surface1062.png,0,0
 	element3,overlay,surface1063.png,0,0
+	//element4,interpolate,surface2005.png,0,0 //tail low
 	
 		//Either blink or eye twitch 
-	0interval,random,2
-	0pattern0,0,0,alternativestart,[6.7.8]	
+	animation0.interval,random,2
+	animation0.pattern0,alternativestart,(6,7,8)	
 	
 	//talk
 	
-	1interval,talk,4
-	1pattern0,0,0,alternativestart,[2.3.4]
+	animation1.interval,talk,5
+	animation1.pattern0,alternativestart,(2,3,4)
 
-	2interval,never
-	2pattern0,1065,10,overlay,0,0
-	2pattern1,1066,13,overlay,0,0
-	2pattern2,-1,10,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,overlay,1065,0,0,0
+	animation2.pattern1,overlay,1066,150,0,0
+	animation2.pattern2,overlay,-1,150,0,0
 
-	3interval,never
-	3pattern0,1065,14,overlay,0,0
-	3pattern1,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1065,0,0,0
+	animation3.pattern1,overlay,-1,150,0,0
 
-	4interval,never
-	4pattern0,1066,14,overlay,0,0
-	4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1066,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 	
 	//call anger anim
-	5interval,never
-	5pattern0,1068,30,overlay,0,0
-	5pattern1,10681,30,overlay,0,0
-	5pattern2,1068,30,overlay,0,0
-	5pattern3,10681,30,overlay,0,0	
-	5pattern4,1068,30,overlay,0,0
-	5pattern5,10681,30,overlay,0,0	
-	5pattern6,-1,200,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1068,300,0,0
+	animation5.pattern1,overlay,10681,300,0,0
+	animation5.pattern2,overlay,1068,300,0,0
+	animation5.pattern3,overlay,10681,300,0,0	
+	animation5.pattern4,overlay,1068,300,0,0
+	animation5.pattern5,overlay,10681,300,0,0	
+	animation5.pattern6,overlay,-1,2000,0,0
 	
 	//actual blink
-	6interval,never
-	6pattern0,-1,10,overlay,0,0
-	6pattern1,1064,5,overlayfast,0,0
-	6pattern2,10641,20,overlayfast,0,0
-	6pattern3,-1,10,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,-1,100,0,0
+	animation6.pattern1,overlayfast,1064,50,0,0
+	animation6.pattern2,overlayfast,10641,200,0,0
+	animation6.pattern3,overlay,-1,100,0,0
 	
 	//eye twitch once
-	7interval,never
-	7pattern0,-1,10,overlay,0,0
-	7pattern1,1067,10,overlay,0,0
-	7pattern2,-1,8,overlay,0,0
+	animation7.interval,never
+	animation7.pattern0,overlay,1067,0,0,0
+	animation7.pattern1,overlay,-1,150,0,0
 	
 	//eye twitch twice
-	8interval,never
-	8pattern0,-1,10,overlay,0,0
-	8pattern1,1067,10,overlay,0,0
-	8pattern2,-1,8,overlay,0,0
-	8pattern3,1067,8,overlay,0,0
-	8pattern4,-1,8,overlay,0,0
+	animation8.interval,never
+	animation8.pattern0,overlay,1067,0,0,0
+	animation8.pattern1,overlay,-1,150,0,0
+	animation8.pattern2,overlay,1067,150,0,0
+	animation8.pattern3,overlay,-1,150,0,0
 	
+	//tail flick
+	animation9.interval,random,4 
+	animation9.option,background
+	animation9.pattern0,stop,10
+	animation9.pattern1,overlay,2015,0,0,0
+	animation9.pattern2,overlay,2025,50,0,0
+	animation9.pattern3,overlay,2035,80,0,0
+	animation9.pattern4,overlay,2045,110,0,0
+	animation9.pattern5,overlay,2055,30,0,0
+	animation9.pattern6,overlay,2005,30,0,0
+	animation9.pattern7,overlay,-1,30,0,0
+	animation9.pattern8,start,10
 
-	//stop anger anim. hopefully
-	//6interval,never
-	//6pattern0,0,0,stop,5	
-	
-		//start anger anim
-	//7interval,never
-	//7pattern0,0,0,start,5
-	
+	//tail low
+	animation10.interval,runonce 
+	animation10.option,background
+	animation10.pattern0,overlay,2005,0,0
 	
 }
 
@@ -379,93 +461,107 @@ collision1,150,104,267,161,Face
 
 surface7
 {
-	collision0,126,45,275,101,Head
-	collision1,150,104,267,161,Face
+	collisionex0,Head,polygon,111,142,46,134,44,118,52,49,102,26,168,35,206,64,218,108,168,135,142,143,153,131,155,116,151,107,134,111,115,117,100,118,94,116
+	collisionex1,Face,polygon,131,150,148,139,153,127,153,116,149,108,130,116,107,117,93,113,105,136,117,145
 
 	element0,overlay,surface0.png,0,0
 	element1,overlay,surface1052.png,0,0
 	element2,overlay,surface1073.png,0,0
 	element3,overlay,surface1072.png,0,0
-	
-	// //lift arm
-	// 0interval,runonce
-	// 0pattern0,1071,0,overlay,0,0
-	// 0pattern1,1072,4,overlay,0,0
+	element4,interpolate,surface2002.png,0,0
 	
 	//blink
-	1interval,random,6
-	1pattern0,-1,10,overlay,0,0
-	1pattern1,1074,5,overlayfast,0,0
-	1pattern2,10741,20,overlayfast,0,0
-	1pattern3,-1,10,overlay,0,0
+	animation1.interval,random,6
+	animation1.pattern0,overlay,-1,100,0,0
+	animation1.pattern1,overlayfast,1074,50,0,0
+	animation1.pattern2,overlayfast,10741,200,0,0
+	animation1.pattern3,overlay,-1,100,0,0
 	
 	//call brow
-	2interval,never
-	2pattern0,1075,0,overlayfast,0,0
+	animation2.interval,never
+	animation2.pattern0,overlayfast,1075,0,0,0
 	
 	//stop brow
-	3interval,never
-	3pattern0,0,0,stop,2
+	animation3.interval,never
+	animation3.pattern0,stop,2
 	
 	// call ?
-	4interval,never
-	4pattern0,1077,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1077,0,0,0
 	
 	//call ??
-	5interval,never
-	5pattern0,1078,0,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1078,0,0,0
 	
 	//hide ?/??
-	6interval,never
-	6pattern0,0,0,stop,4
-	6pattern1,0,0,stop,5
+	animation6.interval,never
+	animation6.pattern0,stop,4
+	animation6.pattern1,stop,5
 }
 
 //Rigel Excited
 surface8
 {
-	//collision
-	collision0,160,16,291,66,Head
-	collision1,160,66,286,153,Face
+	//collision 
+	collisionex0,Head,polygon,115,100,95,94,91,101,67,98,68,81,93,75,93,62,101,40,99,18,157,6,207,32,228,101,181,119,168,110,174,90,156,78,130,74,116,84
+	collisionex1,Face,polygon,134,137,147,134,145,125,156,113,165,109,171,105,175,97,171,86,152,78,130,77,120,81,117,100,122,116,125,127
 	
 	element0,overlay,surface0.png,0,0
 	element1,overlay,surface1082.png,0,0
 	element2,overlay,surface1081.png,0,0
 	
 	//sparkly eye
-	0interval,always
-	0pattern0,1087,15,overlayfast,0,0
-	0pattern1,-1,15,overlay,0,0
+	animation1.interval,always
+	animation1.pattern0,overlay,1088,0,0,0
+	animation1.pattern1,overlay,1087,150,0,0
+	animation1.pattern2,overlay,1088,150,0,0
 	
 	//blink
-	1interval,random,6
-	1pattern0,-1,10,overlay,0,0
-	1pattern1,1084,5,overlayfast,0,0
-	1pattern2,1083,20,overlayfast,0,0
-	1pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,1084,0,0,0
+	animation0.pattern1,stop,1
+	animation0.pattern2,overlay,1083,200,0,0
+	animation0.pattern3,start,1
+	animation0.pattern4,overlay,-1,100,0,0
 	
 		//talk
 	
-	2interval,talk,4
-	2pattern0,0,0,alternativestart,[3.4.5]
+	animation2.interval,talk,5
+	animation2.pattern0,alternativestart,(3,4,5)
 
-	3interval,never
-	3pattern0,1085,10,overlay,0,0
-	3pattern1,1086,13,overlay,0,0
-	3pattern2,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1085,0,0,0
+	animation3.pattern1,overlay,1086,150,0,0
+	animation3.pattern2,overlay,-1,150,0,0
 
-	4interval,never
-	4pattern0,1085,14,overlay,0,0
-	4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1085,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 
-	5interval,never
-	5pattern0,1086,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1086,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 	
 	//sparkles from Happy
-	6interval,always
-	6pattern0,1054,15,overlay,0,0
-	6pattern1,10541,15,overlay,0,0	
+	animation6.interval,always
+	animation6.pattern0,overlay,1054,0,30,-20
+	animation6.pattern1,overlay,10541,150,30,-20
+	animation6.pattern2,overlay,1054,150,30,-20
+
+	//tail wag
+	animation7.interval,always
+	animation7.option,background
+	animation7.pattern0,overlay,2006,0,0,0
+	animation7.pattern1,overlay,2016,80,0,0
+	animation7.pattern3,overlay,-1,20,0,0
+	animation7.pattern4,overlay,2026,20,0,0
+	animation7.pattern5,overlay,2036,20,0,0
+	animation7.pattern7,overlay,2007,50,0,0
+	animation7.pattern8,overlay,2017,80,0,0
+	animation7.pattern10,overlay,-1,20,0,0
+	animation7.pattern11,overlay,2027,20,0,0
+	animation7.pattern12,overlay,2037,20,0,0
+	animation7.pattern14,overlay,2006,50,0,0
 		
 }
 
@@ -474,67 +570,64 @@ surface19
 {
 	//just the torso and now Separated collar
 	element0,overlay,surface0.png,0,0
-	element1,overlay,surface10034.png,0,0
-	collision0,158,18,290,76,Head
-	collision1,155,76,294,145,Face
+	element1,interpolate,surface2001.png,0,0
+	
+	collisionex0,Head,polygon,119,125,68,79,96,70,92,60,104,57,98,23,161,3,205,30,229,102,156,128,170,109,173,96,172,86,152,77,129,75,117,85,114,105
+	collisionex1,Face,polygon,134,136,161,125,174,94,156,78,133,76,117,81,113,107,120,123
 	
 	//head bob?
-	0interval,runonce
-	0pattern0,10031,0,overlay,0,0
-	0pattern1,-1,15,overlay,0,0
-	
-	1interval,always
-	1pattern0,10031,15,overlay,0,3
-	1pattern1,10031,15,overlay,0,0
-	
+	animation0.interval,always
+	animation0.pattern0,overlay,1091,0,0,0
+	animation0.pattern1,overlay,1092,200,0,0
+	animation0.pattern2,overlay,1091,200,0,0
 	
 	//laugh wingding
-	2interval,always
-	2pattern0,10032,35,overlay,0,0
-	2pattern1,10033,35,overlay,0,0
+	// animation2.interval,always
+	// animation2.pattern0,overlay,10032,350,0,0
+	// animation2.pattern1,overlay,10033,350,0,0
 	
 	//arms behind, default
-	3interval,runonce
-	3pattern0,1001,0,interpolate,0,0
+	animation3.interval,runonce
+	animation3.pattern0,interpolate,1001,0,0,0
 	
-	4interval,runonce
-	4pattern0,1002,0,overlay,0,0
+	animation4.interval,runonce
+	animation4.pattern0,overlay,1002,0,0,0
 	
 	//call alt arms. reset with surface call
-	5interval,never
-	5pattern0,0,0,stop,3
-	5pattern1,0,0,stop,4
-	5pattern2,0,0,start,6
-	5pattern3,0,0,start,7
+	animation5.interval,never
+	animation5.pattern0,stop,3
+	animation5.pattern1,stop,4
+	animation5.pattern2,start,6
+	animation5.pattern3,start,7
 	
 	//arms outwards, from surprise, callable
-	6interval,never
-	6pattern0,1031,0,interpolate,0,0
+	animation6.interval,never
+	animation6.pattern0,interpolate,1031,0,0,0
 	
-	7interval,never
-	7pattern0,1032,0,overlay,0,0
+	animation7.interval,never
+	animation7.pattern0,overlay,1032,0,0,0
 }
 //Shift between modes
 
 surface9
 {
-	collision0,285,187,303,204,Wait
+	collision0,199,170,215,187,Wait
 	//collision w/ close button
 	element0,overlay,surface3000.png,0,0
 	
 	//Shift to Vega
-	0interval,never
-	0pattern0,3001,30,overlay,0,0
-	0pattern1,3002,30,overlay,0,0
-	0pattern2,3003,30,overlay,0,0
-	0pattern3,3004,30,overlay,0,0
+	animation0.interval,never
+	animation0.pattern0,overlay,3001,300,0,0
+	animation0.pattern1,overlay,3002,300,0,0
+	animation0.pattern2,overlay,3003,300,0,0
+	animation0.pattern3,overlay,3004,300,0,0
 	
 	//Shift to Rigel
-	1interval,never
-	1pattern0,3011,30,overlay,0,0
-	1pattern1,3012,30,overlay,0,0
-	1pattern2,3013,30,overlay,0,0
-	1pattern3,3014,30,overlay,0,0
+	animation1.interval,never
+	animation1.pattern0,overlay,3011,300,0,0
+	animation1.pattern1,overlay,3012,300,0,0
+	animation1.pattern2,overlay,3013,300,0,0
+	animation1.pattern3,overlay,3014,300,0,0
 	
 }
 
@@ -546,232 +639,307 @@ surface9
 //Default
 
 surface20
-{
-	collision0,158,18,290,76,Head
-	collision1,155,76,294,145,Face
+{ 
+	collisionex0,Head,polygon,151,130,227,91,189,27,134,9,78,41,60,94,119,134,108,116,109,86,121,79,148,81,165,88,163,112
+	collisionex1,Face,polygon,131,141,116,131,107,113,109,87,125,81,147,81,163,88,164,107,149,131
 	element0,overlay,surface01.png,0,0
 	element1,interpolate,surface1101.png,0,0
 	element2,overlay,surface1102.png,0,0
 	element3,overlay,surface1103.png,0,0
+	//element4,interpolate,surface2101.png,0,0
 	
 	//blink 
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1104,5,overlayfast,0,0
-	0pattern2,11041,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1104,50,0,0
+	animation0.pattern2,overlayfast,11041,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//smile
 	//call smile
-	1interval,never
-	1pattern0,1109,0,overlayfast,0,0
+	animation1.interval,never
+	animation1.pattern0,overlayfast,1109,0,0,0
 	
 	//remove smile
-	2interval,never
-	2pattern0,0,0,stop,1
+	animation2.interval,never
+	animation2.pattern0,stop,1
 	//talk
 	
-	3interval,talk,4
-	3pattern0,0,0,alternativestart,[4.5.6]
+	animation3.interval,talk,5
+	animation3.pattern0,alternativestart,(4,5,6)
 
-	4interval,never
-	4pattern0,1105,10,overlay,0,0
-	4pattern1,1106,13,overlay,0,0
-	4pattern2,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1105,0,0,0
+	animation4.pattern1,overlay,1106,150,0,0
+	animation4.pattern2,overlay,-1,150,0,0
 
-	5interval,never
-	5pattern0,1105,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1105,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 
-	6interval,never
-	6pattern0,1106,14,overlay,0,0
-	6pattern1,-1,10,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,1106,0,0,0
+	animation6.pattern1,overlay,-1,150,0,0
 	
 	//call mad brow
-	7interval,never
-	7pattern0,1107,0,overlayfast,0,0
+	animation7.interval,never
+	animation7.pattern0,overlayfast,1107,0,0,0
 	
 	//call wry brow
-	8interval,never
-	8pattern0,1108,0,overlayfast,0,0
+	animation8.interval,never
+	animation8.pattern0,overlayfast,1108,0,0,0
 	
 	//remove brow
-	9interval,never
-	9pattern0,0,0,stop,7-8
+	animation9.interval,never
+	animation9.pattern0,stop,7-8
 	
 	//close eye. reset by reloading surface. the whole thing with setting animations to remove certain items was so unneccessary but removing them now will end up in too much work. i guess i know better now...
 	//at least it makes sense adding it last. it'll apply on top of the blinking animation and thus blinking SHOULDN'T appear on top of the closed eye. or i will be very upset
-	10interval,never
-	10pattern0,1104,0,overlayfast,0,0
+	animation10.interval,never
+	animation10.pattern0,overlayfast,1104,0,0,0
+
+	//tail
+	animation11.interval,runonce
+	animation11.option,background
+	animation11.pattern0,overlay,2101,0,0
+
+	//tail up curl and down
+	animation12.interval,never
+	animation12.option,background
+	animation12.pattern0,stop,11
+	//animation12.pattern1,overlay,2105,0,0,0
+	animation12.pattern2,overlay,2115,0,0,0
+	//animation12.pattern3,overlay,2125,80,0,0
+	animation12.pattern4,overlay,2102,50,0,0
+	animation12.pattern5,overlay,2103,50,0,0
+	animation12.pattern6,overlay,2102,2000,0,0
+	//animation12.pattern7,overlay,2125,80,0,0
+	animation12.pattern8,overlay,2115,50,0,0
+	//animation12.pattern9,overlay,2105,80,0,0
+	animation12.pattern10,overlay,2101,50,0
+	animation12.pattern11,start,11
+	animation12.pattern12,overlay,-1,0,0
+
+	//tail back and fourth
+	animation13.interval,never
+	animation13.option,background
+	animation13.pattern0,stop,11
+	animation13.pattern1,overlay,2101,0,0,0
+	animation13.pattern2,overlay,2134,100,0,0
+	animation13.pattern3,overlay,2144,100,0,0
+	animation13.pattern4,overlay,2134,300,0,0
+	animation13.pattern5,overlay,2124,80,0,0
+	animation13.pattern6,overlay,2114,150,0,0
+	animation13.pattern7,overlay,2104,80,0,0
+	animation13.pattern8,overlay,2114,300,0,0
+	animation13.pattern9,overlay,2124,80,0,0
+	animation13.pattern10,overlay,2134,80,0,0
+	animation13.pattern11,overlay,2144,80,0,0
+	animation13.pattern12,overlay,2134,300,0,0
+	animation13.pattern13,overlay,2101,80,0,0
+	animation13.pattern14,start,11
+	animation13.pattern15,overlay,-1,100,0,0
+
+	//tail wag down and up
+	animation14.interval,never
+	animation14.option,background
+	animation14.pattern0,stop,11
+	animation14.pattern1,overlay,2101,0,0,0
+	animation14.pattern2,overlay,2134,80,0,0
+	animation14.pattern3,overlay,2144,80,0,0
+	animation14.pattern4,overlay,2134,1000,0,0
+	animation14.pattern9,overlay,2101,80,0,0
+	animation14.pattern11,start,11
+	animation14.pattern12,overlay,-1,80,0,0
+
+	//controller
+	animation15.interval,random,10
+	animation15.pattern0,parallelstop,(12,13,14)
+	animation15.pattern1,alternativestart,(12,13,14)
+	
 }
 
 //Sus
 
 surface21
 {
-	//change collissions
-	collision0,158,18,290,76,Head
-	collision1,155,76,294,145,Face
+	collisionex0,Head,polygon,124,123,49,79,100,32,164,20,216,50,239,108,158,126,170,107,172,90,160,76,131,73,117,78,113,99,117,114
+	collisionex1,Face,polygon,135,131,117,118,111,96,119,74,136,71,158,75,173,86,168,109,157,125
+
 	element0,overlay,surface01.png,0,0
 	element1,interpolate,surface1101.png,0,0
 	element2,overlay,surface1102.png,0,0
 	element3,overlay,surface1113.png,0,0
+	element4,interpolate,surface2102.png,0,0
 	
 	//blink 
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1114,5,overlayfast,0,0
-	0pattern2,11141,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1114,50,0,0
+	animation0.pattern2,overlayfast,11141,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	
 	
 	//smile
-	1interval,never
-	1pattern0,1112,0,overlay,0,0
+	animation1.interval,never
+	animation1.pattern0,overlay,1112,0,0,0
 	
 	//remove smile
-	2interval,never
-	2pattern0,0,0,stop,1
+	animation2.interval,never
+	animation2.pattern0,stop,1
 	//talk
 	
-	3interval,talk,4
-	3pattern0,0,0,alternativestart,[4.5.6]
+	animation3.interval,talk,5
+	animation3.pattern0,alternativestart,(4,5,6)
 
-	4interval,never
-	4pattern0,1115,10,overlay,0,0
-	4pattern1,1116,13,overlay,0,0
-	4pattern2,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1115,0,0,0
+	animation4.pattern1,overlay,1116,150,0,0
+	animation4.pattern2,overlay,-1,150,0,0
 
-	5interval,never
-	5pattern0,1115,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1115,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 
-	6interval,never
-	6pattern0,1116,14,overlay,0,0
-	6pattern1,-1,10,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,1116,0,0,0
+	animation6.pattern1,overlay,-1,150,0,0
 	
 	//call blush
-	7interval,never
-	7pattern0,1118,0,overlayfast,0,0
+	animation7.interval,never
+	animation7.pattern0,overlayfast,1118,0,0,0
 	
 	//call wry brow
-	8interval,never
-	8pattern0,1117,0,overlayfast,0,0
+	animation8.interval,never
+	animation8.pattern0,overlayfast,1117,0,0,0
 	
 	//remove blush
-	9interval,never
-	9pattern0,0,0,stop,7
+	animation9.interval,never
+	animation9.pattern0,stop,7
 	
 	//remove brow
-	10interval,never
-	10pattern0,0,0,parallelstop,[8.11]
+	animation10.interval,never
+	animation10.pattern0,parallelstop,(8,11)
 	
 	//sweat
 	//call sweat
-	12interval,never
-	12pattern0,1119,0,overlayfast,0,0
+	animation12.interval,never
+	animation12.pattern0,overlayfast,1119,0,0,0
 	
 	//furrowed brow
-	11interval,never
-	11pattern0,1111,0,overlay,0,0
+	animation11.interval,never
+	animation11.pattern0,overlay,1111,0,0,0
 }
 
 //Headtilt
 surface22
 {
-	//change collissions
-	collision0,119,38,272,80,Head
-	collision1,155,80,260,159,Face
+	
+	collisionex0,Head,polygon,156,125,210,59,151,13,85,12,46,70,54,138,133,135,114,126,99,102,113,85,139,73,153,76,162,99
+	collisionex1,Face,polygon,150,136,132,135,114,126,99,105,116,87,139,75,152,77,163,104,157,121
 	element0,overlay,surface01.png,0,0
 	element1,interpolate,surface1101.png,0,0
 	element2,overlay,surface1102.png,0,0
 	element3,overlay,surface1123.png,0,0
+	element4,interpolate,surface2103.png,0,0
 	
 	//blink 
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1124,5,overlayfast,0,0
-	0pattern2,11241,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1124,50,0,0
+	animation0.pattern2,overlayfast,11241,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//smile
 	//call smile
-	1interval,never
-	1pattern0,1120,0,overlayfast,0,0
+	animation1.interval,never
+	animation1.pattern0,overlayfast,1120,0,0,0
 	
 	//remove smile
-	2interval,never
-	2pattern0,0,0,stop,1
+	animation2.interval,never
+	animation2.pattern0,stop,1
 	//talk
 	
-	3interval,talk,4
-	3pattern0,0,0,alternativestart,[4.5.6]
+	animation3.interval,talk,4
+	animation3.pattern0,alternativestart,(4,5,6)
 
-	4interval,never
-	4pattern0,1125,10,overlay,0,0
-	4pattern1,1126,13,overlay,0,0
-	4pattern2,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1125,100,0,0
+	animation4.pattern1,overlay,1126,130,0,0
+	animation4.pattern2,overlay,-1,100,0,0
 
-	5interval,never
-	5pattern0,1125,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1125,140,0,0
+	animation5.pattern1,overlay,-1,100,0,0
 
-	6interval,never
-	6pattern0,1126,14,overlay,0,0
-	6pattern1,-1,10,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,1126,140,0,0
+	animation6.pattern1,overlay,-1,100,0,0
 	
 	//call ?
-	7interval,never
-	7pattern0,1128,0,overlay,0,0
+	animation7.interval,never
+	animation7.pattern0,overlay,1128,0,0,0
 	
 	//call ??
-	8interval,never
-	8pattern0,1129,0,overlay,0,0	
+	animation8.interval,never
+	animation8.pattern0,overlay,1129,0,0,0	
 	
 	//remove ?/??
-	9interval,never
-	9pattern0,0,0,parallelstop,[7-8]
+	animation9.interval,never
+	animation9.pattern0,parallelstop,(7-8)
 	
 	//call brow
-	10interval,never
-	10pattern0,1127,0,overlayfast,0,0
+	animation10.interval,never
+	animation10.pattern0,overlayfast,1127,0,0,0
 	
 	
 	//renmove brow
-	11interval,never
-	11pattern0,0,0,parallelstop,[10.12]
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,12)
 	
 	//furrowed brow
-	12interval,never
-	12pattern0,1121,0,overlay,0,0,
-	
+	animation12.interval,never
+	animation12.pattern0,overlay,1121,0,0,0	
 	
 }
 
 //Away. simplest suface lol
 surface23
 {
-	collision0,154,54,192,85,Head
+	collisionex0,Head,polygon,131,128,135,96,99,90,103,43,148,1,180,46,169,112,156,120
+	collisionex1,Face,polygon,132,91,91,91,87,125,107,140,127,129,131,111
 	//collision1,155,76,294,145,Face
 	element0,overlay,surface01.png,0,0
 	element1,interpolate,surface1101.png,0,0
 	element2,overlay,surface1102.png,0,0
 	element3,overlay,surface1133.png,0,0
 	
-	0interval,never
-	0pattern0,1134,0,overlay,0,0
+	animation0.interval,never
+	animation0.pattern0,overlay,1134,0,0,0
 	
-	1interval,never
-	1pattern0,0,0,stop,0
+	animation1.interval,never
+	animation1.pattern0,stop,0
+
+	//tail wag
+	animation11.interval,always
+	animation11.option,background
+	animation11.pattern0,overlay,2104,0,0,0
+	animation11.pattern1,overlay,2114,1500,0,0
+	animation11.pattern2,overlay,2124,30,0,0
+	animation11.pattern3,overlay,2134,90,0,0
+	animation11.pattern4,overlay,2144,30,0,0
+	animation11.pattern5,overlay,2134,1500,0,0
+	animation11.pattern6,overlay,2124,30,0,0
+	animation11.pattern7,overlay,2114,90,0,0
+	animation11.pattern8,overlay,2104,30,0,0
 }
 
 //Thonk
 surface24
 {
-	//this collission is fine
-	collision0,126,45,275,101,Head
-	collision1,150,104,267,161,Face
+	collisionex0,Head,polygon,147,134,225,90,197,32,95,13,34,47,40,114,72,143,112,136,98,104,118,103,137,97,152,88,158,119
+	collisionex1,Face,polygon,98,103,116,104,138,98,151,88,155,117,150,131,133,126,120,131,114,127,109,129
 
 	element0,overlay,surface01.png,0,0
 	element1,overlay,surface1102.png,0,0
@@ -784,36 +952,54 @@ surface24
 	// 0pattern1,1142,4,overlay,0,0
 	
 	//blink
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1144,5,overlayfast,0,0
-	0pattern2,11441,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1144,50,0,0
+	animation0.pattern2,overlayfast,11441,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//wry brow
-	1interval,never
-	1pattern0,1145,0,overlay,0,0
+	animation1.interval,never
+	animation1.pattern0,overlay,1145,0,0,0
 	
 	//furr brow
-	2interval,never
-	2pattern0,1146,0,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,overlay,1146,0,0,0
 	
 	//sweat
-	3interval,never
-	3pattern0,1147,0,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1147,0,0,0
 
 	//closed eye. reset by reloading the surface
-	4interval,never
-	4pattern0,1144,0,overlayfast,0,0
+	animation4.interval,never
+	animation4.pattern0,overlayfast,1144,0,0,0
 	
+	animation5.interval,runonce
+	animation5.option,background
+	animation5.pattern0,overlay,2101,0,0,0
+
+	animation6.interval,random,6
+	animation6.option,background
+	animation6.pattern0,stop,5
+	animation6.pattern1,overlay,2134,0,0,0
+	animation6.pattern2,overlay,2144,80,0,0
+	animation6.pattern3,overlay,2134,200,0,0
+	animation6.pattern4,overlay,2124,80,0,0
+	animation6.pattern5,overlay,2114,200,0,0
+	animation6.pattern6,overlay,2104,80,0,0
+	animation6.pattern7,overlay,2114,200,0,0
+	animation6.pattern8,overlay,2124,80,0,0
+	animation6.pattern10,overlay,2101,100,0,0
+	animation6.pattern11,start,5
+	animation6.pattern12,overlay,-1,0,0,0
 }
 
 //Big Mad
 surface25
-{
+{ 
 	
-	collision0,158,18,290,76,Head
-	collision1,155,76,294,145,Face
+	collisionex0,Head,polygon,154,129,247,105,207,29,158,6,96,22,67,83,119,125,114,104,119,77,139,75,156,79,175,90,166,117
+	collisionex1,Face,polygon,132,137,159,128,171,106,174,91,154,79,127,75,117,83,113,108,119,125
 
 	element0,overlay,surface01.png,0,0
 	element1,interpolate,surface1151.png,0,0
@@ -821,69 +1007,87 @@ surface25
 	element3,overlay,surface1153.png,0,0
 	
 	// blink
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,1154,5,overlayfast,0,0
-	0pattern2,11541,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,1154,50,0,0
+	animation0.pattern2,overlayfast,11541,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 	
 	//smile
 	
-	1interval,never
-	1pattern0,1112,0,overlay,0,0
+	animation1.interval,never
+	animation1.pattern0,overlay,1150,0,0,0
 	//talk
 	
-	2interval,talk,4
-	2pattern0,0,0,alternativestart,[3.4.5]
+	animation2.interval,talk,5
+	animation2.pattern0,alternativestart,(3,4,5)
 
-	3interval,never
-	3pattern0,1155,10,overlay,0,0
-	3pattern1,1156,13,overlay,0,0
-	3pattern2,-1,10,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,1155,0,0,0
+	animation3.pattern1,overlay,1156,150,0,0
+	animation3.pattern2,overlay,-1,150,0,0
 
-	4interval,never
-	4pattern0,1155,14,overlay,0,0
-	4pattern1,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1155,0,0,0
+	animation4.pattern1,overlay,-1,150,0,0
 
-	5interval,never
-	5pattern0,1156,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1156,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 	
 	//call anger anim
-	6interval,never
-	6pattern0,1158,30,overlay,0,0
-	6pattern1,1159,30,overlay,0,0
-	6pattern2,1158,30,overlay,0,0
-	6pattern3,1159,30,overlay,0,0	
-	6pattern4,1158,30,overlay,0,0
-	6pattern5,1159,30,overlay,0,0	
-	6pattern6,-1,200,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,1158,300,0,0
+	animation6.pattern1,overlay,1159,300,0,0
+	animation6.pattern2,overlay,1158,300,0,0
+	animation6.pattern3,overlay,1159,300,0,0	
+	animation6.pattern4,overlay,1158,300,0,0
+	animation6.pattern5,overlay,1159,300,0,0	
+	animation6.pattern6,overlay,-1,2000,0,0
 	
 	//call brow
-	7interval,never
-	7pattern0,1157,0,overlayfast,0,0
+	animation7.interval,never
+	animation7.pattern0,overlayfast,1157,0,0,0
 	//stop brow
-	8interval,never
-	8pattern0,0,0,parallelstop,[7.9]
+	animation8.interval,never
+	animation8.pattern0,parallelstop,(7,9)
 	
 	//wry brow
-	9interval,never
-	9pattern0,1117,0,overlayfast,0,0
+	animation9.interval,never
+	animation9.pattern0,overlayfast,11571,0,0,0
+
+	//tail flick
+	animation11.interval,random,2
+	animation11.option,background
+	animation11.pattern0,stop,12
+	animation11.pattern1,overlay,2105,0,0,0
+	animation11.pattern2,overlay,2115,50,0,0
+	animation11.pattern3,overlay,2125,80,0,0
+	animation11.pattern4,overlay,2135,100,0,0
+	animation11.pattern5,overlay,2145,30,0,0
+	animation11.pattern6,overlay,2101,30,0,0
+	animation11.pattern7,start,12
+	animation11.pattern8,overlay,-1,30,0,0
+
+	//tail low
+	animation12.interval,runonce 
+	animation12.option,background
+	animation12.pattern0,overlay,2101,0,0
 
 
 //target eye
-	10interval,never
-	10pattern0,11591,0,overlayfast,0,0
-	10pattern1,11592,30,overlayfast,0,0
-	10pattern2,11591,30,overlayfast,0,0
-	10pattern3,11592,30,overlayfast,0,0
-	10pattern4,11591,30,overlayfast,0,0
-	10pattern5,11592,30,overlayfast,0,0	
-	10pattern6,11591,30,overlayfast,0,0
-	10pattern7,11592,30,overlayfast,0,0
-	10pattern8,11591,30,overlayfast,0,0
-	10pattern9,11592,30,overlayfast,0,0
-	10pattern10,-1,200,overlay,0,0
+	animation10.interval,never
+	animation10.pattern0,overlayfast,11591,0,0,0
+	animation10.pattern1,overlayfast,11592,300,0,0
+	animation10.pattern2,overlayfast,11591,300,0,0
+	animation10.pattern3,overlayfast,11592,300,0,0
+	animation10.pattern4,overlayfast,11591,300,0,0
+	animation10.pattern5,overlayfast,11592,300,0,0	
+	animation10.pattern6,overlayfast,11591,300,0,0
+	animation10.pattern7,overlayfast,11592,300,0,0
+	animation10.pattern8,overlayfast,11591,300,0,0
+	animation10.pattern9,overlayfast,11592,300,0,0
+	animation10.pattern10,overlay,-1,2000,0,0
 	
 	
 }
@@ -894,225 +1098,264 @@ surface25
 
 surface26
 {
-	collision0,154,227,290,288,Head
-	collision1,182,288,258,347,Face
-	collision2,185,156,271,222,No 
-	collision3,138,319,205,460,Menu
-	collision4,244,313,329,452,Menu
+	collisionex0,Head,polygon,147,349,212,309,178,300,185,291,174,292,181,256,153,273,156,261,146,270,131,234,114,273,109,262,107,273,77,258,88,295,78,294,86,303,52,311,111,349,104,334,104,309,120,300,142,300,159,309,158,332
+	collisionex1,Face,polygon,117,352,142,353,155,340,161,315,157,305,140,302,117,304,104,308,103,331,108,345
+	collisionex2,Menu,polygon,103,345,71,325,61,339,53,391,83,404,195,395,215,397,212,365,205,326,199,317,163,338,163,354,154,347,145,353,118,353
+	collisionex3,Menu,polygon,55,210,226,210,195,177,96,176
+
 	
 	element0,overlay,surface1160.png,0,0
+	//element1,overlay,surface2107.png,0,0
 	
 	//call smile
 	
-	0interval,never
-	0pattern0,1164,0,overlayfast,0,0
+	animation0.interval,never
+	animation0.pattern0,overlayfast,1164,0,0,0
 	
 	//stop smile
-	1interval,never
-	1pattern0,0,0,stop,1
+	animation1.interval,never
+	animation1.pattern0,stop,1
 	
 	// blink
-	2interval,random,6
-	2pattern0,-1,10,overlay,0,0
-	2pattern1,1161,5,overlayfast,0,0
-	2pattern2,11611,20,overlayfast,0,0
-	2pattern3,-1,10,overlay,0,0
+	animation2.interval,random,6
+	animation2.pattern0,overlay,-1,100,0,0
+	animation2.pattern1,overlayfast,1161,50,0,0
+	animation2.pattern2,overlayfast,11611,200,0,0
+	animation2.pattern3,overlay,-1,100,0,0
 	
 	//talk
 	
-	3interval,talk,4
-	3pattern0,0,0,alternativestart,[4.5.6]
+	animation3.interval,talk,5
+	animation3.pattern0,alternativestart,(4,5,6)
 
-	4interval,never
-	4pattern0,1162,10,overlay,0,0
-	4pattern1,1163,13,overlay,0,0
-	4pattern2,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1162,0,0,0
+	animation4.pattern1,overlay,1163,150,0,0
+	animation4.pattern2,overlay,-1,150,0,0
 
-	5interval,never
-	5pattern0,1162,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1162,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 
-	6interval,never
-	6pattern0,1163,14,overlay,0,0
-	6pattern1,-1,10,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,1163,0,0,0
+	animation6.pattern1,overlay,-1,150,0,0
 	
 	//wry brow
-	7interval,never
-	7pattern0,1165,0,overlayfast,0,0
+	animation7.interval,never
+	animation7.pattern0,overlayfast,1165,0,0,0
+	animation7.pattern1,stop,8
 	
 	//furrowed
-	8interval,never
-	8pattern0,1166,0,overlayfast,0,0
+	animation8.interval,never
+	animation8.pattern0,overlayfast,1166,0,0,0
+	animation8.pattern1,stop,7
 	
 	//no brow
-	9interval,never
-	9pattern0,0,0,stop,7.8
+	animation9.interval,never
+	animation9.pattern0,parallelstop,(7,8)
 	
 	//sweat
-	10interval,never
-	10pattern0,1167,0,overlayfast,0,0
+	animation10.interval,never
+	animation10.pattern0,overlayfast,1167,0,0,0
 	
 	//no sweat
-	11interval,never
-	11pattern0,0,0,stop,10
+	animation11.interval,never
+	animation11.pattern0,stop,10
 
 	//close eye. just reset with reloading the surface idc
-	12interval,never
-	12pattern0,1161,0,overlayfast,0,0
+	animation12.interval,never
+	animation12.pattern0,overlayfast,1161,0,0,0
+
+	//tail start
+	animation13.interval,runonce
+	animation13.pattern0,overlay,2107,0,0,0
+
+	//tail swing
+	animation14.interval,random,12
+	animation14.pattern0,parallelstop,(13,15)
+	animation14.pattern1,overlay,2107,0,0,0
+	animation14.pattern2,overlay,2117,150,0,0
+	animation14.pattern3,overlay,2107,300,0,0
+	animation14.pattern4,overlay,2127,150,0,0
+	animation14.pattern5,overlay,2107,300,0,0
+	animation14.pattern6,start,13
+	animation14.pattern7,overlay,-1,0,0,0
+
+	//tail swing twice
+	animation15.interval,random,12
+	animation15.pattern0,parallelstop,(13,14)
+	animation15.pattern1,overlay,2107,0,0,0
+	animation15.pattern2,overlay,2117,50,0,0
+	animation15.pattern3,overlay,2107,300,0,0
+	animation15.pattern4,overlay,2127,50,0,0
+	animation15.pattern5,overlay,2107,300,0,0
+	animation15.pattern6,overlay,2117,50,0,0
+	animation15.pattern7,overlay,2107,300,0,0
+	animation15.pattern8,overlay,2127,50,0,0
+	animation15.pattern9,overlay,2107,300,0,0
+	animation15.pattern10,start,13
+	animation15.pattern11,overlay,-1,0,0,0
 }
 
 //Stretch 2
 surface27
 {
-	collision0,167,320,269,347,Head
-	collision1,174,356,271,406,Face
-	collision2,223,276,294,305,No
-	collision3,89,370,352,461,Menu
+	collisionex0,Head,polygon,158,357,217,322,185,315,194,299,178,302,191,262,159,285,160,266,148,281,136,242,120,285,113,263,109,288,81,269,94,309,83,306,87,315,56,320,94,348,109,344,107,320,122,312,147,312,165,319,164,341
+	collisionex1,Face,polygon,156,357,164,340,167,325,162,314,144,311,122,309,108,318,107,336,110,347,133,349
+	collisionex2,Menu,polygon,98,350,83,341,73,347,58,373,55,392,103,400,213,389,203,365,202,349,193,341,160,356,135,350,107,344
+	collisionex3,Menu,polygon,103,228,86,258,52,257,54,217,80,217,98,201,165,198,228,219,233,248,228,258,185,261,182,249,174,233,174,223,139,209,113,212
 	
 	element0,overlay,surface1170.png,0,0
 	
 	//call smile
 	
-	0interval,never
-	0pattern0,1174,0,overlayfast,0,0
+	animation0.interval,never
+	animation0.pattern0,overlayfast,1174,0,0,0
 	
 	//stop smile
-	1interval,never
-	1pattern0,0,0,stop,1
+	animation1.interval,never
+	animation1.pattern0,stop,1
 	
 	// blink
-	2interval,random,6
-	2pattern0,-1,10,overlay,0,0
-	2pattern1,1171,5,overlayfast,0,0
-	2pattern2,11711,20,overlayfast,0,0
-	2pattern3,-1,10,overlay,0,0
+	animation2.interval,random,6
+	animation2.pattern0,overlay,-1,100,0,0
+	animation2.pattern1,overlayfast,1171,50,0,0
+	animation2.pattern2,overlayfast,11711,200,0,0
+	animation2.pattern3,overlay,-1,100,0,0
 	
 	//talk
 	
-	3interval,talk,4
-	3pattern0,0,0,alternativestart,[4.5.6]
+	animation3.interval,talk,4
+	animation3.pattern0,alternativestart,(4,5,6)
 
-	4interval,never
-	4pattern0,1172,10,overlay,0,0
-	4pattern1,1173,13,overlay,0,0
-	4pattern2,-1,10,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,1172,100,0,0
+	animation4.pattern1,overlay,1173,130,0,0
+	animation4.pattern2,overlay,-1,100,0,0
 
-	5interval,never
-	5pattern0,1172,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
+	animation5.interval,never
+	animation5.pattern0,overlay,1172,140,0,0
+	animation5.pattern1,overlay,-1,100,0,0
 
-	6interval,never
-	6pattern0,1173,14,overlay,0,0
-	6pattern1,-1,10,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,1173,140,0,0
+	animation6.pattern1,overlay,-1,100,0,0
 	
 	//wry brow
-	7interval,never
-	7pattern0,1175,0,overlayfast,0,0
+	animation7.interval,never
+	animation7.pattern0,overlayfast,1175,0,0,0
 	
 	// 8interval,never
 	// 8pattern0,0,0,stop,7
 		//furrowed brow
-	9interval,never
-	9pattern0,1176,0,overlayfast,0,0
+	animation9.interval,never
+	animation9.pattern0,overlayfast,1176,0,0,0
 	
-	10interval,never
-	10pattern0,0,0,stop,7.9
+	animation10.interval,never
+	animation10.pattern0,stop,7.9
 	
 	//blush
-	11interval,never
-	11pattern0,1177,0,overlayfast,0,0
+	animation11.interval,never
+	animation11.pattern0,overlayfast,1177,0,0,0
 	
-	12interval,never
-	12pattern0,0,0,stop,11
+	animation12.interval,never
+	animation12.pattern0,stop,11
 	
 	//sweat
-	13interval,never
-	13pattern0,1178,0,overlayfast,0,0
+	animation13.interval,never
+	animation13.pattern0,overlayfast,1178,0,0,0
 	
-	14interval,never
-	14pattern0,0,0,stop,13
+	animation14.interval,never
+	animation14.pattern0,stop,13
 
 	//closed eye. reset by reloading surface
-	15interval,never
-	15pattern0,1171,0,overlayfast,0,0
+	animation15.interval,never
+	animation15.pattern0,overlayfast,1171,0,0,0
+
+	animation16.interval,runonce
+	animation16.pattern0,overlay,2108,0,0,0
+
+	animation17.interval,random,12
+	animation17.pattern0,parallelstop,(16)
+	animation17.pattern1,overlay,2108,0,0,0
+	animation17.pattern2,overlay,2118,100,0,0
+	animation17.pattern3,overlay,2128,100,0,0
+	animation17.pattern4,overlay,2118,300,0,0
+	animation17.pattern5,overlay,2108,50,0,0
+	animation17.pattern6,overlay,2138,50,0,0
+	animation17.pattern7,overlay,2148,50,0,0
+	animation17.pattern8,overlay,2138,100,0,0
+	animation17.pattern9,overlay,2108,100,0,0
+	animation17.pattern10,start,16
+	animation17.pattern11,overlay,-1,0,0,0
+	
 }
 
 //Stretch low. i dit it anywayyyyyy
 surface28
 {
-	collision0,135,303,205,339,Head
-	collision1,170,263,267,310,Head
-	collision2,202,321,269,376,Face
-	collision3,137,357,180,438,Menu
-	collision4,183,365,313,439,Menu
+	// collision0,135,303,205,339,Head
+	// collision1,170,263,267,310,Head
+	// collision2,202,321,269,376,Face
+	// collision3,137,357,180,438,Menu
+	// collision4,183,365,313,439,Menu
+
+	
+
+	collisionex0,Head,polygon,173,339,220,295,173,300,178,289,167,294,165,246,137,277,130,267,126,279,93,236,101,291,85,285,92,298,55,301,84,327,70,335,93,337,81,347,108,338,124,325,147,318,161,318,168,342
+	collisionex1,Face,polygon,118,338,142,322,160,318,166,335,166,343,144,343
+	collisionex2,Menu,polygon,178,330,191,323,199,343,200,362,190,372,199,390,182,401,140,399,83,403,52,396,54,375,66,365,68,353,73,344,78,337,93,337,75,351,106,338,128,339,155,342,168,340
+
 	
 	element0,overlay,surface1180.png,0,0
 	
 		//call smile
 	
-	0interval,never
-	0pattern0,1184,0,overlayfast,0,0
+	animation0.interval,never
+	animation0.pattern0,overlayfast,1184,0,0,0
 	
 	//stop smile
-	1interval,never
-	1pattern0,0,0,stop,1
+	animation1.interval,never
+	animation1.pattern0,stop,1
 	
 	// blink
-	2interval,random,6
-	2pattern0,-1,10,overlay,0,0
-	2pattern1,1181,5,overlayfast,0,0
-	2pattern2,11811,20,overlayfast,0,0
-	2pattern3,-1,10,overlay,0,0
-	
-	//talk
-	
-	3interval,talk,4
-	3pattern0,0,0,alternativestart,[4.5.6]
-
-	4interval,never
-	4pattern0,1182,10,overlay,0,0
-	4pattern1,1183,13,overlay,0,0
-	4pattern2,-1,10,overlay,0,0
-
-	5interval,never
-	5pattern0,1182,14,overlay,0,0
-	5pattern1,-1,10,overlay,0,0
-
-	6interval,never
-	6pattern0,1183,14,overlay,0,0
-	6pattern1,-1,10,overlay,0,0
+	animation2.interval,random,6
+	animation2.pattern0,overlay,-1,100,0,0
+	animation2.pattern1,overlayfast,1181,50,0,0
+	animation2.pattern2,overlayfast,11811,200,0,0
+	animation2.pattern3,overlay,-1,100,0,0
 	
 	//wry brow
-	7interval,never
-	7pattern0,1185,0,overlayfast,0,0
-	
-	// 8interval,never
-	// 8pattern0,0,0,stop,7
+	animation7.interval,never
+	animation7.pattern0,overlayfast,1185,0,0,0
+	animation7.pattern1,stop,9
 	
 		//furrowed brow
-	9interval,never
-	9pattern0,1186,0,overlayfast,0,0
+	animation9.interval,never
+	animation9.pattern0,overlayfast,1186,0,0,0
+	animation9.pattern1,stop,7
 	
-	10interval,never
-	10pattern0,0,0,stop,7.9
+	animation10.interval,never
+	animation10.pattern0,parallelstop,(7,9)
 	
 	//blush
-	11interval,never
-	11pattern0,1187,0,overlayfast,0,0
+	animation11.interval,never
+	animation11.pattern0,overlayfast,1187,0,0,0
 	
-	12interval,never
-	12pattern0,0,0,stop,11
+	animation12.interval,never
+	animation12.pattern0,stop,11
 	
 	//sweat
-	13interval,never
-	13pattern0,1188,0,overlayfast,0,0
+	animation13.interval,never
+	animation13.pattern0,overlayfast,1188,0,0,0
 	
-	14interval,never
-	14pattern0,0,0,stop,13
+	animation14.interval,never
+	animation14.pattern0,stop,13
 
 	//closed eye. reset by reloading surface
-	15interval,never
-	15pattern0,1181,0,overlayfast,0,0
+	animation15.interval,never
+	animation15.pattern0,overlayfast,1181,0,0,0
 }
 
 
@@ -1135,52 +1378,52 @@ surface11
 element0,overlay,surface40.png,0,0
 
 //Blinking
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,4002,5,overlayfast,0,0
-	0pattern2,40021,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,4002,50,0,0
+	animation0.pattern2,overlayfast,40021,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 
 //call smile
 
-	1interval,never
-	1pattern0,4001,0,overlayfast,0,0
+	animation1.interval,never
+	animation1.pattern0,overlayfast,4001,0,0,0
 	
 	//stop smile
-	2interval,never
-	2pattern0,0,0,stop,1
+	animation2.interval,never
+	animation2.pattern0,stop,1
 
 //call sweat up
-	3interval,never
-	3pattern0,4008,0,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,4008,0,0,0
 
 //call sweat down
-	4interval,never
-	4pattern0,4009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,4009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,3-4
+	animation5.interval,never
+	animation5.pattern0,stop,3-4
 //call blush
-	6interval,never
-	6pattern0,4010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,4010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 //call sigh
-	8interval,never
-	8pattern0,4011,0,overlay,0,0
+	animation8.interval,never
+	animation8.pattern0,overlay,4011,0,0,0
 //stop sigh
-	9interval,never
-	9pattern0,0,0,stop,8
+	animation9.interval,never
+	animation9.pattern0,stop,8
 //call mad
-	10interval,never
-	10pattern0,4012,30,overlay,0,0
-	10pattern1,40121,30,overlay,0,0
-	10pattern2,4012,30,overlay,0,0
-	10pattern3,40121,30,overlay,0,0	
-	10pattern4,4012,30,overlay,0,0
-	10pattern5,40121,30,overlay,0,0	
-	10pattern6,-1,200,overlay,0,0
+	animation10.interval,never
+	animation10.pattern0,overlay,4012,300,0,0
+	animation10.pattern1,overlay,40121,300,0,0
+	animation10.pattern2,overlay,4012,300,0,0
+	animation10.pattern3,overlay,40121,300,0,0	
+	animation10.pattern4,overlay,4012,300,0,0
+	animation10.pattern5,overlay,40121,300,0,0	
+	animation10.pattern6,overlay,-1,2000,0,0
 
 //shake?
 
@@ -1195,21 +1438,21 @@ element1,overlay,surface4003.png,0,0
 
 
 //call sweat up
-	3interval,never
-	3pattern0,4008,0,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,4008,0,0,0
 
 //call sweat down
-	4interval,never
-	4pattern0,4009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,4009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,3-4
+	animation5.interval,never
+	animation5.pattern0,stop,3-4
 //call blush
-	6interval,never
-	6pattern0,4010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,4010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 
 }
 
@@ -1222,21 +1465,21 @@ element1,overlay,surface4004.png,0,0
 
 
 //call sweat down
-	4interval,never
-	4pattern0,4009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,4009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,4
+	animation5.interval,never
+	animation5.pattern0,stop,4
 //call blush
-	6interval,never
-	6pattern0,4010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,4010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 		//call mad
-	10interval,always
-	10pattern0,4012,30,overlay,0,0
-	10pattern1,40121,30,overlay,0,0
+	animation10.interval,always
+	animation10.pattern0,overlay,4012,300,0,0
+	animation10.pattern1,overlay,40121,300,0,0
 }
 
 //Sad
@@ -1247,27 +1490,27 @@ element1,overlay,surface4005.png,0,0
 
 
 //call sweat up
-	3interval,never
-	3pattern0,4008,0,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,4008,0,0,0
 
 //call sweat down
-	4interval,never
-	4pattern0,4009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,4009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,3-4
+	animation5.interval,never
+	animation5.pattern0,stop,3-4
 //call blush
-	6interval,never
-	6pattern0,4010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,4010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 	//call sigh
-	8interval,never
-	8pattern0,4011,0,overlay,0,0
+	animation8.interval,never
+	animation8.pattern0,overlay,4011,0,0,0
 //stop sigh
-	9interval,never
-	9pattern0,0,0,stop,8
+	animation9.interval,never
+	animation9.pattern0,stop,8
 }
 
 //Excited
@@ -1277,15 +1520,16 @@ element0,overlay,surface40.png,0,0
 element1,overlay,surface4006.png,0,0
 
 //call blush
-	6interval,never
-	6pattern0,4010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,4010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 		//call sparkle
-	10interval,always
-	10pattern0,4013,30,overlay,0,0
-	10pattern1,40131,30,overlay,0,0
+	animation10.interval,always
+	animation10.pattern0,overlay,40131,0,0,0
+	animation10.pattern1,overlay,4013,300,0,0
+	animation10.pattern2,overlay,40131,300,0,0
 }
 
 //Shy
@@ -1296,34 +1540,31 @@ element1,overlay,surface4007.png,0,0
 
 
 //call sweat up
-	3interval,never
-	3pattern0,4008,0,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,4008,0,0,0
 
 //call sweat down
-	4interval,never
-	4pattern0,4009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,4009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,3-4
+	animation5.interval,never
+	animation5.pattern0,stop,3-4
 //call blush
-	6interval,never
-	6pattern0,4010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,4010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 }
 
 //Appear
 surface17
 {
-element1,overlay,surface9999.png,0,0
-
-	0interval,runonce
-	0pattern0,40,0,overlay,0,0
+element1,overlay,surface40.png,0,0
 	
-	1interval,runonce
-	1pattern0,4014,0,overlay,0,0
-	1pattern1,-1,30,overlay,0,0
+	animation1.interval,runonce
+	animation1.pattern0,overlay,4014,0,0,0
+	animation1.pattern1,overlay,-1,300,0,0
 }
 
 //Disappear
@@ -1331,9 +1572,9 @@ surface18
 {
 element1,overlay,surface9999.png,0,0
 
-	0interval,runonce
-	0pattern0,4014,0,overlay,0,0
-	0pattern1,-1,30,overlay,0,0
+	animation0.interval,runonce
+	animation0.pattern0,overlay,4014,0,0,0
+	animation0.pattern1,overlay,-1,300,0,0
 }
 
 // Vega Companion - WATCH THE SURFACE NUMBERS
@@ -1343,82 +1584,78 @@ surface30
 element0,overlay,surface500.png,0,0
 
 //Blinking
-	0interval,random,6
-	0pattern0,-1,10,overlay,0,0
-	0pattern1,5002,5,overlayfast,0,0
-	0pattern2,50021,20,overlayfast,0,0
-	0pattern3,-1,10,overlay,0,0
+	animation0.interval,random,6
+	animation0.pattern0,overlay,-1,100,0,0
+	animation0.pattern1,overlayfast,5002,50,0,0
+	animation0.pattern2,overlayfast,50021,200,0,0
+	animation0.pattern3,overlay,-1,100,0,0
 
 //wide eye
 
-	1interval,never
-	1pattern0,5001,0,overlayfast,0,0
+	animation1.interval,never
+	animation1.pattern0,overlayfast,5001,0,0,0
 	
 	//wide eye
-	2interval,never
-	2pattern0,0,0,stop,1
+	animation2.interval,never
+	animation2.pattern0,stop,1
 
 //call sweat up
-	3interval,never
-	3pattern0,5008,0,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,5008,0,0,0
 
 //call sweat down
-	4interval,never
-	4pattern0,5009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,5009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,3-4
+	animation5.interval,never
+	animation5.pattern0,stop,3-4
 //call blush
-	6interval,never
-	6pattern0,5010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,5010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 //call sigh
-	8interval,never
-	8pattern0,5011,0,overlay,0,0
+	animation8.interval,never
+	animation8.pattern0,overlay,5011,0,0,0
 //stop sigh
-	9interval,never
-	9pattern0,0,0,stop,8
+	animation9.interval,never
+	animation9.pattern0,stop,8
 //call mad
-	10interval,never
-	10pattern0,5012,30,overlay,0,0
-	10pattern1,50121,30,overlay,0,0
-	10pattern2,5012,30,overlay,0,0
-	10pattern3,50121,30,overlay,0,0	
-	10pattern4,5012,30,overlay,0,0
-	10pattern5,50121,30,overlay,0,0	
-	10pattern6,-1,200,overlay,0,0
+	animation10.interval,never
+	animation10.pattern0,overlay,5012,300,0,0
+	animation10.pattern1,overlay,50121,300,0,0
+	animation10.pattern2,overlay,5012,300,0,0
+	animation10.pattern3,overlay,50121,300,0,0	
+	animation10.pattern4,overlay,5012,300,0,0
+	animation10.pattern5,overlay,50121,300,0,0	
+	animation10.pattern6,overlay,-1,2000,0,0
 
 //furrow brow
-	11interval,never
-	11pattern0,5003,0,overlay,0,0
+	animation11.interval,never
+	animation11.pattern0,overlay,5003,0,0,0
 //wrybrow
-	12interval,never
-	12pattern0,5004,0,overlay,0,0
+	animation12.interval,never
+	animation12.pattern0,overlay,5004,0,0,0
 //stop brow
-	13interval,never
-	13pattern0,0,0,stop,11-12
+	animation13.interval,never
+	animation13.pattern0,stop,11-12
 
 //target
 
 //target eye
-	14interval,never
-	14pattern0,5006,0,overlayfast,0,0
-	14pattern1,5005,30,overlayfast,0,0
-	14pattern2,5006,30,overlayfast,0,0
-	14pattern3,5005,30,overlayfast,0,0
-	14pattern4,5006,30,overlayfast,0,0
-	14pattern5,5005,30,overlayfast,0,0	
-	14pattern6,5006,30,overlayfast,0,0
-	14pattern7,5005,30,overlayfast,0,0
-	14pattern8,5006,30,overlayfast,0,0
-	14pattern9,5005,30,overlayfast,0,0
-	14pattern10,-1,200,overlay,0,0
-	
-	
-
-
+	animation14.interval,never
+	animation14.pattern0,overlayfast,5006,0,0,0
+	animation14.pattern1,overlayfast,5005,300,0,0
+	animation14.pattern2,overlayfast,5006,300,0,0
+	animation14.pattern3,overlayfast,5005,300,0,0
+	animation14.pattern4,overlayfast,5006,300,0,0
+	animation14.pattern5,overlayfast,5005,300,0,0	
+	animation14.pattern6,overlayfast,5006,300,0,0
+	animation14.pattern7,overlayfast,5005,300,0,0
+	animation14.pattern8,overlayfast,5006,300,0,0
+	animation14.pattern9,overlayfast,5005,300,0,0
+	animation14.pattern10,overlay,-1,2000,0,0
 }
 
 
@@ -1430,21 +1667,21 @@ element1,overlay,surface5003.png,0,0
 
 
 //call sweat down
-	4interval,never
-	4pattern0,5009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,5009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,4
+	animation5.interval,never
+	animation5.pattern0,stop,4
 //call blush
-	6interval,never
-	6pattern0,5010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,5010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 		//call mad
-	10interval,always
-	10pattern0,5012,30,overlay,0,0
-	10pattern1,50121,30,overlay,0,0
+	animation10.interval,always
+	animation10.pattern0,overlay,5012,300,0,0
+	animation10.pattern1,overlay,50121,300,0,0
 }
 
 //Sad
@@ -1455,41 +1692,38 @@ element1,overlay,surface5002.png,0,0
 
 
 //call sweat up
-	3interval,never
-	3pattern0,5008,0,overlay,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,5008,0,0,0
 
 //call sweat down
-	4interval,never
-	4pattern0,5009,0,overlay,0,0
+	animation4.interval,never
+	animation4.pattern0,overlay,5009,0,0,0
 //stop sweat
-	5interval,never
-	5pattern0,0,0,stop,3-4
+	animation5.interval,never
+	animation5.pattern0,stop,3-4
 //call blush
-	6interval,never
-	6pattern0,5010,0,overlay,0,0
+	animation6.interval,never
+	animation6.pattern0,overlay,5010,0,0,0
 //stop blush
-	7interval,never
-	7pattern0,0,0,stop,6
+	animation7.interval,never
+	animation7.pattern0,stop,6
 	//call sigh
-	8interval,never
-	8pattern0,5011,0,overlay,0,0
+	animation8.interval,never
+	animation8.pattern0,overlay,5011,0,0,0
 //stop sigh
-	9interval,never
-	9pattern0,0,0,stop,8
+	animation9.interval,never
+	animation9.pattern0,stop,8
 }
 
 
 //Appear
 surface33
 {
-element0,overlay,surface9999.png,0,0
-
-	0interval,runonce
-	0pattern0,500,0,overlay,0,0
+element0,overlay,surface500.png,0,0
 	
-	1interval,runonce
-	1pattern0,5014,0,overlay,0,0
-	1pattern1,500,30,overlay,0,0
+	animation1.interval,runonce
+	animation1.pattern0,overlay,5014,0,0,0
+	animation1.pattern1,overlay,-1,300,0,0
 }
 
 //Disappear
@@ -1497,9 +1731,9 @@ surface34
 {
 element0,overlay,surface9999.png,0,0
 
-	0interval,runonce
-	0pattern0,5014,0,overlay,0,0
-	0pattern1,-1,30,overlay,0,0
+	animation0.interval,runonce
+	animation0.pattern0,overlay,5014,0,0,0
+	animation0.pattern1,overlay,-1,300,0,0
 }
 
 //apparently somehow the animations for message box got wiped. great lol....
@@ -1514,20 +1748,20 @@ surface50
 	collision1,258,97,346,130,Wait
 	
 	//show
-	0interval,runonce
-	0pattern0,6003,0,overlay,0,0
-	0pattern1,6002,1,overlay,0,0
-	0pattern2,6001,2,overlay,0,0
-	0pattern3,6000,3,overlay,0,0
+	animation0.interval,runonce
+	animation0.pattern0,overlay,6003,0,0,0
+	animation0.pattern1,overlay,6002,10,0,0
+	animation0.pattern2,overlay,6001,20,0,0
+	animation0.pattern3,overlay,6000,30,0,0
 	
 	//click and hide
-	1interval,never
-	1pattern0,0,0,stop,0
-	1pattern1,6004,0,overlay,0,0
-	1pattern2,6001,30,overlay,0,0
-	1pattern3,6002,1,overlay,0,0
-	1pattern4,6003,2,overlay,0,0
-	1pattern5,-1,3,overlay,0,0
+	animation1.interval,never
+	animation1.pattern0,stop,0
+	animation1.pattern1,overlay,6004,0,0,0
+	animation1.pattern2,overlay,6001,300,0,0
+	animation1.pattern3,overlay,6002,10,0,0
+	animation1.pattern4,overlay,6003,20,0,0
+	animation1.pattern5,overlay,-1,30,0,0
 }
 
 //message box idle
@@ -1539,26 +1773,26 @@ surface51
 	collision1,258,97,346,130,OK
 
 	//display window. mostly because the Null surface doesn't match the size of the message sprite...
-	0interval,runonce
-	0pattern3,6000,0,overlay,0,0
+	animation0.interval,runonce
+	animation0.pattern3,overlay,6000,0,0,0
 	
 	//click OK and hide
-	1interval,never
-	1pattern0,0,0,stop,0
-	1pattern1,6004,0,overlay,0,0
-	1pattern2,6001,30,overlay,0,0
-	1pattern3,6002,2,overlay,0,0
-	1pattern4,6003,3,overlay,0,0
-	1pattern5,-1,4,overlay,0,0
+	animation1.interval,never
+	animation1.pattern0,stop,0
+	animation1.pattern1,overlay,6004,0,0,0
+	animation1.pattern2,overlay,6001,300,0,0
+	animation1.pattern3,overlay,6002,20,0,0
+	animation1.pattern4,overlay,6003,30,0,0
+	animation1.pattern5,overlay,-1,40,0,0
 
 	//click Close and hide	
-	2interval,never
-	2pattern0,0,0,stop,0
-	2pattern1,6000,0,overlay,0,0
-	2pattern2,6001,1,overlay,0,0
-	2pattern3,6002,2,overlay,0,0
-	2pattern4,6003,3,overlay,0,0
-	2pattern5,-1,4,overlay,0,0
+	animation2.interval,never
+	animation2.pattern0,stop,0
+	animation2.pattern1,overlay,6000,0,0,0
+	animation2.pattern2,overlay,6001,10,0,0
+	animation2.pattern3,overlay,6002,20,0,0
+	animation2.pattern4,overlay,6003,30,0,0
+	animation2.pattern5,overlay,-1,40,0,0
 }
 
 //misc settings
@@ -1635,18 +1869,19 @@ vHide,[34]
 }
 
 //collision and bobbing for companions
-surface.append11-16,30-33
+surface.append11-17,30-33
 {
-	collision0,56,95,153,158,Face
-	collision2,156,55,208,170,Move
+	collisionex0,Face,polygon,114,38,25,37,25,98,32,112,43,123,114,124
+	collisionex1,Move,rect,120,36,160,127
 
-	50interval,always
-	50pattern0,0,20,move,0,0
-	50pattern1,0,20,move,0,3
-	50pattern2,0,20,move,0,6
-	50pattern3,0,20,move,0,6
-	50pattern4,0,20,move,0,3
-	50pattern5,0,20,move,0,0
+	animation50.interval,always
+	animation50.option,shared-index
+	animation50.pattern0,move,0,200,0,0
+	animation50.pattern1,move,0,200,0,3
+	animation50.pattern2,move,0,200,0,6
+	animation50.pattern3,move,0,200,0,6
+	animation50.pattern4,move,0,200,0,3
+	animation50.pattern5,move,0,200,0,0
 	
 
 } 
@@ -1655,54 +1890,56 @@ surface.append11-16,30-33
 surface.append0-8,11-19
 {
 		//vibrate in place
-	60interval,never
-	60pattern0,0,3,move,-1,1
-	60pattern1,0,3,move,2,-2
-	60pattern2,0,3,move,-1,2
-	60pattern3,0,3,move,0,-1
+	animation60.interval,never
+	animation60.pattern0,move,0,30,-1,1
+	animation60.pattern1,move,0,30,2,-2
+	animation60.pattern2,move,0,30,-1,2
+	animation60.pattern3,move,0,30,0,-1
 	
-	//61interval,runonce
-	61interval,never
-	//61pattern0,0,0,stop,60
-	61pattern0,0,0,stop,62
+	//animation61.interval,runonce
+	animation61.interval,never
+	//animation61.pattern0,stop,60
+	animation61.pattern0,stop,62
 
-	62interval,never
-	//62pattern0,0,0,start,60
-	//62pattern1,0,12,start,60
-	//62pattern2,0,12,start,60
-	62pattern0,0,3,move,-1,1
-	62pattern1,0,3,move,2,-2
-	62pattern2,0,3,move,-1,2
-	62pattern3,0,3,move,0,-1
-	62pattern4,0,3,move,-1,1
-	62pattern5,0,3,move,2,-2
-	62pattern6,0,3,move,-1,2
-	62pattern7,0,3,move,0,-1
-	62pattern8,0,3,move,-1,1
-	62pattern9,0,3,move,2,-2
-	62pattern10,0,3,move,-1,2
-	62pattern11,0,3,move,0,-1
-	62pattern12,0,3,move,-1,1
-	62pattern13,0,3,move,2,-2
-	62pattern14,0,3,move,-1,2
-	62pattern15,0,3,move,0,-1
-	62pattern16,0,3,move,-1,1
-	62pattern17,0,3,move,2,-2
-	62pattern18,0,3,move,-1,2
-	62pattern19,0,3,move,0,-1
-	62pattern20,0,3,move,-1,2
-	62pattern21,0,3,move,0,-1
-	62pattern22,0,3,move,-1,1
-	62pattern23,0,3,move,2,-2
-	62pattern24,0,3,move,-1,2
-	62pattern25,0,3,move,0,-1
-	62pattern26,0,3,move,-1,1
-	62pattern27,0,3,move,2,-2
-	62pattern28,0,3,move,-1,2
-	62pattern29,0,3,move,0,-1
+	animation62.interval,never
+	//animation62.pattern0,start,60
+	//animation62.pattern1,start,60
+	//animation62.pattern2,start,60
+	animation62.pattern0,move,0,30,-1,1
+	animation62.pattern1,move,0,30,2,-2
+	animation62.pattern2,move,0,30,-1,2
+	animation62.pattern3,move,0,30,0,-1
+	animation62.pattern4,move,0,30,-1,1
+	animation62.pattern5,move,0,30,2,-2
+	animation62.pattern6,move,0,30,-1,2
+	animation62.pattern7,move,0,30,0,-1
+	animation62.pattern8,move,0,30,-1,1
+	animation62.pattern9,move,0,30,2,-2
+	animation62.pattern10,move,0,30,-1,2
+	animation62.pattern11,move,0,30,0,-1
+	animation62.pattern12,move,0,30,-1,1
+	animation62.pattern13,move,0,30,2,-2
+	animation62.pattern14,move,0,30,-1,2
+	animation62.pattern15,move,0,30,0,-1
+	animation62.pattern16,move,0,30,-1,1
+	animation62.pattern17,move,0,30,2,-2
+	animation62.pattern18,move,0,30,-1,2
+	animation62.pattern19,move,0,30,0,-1
+	animation62.pattern20,move,0,30,-1,2
+	animation62.pattern21,move,0,30,0,-1
+	animation62.pattern22,move,0,30,-1,1
+	animation62.pattern23,move,0,30,2,-2
+	animation62.pattern24,move,0,30,-1,2
+	animation62.pattern25,move,0,30,0,-1
+	animation62.pattern26,move,0,30,-1,1
+	animation62.pattern27,move,0,30,2,-2
+	animation62.pattern28,move,0,30,-1,2
+	animation62.pattern29,move,0,30,0,-1
 }
 
+//menu collision for standing poses
 surface.append0-8,19,20-25
 {
-	collision10,151,146,301,268,Menu
+	collisionex10,Menu,polygon,180,133,203,131,220,149,225,174,215,188,198,185,185,188,174,198,165,192,165,150
+	collisionex11,Menu,polygon,93,193,80,184,62,191,48,175,80,141,91,134,116,141,92,166
 }

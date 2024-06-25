@@ -856,6 +856,8 @@ OnInitBoot //initialize variables during boot...
 	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
 	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
 
+	if hidden == 1; hidden = 0; //in case they get stuck in hidden mode somehow
+
 	//required for windowcheck.dic
 	startTime = GETTICKCOUNT() //we get the number of miliseconds since OS started
 	//Music = 0 //counter for Music group of apps
@@ -869,43 +871,86 @@ OnInitBoot //initialize variables during boot...
 	if forcemin == 1; ERASEVAR('forcemin') //wipe the variable if we have crashed or otherwise shut down while this flag is present, it should be temporary
 }
 
+On_installedshellname
+{
+	installedshellname = ""
+
+	foreach reference; _ref
+	{
+		installedshellname += "%(_ref),"
+	}
+	installedshellname = ERASE(installedshellname,-1,1) //delete last comma
+}
+
+OnShellChanged
+{
+	if balloonCheck == "ON"; shellChange = 1 //flag for checking whether our balloon is correct after the shell change
+	if vegafront == 1; "\0\s[20]" //just to ensure rigel's sprite doesn't show up if vega is fronting upon the switch. otherwise it seems to default to surface 0 sometimes lol
+	--
+	FixMenuColors
+}
+
 FixMenuColors //check whos menu color scheme it is and fix it if it doesn't match lol
 {
-	void FOPEN( '..\..\shell\master\descript.txt' , 'r' ) //open description file in the shell folder
+	_path = SHIORI3FW.ShellPath + '\descript.txt'
+
+	void FOPEN( _path , 'r' ) //open description file in the shell folder
 	_line = ""
 
 	while "name," !_in_ _line //find the name of the shell in the file
 	{
-		_line = FREAD ( '..\..\shell\master\descript.txt' )	
+		_line = FREAD ( _path )	
 	}
-	FCLOSE( '..\..\shell\master\descript.txt' ) //close the file, extremely important
+	FCLOSE( _path ) //close the file, extremely important
 
 	if ( vegafront > 0 && "Early Sunrise" _in_ _line ) || ( vegafront == 0 && "Nothern Lights" _in_ _line ) //does the menu scheme not match the character fronting?
 	{
 		SwapMenuColors //if so, swap the scheme
 		--
 		"\![reload,shell]" //and reload the shell. possibly will break shit. for that reason Do Not pack vega's menu colors with update or .nar!
-	} 
+	}
+	--
+	if shellChange == 1
+	{
+		ERASEVAR('shellChange')
+
+		if vegafront == 0 && SHIORI3FW.BalloonName != "Aster Tooltip (Side A)" //rigel in front AND balloon isn't side a
+		{
+			balloonSilent = 1 //flag for silent balloon change
+			"\![change,balloon,Aster Tooltip (Side A)]"
+		}
+		elseif vegafront != 0 && SHIORI3FW.BalloonName != "Aster Tooltip (Side B)" //vega in front AND balloon isn't side b
+		{
+			balloonSilent = 1
+			"\![change,balloon,Aster Tooltip (Side B)]"
+		}
+	}
 }
 
 SwapMenuColors //if i were to rehash the entire thing from scratch i would probably use two shells instead. this is a lot more rudimentary, but it does the job
 {
-	void MKDIR( '..\..\shell\master\temp' )
+	_path = SHIORI3FW.ShellPath
 
-	void FMOVE( '..\..\shell\master\alt\descript.txt' , '..\..\shell\master\temp' )
-	void FMOVE( '..\..\shell\master\alt\menu_sidebar.png' , '..\..\shell\master\temp' )
-	void FMOVE( '..\..\shell\master\alt\menu_background.png' , '..\..\shell\master\temp' )
-	void FMOVE( '..\..\shell\master\alt\menu_foreground.png' , '..\..\shell\master\temp' )
+	_pathTemp = _path + '\temp'
+	
+	_altPath = _path + '\alt'
+	
+	void MKDIR( _pathTemp )
 
-	void FMOVE( '..\..\shell\master\descript.txt' , '..\..\shell\master\alt' )
-	void FMOVE( '..\..\shell\master\menu_sidebar.png' , '..\..\shell\master\alt' )
-	void FMOVE( '..\..\shell\master\menu_background.png' , '..\..\shell\master\alt' )
-	void FMOVE( '..\..\shell\master\menu_foreground.png' , '..\..\shell\master\alt' )
+	void FMOVE( _altPath + '\descript.txt' , _pathTemp )
+	void FMOVE( _altPath + '\menu_sidebar.png' , _pathTemp )
+	void FMOVE( _altPath + '\menu_background.png' , _pathTemp )
+	void FMOVE( _altPath + '\menu_foreground.png' , _pathTemp )
 
-	void FMOVE( '..\..\shell\master\temp\descript.txt' , '..\..\shell\master' )
-	void FMOVE( '..\..\shell\master\temp\menu_sidebar.png' , '..\..\shell\master' )
-	void FMOVE( '..\..\shell\master\temp\menu_background.png' , '..\..\shell\master' )
-	void FMOVE( '..\..\shell\master\temp\menu_foreground.png' , '..\..\shell\master' )
+	void FMOVE( _path + '\descript.txt' , _altPath )
+	void FMOVE( _path + '\menu_sidebar.png' , _altPath )
+	void FMOVE( _path + '\menu_background.png' , _altPath )
+	void FMOVE( _path + '\menu_foreground.png' , _altPath )
 
-	void RMDIR( '..\..\shell\master\temp' )
+	void FMOVE( _pathTemp + '\descript.txt' , _path )
+	void FMOVE(  _pathTemp + '\menu_sidebar.png' , _path )
+	void FMOVE(  _pathTemp + '\menu_background.png' , _path )
+	void FMOVE(  _pathTemp + '\menu_foreground.png' , _path )
+
+	void RMDIR( _pathTemp )
 }

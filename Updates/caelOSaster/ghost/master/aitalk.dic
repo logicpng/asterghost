@@ -214,17 +214,7 @@ if passmin >= 59
 
 OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
  {
-	//BotherCheck //reset pet/poke counters and unfluster/unhide character
-	--
 	HourCheck //checks to see if an hour has passed, ignore it
-	--	
-	//Don't touch this part.
-	//ok fair this is useful code
-	//nevermind not useful anymore
-	// if mikireflag == 1
- 	// {
- 	// 	MikireTalk
-	// }
  }
 
 //--OnSecondChange
@@ -248,63 +238,9 @@ OnSecondChange
  		{
 	 	passsec = passsec + 1
 		}
-
-	// removing the offscreen talk. it seems to be more of a nuisanse than helpful currently
-
-	// if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted (Like "Hey! What are you doing?"), and have MikireTalk below be for if they continue to be offscreen ("Why are you leaving me out here? Help!" for example). I'll add an example bit of dialogue and comment it out, you can uncomment it and use it if you like, or just leave it out and use MikireTalk below.
-	// {
-	// 	if stuck != 1
-	// 	{
-	// 		stuck = 1
-	// 		case vegafront
-	// 		{
-	// 			when 0; "\0\s[3]Hey,\w0 \0\s[3]\i[62]hey now,\w0 \0\s[3]you-\w3\n[150]\0\s[2]You've \0\s[6]kind of \0\s[0]\i[5]\i[8]shoved me through the screen boundaries there,\w8 \0\s[2]could you,\w8 um...\w8\w5 \0\s[0]\i[5]Not do that?"
-	// 			others; "\0\s[25]Um."
-	// 		}
-	// 	}
-	// 	else; MikireTalk
-	// }
-	// if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
-	// {
-	// 	EndMikireTalk
-	// }
-	// mikireflag = reference1 //reference1 is if the ghost is offscreen or not
-	// if reference2 == 1; "\1\4\e" //no need to prompt dialogue, the character isn't visible normally.
  }
 
- //---- MikireTalk ---------------------------------------------------------------------
- //MikireTalk is dialogue for when your main character is off-screen. Like if you dragged Girl over to the side of your monitor until she was partially concealed by it.
- 
-// MikireTalk //this is honestly interesting because the sakurascript docs mention OnOverlap shiori events. was this made before such functions were implemented? i could in theory remove this code and try replacing it with the response to the event, but. as they say: don't fix what aint broke.
-//  {
-// 	case vegafront
-// 	{
-// 		when 0 //rigel pleads with user to get him back
-// 		{
-// 			"\0\s[0]\i[5]Hey,\w8 um,\w8 a little uncomfortable here..."
-// 			"\0\s[2]%(username)?\w8 Could you...\w8\0\s[0]\i[5] bring me back?\w8 Please?"
-// 			"\0\s[4]\i[1]%(username)...?\w8 Are you there?"
-// 			"\0\s[0]\i[5]\i[8]Hey,\w8 if-\w8 um...\w8 If it's not too hard,\w8 could you at least press Ctrl-Shift-F12 for me?\w8\n[150]Up to you,\w8 of course,\w8 you're the boss!\w8\n[150]But I would really appreciate if you did that!"
-// 		} 
-// 		others //vega just gets himself out
-// 		{
-// 			stuck = 0
-// 			"\0\s[25]...Cramped.\w8\w8 \0\s[20]I'll fix that.\0\![move,--X=-461,--Y=-461,--base=screen,--base-offset=right.bottom]\1\![moveasync,--X=-350,--Y=-0,--base=0,--base-offset=center.center,--move-offset=center.center,--option=ignore-sticky-window]"
-// 		} 
-// 	}
-// 	--
-// 	"\e"
-// 	//maybe rigel needs more responses? while vega removes himself from below rigel could plead with the user before moving himself anyway. the dialogue runs every second, it could get annoying really fast
-//  }
 
- //----EndMikireTalk--------------------------------------------------------------------
- //For after you bring the character back on screen.
- 
-// EndMikireTalk
-//  {
-// 	stuck = 0
-// 	if vegafront == 0; "\0\s[8]Oh!\w8 \0\s[0]There,\w8 thank you." //vega fixes himself without asking you, so only rigel has dialogue
-//  }
 
 OnSurfaceRestore //ngl im not sure what exactly defines how long does it take until sufrace restores but
  {
@@ -318,7 +254,7 @@ OnSurfaceRestore //ngl im not sure what exactly defines how long does it take un
 	--
 	if vegafront == 0 //rigel fronting
 	{
-		"\0\s[0]\1\s[10]\e"
+		"\0\s[0]\1\s[10]"
 	}
 	else //vega fronting
 	{
@@ -349,7 +285,7 @@ OnSurfaceRestore //ngl im not sure what exactly defines how long does it take un
 		}  
 		}
 		--
-		"\1\s[10]\e"
+		"\1\s[10]"
 	}
  }
 
@@ -489,7 +425,12 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 	}
 	else //not caused by switch, meaning this is a real balloon change
 	{
-		if balloonCheckChange == 1 //forcing the balloon back from permissions
+		if balloonSilent //say nothing when balloon is changed. called from SwapMenuColors in bootend.dic
+		{
+			ERASEVAR('balloonSilent')
+			return
+		}
+		elseif balloonCheckChange == 1 //forcing the balloon back from permissions
 		{
 			balloonCheckChange = 0
 			case vegafront
@@ -502,12 +443,14 @@ OnBalloonChange //i couldn't find a better way to make them speak right after th
 			--
 			PermissionMenu
 		}
-		case vegafront
+		else //real balloon change
 		{
-			when 0; "\0\s[8]Okay!\w8 Testing!\w8 \0\s[0]Hello,\w8 %(reference0) balloon!"
-			others; "\0\s[20]\i[1]Hello,\w8 world.\w8\w8 \0\s[20]Testing."
-		}	
-		
+			case vegafront
+			{
+				when 0; "\0\s[8]Okay!\w8 Testing!\w8 \0\s[0]Hello,\w8 %(reference0) balloon!"
+				others; "\0\s[20]\i[1]Hello,\w8 world.\w8\w8 \0\s[20]Testing."
+			}	
+		}
 	}
 }
 

@@ -190,8 +190,16 @@ OnMouseClick //specifically for that one error message
 {
 	if reference3 == 2
 	{
-		messagegag = 0
-		if reference4 == "OK"; "\8[click.wav]\p[2]\i[1]\w8\w8\s[-1]" //Pressed OK, closed error
-		elseif reference4 == "Close"; "\8[click.wav]\p[2]\i[2]\w8\w8\s[-1]" //Pressed the close button
-	}
+		
+		if reference4 == "OK"
+		{
+			"\8[click.wav]\p[2]\i[1]\w8\w8\s[-1]" //Pressed OK, closed error
+			messagegag = 0 //making sure the flag is Only set to 0 when we actually click on the buttons!
+		} 
+		elseif reference4 == "Close"
+		{
+			"\8[click.wav]\p[2]\i[2]\w8\w8\s[-1]" //Pressed the close button
+			messagegag = 0
+		}
+	} 
 }
