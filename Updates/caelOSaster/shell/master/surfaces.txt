@@ -142,7 +142,7 @@ surface1
 	
 	//talk
 	
-	animation1.interval,talk,4
+	animation1.interval,talk,5
 	animation1.pattern0,alternativestart,(2,3,4)
 
 	animation2.interval,never
@@ -861,21 +861,21 @@ surface22
 	animation2.pattern0,stop,1
 	//talk
 	
-	animation3.interval,talk,4
+	animation3.interval,talk,5
 	animation3.pattern0,alternativestart,(4,5,6)
 
 	animation4.interval,never
-	animation4.pattern0,overlay,1125,100,0,0
-	animation4.pattern1,overlay,1126,130,0,0
-	animation4.pattern2,overlay,-1,100,0,0
+	animation4.pattern0,overlay,1125,0,0,0
+	animation4.pattern1,overlay,1126,150,0,0
+	animation4.pattern2,overlay,-1,150,0,0
 
 	animation5.interval,never
-	animation5.pattern0,overlay,1125,140,0,0
-	animation5.pattern1,overlay,-1,100,0,0
+	animation5.pattern0,overlay,1125,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 
 	animation6.interval,never
-	animation6.pattern0,overlay,1126,140,0,0
-	animation6.pattern1,overlay,-1,100,0,0
+	animation6.pattern0,overlay,1126,0,0,0
+	animation6.pattern1,overlay,-1,150,0,0
 	
 	//call ?
 	animation7.interval,never
@@ -1226,21 +1226,21 @@ surface27
 	
 	//talk
 	
-	animation3.interval,talk,4
+	animation3.interval,talk,5
 	animation3.pattern0,alternativestart,(4,5,6)
 
 	animation4.interval,never
-	animation4.pattern0,overlay,1172,100,0,0
-	animation4.pattern1,overlay,1173,130,0,0
-	animation4.pattern2,overlay,-1,100,0,0
+	animation4.pattern0,overlay,1172,0,0,0
+	animation4.pattern1,overlay,1173,150,0,0
+	animation4.pattern2,overlay,-1,150,0,0
 
 	animation5.interval,never
-	animation5.pattern0,overlay,1172,140,0,0
-	animation5.pattern1,overlay,-1,100,0,0
+	animation5.pattern0,overlay,1172,0,0,0
+	animation5.pattern1,overlay,-1,150,0,0
 
 	animation6.interval,never
-	animation6.pattern0,overlay,1173,140,0,0
-	animation6.pattern1,overlay,-1,100,0,0
+	animation6.pattern0,overlay,1173,0,0,0
+	animation6.pattern1,overlay,-1,150,0,0
 	
 	//wry brow
 	animation7.interval,never
