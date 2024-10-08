@@ -125,7 +125,7 @@ ReplyToTerrorStar
 		}
 		elseif "vegareply5" _in_ reference1
 		{
-			res_reference0 = "" /
+			res_reference0 = ""
 			conversation_new = "\0\s[24]\i[3]Hm..."
 			"%(conversation_new)"
 			conversation_end = 1
