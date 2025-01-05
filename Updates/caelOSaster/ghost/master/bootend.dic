@@ -101,7 +101,7 @@ Select.vibrno
 //and from here on out aster should behave as normal
 altairFirstBootZero
 {
-	"\0\![set,alpha,0]%(FadeIn)\s[rDef]Hello,\w8 and welcome!\w8\n[150]Thank you for choosing TerraByte software!\x\0\s[rHap]My name is Aster, \w8and I'll be your guide through the installation and usage of Ca- \w8\0\s[rNeu]\n\n[half]\w8.\0\s[rSup].\0\s[3]\i[5].W\0\s[0]\i[5]\i[8]\w8\w8- %property[system.os.name],\w8 \i[62]of course!\w8\i[61]\f[italic,0]\x\0\s[2]U\0\s[2]\i[5]h- \s[0]\i[5]\i[8]\i[62]I...\c\0\s[5]I see you've already set yourself up quite nicely!\w8\n[150]Well done!\w8 \w8\n[150]\0\s[0]\i[5]But I will still be more than happy to help you with anything to enhance your experience.\x\0\s[0]Since this is the first time we talk,\w8 I would love to get to know you!\n[150]\w8\0\s[0]I will need your name,\w8 pronouns,\w8 and birthday.\x"
+	"\0\![set,alpha,0]%(FadeIn)\s[rDef]Hello,\w8 and welcome!\w8\n[150]Thank you for choosing TerraByte software!\x\0\s[rHap]My name is Aster, \w8and I'll be your guide through the installation and usage of Ca- \w8\0\s[rNeu]\n\n[half]\w8.\0\s[rSup].\0\s[3]\i[5].W\0\s[0]\i[5]\i[8]\w8\w8- %property[system.os.name],\w8 \i[62]of course!\w8\i[61]\f[italic,0]\x\0\s[2]U\0\s[2]\i[5]h- \s[0]\i[5]\i[8]\i[62]I...\c\0\s[5]I see you've already set yourself up quite nicely!\w8\n[150]Well done!\w8 \w8\n[150]\0\s[0]\i[5]But I will still be more than happy to help you with anything to enhance your experience.\x\0\s[0]Since this is the first time we've talked,\w8 I would love to get to know you!\n[150]\w8\0\s[0]I will need your name,\w8 pronouns,\w8 and birthday.\x"
 	--
 	NameInput
 }

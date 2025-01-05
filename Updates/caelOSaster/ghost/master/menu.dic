@@ -61,9 +61,9 @@ MenuRun
 	--
 	"\_q\b2" //The \n\n means two new lines as detailed in the walkthrough, and \_q means quick session, meaning all the text from this point on will display instantly instead of a few letters at a time like normal ghost dialogue.
 	--
-	if lastTalk != ""; "\![*]\q[Could you repeat that?,OnLastTalk]\n" //What this does is check to see if the ghost has already said a random bit of dialogue on its own, essentially by seeing if the lastTalk thing is NOT empty (!= means "does not equal").
+	if lastTalk != ""; "\![*]\q[Could you repeat that? (R),OnLastTalk]\n" //What this does is check to see if the ghost has already said a random bit of dialogue on its own, essentially by seeing if the lastTalk thing is NOT empty (!= means "does not equal").
 	--
- 	"\![*]\q[Tell me something!,OnAiTalk]"
+ 	"\![*]\q[Tell me something! (T),OnAiTalk]"
 	--
 	if stage == 3
 	{

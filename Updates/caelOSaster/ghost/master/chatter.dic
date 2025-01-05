@@ -61,16 +61,16 @@ altairzerotalk : nonoverlap_pool //zero stage chatter. genuine tips most of the 
 
 	if "Windows 11" _in_ os_name || "Windows 10" _in_ os_name || "Windows 8" _in_ os_name
 	{
-		"\0\s[0]You can always adjust your settings through the... \i[8]\w8\w8Settings\i[5] menu...?\n[150]\w8\w8\_q(Or is it the Control Panel.\w8.\w8.\w8? Are-\w8\w8\c[char,4]Are they actually any different?\w8)"
+		"\0\s[0]You can always adjust your settings through the... \i[8]\w8\w8Settings\i[5] menu...?\n[150]\w8\w8\![set,serikotalk,false](Or is it the Control Panel..?\w8 Are-\w8\w8\c[char,4]Are they actually any different?)"
 	}
 	else //windows 7 or xp, and i applaud you if you still run xp
 	{
-		"\0\s[0]You can always adjust your settings through the,\w8 \i[8]er,\w8 \i[5]Control Panel!\w8 \_q(That.\w8.\w8.\w8 sounds about right.\w8.\w8.\w8)"
+		"\0\s[0]You can always adjust your settings through the,\w8 \i[8]er,\w8 \i[5]Control Panel!\w8 \![set,serikotalk,false](That...\w8 sounds about right...)"
 	}
 
 	if "Windows 11" _in_ os_name
 	{
-		"\0\s[0]Right mouse button is your best friend! \w8Simply click anywhere and select what you need\w8.\w8.\w8?\w8\n[150](\i[8]\_qIs that\w8.\w8.\w8. \i[7]\i[6]\i[62]Why is the menu expandable\w8?\w8?\w8\_q)\s[0]"
+		"\0\s[0]Right mouse button is your best friend! \w8Simply click anywhere and select what you need\w8.\w8.\w8?\w8\n[150]\![set,serikotalk,false](\i[8]Is that...\w8 \i[7]\i[6]\i[62]Why is the menu expandable??)\s[0]"
 	}
 	else //any other windows
 	{
@@ -79,21 +79,21 @@ altairzerotalk : nonoverlap_pool //zero stage chatter. genuine tips most of the 
 
 	"\0\s[0]You can always change the info you gave me through the Options menu!\w8 Click on the link or tap my shoulder and select Options."
 
-	"\0\s[0]\i[5]\_q(Easy now\_q\.\w8\.\w8\.\w8\w8\i[8] \_qThis doesn't look that different\_q.\w8\.\w8\.\w8\)\w8\w8"
+	"\0\s[0]\i[5]\![set,serikotalk,false](Easy now...\w8\w8\i[8] This doesn't look that different...)\w8\w8"
 
-	"\0\s[0]If I ever get in the way, you can always minimize me.\w8 Then you can press this...\i[5]\w8 Pretty bow with a bell icon.\w8\w8\n[150]\_q(That's.\w8.\w8.\w8 \i[8]definitely not right.\w8.\w8.\w8)"
+	"\0\s[0]If I ever get in the way, you can always minimize me.\w8 Then you can press this...\i[5]\w8 Pretty bow with a bell icon.\w8\w8\n[150]\![set,serikotalk,false](That's...\w8 \i[8]definitely not right...)"
 
 	if "Windows 11" _in_ os_name
 	{	
-		"\0\s[0]\_q(.\w8.\w8.\w8That's odd.\w8\w8 \i[5]Can you really just have the main menu in the middle.\w8.\w8.\w8?)"
+		"\0\s[0]\![set,serikotalk,false](...\w8That's odd.\w8\w8 \i[5]Can you really just have the main menu in the middle..?)"
 	}
 	elseif "Windows 10" _in_ os_name || "Windows 8" _in_ os_name
 	{
-		"\0\s[0]\_q(I've never seen that icon before\w8.\w8.\w8. Well,\w8\w8 you can't say it doesn't look like a window.\w8\w8)"
+		"\0\s[0]\![set,serikotalk,false](I've never seen that icon before...\w8 Well,\w8\w8 you can't say it doesn't look like a window.)"
 	}
 	else //windows 7 and xp
 	{
-		"\0\s[0]\_q(I've never seen that icon before\w8.\w8.\w8. Well,\w8\w8 looks more like a flag than a window to me.\w8\w8)"
+		"\0\s[0]\![set,serikotalk,false](I've never seen that icon before...\w8 Well,\w8\w8 looks more like a flag than a window to me.)"
 	}
 
 	"\0\s[0]If you'd like me to talk more,\w8 or,\w8\i[5] well,\w8 less,\w8\i[7] you can take a look at the Options menu."
@@ -110,20 +110,20 @@ altairzerotalk : nonoverlap_pool //zero stage chatter. genuine tips most of the 
 
 	"\0\s[0]You can always make me larger or smaller!\w8 There's Shell Scaling in right click menu.\w8\n[150]...\i[5]Though if I'm too small,\w8 you might not be able to read what I'm saying...\n[150]\w8\s[0]I believe there's something in the...\w8 \i[5]'S\w8S\w8P\w8 Preferences'."
 
-	"\0\s[0]\i[5]\i[8](\_qSSP.\w8.\w8.\w8 What exactly does SSP stand for\w8?\w8)"
+	"\0\s[0]\i[5]\i[8]\![set,serikotalk,false](SSP...\w8 What exactly does SSP stand for?)"
 
-	"\0\s[0]If you have any questions or concerns,\w8 you can always have me address...\n[150]\i[8]\_q(.\w8.\w8.\w8I can't seem to access any TerraByte servers\w8.\w8.\w8.)\_q\n[150]\i[5]Ah,\w8 \i[62]nevermind that,\w8 \i[61]we'll figure it out!\w8 It's what I'm here for..."
+	"\0\s[0]If you have any questions or concerns,\w8 you can always have me address...\n[150]\w8\w8\i[8]\![set,serikotalk,false](...I can't seem to access any TerraByte servers...)\w8\![set,serikotalk,true]\n[150]\i[5]Ah,\w8 \i[62]nevermind that,\w8 \i[61]we'll figure it out!\w8\n[150]It's what I'm here for..."
 
 	//there's bit of an issue with they............ i think i should set MORE pronoun variables actually
 	// but for now...
 
 	if heshe == "they"
 	{
-		"\0\s[0]\_q(They must be catching on.\w8.\w8.\w8 \i[5]They already know,\w8\w8 don't they.\w8.\w8.\w8? \i[8]I feel like my thoughts are all on display.\w8.\w8.\w8)"
+		"\0\s[0]\![set,serikotalk,false](They must be catching on...\w8 \i[5]They already know,\w8\w8 don't they..?\w8 \i[8]I feel like my thoughts are all on display...)"
 	}
 	else
 	{
-		"\0\s[0]\_q(%(OnCapitalize( heshe )) must be catching on.\w8.\w8.\w8 \i[5]%(OnCapitalize( heshe )) already knows,\w8\w8 doesn't %(heshe).\w8.\w8.\w8? \i[8]I feel like my thoughts are all on display.\w8.\w8.\w8)"
+		"\0\s[0]\![set,serikotalk,false](%(OnCapitalize( heshe )) must be catching on...\w8 \i[5]%(OnCapitalize( heshe )) already knows,\w8\w8 doesn't %(heshe)..?\w8 \i[8]I feel like my thoughts are all on display...\w8)"
 	}
 
 }
@@ -1206,7 +1206,7 @@ altairselfcare : nonoverlap_pool
 		"\0\s[2]Do you...\w8 want to unwind together?\w8 \0\s[0]\i[5]Listen to something nice?\w8\n[150]\0\s[0]\_a["
 		--
 		"https://www.youtube.com/watch?v=jfKfPfyJRdk" //lofi girl
-		"https://www.youtube.com/watch?v=rUxyKA_-grg" //lofi girl but in bed
+		"https://www.youtube.com/watch?v=28KRPhVzCus" //lofi girl but in bed
 		"https://www.youtube.com/watch?v=4xDzrJKXOOY" //synthwave boy
 		--
 		"]I've found an online radio recently here\_a!" 
@@ -1316,15 +1316,17 @@ altairbotherzero //petting Or poking on intro
 	//check if we've already bothered poor rigel enough
 	if strokecount < 4
 	{
+		"\0\s[0]\i[5]\i[8]\![set,serikotalk,false]"
+		--
 	//first part of it
-		"\0\s[0]\i[5]\i[8]\_q(Stay professional\_q\w8.\w8.\w8."
-		"\0\s[0]\i[5]\i[8]\_q(Please\_q\w8.\w8.\w8. \_qNot right now\_q\w8.\w8.\w8.!"
-		"\0\s[0]\i[5]\i[8]\_q(Nononono, please\_q\w8.\w8.\w8."
+		"(Stay professional\w8.\w8.\w8."
+		"(Please\w8.\w8.\w8. Not right now\w8.\w8.\w8.!"
+		"(Nononono, please\w8.\w8.\w8."
 		--
 		case strokecount
 		{
-			when 2; " \0\s[0]\i[5]\i[8]\i[62]\_qI'll implode at this rate\_q\w8.\w8.\w8.\i[61])"
-			when 3; " \0\s[0]\i[5]\i[8]\i[62]\_qI\w8.\w8.\w8. I can't take it!\w8!\w8)"
+			when 2; " \0\s[0]\i[5]\i[8]\i[62]I'll implode at this rate\w8.\w8.\w8.\i[61])"
+			when 3; " \0\s[0]\i[5]\i[8]\i[62]I\w8.\w8.\w8. I can't take it!\w8!\w8)"
 			others; ")"
 		}
 		--
@@ -1665,10 +1667,10 @@ altairbotherzero //petting Or poking on intro
 		"\0\s[3]\i[5]\i[62]"
 		"\0\s[0]\i[5]\i[62]"
 		--
-		"Ah-!\i[61]\w8 That's my face!\w8 \0\s[0]\i[5]\n[150]If you want my attention,\w8 \0\s[0]tap on my shoulder instead!"
+		"Ah-!\i[61]\w8 \0\s[0]\i[5]\n[150]If you want my attention,\w8 \0\s[0]tap on my shoulder instead!"
 		"Ah!\i[61]\w8 Startled me there!\w8 \n[150]\0\s[0]\i[5]Try my shoulder sleeve instead."
 		"That's\i[61] not my shoulder,\w8 silly!"
-		"%(username)\i[61]!!\w8 \0\s[0]\i[5]That's my face,\w8 not my shoulder!"
+		"%(username)\i[61]!!\w8 \0\s[0]\i[5]I'm afraid that's not my shoulder!"
 		"This tickles\i[61]!\w8 \n[150]\0\s[0]\i[5]Tap my coat shoulder instead."
 		"Oh\i[61]!\w8 \0\s[0]\i[5]Nono,\w8 try my shoulder."
 	}
@@ -1761,7 +1763,7 @@ altairbotherzero //petting Or poking on intro
 		--
 		"Don't."
 		"Hands off."
-		"Shoulder for menu.\w8\w8 Not my face."
+		"Shoulder for menu.\w8\w8 Not my head."
 		"Flattered.\w8\w8 But don't."
 		"Misclick?"
 		"Misclicking.\w8\w8 Try shoulder."
