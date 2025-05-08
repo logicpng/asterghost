@@ -6,7 +6,7 @@
 OnAiTalk
  {
 	//if strokecount > 3 || ( pokecount > 10 && vegafront > 0 ) || ( pokecount > 15 && vegafront == 0 ) 
-	if BotherCondition || panelFix == 1 || conversation != "" //character is hidden or too bothered; alternatively side panel adjustment is turned on and aster shouldn't speak; Alternatively talking to aldebaran
+	if BotherCondition || conversation != "" //character is hidden or too bothered; alternatively side panel adjustment is turned on and aster shouldn't speak; Alternatively talking to aldebaran
 	{
 		//"\e" //if aster is bothered enough, skip section entirely until the counters reset
 		return //forgot this exists lol
@@ -222,11 +222,6 @@ OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
 
 OnSecondChange
  {	
-	if panelFix == 1
-	{
-		adjustTimerCheck //in menu.dic
-	}
-	--
 	BotherCheck
 	--
 	if passsec == 59
@@ -244,7 +239,7 @@ OnSecondChange
 
 OnSurfaceRestore //ngl im not sure what exactly defines how long does it take until sufrace restores but
  {
-	if BotherCondition || panelFix == 1
+	if BotherCondition
 	{
 		//"\e" //interrupt surface restore if too flustered
 		return //or if the panel is being adjussted

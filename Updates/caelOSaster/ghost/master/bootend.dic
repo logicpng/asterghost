@@ -3,8 +3,6 @@
 
 OnFirstBoot
 {
-//OnFirstBoot begins with some code at first to define some values your ghost will be using. I'll briefly touch on what they are, but for the most part you should not need to edit any of these and you can safely ignore most of them (except nowshell if you've changed your shell folder's name from master). Definitely don't delete them unless you know what you're doing.
-
  	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
 	passhour = 0
 	passmin = 0 
@@ -35,6 +33,7 @@ OnFirstBoot
 	//homepage = "" //what page to open when asked to open browser
 	balloonCheck = "OFF" //variable clarified in menu.dic
 	careCheck = "OFF" //variable clarified in menu.dic
+	keroAutoCorrect = 1 //side panel auto adjustment
 
 	I = "I"
 	Me = "me"
@@ -44,7 +43,7 @@ OnFirstBoot
 	--
 	vegaSeen = 0 //for panel adjustment mode
 	--
-	OnInitBoot //initialize vars we'll need during boot Regardless of whether it's first or any other boot
+	//OnInitBoot //initialize vars we'll need during boot Regardless of whether it's first or any other boot
 	--
 	OnInitFlags //conversation flags
 	--
@@ -568,7 +567,7 @@ OnBoot
 		passhour = 0
 		passmin = 0
 		passsec = 0	
-		OnInitBoot //initialize our boot variables
+		//OnInitBoot //initialize our boot variables
 		--
 		case vegafront
 		{
@@ -643,8 +642,6 @@ vegaboottalk
 
 OnClose //similar check to boot. first who's fronting and then what progression stage we're on
 {
-	if panelFix == 1; adjustStealthEnd
-	--
 	case vegafront
 	{
 		when 0; altairclosetalk //for when rigel is fronting
@@ -685,8 +682,6 @@ altairclosetalk
 	} 
 	else
 	{
-		if panelFix == 1; adjustStealthEnd //more in menu.dic
-		--
 		"\t"
 		--
 		case vegafront
@@ -753,8 +748,6 @@ OnWindowStateRestore
 //This runs whenever you change or reload the ghost.  
 OnGhostChanging
  {
-	if panelFix == 1; adjustStealthEnd
-	--
 	if reference0 == "Aster" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt.
 	{		
 		case vegafront
@@ -837,38 +830,44 @@ OnGhostCallComplete
 	}
 }
 
-//writing this months later. i had no idea OnInitialize already existed...
-OnInitBoot //initialize variables during boot...
+//writing this months later. i had no idea OnInitialize already existed... (was OnInitBoot)
+OnInitialize //initialize variables during boot...
 {
-	if vegaSeen == "" //for panel adjustment mode, more in menu.dic. normally is set to 1 during the specific conversation where vega first shows up
+	if reference0 != "reload"
 	{
-		if stage == 2 || stage == 3 || talkedStageone[5] == 1; vegaSeen = 1
-		else; vegaSeen = 0
+		if vegaSeen == "" //to enable the setting of side panel following aster
+		{
+			if stage == 2 || stage == 3 || talkedStageone[5] == 1; vegaSeen = 1
+			else; vegaSeen = 0
+		}
+		--
+		//if the user updates and has no variable, they obviously don't have their vibration locked. we set it to 0
+		//this also should set it to No should the user accidentally skip the query by accident
+		if noVibrate == ""; noVibrate = 0
+		--
+		//saori_cpuid.dll. required for certain dialogue
+		os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+		os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+		cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+		cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+
+		if hidden == 1; hidden = 0; //in case they get stuck in hidden mode somehow
+
+		//required for windowcheck.dic
+		startTime = GETTICKCOUNT() //we get the number of miliseconds since OS started
+		//Music = 0 //counter for Music group of apps
+		//there will be more counters, but however i just need the Proof of Concept
+		//MusicDone = 0 //have we reacted to a music player being up since ghost started?
+		strokecount = 0 //reset petting counter
+		pokecount = 0 //reset poking counter
+		//--
+		//"\![set,sticky-window,1,0,2]" //makes sure both are moved + message gag
+
+		if forcemin == 1; ERASEVAR('forcemin') //wipe the variable if we have crashed or otherwise shut down while this flag is present, it should be temporary
+
+		if ISVAR('keroAutoCorrect') == 0; keroAutoCorrect = 1
 	}
-	--
-	//if the user updates and has no variable, they obviously don't have their vibration locked. we set it to 0
-	//this also should set it to No should the user accidentally skip the query by accident
-	if noVibrate == ""; noVibrate = 0
-	--
-	//saori_cpuid.dll. required for certain dialogue
-	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
-	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
-	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
-	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
-
-	if hidden == 1; hidden = 0; //in case they get stuck in hidden mode somehow
-
-	//required for windowcheck.dic
-	startTime = GETTICKCOUNT() //we get the number of miliseconds since OS started
-	//Music = 0 //counter for Music group of apps
-	//there will be more counters, but however i just need the Proof of Concept
-	//MusicDone = 0 //have we reacted to a music player being up since ghost started?
-	strokecount = 0 //reset petting counter
-	pokecount = 0 //reset poking counter
-	//--
-	//"\![set,sticky-window,1,0,2]" //makes sure both are moved + message gag
-
-	if forcemin == 1; ERASEVAR('forcemin') //wipe the variable if we have crashed or otherwise shut down while this flag is present, it should be temporary
+	
 }
 
 On_installedshellname

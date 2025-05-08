@@ -242,7 +242,7 @@ Select.plural
 {
     "\![set,balloonwait,30%]\0\s[3]\i[5]\i[62]Ah-!\i[61]\w8 Oh,\w8 \0\s[3]\![set,balloonwait,100%]I just \i[62]misspoke\i[61]!\w8 \n[150]Or- \0\s[0]\i[5]\i[8]\![set,balloonwait,60%]or \i[62]maybe\i[61] \f[italic,1]you\f[italic,0] misheard,\w8 \0\s[3]or,\w8 er,\w8 \i[62]misread\i[61], I-\n[150]\![set,balloonwait,100%]\1\s[33]...Enough.\w8\w8 \1\s[32]Too obvious.\0\8[chord.wav]\s[3]\i[5]\i[62]\t\p[2]\s[50]\0\w8\w3\i[61]\n[150]\1\x\1\s[30]Startled?\w8\w8\0\s[3]...You tear back the curtain without warning and ask me if I'm \0\s[6]\i[62]startled??\0\s[6]\w8\w8\1\s[32]\n[150]\i[8]Secret's out.\w8\w8 \1\s[32]No point hiding.\x\1\s[30]Hello,\w8 %(username).\w8\w8 We are two.\w8\w8 \n[150]\1\s[32]Both Aster.\w8\w8 Different functions.\w8\w8 \n[150]\1\s[30]Nice to meet you.\0\s[6]\i[5]\![set,balloonwait,60%]Nice to meet you, he says, \![set,balloonwait,30%]what ab\1\s[34]\0out-\w8 \i[62]\![set,balloonwait,180%]\n[150]Grrrgh...\i[61]\x\0\s[4]...Sigh.\w8 \![set,balloonwait,100%]\0\s[1]I'm sorry,\w8 %(username),\w8 \0\s[0]\i[5]I didn't really want you to find out already.\w8\n[150]\0\s[6]I'll...\w8 \0\s[4]have a talk with him later.\p[2]\s[51]\0"
     --
-    "\x\_q[Side panel adjustment was added to Options]\_q"
+    "\x\_q[New setting was added to the options menu:]\n[150][\f[bold,1]""Disable side panel following Aster""\_q\f[bold,0]]"
     --
     I = "we"
 	Me = "us"

@@ -208,7 +208,7 @@ On_configurationrootbutton.caption
 
 On_balloonrootbutton.visible
 {
-	if balloonCheck == "ON" || panelFix == 1; "0"
+	if balloonCheck == "ON"; "0"
 	else; "1"
 }
 
@@ -294,75 +294,4 @@ On_hwnd
 	kerohwnd      = reference0[1]
 	sakurablnhwnd = reference1[0]
 	keroblnhwnd   = reference1[1]
-}
-
-//----- caption visibility stuff for adjustment mode lol
-
-On_updatebutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_headlinesenserootbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_pluginrootbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_shellscalerootbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_sntpbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-//balloonchange is marked earlier
-
-//didn't find balloonscale oddly enough. maybe i can wing it lol
-On_balloonscalerootbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_callghostrootbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_ghostexplorerbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_ghostrootbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_historyrootbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
-}
-
-On_biffbutton.visible
-{
-	if panelFix == 1; 0
-	else; 1
 }

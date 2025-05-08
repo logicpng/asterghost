@@ -1,6 +1,6 @@
 ﻿seriko.alignmenttodesktop,free
 seriko.use_self_alpha,1
-seriko.sticky-window,0,1
+//seriko.sticky-window,0,1
 
 charset,UTF-8
 type,shell
@@ -8,12 +8,12 @@ name,Aster Early Sunrise
 craftman,logic.png
 craftmanurl,https://logicpng.tumblr.com/
 
-sakura.balloon.offsetx,0
-sakura.balloon.offsety,0
-kero.balloon.offsetx,0
-kero.balloon.offsety,0
-sakura.balloon.alignment,none
-kero.balloon.alignment,none
+sakura.balloon.offsetx,70
+sakura.balloon.offsety,-100
+kero.balloon.offsetx,-40
+//kero.balloon.offsety,0
+//sakura.balloon.alignment,none
+kero.balloon.alignment,top
 
 shiori.logo.filename,resources\niseshiori.png
 shiori.logo.x,16

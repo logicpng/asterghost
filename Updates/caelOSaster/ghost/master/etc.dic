@@ -493,8 +493,6 @@ OnInstallRefuse
 
 OnVanishSelecting
 {
-	if panelFix == 1; adjustStealthEnd //just to be safe...
-	--
 	case stage
 	{
 		when 0;"\0\s[3]\i[5]No, \i[62]wait-\i[61] \0\s[0]\i[5]\i[8]\i[62]Please\i[61], give me a chance!\n[150]\0\s[4]I've \0\s[0]\i[5]\i[8]just started!\n[150]Just need a little \0\s[3]\i[62]time\s[0]\i[5]\i[8]!\n[150]\w8Please...?\e"
@@ -529,8 +527,6 @@ OnVanishSelecting
 
 OnVanishSelected
 {
-	if panelFix == 1; adjustStealthEnd
-	--
 	case stage
 	{
 		when 0;"\0\s[0]\i[5]\i[8]...\i[62]A- Alright\i[61]! \0\s[5]It was a pleasure working with you!\n[150]Please let us...\w8\0\s[0]\i[5]\i[8] at TerraByte know what we can do to improve the service.\w8 Goodbye!\e"
@@ -1354,11 +1350,9 @@ OnBatteryCritical
 	//"\0\s[0]The laptop's battery is critically low.\e"
 }
  
- //--OnShellScaling
- //This is a function however that you may actually use! Or at least, I often use it when desktop space is at a premium (which it always is on my computer). If you right click the ghost, you can go to Shell Scaling, which lists a number of different percentages. Those are the percentages your ghost can be scaled in size up or down. You can try them out yourself to get an idea of what I mean. I often scale mine down to get them out of the way sometimes. This adds dialogue whenever you change their scale. You don't have to do this if you don't want to, in which case they will just stay silent when you size them up or down. If that's what you want, just delete the whole thing or leave "" instead of any dialogue.
- 
 OnShellScaling
 {
+	scale = reference0 //will be needed for OnCorrectKero in anchor.dic
 	case vegafront
 	{
 		when 0 //rigel

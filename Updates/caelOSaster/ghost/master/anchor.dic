@@ -1,15 +1,5 @@
 //---------------------------Anchors and OnTranslate--------------------------
 
-//This .dic file is for setting up anchor words, which are links to set conversations attached to certain words automatically. It also deals with OnTranslate, which is a fairly unique function. All text goes through OnTranslate first before it displays on your ghost, which is how it knows to turn certain words into links.
-//Why should I care about anchor words, you ask? Or what can I use them for? Well, you can set up anchor words to easy explanations for things your ghost might talk about that might confuse your user. People they know, places they've been, pop culture references the user might not get, information about you the creator or the world the characters from, items in an item menu, basically any number of things. Anchor words can be a handy repository of information! Or just an easy way to set up some cheap jokes. The power is yours!
-
-//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
-//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
-//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
-
-//This file is very short, so don't worry! And if you aren't planning on using anchor words, you just have to delete a few things and you'll be done!
-
-
 //--OnTranslate
 
 //As I said above, OnTranslate filters through all the text your ghost displays and does whatever you specify to it. That doesn't have to just be turning things into links, it could be anything. This is a powerful function that can be used in a lot of creative ways I bet, but I wouldn't mess with it too much since you can pretty easily break stuff if you don't know what you're doing.
@@ -17,33 +7,79 @@
 
 OnTranslate
 	{
-	_talk = reference0
- 	_talk = REPLACE(_talk, "Options", "\_a[options]Options\_a")
- 	_talk = REPLACE(_talk, "Utilities", "\_a[utilities]Utilities\_a")
- 	_talk = REPLACE(_talk, "TerraByte", "\f[bold,1]\f[color,#275453]TerraByte\f[default]")
-	//_talk = REPLACE(_talk, "Aster", "\f[color,#275453]Aster\f[default]")
-	_talk = REPLACE(_talk, "Rigel", "\f[color,#C94948]Rigel\f[default]")
-	_talk = REPLACE(_talk, "Altair", "\f[color,#C94948]Altair\f[default]")
-	_talk = REPLACE(_talk, "Vega", "\f[color,#2D418E]Vega\f[default]")
+		_talk = reference0
+		_talk = REPLACE(_talk, "Options", "\_a[options]Options\_a")
+		_talk = REPLACE(_talk, "Utilities", "\_a[utilities]Utilities\_a")
+		_talk = REPLACE(_talk, "TerraByte", "\f[bold,1]\f[color,#275453]TerraByte\f[default]")
+		//_talk = REPLACE(_talk, "Aster", "\f[color,#275453]Aster\f[default]")
+		_talk = REPLACE(_talk, "Rigel", "\f[color,#C94948]Rigel\f[default]")
+		_talk = REPLACE(_talk, "Altair", "\f[color,#C94948]Altair\f[default]")
+		_talk = REPLACE(_talk, "Vega", "\f[color,#2D418E]Vega\f[default]")
 
-	if noVibrate == 1 //if user disables rigel's visual vibration the related interval tags get eaten
-	{
-		_talk = REPLACE(_talk, "\i[60]", "")
-		_talk = REPLACE(_talk, "\i[61]", "")
-		_talk = REPLACE(_talk, "\i[62]", "")
-	}
-	
+		if keroAutoCorrect == 1 && reference2 != "OnFirstBoot"; _talk = REPLACE(_talk,"\1","\1\![get,property,OnCoordSakura,currentghost.scope0.rect]\![get,property,OnCoordKero,currentghost.scope0.rect]\![embed,OnCorrectKero]",1) //see below. also do a replacement only on the first \1 in the string
+
+		if noVibrate == 1 //if user disables rigel's visual vibration the related interval tags get eaten
+		{
+			_talk = REPLACE(_talk, "\i[60]", "")
+			_talk = REPLACE(_talk, "\i[61]", "")
+			_talk = REPLACE(_talk, "\i[62]", "")
+		}
+		
 		if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
-            EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
-        }
-        else { //event result from ghost
-            TOSTR(_talk)
-        }
+			EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+		}
+		else { //event result from ghost
+			TOSTR(_talk)
+		}
 	}
-	
-	//Some brief explanation about what's going on in those REPLACE lines! Basically, the function looks through the script and looks for a defined word or set of words. In this case, it's "Anchor 1". It then replaces "Anchor 1" with the second set of text, "\_a[anchor1]Anchor 1\_a". \_a if you recall is the dialogue code for linking something, so this is linking the words Anchor 1 to something called anchor1 set up in the next function, OnAnchorSelect.
-	//This is being used to change a word into a link, but you could conceivably use this to replace any text with any other kind of text if you wanted.
 
+//turns out there's a much easier way to pull from property system. this was almost going to use window_info.dll but it's definitely better if it can be done without saori. much thanks to zi for clueing me in!
+OnCoordSakura
+{
+	astCoord = reference0
+}
+
+OnCoordKero
+{
+	keroCoord = reference0
+}
+
+OnCorrectKero //should return a Move command. side panel is almost always invisible, making it tricky to make sure the panel appears next to aster at all times
+{
+	_sideX = 0
+	_sideY = 0 //coordinates of the side panel
+
+	//Value2: Window coordinates (left, top, right, bottom)
+	_sideX = TOINT(keroCoord[0]) + TOINT(keroCoord[2]) / 2
+
+	_astX = (TOINT(astCoord[0]) + TOINT(astCoord[2])) /2 //aster's horisontal coord
+	_astY = (TOINT(astCoord[1]) + TOINT(astCoord[3])) /2 //vertical coord, will only be needed for moving side panel
+
+	//important thing of note is that the coordinates are relative to the PRIMARY window, meaning if your secondary display is to the left the coordinates can very easily be negative, and to the right can go way beyound your display actual width
+
+	//so what we do now is check if aster is reasonably close to the right or left edges of the screen
+	//no real need to consider multiple screens as the worst that'll happen is that they'll cross the intersection of the screen
+
+	//calculate middle point of the screen (function in etc.dic)
+	_screenMid = displaywidth / 2
+	
+	//setting side panel X coordinate
+	//(!) scale variable from OnShellScale
+	if !ISVAR('scale'); scale = 100
+	//if aster is in the left half of the screen, side panel will appear to the right of Aster
+	if _astX < _screenMid; _sideX = _astX + ( 250 * scale / 100 )
+	//if aster is in the right half of the screen, side panel will appear to the left of Aster
+	elseif _astX >= _screenMid; _sideX = _astX - ( 250 * scale / 100 )
+	
+	//side panel should be slightly lower than aster's center
+	_sideY = _astY + ( 90 * scale / 100 )
+
+	//resulting string
+	"\![move,--X=%(_sideX),--Y=%(_sideY),--base=primaryscreen,--move-offset=center.center]"
+
+	ERASEVAR('astCoord') //no longer necessary
+	ERASEVAR('keroCoord')
+}
 	
 //--OnAnchorSelect
 //OnAnchorSelect runs whenever someone clicks one of the links as specified above, or a link that begins with http://.

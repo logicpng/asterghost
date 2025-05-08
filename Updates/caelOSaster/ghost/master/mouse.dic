@@ -6,15 +6,10 @@
 
 OnMouseMove
  {
-	//if we're currently adjusting the side panel position, no reaction
-		if panelFix == 1; return
-		else
-		{
-				//---- reference3 determines the character in question
-			if reference3 == 0; MouseMoveSakura //if the character is 0, aka the main character
-			else; MouseMoveKero //if the character isn't 0, then it must be the side character.
-		}		
- }
+	//---- reference3 determines the character in question
+	if reference3 == 0; MouseMoveSakura //if the character is 0, aka the main character
+	else; MouseMoveKero //if the character isn't 0, then it must be the side character.	
+}
 
  //--MouseMoveSakura
  
@@ -67,21 +62,17 @@ OnMouseDoubleClick
  
 MouseDoubleClickSakura
  {
-	if panelFix == 1; return
+	if reference4 == "Head" || reference4 == "Face" || reference4 == "No"; PokePoke //here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost. More about operators at the walkthrough.
 	else
 	{
-		if reference4 == "Head" || reference4 == "Face" || reference4 == "No"; PokePoke //here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost. More about operators at the walkthrough.
-		else
+		//if ( strokecount > 3 || ( pokecount > 10 && vegafront > 0 ) || ( pokecount > 15 && vegafront == 0 ) ) && stage != 0 
+		if BotherCondition && stage != 0 //too bothered to respond, also not during intro
 		{
-			//if ( strokecount > 3 || ( pokecount > 10 && vegafront > 0 ) || ( pokecount > 15 && vegafront == 0 ) ) && stage != 0 
-			if BotherCondition && stage != 0 //too bothered to respond, also not during intro
-			{
-				".\w8.\w8.\e"
-			} 
-			else; OpenSakuraMenu
-		}
-			//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
+			".\w8.\w8.\e"
+		} 
+		else; OpenSakuraMenu
 	}
+	//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
  }
 
  
@@ -94,17 +85,13 @@ MouseDoubleClickKero
 	
 	if reference4 == "Face" 
 	{
-		if panelFix == 1; OnAdjustSidePanelEnd //end side panel adjustment manually, if it was on
-		else 
+		case vegafront //this is kero so characters are reversed! 0 is vega and 1 is rigel
 		{
-			case vegafront //this is kero so characters are reversed! 0 is vega and 1 is rigel
-			{
-				when 0; "\1\s[34]!\w8\w8\b[-1]\0\s[0]\i[5]\i[8]..."
-				others; "\1\s[18]Ah-!!\w8\w8\b[-1]\0\s[20]\i[7]..."
-			}
-			--
-			"\e"
+			when 0; "\1\s[34]!\w8\w8\b[-1]\0\s[0]\i[5]\i[8]..."
+			others; "\1\s[18]Ah-!!\w8\w8\b[-1]\0\s[20]\i[7]..."
 		}
+		--
+		"\e"
 	} 	
  }
 
@@ -137,53 +124,6 @@ PokePoke
 	}
 	else; vegabother //vega
 }
-
-
-//these pair of events were meant to let you configure the companion's position relative to aster's main body.
-//this cannot be done in the middle of dialogue without interrupting thanks to how shiori events work so there's no need for it
-
-//events on your cursor being above a character sprite and leaving it
-OnMouseEnterAll
-{
-	if reference3 == 1 //specifically if the cursor is above kero
-	{
-		//"\![reset,sticky-window]" //...you can move it separately from the main character
-	}//...for a price. this is technically dialogue so it interrupts speech.
-}
-
-OnMouseLeaveAll //but when you move the cursor away
-{
-	if reference3 == 1
-	{
-		//"\![set,sticky-window,1,0]" //they'll be linked again
-	}
-}
-
-//for panel adjustment mode. pauses the timer during dragging and resets the point in time to current once we're done
-OnMouseDragStart
-{
-	if panelFix == 1 //are we in adjustment mode?
-	{
-		if reference3 == 1 //kero being dragged?
-		{
-			//timer_prev = systemuptime
-			dragging = 1 //pause timer 
-		} 
-	}
-}
-
-OnMouseDragEnd
-{
-	if panelFix == 1
-	{
-		if reference3 == 1
-		{
-			dragging = 0
-			timer_prev = systemuptime
-		} 
-	}
-}
-
 
 
 OnMouseClick //specifically for that one error message
