@@ -865,7 +865,7 @@ OnInitialize //initialize variables during boot...
 
 		if forcemin == 1; ERASEVAR('forcemin') //wipe the variable if we have crashed or otherwise shut down while this flag is present, it should be temporary
 
-		if ISVAR('keroAutoCorrect') == 0; keroAutoCorrect = 1
+		if keroAutoCorrect == ''; keroAutoCorrect = 1
 	}
 	
 }
