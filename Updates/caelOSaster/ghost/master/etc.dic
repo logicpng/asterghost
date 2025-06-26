@@ -586,6 +586,8 @@ OnVanishButtonHold
  
 OnVanished
  {
+	LegacyShellChange
+	--
 	case stage
 	{
 		when 0;"\0\s[3]\i[5].\w8.\w8.\w8\i[62]\w8\w8\0\s[0]\i[5]\i[8]\w8\w8Hello,\w8 %(username)... \e"
@@ -835,6 +837,8 @@ OnUpdateReady
 
 OnUpdateComplete
  {
+	LegacyShellChange
+	--
 	if reference0 == "none" //if the ghost had nothing to update with
  	{
  		case vegafront

@@ -230,8 +230,8 @@ TalkConfig
 	--
 	if stage != 0;"\![*]\q[Optional Features,permmenu]\n" //moved permissions menu to options as just an extra page
 	--
-	if "Legacy" _in_ SHIORI3FW.ShellName; "\![*]\q[Change to default appearance,shelldefault]\n"
-	else; "\![*]\q[Change to legacy appearance,shelllegacy]\n"
+	//if "Legacy" _in_ SHIORI3FW.ShellName; "\![*]\q[Change to default appearance,shelldefault]\n"
+	//else; "\![*]\q[Change to legacy appearance,shelllegacy]\n"
 	--
 	"\![*]\q[Open SSP Preferences,sspconfig]\n[150]"
 	--
@@ -250,27 +250,27 @@ Select.sideFollowOn
 	TalkConfig
 }
 
-Select.shelldefault
-{
-	foreach installedshellname; _shell
-	{
-		if 'Legacy' _in_ _shell; continue
-		else; "\![change,shell,%(_shell)]"
-	}
-}
+// Select.shelldefault
+// {
+// 	foreach installedshellname; _shell
+// 	{
+// 		if 'Legacy' _in_ _shell; continue
+// 		else; "\![change,shell,%(_shell)]"
+// 	}
+// }
 
-Select.shelllegacy
-{
-	foreach installedshellname; _shell
-	{
-		if 'Legacy' !_in_ _shell; continue
-		else
-		{	
-			_shell = REPLACE(_shell,']','\]')
-			"\![change,shell,%(_shell)]"
-		} 
-	}
-}
+// Select.shelllegacy
+// {
+// 	foreach installedshellname; _shell
+// 	{
+// 		if 'Legacy' !_in_ _shell; continue
+// 		else
+// 		{	
+// 			_shell = REPLACE(_shell,']','\]')
+// 			"\![change,shell,%(_shell)]"
+// 		} 
+// 	}
+// }
 
 Select.vibron
 {

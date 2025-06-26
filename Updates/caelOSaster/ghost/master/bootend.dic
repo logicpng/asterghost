@@ -555,6 +555,8 @@ dayslot
 
 OnBoot
  {
+	LegacyShellChange
+	--
 	"\0\![set,alpha,0]" //hide our character to fade him in
 	--
 	if wowrude == 1
@@ -783,6 +785,8 @@ OnGhostChanging
 
 OnGhostChanged
 {
+	LegacyShellChange
+	--
 	"\0\s[0]\1\s[10]" //this sets up their default poses
 	--
 	if reference0 == "Aster" //As above, this should be the name of your ghost as in install.txt or descript.txt.
@@ -883,6 +887,8 @@ On_installedshellname
 
 OnShellChanged
 {
+	LegacyShellChange
+	--
 	if balloonCheck == "ON"; shellChange = 1 //flag for checking whether our balloon is correct after the shell change
 	if vegafront == 1; "\0\s[20]" //just to ensure rigel's sprite doesn't show up if vega is fronting upon the switch. otherwise it seems to default to surface 0 sometimes lol
 	--
@@ -952,4 +958,17 @@ SwapMenuColors //if i were to rehash the entire thing from scratch i would proba
 	void FMOVE(  _pathTemp + '\menu_foreground.png' , _path )
 
 	void RMDIR( _pathTemp )
+}
+
+LegacyShellChange
+{
+	if "DEPRECATED" _in_ SHIORI3FW.ShellName
+	{
+		_name = ""
+		foreach installedshellname; _shell
+		{
+			if "DEPRECATED" !_in_ _shell; _name = _shell
+		}
+		"\![change,shell,%(_name)]"
+	}
 }

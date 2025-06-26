@@ -4,7 +4,7 @@ seriko.sticky-window,0,1
 
 charset,UTF-8
 type,shell
-name,Aster Nothern Lights [Legacy]
+name,Aster Nothern Lights [DEPRECATED]
 craftman,logic.png
 craftmanurl,https://logicpng.tumblr.com/
 
