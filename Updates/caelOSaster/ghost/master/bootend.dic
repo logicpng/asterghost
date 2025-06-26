@@ -897,6 +897,8 @@ OnShellChanged
 
 FixMenuColors //check whos menu color scheme it is and fix it if it doesn't match lol
 {
+	LegacyShellChange
+	--
 	_path = SHIORI3FW.ShellPath + '\descript.txt'
 
 	void FOPEN( _path , 'r' ) //open description file in the shell folder
