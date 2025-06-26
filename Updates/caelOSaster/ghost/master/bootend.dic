@@ -962,12 +962,12 @@ SwapMenuColors //if i were to rehash the entire thing from scratch i would proba
 
 LegacyShellChange
 {
-	if "DEPRECATED" _in_ SHIORI3FW.ShellName
+	if "DEPRECATED" _in_ SHIORI3FW.ShellName || "Legacy" _in_ SHIORI3FW.ShellName
 	{
 		_name = ""
 		foreach installedshellname; _shell
 		{
-			if "DEPRECATED" !_in_ _shell; _name = _shell
+			if "DEPRECATED" !_in_ _shell && "Legacy" !_in_ SHIORI3FW.ShellName; _name = _shell
 		}
 		"\![change,shell,%(_name)]"
 	}
