@@ -855,8 +855,8 @@ OnUpdateComplete
 	{
 		case vegafront
 		{
-			when 0; "\0\s[8]\i[62]All done!!\i[61]\w8 I...\w8\w8\n[150]\0\s[0]\i[5]\i[8]I don't feel that much different,\w8 actually...\w8\n[150]\0\s[4]\i[1]Maybe we'll find out what's different as we go along."
-			others; "\0\s[20]\i[1]Update successful.\w8\w8\n[150]\0\s[24]...Hmm..."
+			when 0; "%(LegacyShellChange)\0\s[8]\i[62]All done!!\i[61]\w8 I...\w8\w8\n[150]\0\s[0]\i[5]\i[8]I don't feel that much different,\w8 actually...\w8\n[150]\0\s[4]\i[1]Maybe we'll find out what's different as we go along."
+			others; "%(LegacyShellChange)\0\s[20]\i[1]Update successful.\w8\w8\n[150]\0\s[24]...Hmm..."
 		}	
 		--
 		FixMenuColors //if the update swapped the menu colors, change them back
